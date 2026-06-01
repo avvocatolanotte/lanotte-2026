@@ -1,0 +1,87 @@
+{
+  "key": "group_cliente_fields",
+  "title": "Dati Cliente Istituzionale",
+  "fields": [
+    {
+      "key": "field_cliente_logo",
+      "label": "Logo del cliente",
+      "name": "logo",
+      "type": "image",
+      "instructions": "Logo in formato PNG, JPG o SVG. Sfondo trasparente preferito. Verrà visualizzato in scala di grigi e colorato all'hover.",
+      "required": 1,
+      "return_format": "array",
+      "preview_size": "medium",
+      "min_width": 200,
+      "min_height": 80
+    },
+    {
+      "key": "field_cliente_url",
+      "label": "URL sito ufficiale",
+      "name": "url",
+      "type": "url",
+      "instructions": "Es. https://itf-tkd.org/. Il logo diventerà cliccabile e aprirà il sito in nuova scheda."
+    },
+    {
+      "key": "field_cliente_descrizione",
+      "label": "Descrizione breve",
+      "name": "descrizione",
+      "type": "text",
+      "instructions": "Descrizione del cliente per attributo title e alt (es. 'International Taekwon-Do Federation'). Max 120 caratteri.",
+      "maxlength": 120
+    },
+    {
+      "key": "field_cliente_settore",
+      "label": "Settore",
+      "name": "settore",
+      "type": "select",
+      "choices": {
+        "sport": "Sport e federazioni",
+        "immobiliare": "Immobiliare e condominiale",
+        "no-profit": "No Profit e Terzo Settore",
+        "impresa": "Impresa privata",
+        "pa": "Pubblica Amministrazione",
+        "professionisti": "Studi e professionisti",
+        "ecommerce": "E-commerce e digitale",
+        "altro": "Altro"
+      },
+      "default_value": "altro",
+      "return_format": "value"
+    },
+    {
+      "key": "field_cliente_anno_dal",
+      "label": "Cliente dal (anno)",
+      "name": "anno_dal",
+      "type": "number",
+      "instructions": "Anno di inizio rapporto. Opzionale. Es. 2018.",
+      "min": 1990,
+      "max": 2099
+    },
+    {
+      "key": "field_cliente_evidenza",
+      "label": "Mostra in homepage",
+      "name": "in_homepage",
+      "type": "true_false",
+      "instructions": "Se attivo, il logo compare nella sezione 'I nostri clienti istituzionali' della homepage. Massimo consigliato: 6-8 loghi in evidenza.",
+      "default_value": 1,
+      "ui": 1
+    },
+    {
+      "key": "field_cliente_consenso",
+      "label": "Consenso alla pubblicazione",
+      "name": "consenso_pubblicazione",
+      "type": "true_false",
+      "instructions": "Confermare che il cliente ha autorizzato la pubblicazione del proprio logo. Obbligatorio per la pubblicazione (deontologia + GDPR).",
+      "required": 1,
+      "ui": 1
+    }
+  ],
+  "location": [[{"param": "post_type", "operator": "==", "value": "cliente"}]],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "active": true,
+  "show_in_rest": 0,
+  "modified": 1716638400
+}

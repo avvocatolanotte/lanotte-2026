@@ -1,0 +1,123 @@
+{
+    "key": "group_options_homepage",
+    "title": "Homepage Sezioni",
+    "fields": [
+        {
+            "key": "field_hero_eyebrow",
+            "label": "HERO · Eyebrow",
+            "name": "hero_eyebrow",
+            "type": "text",
+            "default_value": "Studio Legale · Barletta · Foro di Trani"
+        },
+        {
+            "key": "field_hero_title",
+            "label": "HERO · Titolo (può contenere <em> per la parte in oro corsivo)",
+            "name": "hero_title",
+            "type": "textarea",
+            "default_value": "Un presidio legale<br><em>al Vostro fianco,</em> ogni giorno.",
+            "new_lines": ""
+        },
+        {
+            "key": "field_hero_lead",
+            "label": "HERO · Lead",
+            "name": "hero_lead",
+            "type": "textarea",
+            "default_value": "Assistiamo imprese e privati con un approccio multidisciplinare: civile, penale, commerciale, lavoro, tributario, internazionale e proprietà industriale. Un solo interlocutore, una rete di specialisti.",
+            "rows": 3
+        },
+        {
+            "key": "field_hero_bg",
+            "label": "HERO · Immagine di sfondo",
+            "name": "hero_bg",
+            "type": "image",
+            "return_format": "url",
+            "instructions": "Suggerita 1920×900. Default: cattedrale-trani.jpg"
+        },
+        {
+            "key": "field_hero_stats",
+            "label": "HERO · Statistiche (3 contatori)",
+            "name": "hero_stats",
+            "type": "repeater",
+            "min": 0,
+            "max": 4,
+            "sub_fields": [
+                {"key": "field_stat_num", "label": "Numero", "name": "numero", "type": "text"},
+                {"key": "field_stat_lbl", "label": "Etichetta", "name": "etichetta", "type": "text"}
+            ]
+        },
+        {
+            "key": "field_hero_cf7",
+            "label": "HERO · Shortcode Contact Form 7",
+            "name": "hero_cf7_shortcode",
+            "type": "text",
+            "default_value": "[contact-form-7 id=\"\" title=\"Hero contatto rapido\"]",
+            "instructions": "Inserisci qui lo shortcode del form CF7 che vuoi mostrare nella card laterale dell'hero."
+        },
+        {
+            "key": "field_trustbar",
+            "label": "Trust bar (4 elementi)",
+            "name": "trustbar",
+            "type": "repeater",
+            "min": 0,
+            "max": 4,
+            "sub_fields": [
+                {"key": "field_trust_title", "label": "Titolo (bold)", "name": "titolo", "type": "text"},
+                {"key": "field_trust_sub",   "label": "Sottotitolo", "name": "sottotitolo", "type": "text"},
+                {"key": "field_trust_icon",  "label": "Icona SVG inline", "name": "icona", "type": "textarea", "rows": 2}
+            ]
+        },
+        {
+            "key": "field_trani_section",
+            "label": "Sezione \"Foro di Trani\"",
+            "name": "trani",
+            "type": "group",
+            "sub_fields": [
+                {"key": "field_trani_eyebrow", "label": "Eyebrow", "name": "eyebrow", "type": "text", "default_value": "Radicamento territoriale"},
+                {"key": "field_trani_title", "label": "Titolo", "name": "titolo", "type": "textarea", "default_value": "Iscritti al Foro di Trani.<br>Una tradizione forense<br>che dura dal 1779."},
+                {"key": "field_trani_body", "label": "Corpo testo", "name": "corpo", "type": "wysiwyg", "toolbar": "basic", "media_upload": 0},
+                {"key": "field_trani_quote", "label": "Citazione (in corsivo)", "name": "citazione", "type": "text"},
+                {"key": "field_trani_bg",     "label": "Sfondo (Cattedrale)", "name": "bg_image", "type": "image", "return_format": "url"},
+                {"key": "field_trani_img1",   "label": "Immagine principale (Lapide)", "name": "img1", "type": "image", "return_format": "url"},
+                {"key": "field_trani_img2",   "label": "Immagine in alto (Stemma)", "name": "img2", "type": "image", "return_format": "url"},
+                {"key": "field_trani_img3",   "label": "Immagine in basso (Lucernario)", "name": "img3", "type": "image", "return_format": "url"}
+            ]
+        },
+        {
+            "key": "field_principi",
+            "label": "Principi etici (4 voci)",
+            "name": "principi",
+            "type": "repeater",
+            "min": 0,
+            "max": 6,
+            "sub_fields": [
+                {"key": "field_p_num", "label": "Numero", "name": "numero", "type": "text"},
+                {"key": "field_p_title", "label": "Titolo", "name": "titolo", "type": "text"},
+                {"key": "field_p_body", "label": "Descrizione", "name": "descrizione", "type": "textarea", "rows": 4},
+                {"key": "field_p_ref",  "label": "Riferimento normativo (corsivo small)", "name": "riferimento", "type": "text"}
+            ]
+        },
+        {
+            "key": "field_ctastrip",
+            "label": "Sezione CTA centrale",
+            "name": "ctastrip",
+            "type": "group",
+            "sub_fields": [
+                {"key": "field_cta_title", "label": "Titolo", "name": "titolo", "type": "text", "default_value": "Una consulenza riservata, in 24 ore."},
+                {"key": "field_cta_body", "label": "Sottotitolo", "name": "sottotitolo", "type": "text"},
+                {"key": "field_cta_btn1_lbl", "label": "Pulsante 1 — testo", "name": "btn1_label", "type": "text", "default_value": "Richiedi consulenza"},
+                {"key": "field_cta_btn1_url", "label": "Pulsante 1 — URL", "name": "btn1_url", "type": "url"}
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-homepage-sezioni"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "normal"
+}

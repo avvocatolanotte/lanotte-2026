@@ -1,0 +1,46 @@
+{
+    "key": "group_options_reviews",
+    "title": "Recensioni & Trust",
+    "fields": [
+        {
+            "key": "field_reviews_repeater",
+            "label": "Recensioni (mostrate in home)",
+            "name": "recensioni",
+            "type": "repeater",
+            "min": 0,
+            "max": 12,
+            "sub_fields": [
+                {"key": "field_review_text",   "label": "Testo della recensione", "name": "testo", "type": "textarea", "rows": 4, "required": 1},
+                {"key": "field_review_stars",  "label": "Stelle (1-5)", "name": "stelle", "type": "number", "default_value": 5, "min": 1, "max": 5},
+                {"key": "field_review_author", "label": "Autore", "name": "autore", "type": "text", "required": 1},
+                {"key": "field_review_meta",   "label": "Fonte/data (es. \"Recensione Google · 2026\")", "name": "fonte", "type": "text"}
+            ]
+        },
+        {
+            "key": "field_reviews_avg",
+            "label": "Media stelle complessiva",
+            "name": "media_recensioni",
+            "type": "text",
+            "default_value": "4.9 / 5",
+            "instructions": "Es. 4.9 / 5 — mostrato come totale sotto le recensioni."
+        },
+        {
+            "key": "field_reviews_total",
+            "label": "Numero totale di recensioni",
+            "name": "totale_recensioni",
+            "type": "number",
+            "default_value": 47
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-recensioni-trust"
+            }
+        ]
+    ],
+    "menu_order": 2,
+    "position": "normal"
+}

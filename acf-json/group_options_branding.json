@@ -1,0 +1,158 @@
+{
+  "key": "group_options_branding",
+  "title": "Branding e immagini",
+  "fields": [
+    {
+      "key": "field_branding_tab_loghi",
+      "label": "Loghi",
+      "name": "",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_logo_principale",
+      "label": "Logo principale (header)",
+      "name": "logo_principale",
+      "type": "image",
+      "instructions": "Logo visualizzato in alto a sinistra in ogni pagina. Formato PNG o SVG con sfondo trasparente. Dimensioni consigliate: 560×172 px (2x retina). In alternativa, puoi caricarlo da Aspetto → Personalizza → Identità sito → Logo (ha la stessa priorità).",
+      "return_format": "array",
+      "preview_size": "medium",
+      "library": "all"
+    },
+    {
+      "key": "field_logo_dark",
+      "label": "Logo per sfondi scuri (footer/topbar)",
+      "name": "logo_dark",
+      "type": "image",
+      "instructions": "Versione del logo con testo bianco/oro per sfondi scuri (footer, hero scuri). Se non caricata, viene usato il logo principale.",
+      "return_format": "array",
+      "preview_size": "medium",
+      "library": "all"
+    },
+    {
+      "key": "field_logo_compact",
+      "label": "Logo compatto (favicon-style)",
+      "name": "logo_compact",
+      "type": "image",
+      "instructions": "Versione quadrata del logo per usi compatti (favicon esteso, social, badge). Formato consigliato: 512×512 px.",
+      "return_format": "array",
+      "preview_size": "medium",
+      "library": "all"
+    },
+    {
+      "key": "field_logo_pdf",
+      "label": "Logo per PDF carta intestata",
+      "name": "logo_pdf",
+      "type": "image",
+      "instructions": "Logo ad alta risoluzione (min. 600×180) per la generazione dei PDF dei calcolatori. PNG con sfondo trasparente preferito. Se non caricato, viene usato il logo principale.",
+      "return_format": "array",
+      "preview_size": "medium",
+      "library": "all",
+      "min_width": 400
+    },
+    {
+      "key": "field_branding_tab_favicon",
+      "label": "Favicon e icone",
+      "name": "",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_favicon_info",
+      "label": "ℹ Favicon principale",
+      "name": "",
+      "type": "message",
+      "message": "Per la favicon principale (icona scheda browser, segnalibri, mobile) usa: <strong>Aspetto → Personalizza → Identità del sito → Icona del sito</strong>. WordPress genera automaticamente tutti i formati richiesti (16x16, 32x32, 192x192, apple-touch-icon).",
+      "esc_html": 0,
+      "new_lines": "wpautop"
+    },
+    {
+      "key": "field_apple_touch",
+      "label": "Apple Touch Icon (iOS)",
+      "name": "apple_touch_icon",
+      "type": "image",
+      "instructions": "Icona per i bookmark iOS quando il sito viene aggiunto alla home screen. Formato 180×180 px. Se vuota, WordPress usa il site icon.",
+      "return_format": "url",
+      "preview_size": "thumbnail",
+      "library": "all"
+    },
+    {
+      "key": "field_branding_tab_immagini",
+      "label": "Immagini globali",
+      "name": "",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_hero_default",
+      "label": "Immagine hero default",
+      "name": "hero_default",
+      "type": "image",
+      "instructions": "Sfondo dell'hero della homepage e delle pagine area senza immagine specifica. Formato landscape, min. 1920×900 px. Quella attuale: cattedrale di Trani.",
+      "return_format": "array",
+      "preview_size": "medium",
+      "library": "all"
+    },
+    {
+      "key": "field_og_default",
+      "label": "Immagine social default (Open Graph)",
+      "name": "og_default",
+      "type": "image",
+      "instructions": "Immagine usata quando il sito viene condiviso su Facebook/LinkedIn/WhatsApp e la pagina non ne ha una specifica. Formato 1200×630 px obbligatorio per Open Graph.",
+      "return_format": "array",
+      "preview_size": "medium",
+      "library": "all",
+      "min_width": 1200,
+      "min_height": 630
+    },
+    {
+      "key": "field_placeholder_immagine",
+      "label": "Placeholder immagine mancante",
+      "name": "placeholder_immagine",
+      "type": "image",
+      "instructions": "Immagine generica mostrata se un articolo o un'area non ha immagine in evidenza. Opzionale.",
+      "return_format": "array",
+      "preview_size": "thumbnail",
+      "library": "all"
+    },
+    {
+      "key": "field_branding_tab_colori",
+      "label": "Colori del brand",
+      "name": "",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_colori_info",
+      "label": "ℹ Personalizzazione colori",
+      "name": "",
+      "type": "message",
+      "message": "I tre colori del brand (navy, oro, panna) sono definiti in <code>assets/style.css</code> nelle variabili <code>:root</code>. Per cambiarli, contatta lo sviluppatore. Cambiamenti casuali possono rompere il layout e l'accessibilità.<br><br><strong>Palette attuale:</strong><br>• Navy: <code>#1d2c4a</code><br>• Oro: <code>#b89968</code><br>• Panna: <code>#fafaf7</code>",
+      "esc_html": 0,
+      "new_lines": "wpautop"
+    },
+    {
+      "key": "field_colore_personalizzato_navy",
+      "label": "Sovrascrivi colore navy (opzionale)",
+      "name": "color_navy_override",
+      "type": "color_picker",
+      "instructions": "Lascia vuoto per usare il default #1d2c4a"
+    },
+    {
+      "key": "field_colore_personalizzato_gold",
+      "label": "Sovrascrivi colore oro (opzionale)",
+      "name": "color_gold_override",
+      "type": "color_picker",
+      "instructions": "Lascia vuoto per usare il default #b89968"
+    }
+  ],
+  "location": [[{"param": "options_page", "operator": "==", "value": "acf-options-branding-e-immagini"}]],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "active": true,
+  "show_in_rest": 0,
+  "modified": 1716724800
+}

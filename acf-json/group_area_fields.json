@@ -1,0 +1,109 @@
+{
+    "key": "group_area_fields",
+    "title": "Area di Competenza — Campi",
+    "fields": [
+        {
+            "key": "field_area_tagline",
+            "label": "Tagline (sotto-titolo nell'hero)",
+            "name": "tagline",
+            "type": "text",
+            "instructions": "Breve frase di apertura, es. \"Difesa in ogni grado di giudizio, reperibilità H24 per arresti e fermi.\"",
+            "required": 1,
+            "maxlength": 180
+        },
+        {
+            "key": "field_area_lead",
+            "label": "Lead (introduzione)",
+            "name": "lead",
+            "type": "textarea",
+            "instructions": "Paragrafo introduttivo (3-5 righe) prima delle sezioni.",
+            "required": 1,
+            "rows": 5,
+            "new_lines": "br"
+        },
+        {
+            "key": "field_area_icon",
+            "label": "Icona SVG inline",
+            "name": "icon_svg",
+            "type": "textarea",
+            "instructions": "Codice SVG dell'icona (path stroke 1.6, viewBox 0 0 24 24). Lascia vuoto per usare l'icona di default.",
+            "rows": 3
+        },
+        {
+            "key": "field_area_sections",
+            "label": "Sezioni della pagina",
+            "name": "sezioni",
+            "type": "repeater",
+            "instructions": "Ogni sezione è un H2 + contenuto. Aggiungi quante sezioni vuoi.",
+            "button_label": "Aggiungi sezione",
+            "min": 0,
+            "sub_fields": [
+                {
+                    "key": "field_area_section_h",
+                    "label": "Titolo (H2)",
+                    "name": "titolo",
+                    "type": "text",
+                    "required": 1
+                },
+                {
+                    "key": "field_area_section_body",
+                    "label": "Contenuto",
+                    "name": "contenuto",
+                    "type": "wysiwyg",
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 1
+                }
+            ]
+        },
+        {
+            "key": "field_area_faq",
+            "label": "Domande frequenti (FAQ)",
+            "name": "faq",
+            "type": "repeater",
+            "instructions": "Le FAQ vengono mostrate alla fine della pagina e generano automaticamente lo schema FAQPage per Google.",
+            "button_label": "Aggiungi FAQ",
+            "min": 0,
+            "sub_fields": [
+                {
+                    "key": "field_faq_q",
+                    "label": "Domanda",
+                    "name": "domanda",
+                    "type": "text",
+                    "required": 1
+                },
+                {
+                    "key": "field_faq_a",
+                    "label": "Risposta",
+                    "name": "risposta",
+                    "type": "textarea",
+                    "required": 1,
+                    "rows": 4
+                }
+            ]
+        },
+        {
+            "key": "field_area_urgency",
+            "label": "Mostra box \"Penale d'urgenza\" nella sidebar?",
+            "name": "show_urgency",
+            "type": "true_false",
+            "default_value": 0,
+            "ui": 1,
+            "instructions": "Abilita solo per Diritto Penale o aree urgenti."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "area"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top"
+}

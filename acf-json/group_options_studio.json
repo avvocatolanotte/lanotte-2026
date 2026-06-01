@@ -1,0 +1,84 @@
+{
+    "key": "group_options_studio",
+    "title": "Contatti & Identità",
+    "fields": [
+        {
+            "key": "field_studio_telefono",
+            "label": "Telefono studio",
+            "name": "studio_telefono",
+            "type": "text",
+            "default_value": "+39 0883 1955533"
+        },
+        {
+            "key": "field_studio_email",
+            "label": "Email principale",
+            "name": "studio_email",
+            "type": "email",
+            "default_value": "info@studiolegalelanotte.it"
+        },
+        {
+            "key": "field_studio_pec",
+            "label": "PEC",
+            "name": "studio_pec",
+            "type": "email",
+            "default_value": "studiolegalelanotte@legalmail.it"
+        },
+        {
+            "key": "field_studio_orari",
+            "label": "Orari di apertura",
+            "name": "studio_orari",
+            "type": "text",
+            "default_value": "Lun · Mer · Ven 9-13 / 16-21"
+        },
+        {
+            "key": "field_studio_indirizzo",
+            "label": "Indirizzo studio",
+            "name": "studio_indirizzo",
+            "type": "text",
+            "default_value": "Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)"
+        },
+        {
+            "key": "field_social_fb",
+            "label": "Facebook URL",
+            "name": "social_facebook",
+            "type": "url"
+        },
+        {
+            "key": "field_social_ig",
+            "label": "Instagram URL",
+            "name": "social_instagram",
+            "type": "url"
+        },
+        {
+            "key": "field_social_ln",
+            "label": "LinkedIn URL",
+            "name": "social_linkedin",
+            "type": "url"
+        },
+        {
+            "key": "field_google_business",
+            "label": "Google Business Profile URL",
+            "name": "google_business_url",
+            "type": "url",
+            "instructions": "L'URL della tua scheda Google (es. https://g.page/...) — utile per il sameAs nello schema."
+        },
+        {
+            "key": "field_cta_url",
+            "label": "URL della CTA principale (header)",
+            "name": "cta_principale_url",
+            "type": "url",
+            "instructions": "Lascia vuoto per puntare automaticamente alla pagina Contatti."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-contatti-identit"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal"
+}

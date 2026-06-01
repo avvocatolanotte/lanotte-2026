@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Aumento ISTAT canone locazione — art. 32 L. 392/1978 — Studio Legale Lanotte &amp; Partners</title>
+<meta name="description" content="Calcolo aggiornamento canone locazione abitativa e commerciale secondo variazione ISTAT FOI al 75% ex art. 32 L. 392/1978. Indici aggiornati via API ISTAT. PDF carta intestata.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="topbar-left">
+      <a href="tel:+3908831955533"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.7 2.8a2 2 0 01-.5 1.953l-1.27 1.27a16 16 0 006.586 6.586l1.27-1.27a2 2 0 011.953-.502l2.8.7A2 2 0 0121 18.72V21a2 2 0 01-2 2C9.611 23 1 14.389 1 5z"/></svg> 0883 1955533</a>
+      <a href="mailto:info@studiolegalelanotte.it"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> info@studiolegalelanotte.it</a>
+      <span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Lun · Mer · Ven 9-13 / 16-21</span>
+    </div>
+    <div class="topbar-right">
+      <a href="https://lanotte.netlex.cloud" target="_blank" rel="noopener" style="display:inline-flex;gap:6px;align-items:center;font-size:12px;letter-spacing:.06em;color:#cbd5e1;font-weight:500;border-right:1px solid rgba(255,255,255,.12);padding-right:14px">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Area Riservata
+      </a>
+      <span style="font-size:12px;letter-spacing:.08em;opacity:.7">FORO DI TRANI</span>
+      <div class="lang-switch" style="display:inline-flex;gap:4px;font-size:12px;font-weight:600;letter-spacing:.06em">
+        <a href="../index.html" style="padding:4px 8px;background:var(--gold);color:#fff;border-radius:2px">IT</a>
+        <a href="../en/home.html" style="padding:4px 8px;color:#cbd5e1;border:1px solid rgba(255,255,255,.2);border-radius:2px">EN</a>
+      </div>
+      <a href="https://www.facebook.com/studiolegalelanotte/" class="social" aria-label="Facebook"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.99 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg></a>
+      <a href="https://www.instagram.com/studio_legale_lanotte" class="social" aria-label="Instagram"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand" aria-label="Lanotte &amp; Partners — Studio Legale (home)">
+      <img src="../assets/img/logo.svg" alt="Lanotte &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
+           onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
+    </a>
+    <nav class="primary">
+      <a href="../index.html">Home</a>
+      <a href="../lo-studio.html">Lo Studio</a>
+      <a href="../aree/index.html" class="nav-mega-trigger">Aree <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="margin-left:4px;vertical-align:-1px"><path d="M6 9l6 6 6-6"/></svg></a>
+      <a href="../onorari.html">Onorari &amp; Servizi</a>
+      <a href="../calcolatori.html" class="nav-mega-trigger-calc" class="active">Calcolatori <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="margin-left:4px;vertical-align:-1px"><path d="M6 9l6 6 6-6"/></svg></a>
+      <a href="../rassegna.html">Rassegna</a>
+      <a href="../contatti.html">Contatti</a>
+    </nav>
+    <div class="header-actions">
+      <a href="../carrello.html" class="header-cart" aria-label="Carrello servizi online">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg>
+        <span class="cart-count" data-cart-count>0</span>
+      </a>
+      <a href="../contatti.html" class="btn btn-primary">Richiedi consulenza</a>
+    </div>
+  </div>
+  <!-- MEGA MENU CALCOLATORI -->
+  <div class="nav-mega-panel-calc" role="menu" aria-label="Calcolatori">
+    <div class="nav-mega-grid">
+      <div class="nav-mega-col">
+        <h6>Compensi forensi</h6>
+        <ul>
+          <li><a href="../calcolatori/parcella-civile.html">⚖️ Parcella Civile</a></li>
+          <li><a href="../calcolatori/parcella-penale.html">🔨 Parcella Penale</a></li>
+          <li><a href="../calcolatori/stragiudiziale.html">🤝 Stragiudiziale + Mediazione</a></li>
+          <li><a href="../calcolatori/sfratti.html">🏠 Procedimento Sfratto</a></li>
+        </ul>
+      </div>
+      <div class="nav-mega-col">
+        <h6>Lesioni e Danni</h6>
+        <ul>
+          <li><a href="../calcolatori/micropermanenti.html">🩺 Micropermanenti</a></li>
+          <li><a href="../calcolatori/macropermanenti.html">🦴 Macropermanenti</a></li>
+          <li><a href="../calcolatori/danni-preesistenti.html">📊 Coesistenti / Concorrenti</a></li>
+        </ul>
+      </div>
+      <div class="nav-mega-col">
+        <h6>ISTAT &amp; Interessi <span style="background:#065f46;color:#fff;font-size:9px;padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle">AUTO ⚡</span></h6>
+        <ul>
+          <li><a href="../calcolatori/istat-locazione.html">🏘️ ISTAT Locazione</a></li>
+          <li><a href="../calcolatori/mantenimento-istat.html">👨‍👩‍👧 Mantenimento ISTAT</a></li>
+          <li><a href="../calcolatori/svalutazione.html">💰 Svalutazione Monetaria</a></li>
+          <li><a href="../calcolatori/interessi-legali.html">📈 Interessi Legali</a></li>
+          <li><a href="../calcolatori/interessi-moratori.html">⏰ Interessi Moratori B2B</a></li>
+        </ul>
+      </div>
+      <div class="nav-mega-col nav-mega-cta">
+        <h6>Procedurali &amp; Utilities</h6>
+        <ul>
+          <li><a href="../calcolatori/scadenze.html">📅 Scadenze Processuali</a></li>
+          <li><a href="../calcolatori/aqp.html">💧 Bolletta AQP</a></li>
+        </ul>
+        <a href="../calcolatori.html" class="nav-mega-allbtn">Vedi tutti i 14 strumenti <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEGA MENU PANEL AREE: direct child of header (sticky context) -->
+  <div class="nav-mega-panel" role="menu" aria-label="Aree di attività">
+    <div class="nav-mega-grid">
+      <div class="nav-mega-col">
+        <h6>Civile &amp; Commerciale</h6>
+        <ul>
+          <li><a href="../aree/diritto-civile.html">Diritto Civile</a></li>
+          <li><a href="../aree/impresa.html">Impresa &amp; Societario</a></li>
+          <li><a href="../aree/bancario.html">Diritto Bancario</a></li>
+          <li><a href="../aree/condominio.html">Condominio</a></li>
+          <li><a href="../aree/lavoro.html">Lavoro</a></li>
+        </ul>
+      </div>
+      <div class="nav-mega-col">
+        <h6>Penale &amp; Persona</h6>
+        <ul>
+          <li><a href="../aree/diritto-penale.html">Diritto Penale</a></li>
+          <li><a href="../aree/famiglia-successioni.html">Famiglia e Successioni</a></li>
+          <li><a href="../aree/infortunistica-malasanita.html">Infortunistica &amp; Malasanità</a></li>
+          <li><a href="../aree/previdenza.html">Previdenza</a></li>
+        </ul>
+      </div>
+      <div class="nav-mega-col">
+        <h6>Internazionale, IP &amp; Fiscale</h6>
+        <ul>
+          <li><a href="../aree/proprieta-intellettuale.html">Proprietà Intellettuale</a></li>
+          <li><a href="../aree/internazionale-privato.html">Diritto Internazionale</a></li>
+          <li><a href="../aree/tributario.html">Diritto Tributario</a></li>
+          <li><a href="../aree/no-profit.html">No Profit / Terzo Settore</a></li>
+        </ul>
+      </div>
+      <div class="nav-mega-col nav-mega-cta">
+        <h6>Strumenti utili</h6>
+        <ul class="nav-mega-tools">
+          <li><a href="../calcolatori.html"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 10h8M8 14h4"/></svg> Calcolatori (8)</a></li>
+          <li><a href="../onorari.html"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v8M9 11l3-3 3 3"/><circle cx="12" cy="12" r="10"/></svg> Onorari trasparenti</a></li>
+          <li><a href="../rassegna.html"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h12a4 4 0 014 4v12H8a4 4 0 01-4-4V4z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg> Rassegna giuridica</a></li>
+          <li><a href="../onorari.html#servizi-online"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg> Servizi online</a></li>
+        </ul>
+        <a href="../aree/index.html" class="nav-mega-allbtn">Vedi tutte le 13 aree <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;padding:70px 0 60px">
+  <div class="container">
+    <nav style="font-size:13px;color:#cbd5e1;margin-bottom:14px">
+      <a href="../index.html" style="color:#cbd5e1">Home</a>
+      <span style="opacity:.5;margin:0 8px">›</span>
+      <a href="../calcolatori.html" style="color:#cbd5e1">Calcolatori</a>
+      <span style="opacity:.5;margin:0 8px">›</span>
+      <span style="color:#b89968">Aumento ISTAT locazione</span>
+    </nav>
+    <h1 style="font-family:var(--serif);font-size:42px;font-weight:600;line-height:1.1;margin:0 0 14px">Aumento ISTAT locazione</h1>
+    <p style="font-size:16px;color:#cbd5e1;max-width:780px;margin:0;line-height:1.55">Aggiornamento del canone di locazione abitativa e commerciale secondo la <strong style="color:#fff">variazione ISTAT FOI al 75%</strong> ex <a href="https://www.gazzettaufficiale.it/eli/id/1978/08/04/078U0392/sg" target="_blank" rel="noopener" style="color:#d4b87f">art. 32 L. 27 luglio 1978, n. 392</a>. Indici aggiornati direttamente dall'API ISTAT.</p>
+    <div id="istatStatus" style="margin-top:18px;font-size:12.5px;color:#94a3b8">Caricamento indici ISTAT…</div>
+  </div>
+</section>
+
+<!-- AVVERTENZA -->
+<section style="background:#fef9e7;border-bottom:1px solid #f0e9dc;padding:16px 0">
+  <div class="container" style="display:flex;align-items:flex-start;gap:14px">
+    <svg width="22" height="22" fill="none" stroke="#92400e" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    <div style="font-size:13.5px;color:#78350f;line-height:1.55">
+      <strong>Valori indicativi.</strong> Il calcolo riproduce la variazione FOI senza tabacchi (base 2015=100) al 75% ex art. 32 L. 392/1978. Verificare con la fonte ISTAT ufficiale per uso in atti giudiziali. Il diritto all'adeguamento spetta solo dietro <strong>richiesta scritta del locatore</strong> (art. 32 cit.).
+    </div>
+  </div>
+</section>
+
+<!-- CALCOLATORE -->
+<section style="background:#fafaf7;padding:50px 0">
+  <div class="container" style="max-width:920px">
+
+    <!-- DATI CLIENTE -->
+    <div class="calc-block">
+      <h3 style="font-family:var(--serif);font-size:20px;color:var(--navy);margin:0 0 18px">Dati cliente (per il PDF)</h3>
+      <div class="calc-row">
+        <label>Nome e cognome cliente<input type="text" id="clienteNome" placeholder="Es. Mario Rossi"></label>
+        <label>Codice Fiscale<input type="text" id="clienteCf" placeholder="Es. RSSMRA80A01F839X" style="text-transform:uppercase"></label>
+      </div>
+    </div>
+
+    <!-- DATI CONTRATTO -->
+    <div class="calc-block">
+      <h3 style="font-family:var(--serif);font-size:20px;color:var(--navy);margin:0 0 18px">Dati contratto</h3>
+      <div class="calc-row">
+        <label>Canone mensile attuale (€) *<input type="number" id="canone" step="0.01" min="0" placeholder="600.00"></label>
+        <label>Tipologia contratto
+          <select id="tipologia">
+            <option value="4+4">Abitativo 4+4 (L. 431/1998)</option>
+            <option value="3+2">Abitativo 3+2 concordato</option>
+            <option value="commerciale">Commerciale (L. 392/1978)</option>
+            <option value="transitorio">Transitorio</option>
+          </select>
+        </label>
+      </div>
+      <div class="calc-row">
+        <label>Mese decorrenza/anniversario *
+          <input type="month" id="meseInizio" required>
+        </label>
+        <label>Mese calcolo aggiornamento *
+          <input type="month" id="meseFine" required>
+        </label>
+      </div>
+      <div class="calc-row">
+        <label>Percentuale di applicazione
+          <select id="percentuale">
+            <option value="75">75% (art. 32 L. 392/1978 — standard)</option>
+            <option value="100">100% (clausola contrattuale specifica)</option>
+            <option value="50">50% (3+2 concordato per alcune zone)</option>
+          </select>
+        </label>
+        <label>Mostra storico annuale
+          <select id="mostraStorico">
+            <option value="annuale">Solo anniversari</option>
+            <option value="mensile">Mensile dettagliato</option>
+          </select>
+        </label>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+        <button id="calcBtn" class="btn btn-primary" type="button">Calcola aggiornamento</button>
+        <button id="resetBtn" class="btn btn-ghost" type="button">Azzera</button>
+      </div>
+    </div>
+
+    <!-- RISULTATI -->
+    <!-- PANNELLO AGGIORNA MANUALMENTE -->
+    <details class="calc-block" id="updatePanel" style="border:2px dashed #f0e9dc;background:#fdfbf5">
+      <summary style="cursor:pointer;font-family:var(--serif);font-size:18px;color:var(--navy);font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center">
+        <span>⚙️ Mancano valori ISTAT recenti? Aggiornali manualmente</span>
+        <span style="font-size:13px;color:var(--gold);font-weight:500">apri pannello ›</span>
+      </summary>
+      <div style="margin-top:18px">
+        <p style="font-size:13.5px;color:#475569;line-height:1.6;margin:0 0 16px">
+          <strong>Quando si usa</strong>: se l'API ISTAT è bloccata (CORS browser) e i dati locali sono fermi a un mese passato, qui inserisci manualmente l'indice FOI del mese corrente direttamente dal sito <a href="https://www.istat.it/it/archivio/30440" target="_blank" rel="noopener">istat.it</a>.<br>
+          <strong>Il valore viene salvato nel tuo browser</strong> e usato da subito in tutti i calcoli ISTAT del sito. Non viene inviato a nessuno.
+        </p>
+        <div class="calc-row">
+          <label>Mese (YYYY-MM)
+            <input type="month" id="manuMese" min="2020-01">
+          </label>
+          <label>Valore FOI (base 2015=100)
+            <input type="number" id="manuValore" step="0.1" min="80" max="200" placeholder="Es. 122.9">
+          </label>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button id="manuSave" class="btn btn-primary" type="button">Salva nel browser</button>
+          <button id="manuShowList" class="btn btn-ghost" type="button">Vedi valori salvati</button>
+        </div>
+        <div id="manuLista" style="margin-top:18px;display:none"></div>
+        <div id="manuMsg" style="margin-top:12px"></div>
+      </div>
+    </details>
+
+    <div id="risultati" style="display:none">
+      <div class="calc-block" style="border:2px solid var(--gold);background:linear-gradient(180deg,#fdfbf5 0%,#fff 100%)">
+        <h3 style="font-family:var(--serif);font-size:22px;color:var(--navy);margin:0 0 20px">Risultato</h3>
+        <div class="risultato-grid">
+          <div class="risultato-item">
+            <span>Indice di partenza</span>
+            <strong id="rIdxStart">—</strong>
+          </div>
+          <div class="risultato-item">
+            <span>Indice finale</span>
+            <strong id="rIdxEnd">—</strong>
+          </div>
+          <div class="risultato-item">
+            <span>Variazione complessiva</span>
+            <strong id="rVar">—</strong>
+          </div>
+          <div class="risultato-item">
+            <span>Aumento applicato (75%)</span>
+            <strong id="rAumento">—</strong>
+          </div>
+          <div class="risultato-item highlight">
+            <span>Canone aggiornato</span>
+            <strong id="rCanone">—</strong>
+          </div>
+          <div class="risultato-item highlight">
+            <span>Differenza mensile</span>
+            <strong id="rDiff">—</strong>
+          </div>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+          <button id="pdfBtn" class="btn btn-primary" type="button">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:4px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+            Scarica PDF con carta intestata
+          </button>
+        </div>
+      </div>
+
+      <!-- TABELLA DETTAGLIO -->
+      <div class="calc-block">
+        <h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin:0 0 16px">Dettaglio per periodo</h4>
+        <div style="overflow-x:auto">
+          <table id="tabellaDettaglio" class="calc-table">
+            <thead>
+              <tr>
+                <th>Periodo</th>
+                <th>Indice FOI</th>
+                <th>Variaz. %</th>
+                <th>Aumento 75%</th>
+                <th>Canone aggiornato</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- BOZZA LETTERA -->
+      <div class="calc-block">
+        <h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin:0 0 16px">Bozza richiesta scritta al conduttore</h4>
+        <p style="font-size:13px;color:#64748b;margin:0 0 12px">L'art. 32 L. 392/1978 prevede che l'aumento ISTAT debba essere <strong>richiesto per iscritto</strong>. Usa questo testo come base:</p>
+        <pre id="bozzaLettera" style="background:#fff;border:1px solid #e5e7eb;border-radius:4px;padding:18px;font-family:Georgia,serif;font-size:13.5px;line-height:1.6;white-space:pre-wrap;color:#334155"></pre>
+        <button id="copyBtn" class="btn btn-ghost" style="margin-top:10px" type="button">Copia testo</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ NORMATIVA -->
+<section style="background:#fff;padding:60px 0;border-top:1px solid #e5e7eb">
+  <div class="container" style="max-width:840px">
+    <h2 style="font-family:var(--serif);font-size:28px;color:var(--navy);margin:0 0 24px">Domande frequenti</h2>
+
+    <details class="faq-item">
+      <summary>Quando posso chiedere l'aumento ISTAT?</summary>
+      <p>Solo dopo la prima annualità contrattuale e <strong>su richiesta scritta</strong> al conduttore. La richiesta è atto recettizio: l'aumento decorre dal mese successivo alla ricezione (Cass. civ. n. 8410/2018). Non è dovuto retroattivamente.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Perché solo il 75% e non il 100%?</summary>
+      <p>L'art. 32 L. 392/1978 limita l'aggiornamento al 75% della variazione FOI per i contratti commerciali. Per i contratti a canone libero (L. 431/1998, 4+4) si applica anche il 75%, salvo diversa pattuizione. Per i 3+2 concordati l'aumento è spesso limitato al 75% o azzerato a seconda dell'accordo territoriale.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Qual è l'indice ISTAT corretto da usare?</summary>
+      <p>L'indice <strong>FOI (Famiglie di Operai e Impiegati) senza tabacchi</strong>, base 2015=100, pubblicato mensilmente dall'ISTAT. È il riferimento standard per gli adeguamenti contrattuali ex art. 32 L. 392/1978. <a href="https://www.istat.it/it/archivio/30440" target="_blank" rel="noopener">Pagina ISTAT ufficiale</a>.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Il conduttore può rifiutarsi?</summary>
+      <p>No, se l'aumento è correttamente calcolato e richiesto per iscritto. Il rifiuto del conduttore espone a procedura di sfratto per morosità (la differenza non corrisposta integra inadempimento). Il locatore può anche agire per decreto ingiuntivo (art. 633 c.p.c.) per il recupero del differenziale.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Cosa succede se non chiedo l'aumento per anni?</summary>
+      <p>L'aumento NON è automatico. Se non richiesto, va perso definitivamente per il periodo trascorso. Il diritto si recupera solo per il futuro, dal mese successivo alla richiesta. Cass. civ. n. 19475/2005 e n. 8410/2018.</p>
+    </details>
+  </div>
+</section>
+
+<style>
+.calc-block{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:28px;margin-bottom:20px}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.calc-row label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--navy);font-weight:600}
+.calc-row input,.calc-row select{padding:10px 14px;border:1px solid #cbd5e1;border-radius:4px;font-size:14.5px;font-family:inherit;background:#fff;transition:border-color .15s,box-shadow .15s;font-weight:400;color:#334155}
+.calc-row input:focus,.calc-row select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,153,104,.15)}
+.risultato-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.risultato-item{background:#fff;border:1px solid #e5e7eb;border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.risultato-item.highlight{border-color:var(--gold);background:linear-gradient(180deg,#fdfbf5 0%,#fff 100%)}
+.risultato-item span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;font-weight:600}
+.risultato-item strong{font-family:var(--serif);font-size:22px;color:var(--navy);font-weight:600}
+.risultato-item.highlight strong{color:var(--gold);font-size:24px}
+.calc-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.calc-table th{background:var(--navy);color:#fff;padding:10px 12px;text-align:left;font-weight:600;font-size:12px;letter-spacing:.04em}
+.calc-table td{padding:9px 12px;border-bottom:1px solid #f1f5f9;color:#334155}
+.calc-table tr:nth-child(even) td{background:#fafaf7}
+.faq-item{border-bottom:1px solid #e5e7eb;padding:16px 0}
+.faq-item summary{font-weight:600;color:var(--navy);font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";font-size:22px;color:var(--gold);font-weight:300}
+.faq-item[open] summary::after{content:"−"}
+.faq-item p{margin:12px 0 0;color:#475569;font-size:14px;line-height:1.6}
+@media (max-width:700px){.calc-row,.risultato-grid{grid-template-columns:1fr !important}}
+</style>
+
+<!-- jsPDF da CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../assets/js/lanotte-pdf.js"></script>
+<script src="../assets/js/lanotte-istat.js"></script>
+
+<script>
+(async function(){
+  const statusEl = document.getElementById('istatStatus');
+
+  async function reloadData(){
+    await LanotteISTAT.load('../assets/data/istat-foi.json');
+    const ultimo = LanotteISTAT.ultimoMese();
+    const ultimoUff = LanotteISTAT.ultimoMeseUfficiale();
+    const flagUlt = LanotteISTAT.flagDi(ultimo);
+    const isLive = LanotteISTAT.isLive();
+    const overrides = Object.keys(LanotteISTAT.listaManuali()).length;
+
+    let badgeFonte = '';
+    if (isLive) badgeFonte = '<span style="background:#16a34a;color:#fff;padding:2px 8px;border-radius:2px;font-size:11px;margin-left:6px">API ISTAT LIVE</span>';
+    else badgeFonte = '<span style="background:#64748b;color:#fff;padding:2px 8px;border-radius:2px;font-size:11px;margin-left:6px">DATI LOCALI</span>' + (overrides ? '<span style="background:#b89968;color:#fff;padding:2px 8px;border-radius:2px;font-size:11px;margin-left:6px">+' + overrides + ' MANUALI</span>' : '');
+
+    const flagBadge = flagUlt === 'ufficiale' ? '<span style="color:#16a34a">●</span> ufficiale' :
+                      flagUlt === 'live' ? '<span style="color:#16a34a">●</span> API live' :
+                      flagUlt === 'manuale' ? '<span style="color:#b89968">●</span> manuale' :
+                      '<span style="color:#eab308">●</span> stima da verificare';
+
+    statusEl.innerHTML = '✓ Indici ISTAT caricati ' + badgeFonte +
+      '<br><span style="opacity:.85">Ultimo mese disponibile: <strong style="color:#d4b87f">' + ultimo + '</strong> (' + flagBadge + ') · ' +
+      'Ultimo UFFICIALE: <strong>' + ultimoUff + '</strong></span>';
+
+    document.getElementById('meseFine').value = ultimo;
+    document.getElementById('meseFine').max = ultimo;
+    document.getElementById('meseInizio').max = ultimo;
+    document.getElementById('manuMese').max = '2099-12';
+    document.getElementById('manuMese').value = nextMonth(ultimo);
+  }
+
+  function nextMonth(yyyymm){
+    const [y, m] = yyyymm.split('-').map(Number);
+    let ny = y, nm = m + 1;
+    if (nm > 12) { ny++; nm = 1; }
+    return ny + '-' + String(nm).padStart(2, '0');
+  }
+
+  try { await reloadData(); }
+  catch(e) { statusEl.innerHTML = '⚠️ Errore: ' + e.message; }
+
+  // PANNELLO AGGIORNA MANUALMENTE
+  document.getElementById('manuSave').addEventListener('click', async () => {
+    const m = document.getElementById('manuMese').value;
+    const v = document.getElementById('manuValore').value;
+    const msg = document.getElementById('manuMsg');
+    if (!m || !v) { msg.innerHTML = '<span style="color:#dc2626">⚠️ Compila entrambi i campi</span>'; return; }
+    try {
+      LanotteISTAT.aggiungiManuale(m, v);
+      msg.innerHTML = '<span style="color:#16a34a">✓ Salvato. Indice FOI ' + m + ' = ' + v + ' ora disponibile in tutti i calcolatori ISTAT del sito.</span>';
+      await reloadData();
+      mostraLista();
+      document.getElementById('manuValore').value = '';
+    } catch(err) { msg.innerHTML = '<span style="color:#dc2626">⚠️ ' + err.message + '</span>'; }
+  });
+  document.getElementById('manuShowList').addEventListener('click', mostraLista);
+
+  function mostraLista(){
+    const lista = LanotteISTAT.listaManuali();
+    const div = document.getElementById('manuLista');
+    div.style.display = 'block';
+    const entries = Object.entries(lista).sort();
+    if (entries.length === 0) {
+      div.innerHTML = '<p style="font-size:13px;color:#64748b;font-style:italic">Nessun valore manuale salvato. I dati vengono dalla banca dati locale o dall\'API ISTAT.</p>';
+      return;
+    }
+    div.innerHTML = '<h5 style="margin:0 0 10px;color:var(--navy)">Valori manuali salvati (' + entries.length + ')</h5>' +
+      '<table style="width:100%;border-collapse:collapse;font-size:13.5px">' +
+      '<tr style="background:var(--navy);color:#fff"><th style="padding:8px;text-align:left">Mese</th><th style="padding:8px;text-align:left">Valore FOI</th><th style="padding:8px"></th></tr>' +
+      entries.map(([m, v]) => '<tr><td style="padding:6px;border-bottom:1px solid #f1f5f9">' + m + '</td><td style="padding:6px;border-bottom:1px solid #f1f5f9"><strong>' + v + '</strong></td><td style="padding:6px;border-bottom:1px solid #f1f5f9;text-align:right"><button onclick="LanotteISTAT.rimuoviManuale(\'' + m + '\');location.reload();" style="background:none;border:1px solid #fecaca;color:#dc2626;padding:3px 9px;border-radius:3px;cursor:pointer;font-size:12px">Rimuovi</button></td></tr>').join('') +
+      '</table>';
+  }
+
+  // Bottoni
+  document.getElementById('calcBtn').addEventListener('click', calcola);
+  document.getElementById('resetBtn').addEventListener('click', () => location.reload());
+  document.getElementById('pdfBtn')?.addEventListener('click', generaPdf);
+  document.getElementById('copyBtn')?.addEventListener('click', () => {
+    navigator.clipboard.writeText(document.getElementById('bozzaLettera').textContent);
+    const b = document.getElementById('copyBtn');
+    const t = b.textContent; b.textContent = '✓ Copiato'; setTimeout(()=>b.textContent=t, 1500);
+  });
+
+  let datiCalcolo = null; // memorizzati per il PDF
+
+  function fmtEur(v){return '€ ' + v.toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2});}
+  function fmtPct(v){return v.toFixed(3).replace('.', ',') + '%';}
+  function fmtMese(yyyymm){
+    const [y, m] = yyyymm.split('-');
+    const mesi = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+    return mesi[parseInt(m)-1] + ' ' + y;
+  }
+
+  function calcola(){
+    const canone = parseFloat(document.getElementById('canone').value);
+    const meseInizio = document.getElementById('meseInizio').value;
+    const meseFine = document.getElementById('meseFine').value;
+    const perc = parseInt(document.getElementById('percentuale').value);
+    const tipologia = document.getElementById('tipologia').value;
+    const mostraStorico = document.getElementById('mostraStorico').value;
+
+    if (!canone || !meseInizio || !meseFine) {
+      alert('Compila canone, mese decorrenza e mese calcolo.');
+      return;
+    }
+    if (meseFine <= meseInizio) {
+      alert('Il mese di calcolo deve essere successivo alla decorrenza.');
+      return;
+    }
+
+    const idxStart = LanotteISTAT.indice(meseInizio);
+    const idxEnd = LanotteISTAT.indice(meseFine);
+    if (idxStart == null || idxEnd == null) {
+      alert('Indice ISTAT non disponibile per uno dei mesi selezionati.');
+      return;
+    }
+
+    const variazione = ((idxEnd - idxStart) / idxStart) * 100;
+    const aumentoPerc = variazione * (perc / 100);
+    const canoneAggiornato = canone * (1 + aumentoPerc / 100);
+    const differenza = canoneAggiornato - canone;
+
+    // Aggiorna UI
+    document.getElementById('rIdxStart').textContent = idxStart.toFixed(2).replace('.', ',');
+    document.getElementById('rIdxEnd').textContent = idxEnd.toFixed(2).replace('.', ',');
+    document.getElementById('rVar').textContent = fmtPct(variazione);
+    document.getElementById('rAumento').textContent = fmtPct(aumentoPerc);
+    document.getElementById('rCanone').textContent = fmtEur(canoneAggiornato);
+    document.getElementById('rDiff').textContent = (differenza >= 0 ? '+' : '') + fmtEur(differenza);
+
+    // Genera tabella dettaglio
+    const tbody = document.querySelector('#tabellaDettaglio tbody');
+    tbody.innerHTML = '';
+    const mesi = LanotteISTAT.mesiDisponibili().filter(m => m >= meseInizio && m <= meseFine);
+    let step;
+    if (mostraStorico === 'annuale') {
+      // Solo anniversari (12 mesi)
+      step = [];
+      let cur = meseInizio;
+      while (cur <= meseFine) {
+        if (mesi.includes(cur)) step.push(cur);
+        // +12 mesi
+        const [y, m] = cur.split('-').map(Number);
+        cur = (y + 1) + '-' + String(m).padStart(2, '0');
+      }
+    } else {
+      step = mesi;
+    }
+
+    const righeTab = [];
+    step.forEach(m => {
+      const i = LanotteISTAT.indice(m);
+      const v = ((i - idxStart) / idxStart) * 100;
+      const a = v * (perc / 100);
+      const c = canone * (1 + a / 100);
+      righeTab.push([fmtMese(m), i.toFixed(2).replace('.', ','), fmtPct(v), fmtPct(a), fmtEur(c)]);
+      tbody.innerHTML += '<tr><td>' + fmtMese(m) + '</td><td>' + i.toFixed(2).replace('.', ',') + '</td><td>' + fmtPct(v) + '</td><td>' + fmtPct(a) + '</td><td><strong>' + fmtEur(c) + '</strong></td></tr>';
+    });
+
+    // Bozza lettera
+    const clienteNome = document.getElementById('clienteNome').value || '[NOME CONDUTTORE]';
+    const oggi = new Date().toLocaleDateString('it-IT', {day:'2-digit', month:'long', year:'numeric'});
+    document.getElementById('bozzaLettera').textContent =
+`Spett.le Sig. ${clienteNome}
+[indirizzo]
+
+Barletta, ${oggi}
+
+OGGETTO: Richiesta di aggiornamento ISTAT canone di locazione
+ex art. 32 L. 27 luglio 1978, n. 392
+
+Egregio Sig. ${clienteNome},
+
+con riferimento al contratto di locazione in essere, decorrente dal ${fmtMese(meseInizio)},
+relativo all'immobile sito in [INDIRIZZO IMMOBILE], la presente per richiedere,
+ai sensi dell'art. 32 L. 392/1978, l'adeguamento del canone secondo la variazione
+ISTAT FOI (Famiglie di Operai e Impiegati) senza tabacchi rilevata nel periodo
+${fmtMese(meseInizio)} → ${fmtMese(meseFine)}.
+
+Variazione FOI complessiva: ${fmtPct(variazione)}
+Aumento applicato al ${perc}%: ${fmtPct(aumentoPerc)}
+Canone precedente: ${fmtEur(canone)}/mese
+Canone aggiornato: ${fmtEur(canoneAggiornato)}/mese
+Differenza mensile: +${fmtEur(differenza)}
+
+L'adeguamento decorrerà dal mese successivo alla ricezione della presente,
+come da costante orientamento della Suprema Corte (Cass. civ. n. 8410/2018).
+
+La invito pertanto a corrispondere il canone aggiornato a partire dal mese di
+[mese successivo alla ricezione], salvo diversa intesa scritta tra le parti.
+
+Distinti saluti
+
+_________________________
+[Locatore]`;
+
+    // Memorizza per PDF
+    datiCalcolo = {
+      cliente: { nome: clienteNome, codiceFiscale: document.getElementById('clienteCf').value },
+      canone, canoneAggiornato, differenza,
+      meseInizio, meseFine,
+      idxStart, idxEnd,
+      variazione, aumentoPerc, perc,
+      tipologia,
+      righeTab,
+      fonteIstat: LanotteISTAT.ultimoMese()
+    };
+
+    document.getElementById('risultati').style.display = 'block';
+    document.getElementById('risultati').scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+
+  function generaPdf(){
+    if (!datiCalcolo) return;
+    const d = datiCalcolo;
+    const tipologiaLabels = {'4+4':'Abitativo 4+4 (L. 431/1998)','3+2':'Abitativo 3+2 concordato','commerciale':'Commerciale (L. 392/1978)','transitorio':'Transitorio'};
+
+    LanottePDF.generate({
+      titolo: 'Aumento ISTAT Canone di Locazione',
+      normativa: 'art. 32 L. 27 luglio 1978, n. 392',
+      cliente: d.cliente,
+      dati: [
+        {label:'Canone iniziale', value: fmtEur(d.canone)},
+        {label:'Tipologia contratto', value: tipologiaLabels[d.tipologia]},
+        {label:'Decorrenza / anniversario', value: fmtMese(d.meseInizio)},
+        {label:'Mese di calcolo', value: fmtMese(d.meseFine)},
+        {label:'Indice FOI iniziale', value: d.idxStart.toFixed(2).replace('.', ',')},
+        {label:'Indice FOI finale', value: d.idxEnd.toFixed(2).replace('.', ',')},
+        {label:'Variazione complessiva', value: fmtPct(d.variazione)},
+        {label:'Percentuale applicata', value: d.perc + '%'},
+        {label:'Aumento ' + d.perc + '%', value: fmtPct(d.aumentoPerc)},
+        {label:'Canone aggiornato', value: fmtEur(d.canoneAggiornato)},
+        {label:'Differenza mensile', value: '+' + fmtEur(d.differenza)},
+        {label:'Differenza annua', value: '+' + fmtEur(d.differenza * 12)}
+      ],
+      tabella: {
+        titolo: 'Dettaglio per periodo',
+        headers: ['Periodo', 'Indice FOI', 'Variaz. %', 'Aumento ' + d.perc + '%', 'Canone aggiornato'],
+        rows: d.righeTab
+      },
+      conclusioni: 'Il canone di locazione, aggiornato secondo la variazione ISTAT FOI senza tabacchi del periodo ' + fmtMese(d.meseInizio) + ' → ' + fmtMese(d.meseFine) + ' con applicazione del ' + d.perc + '%, ammonta a ' + fmtEur(d.canoneAggiornato) + ' mensili (+' + fmtEur(d.differenza) + ' rispetto al canone precedente). Si ricorda che l\'art. 32 L. 392/1978 richiede la richiesta scritta del locatore, con decorrenza dal mese successivo alla ricezione (Cass. civ. n. 8410/2018).',
+      fonteIstat: d.fonteIstat,
+      filename: 'aumento-istat-locazione_' + (d.cliente.nome ? d.cliente.nome.replace(/\s+/g,'-').toLowerCase() : 'cliente')
+    });
+  }
+})();
+</script>
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="../assets/img/logo-dark.svg" alt="Lanotte &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
+             onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
+        <p>Avv. Giuseppe LANOTTE — Iscritto all'Ordine degli Avvocati di Trani.<br>C.F.: LNTGPP78B01L328P · P.IVA: 06731750722</p>
+        <p style="margin-top:14px"><strong style="color:#fff">Sede:</strong> Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/studiolegalelanotte/" aria-label="Facebook"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.99 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg></a>
+          <a href="https://www.instagram.com/studio_legale_lanotte" aria-label="Instagram"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5>Aree</h5>
+        <ul>
+          <li><a href="../aree/diritto-penale.html">Diritto Penale</a></li>
+          <li><a href="../aree/diritto-civile.html">Diritto Civile</a></li>
+          <li><a href="../aree/famiglia-successioni.html">Famiglia e Successioni</a></li>
+          <li><a href="../aree/impresa.html">Impresa</a></li>
+          <li><a href="../aree/tributario.html">Tributario</a></li>
+          <li><a href="../aree/proprieta-intellettuale.html">Proprietà Intellettuale</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Studio</h5>
+        <ul>
+          <li><a href="../lo-studio.html">Chi siamo</a></li>
+          <li><a href="../carriere.html">Carriere · Cerchiamo avvocati</a></li>
+          <li><a href="../onorari.html">Onorari</a></li>
+          <li><a href="../rassegna.html">Rassegna giuridica</a></li>
+          <li><a href="../newsletter.html">Newsletter</a></li>
+          <li><a href="../glossario.html">Glossario giuridico</a></li>
+          <li><a href="../calcolatori.html">Calcolatori</a></li>
+          <li><a href="../onorari.html#servizi-online">Servizi online</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contatti</h5>
+        <ul>
+          <li><a href="tel:+3908831955533">0883 1955533</a></li>
+          <li><a href="mailto:info@studiolegalelanotte.it">info@studiolegalelanotte.it</a></li>
+          <li><a href="mailto:studiolegalelanotte@legalmail.it">PEC studio</a></li>
+          <li><span style="color:#94a3b8">Lun-Mer-Ven 9-13 / 16-21</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Studio Legale Lanotte &amp; Partners · Tutti i diritti riservati</div>
+      <div>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../cookie.html">Cookie</a>
+        <a href="../credits.html">Crediti immagini</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- GLOBAL: cart badge + mega-menu hover -->
+<script>
+(function(){
+  // Cart badge sync
+  try{
+    var c=JSON.parse(localStorage.getItem('lanotte_cart_v1'))||[];
+    var n=c.length;
+    document.querySelectorAll('[data-cart-count]').forEach(function(el){
+      el.textContent=n;el.setAttribute('data-cart-count',n);
+    });
+  }catch(e){}
+
+  // ============ MEGA MENU CONTROLLER (Aree + Calcolatori) ============
+  // Singolo controller, mutual exclusive, timer condiviso, chiusura su click outside.
+  (function(){
+    var menus=[
+      {trigger:document.querySelector('.nav-mega-trigger'),       panel:document.querySelector('.nav-mega-panel')},
+      {trigger:document.querySelector('.nav-mega-trigger-calc'),  panel:document.querySelector('.nav-mega-panel-calc')}
+    ].filter(function(m){return m.trigger && m.panel;});
+    if(!menus.length) return;
+
+    var closeTimer=null, activePanel=null;
+
+    function closeAll(){
+      menus.forEach(function(m){m.panel.classList.remove('is-open');});
+      activePanel=null;
+    }
+    function openOnly(panel){
+      if(closeTimer){clearTimeout(closeTimer);closeTimer=null;}
+      menus.forEach(function(m){
+        if(m.panel===panel) m.panel.classList.add('is-open');
+        else m.panel.classList.remove('is-open');
+      });
+      activePanel=panel;
+    }
+    function scheduleClose(panel){
+      if(closeTimer)clearTimeout(closeTimer);
+      closeTimer=setTimeout(function(){
+        panel.classList.remove('is-open');
+        if(activePanel===panel)activePanel=null;
+      },220);
+    }
+
+    menus.forEach(function(m){
+      m.trigger.addEventListener('mouseenter',function(){openOnly(m.panel);});
+      m.trigger.addEventListener('mouseleave',function(){scheduleClose(m.panel);});
+      m.panel.addEventListener('mouseenter',function(){openOnly(m.panel);});
+      m.panel.addEventListener('mouseleave',function(){scheduleClose(m.panel);});
+      m.trigger.addEventListener('focus',function(){openOnly(m.panel);});
+      m.trigger.addEventListener('blur',function(){scheduleClose(m.panel);});
+    });
+
+    // Click fuori -> chiude tutto
+    document.addEventListener('click',function(e){
+      if(!activePanel)return;
+      if(e.target.closest('.nav-mega-panel,.nav-mega-panel-calc,.nav-mega-trigger,.nav-mega-trigger-calc'))return;
+      closeAll();
+    });
+
+    // ESC chiude tutto
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape')closeAll();
+    });
+  })();
+})();
+</script>
+
+<a href="https://wa.me/3908831955533" class="wa-float" aria-label="WhatsApp">
+  <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+/* Link portability fix (Lanotte): corregge i link relativi del prototipo verso le pagine WP.
+   Deriva la base dall'URL: funziona sia su /starting/ ora sia a dominio root dopo il go-live. */
+(function(){
+  var base = location.pathname.split('/wp-content/')[0];
+  var map = {
+    '../index.html': base + '/',
+    '../calcolatori.html': base + '/calcolatori/',
+    '../contatti.html': base + '/contatti/',
+    '../onorari.html': base + '/onorari/',
+    '../rassegna.html': base + '/rassegna/',
+    '../lo-studio.html': base + '/lo-studio/',
+    '../penale-urgenza.html': base + '/penale-urgenza/'
+  };
+  document.querySelectorAll('a[href]').forEach(function(a){
+    var h = a.getAttribute('href');
+    if (map[h]) { a.setAttribute('href', map[h]); return; }
+    var ma = h.match(/^\.\.\/aree\/(.+)\.html$/);
+    if (ma) { a.setAttribute('href', base + '/aree/' + ma[1] + '/'); }
+  });
+})();
+</script>
+</body>
+</html>

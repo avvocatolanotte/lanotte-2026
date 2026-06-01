@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "descrizione": "Tassi di interesse legale ex art. 1284 c.c. - Decreti annuali Ministero dell'Economia e delle Finanze",
+    "fonte": "Gazzetta Ufficiale - DM annuali MEF",
+    "ultimo_aggiornamento_manuale": "2026-05-25",
+    "nota": "Tasso vigente dal 1° gennaio di ciascun anno. Verificare sempre la GU per uso in atti giudiziali. Capitalizzazione semplice ex art. 1283 c.c. (no anatocismo salvo eccezioni)."
+  },
+  "tassi": [
+    {"dal": "2026-01-01", "al": null,         "tasso": 2.0,   "norma": "DM 11/12/2025 (GU n. 290) [da verificare]"},
+    {"dal": "2025-01-01", "al": "2025-12-31", "tasso": 2.0,   "norma": "DM 10/12/2024 (GU n. 296)"},
+    {"dal": "2024-01-01", "al": "2024-12-31", "tasso": 2.5,   "norma": "DM 29/11/2023 (GU n. 288)"},
+    {"dal": "2023-01-01", "al": "2023-12-31", "tasso": 5.0,   "norma": "DM 13/12/2022 (GU n. 292)"},
+    {"dal": "2022-01-01", "al": "2022-12-31", "tasso": 1.25,  "norma": "DM 13/12/2021 (GU n. 297)"},
+    {"dal": "2021-01-01", "al": "2021-12-31", "tasso": 0.01,  "norma": "DM 11/12/2020 (GU n. 310)"},
+    {"dal": "2020-01-01", "al": "2020-12-31", "tasso": 0.05,  "norma": "DM 12/12/2019 (GU n. 293)"},
+    {"dal": "2019-01-01", "al": "2019-12-31", "tasso": 0.8,   "norma": "DM 12/12/2018 (GU n. 291)"},
+    {"dal": "2018-01-01", "al": "2018-12-31", "tasso": 0.3,   "norma": "DM 13/12/2017 (GU n. 292)"},
+    {"dal": "2017-01-01", "al": "2017-12-31", "tasso": 0.1,   "norma": "DM 07/12/2016 (GU n. 291)"},
+    {"dal": "2016-01-01", "al": "2016-12-31", "tasso": 0.2,   "norma": "DM 11/12/2015 (GU n. 291)"},
+    {"dal": "2015-01-01", "al": "2015-12-31", "tasso": 0.5,   "norma": "DM 11/12/2014 (GU n. 290)"},
+    {"dal": "2014-01-01", "al": "2014-12-31", "tasso": 1.0,   "norma": "DM 12/12/2013 (GU n. 292)"},
+    {"dal": "2012-01-01", "al": "2013-12-31", "tasso": 2.5,   "norma": "DM 12/12/2011 (GU n. 291)"},
+    {"dal": "2011-01-01", "al": "2011-12-31", "tasso": 1.5,   "norma": "DM 07/12/2010 (GU n. 292)"},
+    {"dal": "2010-01-01", "al": "2010-12-31", "tasso": 1.0,   "norma": "DM 04/12/2009 (GU n. 291)"},
+    {"dal": "2008-01-01", "al": "2009-12-31", "tasso": 3.0,   "norma": "DM 12/12/2007 (GU n. 291)"},
+    {"dal": "2004-01-01", "al": "2007-12-31", "tasso": 2.5,   "norma": "DM 01/12/2003 (GU n. 286)"},
+    {"dal": "2002-01-01", "al": "2003-12-31", "tasso": 3.0,   "norma": "DM 11/12/2001 (GU n. 290)"},
+    {"dal": "2001-01-01", "al": "2001-12-31", "tasso": 3.5,   "norma": "DM 11/12/2000 (GU n. 292)"},
+    {"dal": "1999-01-01", "al": "2000-12-31", "tasso": 2.5,   "norma": "DM 10/12/1998 (GU n. 291)"},
+    {"dal": "1997-01-01", "al": "1998-12-31", "tasso": 5.0,   "norma": "L. 662/1996 art. 2 c. 185"},
+    {"dal": "1942-04-21", "al": "1996-12-31", "tasso": 10.0,  "norma": "art. 1284 c.c. (testo originario / L. 353/1990)"}
+  ]
+}

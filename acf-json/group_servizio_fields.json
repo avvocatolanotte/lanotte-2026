@@ -1,0 +1,147 @@
+{
+  "key": "group_servizio_fields",
+  "title": "Dati Servizio Online",
+  "fields": [
+    {
+      "key": "field_servizio_sottotitolo",
+      "label": "Sottotitolo / occhiello",
+      "name": "sottotitolo",
+      "type": "text",
+      "instructions": "Es. 'Consulenza in videocall (30 minuti)'. Opzionale.",
+      "maxlength": 120
+    },
+    {
+      "key": "field_servizio_descrizione_breve",
+      "label": "Descrizione breve (catalogo)",
+      "name": "descrizione_breve",
+      "type": "textarea",
+      "instructions": "2-3 righe. Usata nella card del catalogo.",
+      "required": 1,
+      "maxlength": 320,
+      "rows": 3
+    },
+    {
+      "key": "field_servizio_categoria",
+      "label": "Categoria filtri",
+      "name": "categoria_filtro",
+      "type": "select",
+      "instructions": "Determina sotto quale filtro appare il servizio.",
+      "required": 1,
+      "choices": {
+        "consulenza": "Consulenza",
+        "civile": "Civile",
+        "penale": "Penale",
+        "impresa": "Impresa",
+        "famiglia": "Famiglia",
+        "contratti": "Contratti",
+        "ip": "Marchi & IP",
+        "tributario": "Tributario",
+        "internazionale": "Internazionale"
+      },
+      "return_format": "value"
+    },
+    {
+      "key": "field_servizio_area_collegata",
+      "label": "Area di pratica collegata",
+      "name": "area_collegata",
+      "type": "post_object",
+      "instructions": "Una delle 13 Aree di Competenza. Crea un link incrociato dalla card del servizio alla pagina area.",
+      "post_type": ["area"],
+      "multiple": 0,
+      "return_format": "id",
+      "ui": 1,
+      "allow_null": 1
+    },
+    {
+      "key": "field_servizio_icona",
+      "label": "Icona (SVG inline o emoji)",
+      "name": "icona",
+      "type": "textarea",
+      "instructions": "Codice SVG inline (preferito) o emoji unicode. Lasciare vuoto per usare l'icona di default della categoria.",
+      "rows": 2
+    },
+    {
+      "key": "field_servizio_gradient",
+      "label": "Gradiente icona",
+      "name": "gradient",
+      "type": "select",
+      "instructions": "Sfondo dell'icona della card. Coerente con il colore della categoria.",
+      "choices": {
+        "navy": "Blu navy (#0f172a → #1e293b) — Consulenza",
+        "amber": "Marrone (#7c2d12 → #9a3412) — Civile",
+        "red": "Rosso (#7f1d1d → #991b1b) — Penale",
+        "green": "Verde (#064e3b → #065f46) — Impresa",
+        "pink": "Rosa (#9d174d → #be185d) — Famiglia",
+        "blue": "Blu (#1e3a8a → #1e40af) — Contratti",
+        "purple": "Viola (#581c87 → #6b21a8) — IP"
+      },
+      "default_value": "navy",
+      "return_format": "value"
+    },
+    {
+      "key": "field_servizio_features",
+      "label": "Caratteristiche (3 voci)",
+      "name": "features",
+      "type": "repeater",
+      "instructions": "Le 3 caratteristiche che appaiono col segno di spunta sotto la descrizione.",
+      "min": 0,
+      "max": 5,
+      "layout": "table",
+      "button_label": "Aggiungi caratteristica",
+      "sub_fields": [
+        {
+          "key": "field_servizio_feature_testo",
+          "label": "Testo",
+          "name": "testo",
+          "type": "text",
+          "maxlength": 100,
+          "required": 1
+        }
+      ]
+    },
+    {
+      "key": "field_servizio_sku",
+      "label": "Codice servizio (SKU)",
+      "name": "sku",
+      "type": "text",
+      "instructions": "Codice univoco usato nel carrello e nell'email di richiesta preventivo. Es. 'CONS-VIDEOCALL-30'. Solo lettere maiuscole, numeri e trattini.",
+      "required": 1,
+      "maxlength": 40
+    },
+    {
+      "key": "field_servizio_prezzo_indicativo",
+      "label": "Prezzo orientativo (opzionale)",
+      "name": "prezzo_indicativo",
+      "type": "text",
+      "instructions": "ATTENZIONE: ai sensi dell'art. 13 L. 247/2012 il compenso è soggetto a preventivo scritto personalizzato. Inserire solo una forbice indicativa (es. 'da € 80 + IVA') o lasciare vuoto.",
+      "maxlength": 60
+    },
+    {
+      "key": "field_servizio_evidenza",
+      "label": "In evidenza",
+      "name": "in_evidenza",
+      "type": "true_false",
+      "instructions": "Se attivo, il servizio appare in cima al catalogo con badge 'In evidenza'.",
+      "default_value": 0,
+      "ui": 1
+    },
+    {
+      "key": "field_servizio_attivo",
+      "label": "Servizio attivo",
+      "name": "attivo",
+      "type": "true_false",
+      "instructions": "Se disattivato, il servizio non compare nel catalogo (utile per rimuovere temporaneamente senza cancellare).",
+      "default_value": 1,
+      "ui": 1
+    }
+  ],
+  "location": [[{"param": "post_type", "operator": "==", "value": "servizio"}]],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "active": true,
+  "show_in_rest": 0,
+  "modified": 1716638400
+}

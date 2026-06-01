@@ -1,0 +1,131 @@
+{
+  "key": "group_team_fields",
+  "title": "Dati Professionista",
+  "fields": [
+    {
+      "key": "field_team_ruolo",
+      "label": "Ruolo nello Studio",
+      "name": "ruolo",
+      "type": "select",
+      "instructions": "Categoria del professionista. Influisce sull'ordine di visualizzazione nella pagina Lo Studio.",
+      "required": 1,
+      "choices": {
+        "titolare": "Titolare dello Studio",
+        "partner-esterno": "Partner esterno",
+        "of-counsel": "Of Counsel",
+        "associato": "Avvocato associato",
+        "collaboratore": "Collaboratore",
+        "praticante": "Praticante",
+        "commercialista": "Commercialista",
+        "ctu": "CTU / Consulente tecnico"
+      },
+      "default_value": "associato",
+      "return_format": "value"
+    },
+    {
+      "key": "field_team_specializzazione",
+      "label": "Specializzazione",
+      "name": "specializzazione",
+      "type": "text",
+      "instructions": "Es. 'Diritto Penale e Internazionale' (max 80 caratteri).",
+      "required": 1,
+      "maxlength": 80
+    },
+    {
+      "key": "field_team_titolo",
+      "label": "Titolo professionale",
+      "name": "titolo",
+      "type": "text",
+      "instructions": "Es. 'Avv.', 'Dott.ssa', 'Prof. Avv.'. Lasciare vuoto se non applicabile.",
+      "default_value": "Avv."
+    },
+    {
+      "key": "field_team_albo",
+      "label": "Iscrizione Albo / Ordine",
+      "name": "albo",
+      "type": "text",
+      "instructions": "Es. 'Foro di Trani · n. 12345' oppure 'ODCEC Trani · n. 67890'. Obbligatorio per professionisti iscritti."
+    },
+    {
+      "key": "field_team_bio",
+      "label": "Bio breve (homepage card)",
+      "name": "bio_breve",
+      "type": "textarea",
+      "instructions": "Massimo 280 caratteri. Usata nella card sintetica.",
+      "maxlength": 280,
+      "rows": 3
+    },
+    {
+      "key": "field_team_email",
+      "label": "Email professionale",
+      "name": "email",
+      "type": "email"
+    },
+    {
+      "key": "field_team_telefono",
+      "label": "Telefono diretto",
+      "name": "telefono",
+      "type": "text"
+    },
+    {
+      "key": "field_team_linkedin",
+      "label": "URL LinkedIn",
+      "name": "linkedin",
+      "type": "url"
+    },
+    {
+      "key": "field_team_cv",
+      "label": "Curriculum Vitae (PDF)",
+      "name": "cv_pdf",
+      "type": "file",
+      "instructions": "PDF scaricabile. Opzionale.",
+      "return_format": "url",
+      "mime_types": "pdf"
+    },
+    {
+      "key": "field_team_lingue",
+      "label": "Lingue parlate",
+      "name": "lingue",
+      "type": "checkbox",
+      "choices": {
+        "italiano": "Italiano",
+        "inglese": "Inglese",
+        "spagnolo": "Spagnolo",
+        "francese": "Francese",
+        "tedesco": "Tedesco",
+        "portoghese": "Portoghese"
+      },
+      "default_value": ["italiano"],
+      "return_format": "value",
+      "layout": "horizontal"
+    },
+    {
+      "key": "field_team_aree_collegate",
+      "label": "Aree di competenza collegate",
+      "name": "aree_collegate",
+      "type": "post_object",
+      "instructions": "Una o più Aree in cui il professionista opera.",
+      "post_type": ["area"],
+      "multiple": 1,
+      "return_format": "id",
+      "ui": 1
+    },
+    {
+      "key": "field_team_visibile",
+      "label": "Visibile nella pagina Lo Studio",
+      "name": "visibile",
+      "type": "true_false",
+      "default_value": 1,
+      "ui": 1
+    }
+  ],
+  "location": [[{"param": "post_type", "operator": "==", "value": "team"}]],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "active": true,
+  "show_in_rest": 0,
+  "modified": 1716638400
+}

@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Pacchetti zip di build (non vanno nel repo)
+*.zip
+
+# File di lavoro / varianti non deployate
+inc/aree-content-v2.php
+
+# Dipendenze (se mai useremo build tools)
+node_modules/

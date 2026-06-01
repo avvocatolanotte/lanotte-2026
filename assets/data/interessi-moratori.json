@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "descrizione": "Tassi di interesse moratorio per ritardi nei pagamenti delle transazioni commerciali ex D.Lgs. 9 ottobre 2002, n. 231 (art. 5)",
+    "fonte": "Comunicati MEF - Saggio BCE rifinanziamento principale + 8 punti percentuali",
+    "ultimo_aggiornamento_manuale": "2026-05-25",
+    "nota": "Tassi pubblicati semestralmente dal MEF (1° gennaio e 1° luglio). Per transazioni commerciali tra imprese o tra impresa e PA. Per transazioni civili si usa art. 1284 c.c."
+  },
+  "tassi": [
+    {"dal": "2026-01-01", "al": null,         "saggio_bce": 2.40, "moratorio": 10.40, "norma": "Comunicato MEF gen/2026 [stima - verificare GU]"},
+    {"dal": "2025-07-01", "al": "2025-12-31", "saggio_bce": 2.65, "moratorio": 10.65, "norma": "Comunicato MEF lug/2025 [stima - verificare GU]"},
+    {"dal": "2025-01-01", "al": "2025-06-30", "saggio_bce": 3.15, "moratorio": 11.15, "norma": "Comunicato MEF 17/01/2025 (GU n. 13)"},
+    {"dal": "2024-07-01", "al": "2024-12-31", "saggio_bce": 4.25, "moratorio": 12.25, "norma": "Comunicato MEF 18/07/2024 (GU n. 167)"},
+    {"dal": "2024-01-01", "al": "2024-06-30", "saggio_bce": 4.50, "moratorio": 12.50, "norma": "Comunicato MEF 17/01/2024 (GU n. 13)"},
+    {"dal": "2023-07-01", "al": "2023-12-31", "saggio_bce": 4.00, "moratorio": 12.00, "norma": "Comunicato MEF 17/07/2023 (GU n. 165)"},
+    {"dal": "2023-01-01", "al": "2023-06-30", "saggio_bce": 2.50, "moratorio": 10.50, "norma": "Comunicato MEF 27/01/2023 (GU n. 22)"},
+    {"dal": "2022-07-01", "al": "2022-12-31", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 19/07/2022 (GU n. 167)"},
+    {"dal": "2022-01-01", "al": "2022-06-30", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 25/01/2022 (GU n. 19)"},
+    {"dal": "2021-07-01", "al": "2021-12-31", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 19/07/2021 (GU n. 171)"},
+    {"dal": "2021-01-01", "al": "2021-06-30", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 18/01/2021 (GU n. 13)"},
+    {"dal": "2020-07-01", "al": "2020-12-31", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 16/07/2020 (GU n. 178)"},
+    {"dal": "2020-01-01", "al": "2020-06-30", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 18/01/2020 (GU n. 14)"},
+    {"dal": "2019-07-01", "al": "2019-12-31", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 18/07/2019 (GU n. 167)"},
+    {"dal": "2019-01-01", "al": "2019-06-30", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 21/01/2019 (GU n. 17)"},
+    {"dal": "2018-07-01", "al": "2018-12-31", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 23/07/2018 (GU n. 169)"},
+    {"dal": "2016-01-01", "al": "2018-06-30", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicati MEF semestrali"},
+    {"dal": "2013-01-01", "al": "2015-12-31", "saggio_bce": 0.50, "moratorio": 8.50,  "norma": "D.Lgs. 192/2012 + Comunicati MEF"}
+  ]
+}
