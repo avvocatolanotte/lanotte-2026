@@ -356,6 +356,11 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
 /* === WHATSAPP FLOAT === */
 .wa-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 8px 24px rgba(37,211,102,.4);z-index:100;animation:wapulse 2s infinite}
 @keyframes wapulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@media (max-width:700px){
+  .wa-float{bottom:86px;right:16px;width:54px;height:54px;z-index:98}
+  .translatepress-floating-language-switcher,
+  .trp-floating-language-switcher{bottom:16px !important;right:16px !important;z-index:97 !important}
+}
 
 /* === LEGAL PAGES === */
 .legal-content{max-width:820px;margin:0 auto;padding:64px 24px}

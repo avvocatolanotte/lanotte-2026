@@ -122,7 +122,10 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
       <p style="font-size:14.5px;color:#475569;margin:0 0 22px">Compila il modulo e ti rispondiamo entro 24 ore lavorative.</p>
       <?php
       $cf7 = function_exists('get_field') ? get_field('cf7_shortcode') : '';
-      if ($cf7) {
+      if (!$cf7 && shortcode_exists('contact-form-7')) {
+          $cf7 = '[contact-form-7 id="40f20ae" title="Contact Form (pagina contatti)"]';
+      }
+      if ($cf7 && shortcode_exists('contact-form-7')) {
           echo do_shortcode($cf7);
       } else {
           // Mostriamo SEMPRE il form HTML pulito (non the_content() che potrebbe
@@ -156,7 +159,6 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
                   <span>Ho letto l'<a href="<?php echo esc_url(home_url('/privacy/')); ?>" target="_blank">informativa privacy</a> e acconsento al trattamento.</span>
                 </label>
                 <button type="submit" class="btn btn-primary">Invia messaggio →</button>
-                <p class="form-note">Modulo provvisorio. Per la versione definitiva verrà installato Contact Form 7 con anti-spam.</p>
               </form>
               <?php
       }

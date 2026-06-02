@@ -72,7 +72,7 @@ get_header();
       <div style="background:#fff;padding:28px;border-top:3px solid var(--gold)"><div style="font-family:var(--serif);font-size:36px;color:var(--gold);font-weight:600">3</div><h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin:8px 0">Fase istruttoria</h4><p style="font-size:13.5px;color:var(--text-muted)">Memorie, prove, CTU, udienze.</p></div>
       <div style="background:#fff;padding:28px;border-top:3px solid var(--gold)"><div style="font-family:var(--serif);font-size:36px;color:var(--gold);font-weight:600">4</div><h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin:8px 0">Fase decisoria</h4><p style="font-size:13.5px;color:var(--text-muted)">Conclusionali, repliche, discussione, sentenza.</p></div>
     </div>
-    <p style="text-align:center;margin-top:30px;font-size:14px;color:var(--text-muted)">Vuoi una stima orientativa? Usa i nostri <a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/'); ?>" style="color:var(--gold);font-weight:600">calcolatori di parcella civile e penale</a> basati sul DM 55/2014.</p>
+    <p style="text-align:center;margin-top:30px;font-size:14px;color:var(--text-muted)">Vuoi una stima orientativa? Usa i nostri <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" style="color:var(--gold);font-weight:600">calcolatori di parcella civile e penale</a> basati sul DM 55/2014.</p>
   </div>
 </section>
 

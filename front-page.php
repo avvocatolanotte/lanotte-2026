@@ -327,7 +327,7 @@ function lanotte_render_section_risorse() {
     $casi = get_post_type_archive_link('caso');
     $gloss = get_page_by_path('glossario');
     $cards = [
-        ['url' => LANOTTE_THEME_URI . '/calcolatori/', 'icon' => '📊', 't' => '16 Calcolatori giuridici', 'd' => 'Parcelle forensi, danni, ISTAT, interessi, scadenze, contributo unificato. Gratuiti, con PDF.', 'cta' => 'Apri i calcolatori'],
+        ['url' => get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/'), 'icon' => '📊', 't' => '16 Calcolatori giuridici', 'd' => 'Parcelle forensi, danni, ISTAT, interessi, scadenze, contributo unificato. Gratuiti, con PDF.', 'cta' => 'Apri i calcolatori'],
         ['url' => $casi ?: '#', 'icon' => '📁', 't' => 'Casi Studio', 'd' => 'Scenari illustrativi che mostrano il metodo dello Studio nelle diverse materie del diritto.', 'cta' => 'Leggi i casi'],
         ['url' => $gloss ? get_permalink($gloss) : '#', 'icon' => '📖', 't' => 'Glossario giuridico', 'd' => 'I termini legali spiegati in modo chiaro e comprensibile a tutti.', 'cta' => 'Consulta il glossario'],
         ['url' => get_permalink(get_option('page_for_posts')) ?: '#', 'icon' => '📰', 't' => 'Rassegna giuridica', 'd' => 'Approfondimenti e aggiornamenti su giurisprudenza, prassi e novità normative.', 'cta' => 'Vai alla rassegna'],

@@ -185,7 +185,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
       </span>
       <a href="<?php echo esc_url(get_post_type_archive_link('area')); ?>" class="nav-mega-trigger<?php if (is_post_type_archive('area') || is_singular('area')) echo ' active'; ?>">Aree <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="margin-left:4px;vertical-align:-1px"><path d="M6 9l6 6 6-6"/></svg></a>
       <a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari'))); ?>" <?php if (is_page('onorari')) echo 'class="active"'; ?>>Onorari &amp; Servizi</a>
-      <a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/'); ?>" class="nav-mega-trigger-calc<?php if (strpos($_SERVER['REQUEST_URI'], '/calcolatori') === 0) echo ' active'; ?>">Calcolatori <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="margin-left:4px;vertical-align:-1px"><path d="M6 9l6 6 6-6"/></svg></a>
+      <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-trigger-calc<?php if (strpos($_SERVER['REQUEST_URI'], '/calcolatori') === 0) echo ' active'; ?>">Calcolatori <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="margin-left:4px;vertical-align:-1px"><path d="M6 9l6 6 6-6"/></svg></a>
       <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" <?php if (is_page('contatti')) echo 'class="active"'; ?>>Contatti</a>
     </nav>
     <div class="header-actions">
@@ -236,8 +236,10 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
         <ul>
           <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/scadenze.html'); ?>">📅 Scadenze Processuali</a></li>
           <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/aqp.html'); ?>">💧 Bolletta AQP</a></li>
+          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/contributo-unificato.html'); ?>">🏛️ Contributo Unificato</a></li>
+          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/timeline-marchio.html'); ?>">™ Timeline Marchio</a></li>
         </ul>
-        <a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/'); ?>" class="nav-mega-allbtn">Vedi tutti i 14 strumenti <span aria-hidden="true">→</span></a>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-allbtn">Vedi tutti i 16 strumenti <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -280,7 +282,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
       <div class="nav-mega-col nav-mega-cta">
         <h6>Strumenti utili</h6>
         <ul class="nav-mega-tools">
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/'); ?>">📊 Calcolatori (14)</a></li>
+          <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>">📊 Calcolatori (16)</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari'))); ?>">💼 Onorari trasparenti</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>">📰 Rassegna giuridica</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari')) . '#servizi-online'); ?>">🛒 Servizi online</a></li>
@@ -300,7 +302,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
     <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('lo-studio'))); ?>">👥 Lo Studio</a></li>
     <li><a href="<?php echo esc_url(get_post_type_archive_link('area')); ?>">⚖️ Aree di Competenza</a></li>
     <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari'))); ?>">💼 Onorari &amp; Servizi</a></li>
-    <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/'); ?>">📊 Calcolatori</a></li>
+    <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>">📊 Calcolatori</a></li>
     <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>">📞 Contatti</a></li>
   </ul>
   <div class="md-section">Approfondimenti</div>

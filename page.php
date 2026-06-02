@@ -21,6 +21,7 @@ while (have_posts()): the_post();
 
 $thumb_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
 $content   = get_the_content();
+$plain_content = trim(wp_strip_all_tags(strip_shortcodes($content)));
 
 // Auto-detect: se il post_content inizia già con un <section> di hero,
 // non mostriamo l'hero standard del template (evita doppio hero).
@@ -52,7 +53,28 @@ $is_legal = is_page(['privacy', 'cookie', 'privacy-policy', 'cookie-policy', 'cr
     <?php if ($updated = (function_exists('get_field') ? get_field('updated_date') : '')): ?>
       <p class="updated"><strong>Ultimo aggiornamento:</strong> <?php echo esc_html($updated); ?></p>
     <?php endif; ?>
-    <?php the_content(); ?>
+    <?php
+    if ($plain_content !== '') {
+        the_content();
+    } elseif (is_page(['cookie', 'cookie-policy'])) {
+        ?>
+        <h2>Cookie Policy</h2>
+        <p>Questa pagina e in fase di aggiornamento. Il banner cookie e le preferenze di consenso restano gestite dal sistema installato sul sito.</p>
+        <?php echo do_shortcode('[cky_cookie_declaration]'); ?>
+        <p>Per informazioni sui cookie o per richieste relative al trattamento dei dati puo scrivere a <a href="mailto:<?php echo esc_attr(lanotte_email()); ?>"><?php echo esc_html(lanotte_email()); ?></a>.</p>
+        <?php
+    } elseif (is_page(['privacy', 'privacy-policy'])) {
+        ?>
+        <h2>Informativa privacy</h2>
+        <p>Questa informativa e in fase di aggiornamento. Per esercitare i diritti previsti dal GDPR o per richieste relative al trattamento dei dati personali puo contattare lo Studio ai recapiti indicati di seguito.</p>
+        <p><strong>Titolare del trattamento:</strong> Studio Legale Lanotte &amp; Partners.</p>
+        <p><strong>Email:</strong> <a href="mailto:<?php echo esc_attr(lanotte_email()); ?>"><?php echo esc_html(lanotte_email()); ?></a><br><strong>PEC:</strong> <a href="mailto:<?php echo esc_attr(lanotte_pec()); ?>"><?php echo esc_html(lanotte_pec()); ?></a></p>
+        <p>La versione completa dell'informativa sara pubblicata in questa pagina.</p>
+        <?php
+    } else {
+        the_content();
+    }
+    ?>
   </div>
 </article>
 <?php else: ?>
