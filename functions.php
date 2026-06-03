@@ -8,7 +8,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('LANOTTE_THEME_VERSION', '1.0.47');
+define('LANOTTE_THEME_VERSION', '1.0.48');
 define('LANOTTE_THEME_DIR', get_template_directory());
 define('LANOTTE_THEME_URI', get_template_directory_uri());
 

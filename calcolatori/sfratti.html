@@ -235,6 +235,7 @@
             <p style="font-size:11px;color:#cbd5e1;margin-top:10px;line-height:1.5;font-style:italic">Stima per procedimento di sfratto. Da formalizzare in preventivo scritto.</p>
           </div>
 
+          <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
           <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px">📨 Richiedi preventivo scritto</a>
         </div>
       </div>
@@ -253,6 +254,7 @@
 .fase-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold-light),var(--gold));transition:width .5s ease;border-radius:4px}
 </style>
 
+<script src="../assets/js/lanotte-preview.js"></script>
 <script>
 // Tabella sfratti: importi fissi indipendenti dal valore della causa
 // (Tab. 12 DM 55/2014 - sfratti aggiornata DM 147/2022)
@@ -273,6 +275,31 @@ const PARAMETRI = {
 };
 const FASE_LABELS = {studio:"Studio", introduttiva:"Introduttiva", istruttoria:"Istruttoria", decisionale:"Decisionale"};
 function fmt(n){ return '€ ' + n.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+function testo(id){ return (document.getElementById(id)?.textContent || '').trim(); }
+function rigaSeVisibile(id, label, valueId){
+  const el = document.getElementById(id);
+  return el && el.style.display !== 'none' ? [[label, testo(valueId)]] : [];
+}
+function apriAnteprimaReport(){
+  calcola();
+  const scaglione = document.getElementById('calc-scaglione');
+  LanottePreview.openSummary({
+    title: 'Parcella sfratto',
+    subtitle: testo('calc-titolo'),
+    rows: [
+      ['Procedimento', testo('calc-titolo')],
+      ['Ipotesi', scaglione.options[scaglione.selectedIndex]?.textContent || '—'],
+      ['Variazione', testo('slider-value')],
+      ['Compenso fasi', testo('calc-fasi-totale')],
+      ...rigaSeVisibile('calc-spese-row', 'Spese generali 15%', 'calc-spese-val'),
+      ...rigaSeVisibile('calc-cpa-row', 'CPA 4%', 'calc-cpa-val'),
+      ...rigaSeVisibile('calc-iva-row', 'IVA 22%', 'calc-iva-val')
+    ],
+    totalLabel: 'Totale stimato',
+    total: testo('calc-totale'),
+    notes: 'Stima orientativa per procedimento di sfratto. Da verificare sul caso concreto e formalizzare in preventivo scritto.'
+  });
+}
 function aggiornaScaglioni(){
   const tipo = document.getElementById('calc-tipo').value;
   const params = PARAMETRI[tipo];

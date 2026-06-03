@@ -16,6 +16,18 @@
       .lph-close{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:4px;width:34px;height:34px;cursor:pointer;font-size:22px;line-height:1}
       .lph-body{overflow:auto;padding:24px;background:#f8fafc}.lph-preview{background:#fff;color:#111;padding:26px;border:1px solid #e5e7eb}
       .lph-preview #print-report{display:block!important}
+      .lph-report{background:#fff;color:#111;font-family:Georgia,'Times New Roman',serif;line-height:1.5}
+      .lph-report-head{border-bottom:3px solid #B89968;padding-bottom:16px;margin-bottom:20px}
+      .lph-report-kicker{font:700 11px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#B89968;margin-bottom:6px}
+      .lph-report h1{margin:0;color:#0E1A33;font-size:28px;line-height:1.15;font-weight:600}
+      .lph-report-subtitle{margin:8px 0 0;color:#475569;font:400 13px Arial,sans-serif}
+      .lph-report table{width:100%;border-collapse:collapse;margin:18px 0;font:400 13px Arial,sans-serif}
+      .lph-report th,.lph-report td{border-bottom:1px solid #e5e7eb;padding:10px 8px;text-align:left;vertical-align:top}
+      .lph-report th{width:34%;color:#64748b;font-weight:700;background:#f8fafc}
+      .lph-report-total{margin-top:18px;border:1px solid #B89968;background:#fdfbf5;padding:16px}
+      .lph-report-total span{display:block;font:700 11px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B89968;margin-bottom:4px}
+      .lph-report-total strong{display:block;color:#0E1A33;font-size:26px;line-height:1.1}
+      .lph-report-notes{margin-top:16px;color:#64748b;font:400 12px Arial,sans-serif;line-height:1.55}
       .lph-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;padding:16px 22px;border-top:1px solid #e5e7eb;background:#fff}
       .lph-actions button{border:1px solid #B89968;background:#fff;color:#0E1A33;padding:11px 16px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit}
       .lph-actions .primary{background:#B89968;color:#fff}
@@ -35,6 +47,12 @@
     return clone;
   }
 
+  function esc(value){
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function(ch){
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]);
+    });
+  }
+
   function printNode(node){
     const root = document.createElement('div');
     root.className = 'lph-print-root';
@@ -48,18 +66,13 @@
     }, 500);
   }
 
-  function open(opts){
-    opts = opts || {};
-    if (typeof opts.beforeOpen === 'function') opts.beforeOpen();
+  function openNode(node, title){
     ensureStyles();
-    const clone = cloneReport(opts.selector || '#print-report');
-    if (!clone) return;
-
     const modal = document.createElement('div');
     modal.className = 'lph-backdrop';
     modal.innerHTML = `
       <div class="lph-modal" role="dialog" aria-modal="true" aria-label="Anteprima report">
-        <div class="lph-top"><h3>${opts.title || 'Anteprima report'}</h3><button type="button" class="lph-close" aria-label="Chiudi">×</button></div>
+        <div class="lph-top"><h3>${esc(title || 'Anteprima report')}</h3><button type="button" class="lph-close" aria-label="Chiudi">×</button></div>
         <div class="lph-body"><div class="lph-preview"></div></div>
         <div class="lph-actions">
           <button type="button" data-action="close">Torna al calcolo</button>
@@ -68,6 +81,7 @@
         </div>
       </div>
     `;
+    const clone = node.cloneNode(true);
     modal.querySelector('.lph-preview').appendChild(clone);
     document.body.appendChild(modal);
     modal.querySelector('.lph-close').addEventListener('click', () => modal.remove());
@@ -77,5 +91,34 @@
     modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   }
 
-  global.LanottePreview = { open };
+  function open(opts){
+    opts = opts || {};
+    if (typeof opts.beforeOpen === 'function') opts.beforeOpen();
+    const clone = cloneReport(opts.selector || '#print-report');
+    if (!clone) return;
+    openNode(clone, opts.title || 'Anteprima report');
+  }
+
+  function openSummary(opts){
+    opts = opts || {};
+    if (typeof opts.beforeOpen === 'function') opts.beforeOpen();
+    const article = document.createElement('article');
+    article.className = 'lph-report';
+    const rows = (opts.rows || []).filter(function(row){ return row && row.length >= 2 && row[1] !== ''; });
+    article.innerHTML = `
+      <div class="lph-report-head">
+        <div class="lph-report-kicker">${esc(opts.kicker || 'Studio Legale Lanotte & Partners')}</div>
+        <h1>${esc(opts.title || 'Report di calcolo')}</h1>
+        ${opts.subtitle ? '<p class="lph-report-subtitle">' + esc(opts.subtitle) + '</p>' : ''}
+      </div>
+      <table>
+        <tbody>${rows.map(function(row){ return '<tr><th>' + esc(row[0]) + '</th><td>' + esc(row[1]) + '</td></tr>'; }).join('')}</tbody>
+      </table>
+      ${opts.total ? '<div class="lph-report-total"><span>' + esc(opts.totalLabel || 'Risultato') + '</span><strong>' + esc(opts.total) + '</strong></div>' : ''}
+      ${opts.notes ? '<p class="lph-report-notes">' + esc(opts.notes) + '</p>' : ''}
+    `;
+    openNode(article, opts.modalTitle || 'Anteprima report');
+  }
+
+  global.LanottePreview = { open, openSummary };
 })(window);

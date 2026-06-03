@@ -257,6 +257,7 @@
             <p style="font-size:11px;color:#cbd5e1;margin-top:10px;line-height:1.5;font-style:italic">Stima per attività stragiudiziale. Da formalizzare in preventivo scritto.</p>
           </div>
 
+          <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
           <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px">📨 Richiedi preventivo scritto</a>
         </div>
       </div>
@@ -309,6 +310,7 @@
 .riga-out span:last-child{font-size:14px;color:#e2e8f0}
 </style>
 
+<script src="../assets/js/lanotte-preview.js"></script>
 <script>
 const PARAMETRI = {
   parere_orale: { label: "Parere stragiudiziale orale", scaglioni: [
@@ -368,6 +370,36 @@ const PARAMETRI = {
   ]}
 };
 function fmt(n){ return '€ ' + n.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
+function testo(id){ return (document.getElementById(id)?.textContent || '').trim(); }
+function rigaSeVisibile(id, label, valueId){
+  const el = document.getElementById(id);
+  return el && el.style.display !== 'none' ? [[label, testo(valueId)]] : [];
+}
+function apriAnteprimaReport(){
+  calcola();
+  const scaglione = document.getElementById('calc-scaglione');
+  const esito = document.getElementById('campo-esito').style.display !== 'none'
+    ? (document.querySelector('input[name="esito"]:checked')?.parentElement?.textContent || '').trim()
+    : 'Non previsto';
+  LanottePreview.openSummary({
+    title: 'Attività stragiudiziale',
+    subtitle: testo('calc-titolo'),
+    rows: [
+      ['Attività', testo('calc-titolo')],
+      ['Scaglione', scaglione.options[scaglione.selectedIndex]?.textContent || '—'],
+      ['Esito', esito],
+      ['Variazione', testo('slider-value')],
+      ['Compenso base', testo('calc-base')],
+      ...rigaSeVisibile('calc-bonus-row', 'Maggiorazione esito positivo 25%', 'calc-bonus-val'),
+      ...rigaSeVisibile('calc-spese-row', 'Spese generali 15%', 'calc-spese-val'),
+      ...rigaSeVisibile('calc-cpa-row', 'CPA 4%', 'calc-cpa-val'),
+      ...rigaSeVisibile('calc-iva-row', 'IVA 22%', 'calc-iva-val')
+    ],
+    totalLabel: 'Totale stimato',
+    total: testo('calc-totale'),
+    notes: 'Stima orientativa per attività stragiudiziale, mediazione o negoziazione assistita. Da verificare sul caso concreto.'
+  });
+}
 function aggiornaScaglioni(){
   const tipo = document.getElementById('calc-tipo').value;
   const params = PARAMETRI[tipo];

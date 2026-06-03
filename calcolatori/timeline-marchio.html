@@ -209,6 +209,8 @@
         <ol class="timeline" id="timeline"></ol>
       </div>
 
+      <button type="button" onclick="apriAnteprimaReport()" class="btn btn-primary" style="margin-bottom:20px">Anteprima report</button>
+
     </div>
 
     <div class="calc-block" id="fontiBox">
@@ -283,6 +285,7 @@
 @media (max-width:700px){.calc-row,.risultato-grid{grid-template-columns:1fr !important}.cta-box{flex-direction:column}}
 </style>
 
+<script src="../assets/js/lanotte-preview.js"></script>
 <script>
 (function(){
   'use strict';
@@ -443,6 +446,30 @@
 
     box.style.display = 'block';
   }
+
+  window.apriAnteprimaReport = function(){
+    render();
+    var timelineRows = Array.prototype.slice.call(document.querySelectorAll('#timeline .tl-item')).map(function(item, idx){
+      var date = (item.querySelector('.tl-date') || {}).textContent || '';
+      var name = (item.querySelector('.tl-name') || {}).textContent || '';
+      return ['Fase ' + (idx + 1), (date + ' · ' + name).replace(/\s+/g, ' ').trim()];
+    });
+    LanottePreview.openSummary({
+      title: 'Timeline marchio',
+      subtitle: document.getElementById('riepilogoUfficio').textContent,
+      rows: [
+        ['Deposito', document.getElementById('rDeposito').textContent],
+        ['Apertura opposizione', document.getElementById('rOpposizione').textContent],
+        ['Registrazione stimata', document.getElementById('rRegistrazione').textContent],
+        ['Durata totale stimata', document.getElementById('rDurata').textContent],
+        ['Scenario', document.getElementById('scenarioOpposizione').checked ? 'Con opposizione' : 'Senza opposizione'],
+        ...timelineRows
+      ],
+      totalLabel: 'Registrazione stimata',
+      total: document.getElementById('rRegistrazione').textContent,
+      notes: 'Tempistiche puramente indicative e variabili in funzione del carico degli uffici, di rilievi d’ufficio e di eventuali opposizioni.'
+    });
+  };
 
   // ---- Init: deposito di default = oggi (solo come precompilazione comoda) ----
   function todayISO(){

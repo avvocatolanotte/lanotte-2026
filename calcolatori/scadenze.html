@@ -284,6 +284,7 @@
 
           <p style="font-size:11px;color:#cbd5e1;margin-top:18px;line-height:1.5;font-style:italic">📌 Verificare sempre il termine con il difensore. Il calcolatore non sostituisce la consultazione professionale e la verifica caso per caso.</p>
 
+          <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
           <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px">📨 Verifica con lo Studio</a>
         </div>
       </div>
@@ -337,6 +338,7 @@
 input[type="date"]:focus,input[type="number"]:focus{outline:none;border-color:var(--gold) !important}
 </style>
 
+<script src="../assets/js/lanotte-preview.js"></script>
 <script>
 function aggiornaInfo(){
   const sel = document.getElementById('calc-tipo');
@@ -390,6 +392,32 @@ function calcGiorniSospensione(start, end) {
 function fmtData(d) {
   const giorni = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
   return giorni[d.getDay()] + ' ' + d.getDate() + ' ' + ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'][d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function testo(id){ return (document.getElementById(id)?.textContent || '').trim(); }
+function rigaSeVisibile(id, label, valueId){
+  const el = document.getElementById(id);
+  return el && el.style.display !== 'none' ? [[label, testo(valueId)]] : [];
+}
+function apriAnteprimaReport(){
+  calcola();
+  const warning = document.getElementById('calc-warning');
+  LanottePreview.openSummary({
+    title: 'Scadenza processuale',
+    subtitle: testo('calc-titolo'),
+    rows: [
+      ['Tipo di termine', testo('calc-titolo')],
+      ['Data di partenza', testo('calc-data-start')],
+      ['Termine applicato', testo('calc-termine')],
+      ...rigaSeVisibile('riga-feriale', 'Sospensione feriale', 'calc-feriale-gg'),
+      ...(document.getElementById('riga-proroga').style.display !== 'none' ? [['Proroga ex art. 155 c.p.c.', 'Applicata']] : []),
+      ['Giorno della scadenza', testo('calc-giorno-settimana')],
+      ...(warning.style.display !== 'none' ? [['Avvertenza', testo('warning-msg')]] : [])
+    ],
+    totalLabel: 'Data limite',
+    total: testo('calc-data-finale'),
+    notes: 'Calcolo indicativo: verificare sempre il termine con il difensore in base al procedimento concreto e alla normativa applicabile.'
+  });
 }
 
 function calcola(){
