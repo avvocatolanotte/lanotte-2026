@@ -7,7 +7,7 @@
  */
 get_header();
 
-$calc_base = LANOTTE_THEME_URI . '/calcolatori';
+$calc_base = home_url('/calcolatori');
 ?>
 
 <section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;padding:80px 0 70px">
@@ -35,10 +35,10 @@ $calc_base = LANOTTE_THEME_URI . '/calcolatori';
       <p class="cat-subtitle">Parametri DM 55/2014 aggiornati al DM 147/2022. Per fasi del giudizio, materia e valore.</p>
     </div>
     <div class="calc-grid">
-      <a href="<?php echo esc_url("$calc_base/parcella-civile.html"); ?>" class="calc-card cat-1"><div class="calc-icon">⚖️</div><h3>Parcella Civile</h3><p>Tribunale, Corte d'Appello, Cassazione</p><span class="calc-tag">DM 55/2014</span></a>
-      <a href="<?php echo esc_url("$calc_base/parcella-penale.html"); ?>" class="calc-card cat-1"><div class="calc-icon">🔨</div><h3>Parcella Penale</h3><p>Indagini, dibattimento, gravame</p><span class="calc-tag">DM 55/2014</span></a>
-      <a href="<?php echo esc_url("$calc_base/stragiudiziale.html"); ?>" class="calc-card cat-1"><div class="calc-icon">🤝</div><h3>Stragiudiziale</h3><p>Mediazione, negoziazione assistita</p><span class="calc-tag">DM 55/2014 + D.Lgs. 28/2010</span></a>
-      <a href="<?php echo esc_url("$calc_base/sfratti.html"); ?>" class="calc-card cat-1"><div class="calc-icon">🏠</div><h3>Procedimento Sfratto</h3><p>Finita locazione / morosità / opposizione</p><span class="calc-tag">DM 55/2014 + L. 392/1978</span></a>
+      <a href="<?php echo esc_url("$calc_base/parcella-civile/"); ?>" class="calc-card cat-1"><div class="calc-icon">⚖️</div><h3>Parcella Civile</h3><p>Tribunale, Corte d'Appello, Cassazione</p><span class="calc-tag">DM 55/2014</span></a>
+      <a href="<?php echo esc_url("$calc_base/parcella-penale/"); ?>" class="calc-card cat-1"><div class="calc-icon">🔨</div><h3>Parcella Penale</h3><p>Indagini, dibattimento, gravame</p><span class="calc-tag">DM 55/2014</span></a>
+      <a href="<?php echo esc_url("$calc_base/stragiudiziale/"); ?>" class="calc-card cat-1"><div class="calc-icon">🤝</div><h3>Stragiudiziale</h3><p>Mediazione, negoziazione assistita</p><span class="calc-tag">DM 55/2014 + D.Lgs. 28/2010</span></a>
+      <a href="<?php echo esc_url("$calc_base/sfratti/"); ?>" class="calc-card cat-1"><div class="calc-icon">🏠</div><h3>Procedimento Sfratto</h3><p>Finita locazione / morosità / opposizione</p><span class="calc-tag">DM 55/2014 + L. 392/1978</span></a>
     </div>
 
     <div class="cat-header" style="margin-top:64px">
@@ -47,9 +47,9 @@ $calc_base = LANOTTE_THEME_URI . '/calcolatori';
       <p class="cat-subtitle">Tabelle Milano 2024 e TUN DPR 12/2025. Formula Balthazard per menomazioni preesistenti.</p>
     </div>
     <div class="calc-grid">
-      <a href="<?php echo esc_url("$calc_base/micropermanenti.html"); ?>" class="calc-card cat-2"><div class="calc-icon">🩺</div><h3>Micropermanenti</h3><p>1-9 punti IP · DM 18/7/2025</p><span class="calc-tag">Art. 139 CdA</span></a>
-      <a href="<?php echo esc_url("$calc_base/macropermanenti.html"); ?>" class="calc-card cat-2"><div class="calc-icon">🦴</div><h3>Macropermanenti</h3><p>10-100 punti IP · TUN DPR 12/2025</p><span class="calc-tag">TUN + Milano</span></a>
-      <a href="<?php echo esc_url("$calc_base/danni-preesistenti.html"); ?>" class="calc-card cat-2"><div class="calc-icon">📊</div><h3>Coesistenti / Concorrenti</h3><p>Formula Balthazard · Sottrazione monetaria</p><span class="calc-tag">Cass. SU 28986/2019</span></a>
+      <a href="<?php echo esc_url("$calc_base/micropermanenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">🩺</div><h3>Micropermanenti</h3><p>1-9 punti IP · DM 18/7/2025</p><span class="calc-tag">Art. 139 CdA</span></a>
+      <a href="<?php echo esc_url("$calc_base/macropermanenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">🦴</div><h3>Macropermanenti</h3><p>10-100 punti IP · TUN DPR 12/2025</p><span class="calc-tag">TUN + Milano</span></a>
+      <a href="<?php echo esc_url("$calc_base/danni-preesistenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">📊</div><h3>Coesistenti / Concorrenti</h3><p>Formula Balthazard · Sottrazione monetaria</p><span class="calc-tag">Cass. SU 28986/2019</span></a>
     </div>
 
     <div class="cat-header" style="margin-top:64px">
@@ -58,11 +58,11 @@ $calc_base = LANOTTE_THEME_URI . '/calcolatori';
       <p class="cat-subtitle">Indici ISTAT FOI e tassi MEF aggiornati dalle fonti ufficiali. Cache locale + fallback JSON.</p>
     </div>
     <div class="calc-grid">
-      <a href="<?php echo esc_url("$calc_base/istat-locazione.html"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">🏘️</div><h3>Aumento ISTAT Locazione</h3><p>Canone al 75% FOI · Bozza richiesta scritta</p><span class="calc-tag">Art. 32 L. 392/1978</span></a>
-      <a href="<?php echo esc_url("$calc_base/mantenimento-istat.html"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">👨‍👩‍👧</div><h3>Adeguamento Mantenimento</h3><p>Coniuge/figli al 100% FOI · Arretrati</p><span class="calc-tag">Artt. 156 + 337-ter c.c.</span></a>
-      <a href="<?php echo esc_url("$calc_base/svalutazione.html"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT + MEF</span><div class="calc-icon">💰</div><h3>Svalutazione Monetaria</h3><p>FOI + interessi legali sul capitale rivalutato</p><span class="calc-tag">Art. 1224 c.c. + Cass. SU 1712/1995</span></a>
-      <a href="<?php echo esc_url("$calc_base/interessi-legali.html"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ MEF</span><div class="calc-icon">📈</div><h3>Interessi Legali</h3><p>Tassi MEF dal 1942 ad oggi · Per scaglione</p><span class="calc-tag">Art. 1284 c.c.</span></a>
-      <a href="<?php echo esc_url("$calc_base/interessi-moratori.html"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ MEF</span><div class="calc-icon">⏰</div><h3>Interessi Moratori B2B</h3><p>BCE + 8 punti · €40 spese recupero art. 6</p><span class="calc-tag">D.Lgs. 231/2002</span></a>
+      <a href="<?php echo esc_url("$calc_base/istat-locazione/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">🏘️</div><h3>Aumento ISTAT Locazione</h3><p>Canone al 75% FOI · Bozza richiesta scritta</p><span class="calc-tag">Art. 32 L. 392/1978</span></a>
+      <a href="<?php echo esc_url("$calc_base/mantenimento-istat/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">👨‍👩‍👧</div><h3>Adeguamento Mantenimento</h3><p>Coniuge/figli al 100% FOI · Arretrati</p><span class="calc-tag">Artt. 156 + 337-ter c.c.</span></a>
+      <a href="<?php echo esc_url("$calc_base/svalutazione/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT + MEF</span><div class="calc-icon">💰</div><h3>Svalutazione Monetaria</h3><p>FOI + interessi legali sul capitale rivalutato</p><span class="calc-tag">Art. 1224 c.c. + Cass. SU 1712/1995</span></a>
+      <a href="<?php echo esc_url("$calc_base/interessi-legali/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ MEF</span><div class="calc-icon">📈</div><h3>Interessi Legali</h3><p>Tassi MEF dal 1942 ad oggi · Per scaglione</p><span class="calc-tag">Art. 1284 c.c.</span></a>
+      <a href="<?php echo esc_url("$calc_base/interessi-moratori/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ MEF</span><div class="calc-icon">⏰</div><h3>Interessi Moratori B2B</h3><p>BCE + 8 punti · €40 spese recupero art. 6</p><span class="calc-tag">D.Lgs. 231/2002</span></a>
     </div>
 
     <div class="cat-header" style="margin-top:64px">
@@ -71,10 +71,10 @@ $calc_base = LANOTTE_THEME_URI . '/calcolatori';
       <p class="cat-subtitle">Scadenze processuali e bollette utenze. Bozze di reclamo pronte da inviare.</p>
     </div>
     <div class="calc-grid">
-      <a href="<?php echo esc_url("$calc_base/scadenze.html"); ?>" class="calc-card cat-4"><div class="calc-icon">📅</div><h3>Scadenze Processuali</h3><p>Sospensione feriale · Google Calendar + .ics</p><span class="calc-tag">L. 742/1969 + art. 155 c.p.c.</span></a>
-      <a href="<?php echo esc_url("$calc_base/aqp.html"); ?>" class="calc-card cat-4"><div class="calc-icon">💧</div><h3>Bolletta AQP — Verifica + Reclamo</h3><p>Verifica calcolo, perdite occulte, reclamo ARERA</p><span class="calc-tag">Delibera ARERA 547/2019 + 655/2015</span></a>
-      <a href="<?php echo esc_url("$calc_base/contributo-unificato.html"); ?>" class="calc-card cat-4"><div class="calc-icon">🏛️</div><h3>Contributo Unificato</h3><p>Tasse giudiziarie per valore e tipo di causa</p><span class="calc-tag">DPR 115/2002 art. 13</span></a>
-      <a href="<?php echo esc_url("$calc_base/timeline-marchio.html"); ?>" class="calc-card cat-4"><div class="calc-icon">™️</div><h3>Timeline Marchio UIBM/EUIPO</h3><p>Date stimate deposito → registrazione + opposizione</p><span class="calc-tag">Reg. UE 2017/1001 + CPI</span></a>
+      <a href="<?php echo esc_url("$calc_base/scadenze/"); ?>" class="calc-card cat-4"><div class="calc-icon">📅</div><h3>Scadenze Processuali</h3><p>Sospensione feriale · Google Calendar + .ics</p><span class="calc-tag">L. 742/1969 + art. 155 c.p.c.</span></a>
+      <a href="<?php echo esc_url("$calc_base/aqp/"); ?>" class="calc-card cat-4"><div class="calc-icon">💧</div><h3>Bolletta AQP — Verifica + Reclamo</h3><p>Verifica calcolo, perdite occulte, reclamo ARERA</p><span class="calc-tag">Delibera ARERA 547/2019 + 655/2015</span></a>
+      <a href="<?php echo esc_url("$calc_base/contributo-unificato/"); ?>" class="calc-card cat-4"><div class="calc-icon">🏛️</div><h3>Contributo Unificato</h3><p>Tasse giudiziarie per valore e tipo di causa</p><span class="calc-tag">DPR 115/2002 art. 13</span></a>
+      <a href="<?php echo esc_url("$calc_base/timeline-marchio/"); ?>" class="calc-card cat-4"><div class="calc-icon">™️</div><h3>Timeline Marchio UIBM/EUIPO</h3><p>Date stimate deposito → registrazione + opposizione</p><span class="calc-tag">Reg. UE 2017/1001 + CPI</span></a>
     </div>
 
     <div style="margin-top:60px;padding:40px;background:linear-gradient(135deg,var(--navy) 0%,#1a2a4a 100%);border-radius:8px;color:#fff;text-align:center">

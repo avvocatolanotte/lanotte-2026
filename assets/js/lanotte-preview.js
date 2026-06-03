@@ -66,6 +66,69 @@
     }, 500);
   }
 
+  function loadJsPdf(callback){
+    if (global.jspdf && global.jspdf.jsPDF) {
+      callback();
+      return;
+    }
+    const existing = document.querySelector('script[data-lanotte-jspdf]');
+    if (existing) {
+      existing.addEventListener('load', callback, {once:true});
+      existing.addEventListener('error', function(){ printNode(document.querySelector('.lph-preview') || document.body); }, {once:true});
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    script.async = true;
+    script.dataset.lanotteJspdf = '1';
+    script.onload = callback;
+    script.onerror = function(){
+      alert('Download PDF non disponibile. Si apre la stampa: scegli “Salva come PDF”.');
+      printNode(document.querySelector('.lph-preview') || document.body);
+    };
+    document.head.appendChild(script);
+  }
+
+  function downloadPdf(node, title){
+    loadJsPdf(function(){
+      const jsPDF = global.jspdf && global.jspdf.jsPDF;
+      if (!jsPDF) {
+        printNode(node);
+        return;
+      }
+      const doc = new jsPDF({orientation:'portrait', unit:'mm', format:'a4'});
+      const margin = 16;
+      const width = 210 - margin * 2;
+      const titleText = title || 'Anteprima report';
+      const bodyText = (node.innerText || node.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
+      let y = margin;
+
+      doc.setFillColor(184, 153, 104);
+      doc.rect(0, 0, 210, 4, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(16);
+      doc.setTextColor(14, 26, 51);
+      doc.text(titleText, margin, y);
+      y += 8;
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(51, 65, 85);
+      const lines = doc.splitTextToSize(bodyText, width);
+      lines.forEach(function(line){
+        if (y > 282) {
+          doc.addPage();
+          y = margin;
+        }
+        doc.text(line, margin, y);
+        y += 5;
+      });
+
+      const filename = titleText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'report';
+      doc.save(filename + '.pdf');
+    });
+  }
+
   function openNode(node, title){
     ensureStyles();
     const modal = document.createElement('div');
@@ -87,7 +150,7 @@
     modal.querySelector('.lph-close').addEventListener('click', () => modal.remove());
     modal.querySelector('[data-action="close"]').addEventListener('click', () => modal.remove());
     modal.querySelector('[data-action="print"]').addEventListener('click', () => printNode(clone));
-    modal.querySelector('[data-action="pdf"]').addEventListener('click', () => printNode(clone));
+    modal.querySelector('[data-action="pdf"]').addEventListener('click', () => downloadPdf(clone, title));
     modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   }
 
