@@ -36,7 +36,7 @@ function lanotte_calcolatore_url($slug) {
 add_action('init', function() {
     add_rewrite_tag('%lanotte_calcolatore%', '([^&]+)');
     add_rewrite_tag('%lanotte_calcolatori_sitemap%', '1');
-    add_rewrite_rule('^calcolatori-sitemap\.xml$', 'index.php?lanotte_calcolatori_sitemap=1', 'top');
+    add_rewrite_rule('^lanotte-calcolatori\.xml$', 'index.php?lanotte_calcolatori_sitemap=1', 'top');
     add_rewrite_rule('^calcolatori/([^/]+)/?$', 'index.php?lanotte_calcolatore=$matches[1]', 'top');
 }, 9);
 
@@ -132,7 +132,7 @@ add_action('init', function() {
 }, 20);
 
 add_filter('robots_txt', function($output, $public) {
-    $sitemap = 'Sitemap: ' . home_url('/calcolatori-sitemap.xml');
+    $sitemap = 'Sitemap: ' . home_url('/lanotte-calcolatori.xml');
     if (strpos($output, $sitemap) === false) {
         $output = rtrim($output) . "\n" . $sitemap . "\n";
     }
