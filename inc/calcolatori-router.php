@@ -35,13 +35,50 @@ function lanotte_calcolatore_url($slug) {
 
 add_action('init', function() {
     add_rewrite_tag('%lanotte_calcolatore%', '([^&]+)');
+    add_rewrite_tag('%lanotte_calcolatori_sitemap%', '1');
+    add_rewrite_rule('^calcolatori-sitemap\.xml$', 'index.php?lanotte_calcolatori_sitemap=1', 'top');
     add_rewrite_rule('^calcolatori/([^/]+)/?$', 'index.php?lanotte_calcolatore=$matches[1]', 'top');
 }, 9);
 
 add_filter('query_vars', function($vars) {
     $vars[] = 'lanotte_calcolatore';
+    $vars[] = 'lanotte_calcolatori_sitemap';
     return $vars;
 });
+
+add_action('template_redirect', function() {
+    if (!get_query_var('lanotte_calcolatori_sitemap')) return;
+
+    status_header(200);
+    header('Content-Type: application/xml; charset=UTF-8');
+    nocache_headers();
+
+    $urls = [
+        [
+            'loc' => home_url('/calcolatori/'),
+            'lastmod' => gmdate(DATE_W3C),
+        ],
+    ];
+
+    foreach (lanotte_calcolatori_map() as $slug => $filename) {
+        $file = LANOTTE_THEME_DIR . '/calcolatori/' . $filename;
+        $urls[] = [
+            'loc' => lanotte_calcolatore_url($slug),
+            'lastmod' => is_readable($file) ? gmdate(DATE_W3C, filemtime($file)) : gmdate(DATE_W3C),
+        ];
+    }
+
+    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    foreach ($urls as $url) {
+        echo "\t<url>\n";
+        echo "\t\t<loc>" . esc_url($url['loc']) . "</loc>\n";
+        echo "\t\t<lastmod>" . esc_html($url['lastmod']) . "</lastmod>\n";
+        echo "\t</url>\n";
+    }
+    echo "</urlset>\n";
+    exit;
+}, 0);
 
 add_action('template_redirect', function() {
     $slug = sanitize_title(get_query_var('lanotte_calcolatore'));
@@ -93,3 +130,11 @@ add_action('init', function() {
     flush_rewrite_rules(false);
     update_option($key, LANOTTE_THEME_VERSION, false);
 }, 20);
+
+add_filter('robots_txt', function($output, $public) {
+    $sitemap = 'Sitemap: ' . home_url('/calcolatori-sitemap.xml');
+    if (strpos($output, $sitemap) === false) {
+        $output = rtrim($output) . "\n" . $sitemap . "\n";
+    }
+    return $output;
+}, 10, 2);
