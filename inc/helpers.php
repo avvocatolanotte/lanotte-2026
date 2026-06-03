@@ -95,7 +95,7 @@ function lanotte_icon($name, $class = '') {
  * Stampa il logo brand con catena di fallback:
  *  1. Logo Customizer (Aspetto → Personalizza → Identità sito → Logo)
  *  2. Logo ACF Branding (Opzioni → Branding → Logo principale)
- *  3. File SVG nel tema (assets/img/logo.svg)
+ *  3. File brand nel tema (assets/img/logo.png)
  *  4. Fallback testuale "Lanotte & Partners"
  *
  * @param string $variante  'normal' (default) | 'dark' (per sfondi scuri) | 'compact' (favicon-style)

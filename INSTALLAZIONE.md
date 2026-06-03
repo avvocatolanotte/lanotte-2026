@@ -220,7 +220,7 @@ Tre modi, in ordine di priorità (vince quello caricato per primo):
 3. Salva → effettivo immediato su tutto il sito + nei nuovi PDF generati
 
 **Modo 3 — File diretto** (solo per sviluppatori)
-- Sostituisci `/wp-content/themes/lanotte-2026/assets/img/logo.svg` via FTP
+- Sostituisci `/wp-content/themes/lanotte-2026/assets/img/logo.png` via FTP
 - È il fallback se non hai caricato nulla dal pannello
 
 ### Cambiare favicon e icone (NUOVO)
