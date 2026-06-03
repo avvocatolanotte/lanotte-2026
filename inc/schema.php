@@ -13,13 +13,13 @@ function lanotte_output_jsonld() {
     $org_name = 'Studio Legale LANOTTE & Partners';
     $tel = lanotte_phone(true) ?: '+3908831955533';
     $email = lanotte_email();
-    // Catena di fallback: Customizer → ACF Branding → SVG nel tema
+    // Catena di fallback: Customizer → ACF Branding → logo nel tema
     $logo_url = function_exists('lanotte_logo_url') ? lanotte_logo_url() : '';
     if (!$logo_url) {
         $logo_id = get_theme_mod('custom_logo');
         $logo_url = $logo_id
             ? wp_get_attachment_image_url($logo_id, 'full')
-            : LANOTTE_THEME_URI . '/assets/img/logo.svg';
+            : LANOTTE_THEME_URI . '/assets/img/logo.png';
     }
 
     $legal_service = [
