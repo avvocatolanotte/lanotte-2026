@@ -241,7 +241,7 @@
           <div class="risultato-item"><span>Mesi pregressi (arretrati)</span><strong id="rArr">—</strong></div>
         </div>
         <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
-          <button id="pdfBtn" class="btn btn-primary" type="button">Scarica PDF carta intestata</button>
+          <button id="pdfBtn" class="btn btn-primary" type="button">Vedi anteprima report</button>
         </div>
       </div>
 
@@ -396,7 +396,7 @@
       {label:'Differenza annua', value: '+' + fmtEur(d.diff * 12)},
       {label:'Mesi pregressi', value: d.totaleMesi + ' mesi'}
     );
-    LanottePDF.generate({
+    LanottePDF.preview({
       titolo: 'Adeguamento ISTAT Assegno di Mantenimento',
       normativa: d.beneficiario === 'coniuge' ? 'art. 156 c.c.' : (d.beneficiario === 'ascendente' ? 'art. 433 c.c.' : 'art. 337-ter c.c.'),
       cliente: d.cliente,

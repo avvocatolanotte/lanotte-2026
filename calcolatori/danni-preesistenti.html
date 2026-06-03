@@ -359,7 +359,7 @@
             </div>
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px">
-              <button onclick="stampaReportConc()" style="background:#fff;color:var(--navy);font-weight:700;padding:14px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--gold);cursor:pointer">🖨 Stampa</button>
+              <button onclick="LanottePreview.open({selector:'#print-report', beforeOpen: aggiornaReportConc, title:'Anteprima report'})" style="background:#fff;color:var(--navy);font-weight:700;padding:14px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--gold);cursor:pointer">Anteprima report</button>
               <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="background:var(--gold);color:#fff;font-weight:700;padding:14px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--gold);text-align:center">📨 Valutazione CTU</a>
             </div>
           </div>
@@ -387,6 +387,7 @@
 .form-field input[type="range"]::-webkit-slider-thumb{width:20px;height:20px}
 </style>
 
+<script src="../assets/js/lanotte-preview.js"></script>
 <script>
 function switchTab(tab) {
   document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');

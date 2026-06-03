@@ -233,7 +233,7 @@
           <div class="risultato-item highlight"><span>Totale complessivo</span><strong id="rTot">—</strong></div>
         </div>
         <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
-          <button id="pdfBtn" class="btn btn-primary" type="button">Scarica PDF carta intestata</button>
+          <button id="pdfBtn" class="btn btn-primary" type="button">Vedi anteprima report</button>
         </div>
       </div>
 
@@ -380,7 +380,7 @@
     if (!datiCalc) return;
     const d = datiCalc;
     const tipLabel = {danni:'Risarcimento danni extracontrattuale',contrattuale:'Danni da inadempimento contrattuale',indebito:'Indebito arricchimento',lavoro:'Crediti di lavoro'}[d.tipologia];
-    LanottePDF.generate({
+    LanottePDF.preview({
       titolo: 'Rivalutazione Monetaria del Credito',
       normativa: 'art. 1224 c.c. + Cass. SU n. 1712/1995 + Cass. SU n. 24665/2007',
       cliente: d.cliente,

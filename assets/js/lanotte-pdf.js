@@ -53,6 +53,127 @@
            ' ' + d.toLocaleTimeString('it-IT', {hour:'2-digit', minute:'2-digit'});
   }
 
+  function esc(value){
+    return String(value ?? '').replace(/[&<>"']/g, ch => ({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+    }[ch]));
+  }
+
+  function rowsHtml(rows){
+    return rows.map(row => '<tr>' + row.map(cell => '<td>' + esc(cell) + '</td>').join('') + '</tr>').join('');
+  }
+
+  function previewHtml(opts){
+    const cliente = opts.cliente || {};
+    const dati = opts.dati || [];
+    const tabella = opts.tabella || null;
+    return `
+      <article class="lpv-report">
+        <header class="lpv-head">
+          <div>
+            <strong>Lanotte <span>&amp;</span> Partners</strong>
+            <small>Studio Legale · Foro di Trani</small>
+          </div>
+          <div class="lpv-meta">${esc(nowIso())}</div>
+        </header>
+        <h1>${esc(opts.titolo || 'Calcolo')}</h1>
+        ${opts.normativa ? `<p class="lpv-sub">Riferimento normativo: ${esc(opts.normativa)}</p>` : ''}
+        ${(cliente.nome || cliente.codiceFiscale) ? `
+          <section>
+            <h2>Dati cliente</h2>
+            <table>
+              ${cliente.nome ? `<tr><td>Cliente</td><td>${esc(cliente.nome)}</td></tr>` : ''}
+              ${cliente.codiceFiscale ? `<tr><td>Codice fiscale</td><td>${esc(cliente.codiceFiscale)}</td></tr>` : ''}
+            </table>
+          </section>
+        ` : ''}
+        ${dati.length ? `
+          <section>
+            <h2>Dati e risultato</h2>
+            <table>${dati.map(d => `<tr><td>${esc(d.label)}</td><td>${esc(d.value)}</td></tr>`).join('')}</table>
+          </section>
+        ` : ''}
+        ${tabella && tabella.rows ? `
+          <section>
+            <h2>${esc(tabella.titolo || 'Dettaglio calcolo')}</h2>
+            <div class="lpv-table-wrap">
+              <table>
+                ${tabella.headers ? `<thead><tr>${tabella.headers.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead>` : ''}
+                <tbody>${rowsHtml(tabella.rows)}</tbody>
+              </table>
+            </div>
+          </section>
+        ` : ''}
+        ${opts.conclusioni ? `<section class="lpv-conclusioni"><h2>Conclusioni</h2><p>${esc(opts.conclusioni)}</p></section>` : ''}
+        <footer>Documento generato automaticamente da ${esc(STUDIO.sito)}. I valori hanno carattere indicativo e devono essere verificati con un professionista.</footer>
+      </article>
+    `;
+  }
+
+  function ensurePreviewStyles(){
+    if (document.getElementById('lanotte-preview-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'lanotte-preview-styles';
+    style.textContent = `
+      .lpv-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.72);z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px}
+      .lpv-modal{width:min(980px,100%);max-height:92vh;background:#fff;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+      .lpv-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;background:#0E1A33;color:#fff;border-bottom:3px solid #B89968}
+      .lpv-top h3{margin:0;font-family:var(--serif, Georgia, serif);font-size:22px;font-weight:600}
+      .lpv-close{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:4px;width:34px;height:34px;cursor:pointer;font-size:22px;line-height:1}
+      .lpv-body{overflow:auto;padding:24px;background:#f8fafc}
+      .lpv-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;padding:16px 22px;border-top:1px solid #e5e7eb;background:#fff}
+      .lpv-actions button{border:1px solid #B89968;background:#fff;color:#0E1A33;padding:11px 16px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit}
+      .lpv-actions .primary{background:#B89968;color:#fff}
+      .lpv-report{background:#fff;color:#0f172a;padding:28px;border:1px solid #e5e7eb;line-height:1.5}
+      .lpv-head{display:flex;justify-content:space-between;gap:18px;border-bottom:2px solid #B89968;padding-bottom:14px;margin-bottom:18px}
+      .lpv-head strong{font-family:Georgia,serif;font-size:22px;color:#0E1A33;display:block}.lpv-head strong span{color:#B89968}.lpv-head small,.lpv-meta{color:#64748b;font-size:12px}
+      .lpv-report h1{font-family:Georgia,serif;color:#0E1A33;font-size:28px;margin:0 0 6px}.lpv-sub{color:#64748b;font-style:italic;margin:0 0 18px}
+      .lpv-report section{margin-top:20px}.lpv-report h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:#B89968;margin:0 0 10px}
+      .lpv-report table{width:100%;border-collapse:collapse;font-size:13px}.lpv-report th{background:#0E1A33;color:#fff;text-align:left;padding:8px}.lpv-report td{padding:8px;border-bottom:1px solid #e5e7eb;vertical-align:top}.lpv-report td:first-child{color:#64748b;font-weight:600}
+      .lpv-table-wrap{overflow:auto}.lpv-conclusioni{background:#fdfbf5;border-left:4px solid #B89968;padding:14px}.lpv-conclusioni p{margin:0}.lpv-report footer{margin-top:24px;padding-top:12px;border-top:1px solid #e5e7eb;color:#64748b;font-size:12px;font-style:italic}
+      @media print{body.lpv-printing > *:not(.lpv-print-root){display:none!important}.lpv-print-root{display:block!important}.lpv-report{border:0}.lpv-actions,.lpv-top{display:none!important}}
+    `;
+    document.head.appendChild(style);
+  }
+
+  function printMarkup(markup){
+    ensurePreviewStyles();
+    const root = document.createElement('div');
+    root.className = 'lpv-print-root';
+    root.innerHTML = markup;
+    document.body.appendChild(root);
+    document.body.classList.add('lpv-printing');
+    window.print();
+    setTimeout(() => {
+      document.body.classList.remove('lpv-printing');
+      root.remove();
+    }, 500);
+  }
+
+  function preview(opts){
+    ensurePreviewStyles();
+    const markup = previewHtml(opts || {});
+    const modal = document.createElement('div');
+    modal.className = 'lpv-backdrop';
+    modal.innerHTML = `
+      <div class="lpv-modal" role="dialog" aria-modal="true" aria-label="Anteprima report">
+        <div class="lpv-top"><h3>Anteprima report</h3><button type="button" class="lpv-close" aria-label="Chiudi">×</button></div>
+        <div class="lpv-body">${markup}</div>
+        <div class="lpv-actions">
+          <button type="button" data-action="close">Torna al calcolo</button>
+          <button type="button" data-action="print">Stampa</button>
+          <button type="button" class="primary" data-action="pdf">Scarica PDF</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.querySelector('.lpv-close').addEventListener('click', () => modal.remove());
+    modal.querySelector('[data-action="close"]').addEventListener('click', () => modal.remove());
+    modal.querySelector('[data-action="print"]').addEventListener('click', () => printMarkup(markup));
+    modal.querySelector('[data-action="pdf"]').addEventListener('click', () => generate(opts));
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+  }
+
   function generate(opts){
     if (typeof window.jspdf === 'undefined') {
       alert('Errore: libreria jsPDF non caricata. Ricarica la pagina.');
@@ -290,5 +411,5 @@
   }
 
   // Espone pubblicamente
-  global.LanottePDF = { generate, STUDIO, COLORS };
+  global.LanottePDF = { generate, preview, STUDIO, COLORS };
 })(window);

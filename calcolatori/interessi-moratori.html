@@ -230,7 +230,7 @@
           <div class="risultato-item highlight"><span>Totale dovuto</span><strong id="rTotale">—</strong></div>
         </div>
         <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
-          <button id="pdfBtn" class="btn btn-primary" type="button">Scarica PDF carta intestata</button>
+          <button id="pdfBtn" class="btn btn-primary" type="button">Vedi anteprima report</button>
         </div>
       </div>
 
@@ -373,7 +373,7 @@
       {label:'Spese recupero (art. 6)', value: d.spese ? fmtEur(d.spese) : 'non richieste'},
       {label:'TOTALE DOVUTO', value: fmtEur(d.totale)}
     );
-    LanottePDF.generate({
+    LanottePDF.preview({
       titolo: 'Calcolo Interessi Moratori Transazioni Commerciali',
       normativa: 'D.Lgs. 9 ottobre 2002 n. 231 - artt. 4, 5 e 6',
       cliente: d.cliente,

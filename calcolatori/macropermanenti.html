@@ -361,7 +361,7 @@
           </div>
 
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px">
-            <button onclick="stampaReport()" style="background:#fff;color:var(--navy);font-weight:700;padding:14px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--gold);cursor:pointer">🖨 Stampa report</button>
+            <button onclick="LanottePreview.open({selector:'#print-report', beforeOpen: aggiornaReport, title:'Anteprima report'})" style="background:#fff;color:var(--navy);font-weight:700;padding:14px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--gold);cursor:pointer">Anteprima report</button>
             <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="background:var(--gold);color:#fff;font-weight:700;padding:14px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--gold);text-align:center">📨 Contatta lo Studio</a>
           </div>
         </div>
@@ -509,6 +509,7 @@
 }
 </style>
 
+<script src="../assets/js/lanotte-preview.js"></script>
 <script>
 function stampaReport(){
   aggiornaReport();

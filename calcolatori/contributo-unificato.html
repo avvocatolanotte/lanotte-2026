@@ -259,9 +259,9 @@
           <div id="cu-esenzione" style="display:none;background:rgba(245,158,11,.12);border:1px solid #f59e0b;padding:14px;margin-top:16px;font-size:12px;color:#fde68a;line-height:1.5"></div>
 
           <div class="cu-actions" style="margin-top:18px;display:flex;flex-direction:column;gap:10px">
-            <button type="button" onclick="window.print()" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px">
+            <button type="button" onclick="LanottePreview.open({selector:'#cu-report', title:'Anteprima report'})" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px">
               <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align:-2px"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
-              Stampa report
+              Anteprima report
             </button>
             <a href="https://studiolegalelanotte.it/contatti/" class="btn btn-ghost" style="width:100%;justify-content:center;padding:14px">📨 Contatta lo Studio</a>
           </div>
@@ -311,6 +311,7 @@
 }
 </style>
 
+<script src="../assets/js/lanotte-preview.js"></script>
 <script>
 (function(){
   // ====== TABELLA SCAGLIONI — DPR 115/2002 art. 13 (processi civili) ======
