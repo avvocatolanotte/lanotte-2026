@@ -2,11 +2,11 @@
   "meta": {
     "descrizione": "Tassi di interesse legale ex art. 1284 c.c. - Decreti annuali Ministero dell'Economia e delle Finanze",
     "fonte": "Gazzetta Ufficiale - DM annuali MEF",
-    "ultimo_aggiornamento_manuale": "2026-05-25",
+    "ultimo_aggiornamento_manuale": "2026-06-05",
     "nota": "Tasso vigente dal 1° gennaio di ciascun anno. Verificare sempre la GU per uso in atti giudiziali. Capitalizzazione semplice ex art. 1283 c.c. (no anatocismo salvo eccezioni)."
   },
   "tassi": [
-    {"dal": "2026-01-01", "al": null,         "tasso": 2.0,   "norma": "DM 11/12/2025 (GU n. 290) [da verificare]"},
+    {"dal": "2026-01-01", "al": null,         "tasso": 1.6,   "norma": "DM Economia 10/12/2025"},
     {"dal": "2025-01-01", "al": "2025-12-31", "tasso": 2.0,   "norma": "DM 10/12/2024 (GU n. 296)"},
     {"dal": "2024-01-01", "al": "2024-12-31", "tasso": 2.5,   "norma": "DM 29/11/2023 (GU n. 288)"},
     {"dal": "2023-01-01", "al": "2023-12-31", "tasso": 5.0,   "norma": "DM 13/12/2022 (GU n. 292)"},

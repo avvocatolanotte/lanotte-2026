@@ -263,25 +263,20 @@
 <script>
 const PARAMETRI = {
   trib_civile: { label: "Tribunale — Giudizio ordinario", scaglioni: [
-    { range: "Fino a 1.100 €", studio: 270, introduttiva: 245, istruttoria: 540, decisionale: 540 },
-    { range: "1.100,01 – 5.200 €", studio: 405, introduttiva: 405, istruttoria: 945, decisionale: 945 },
-    { range: "5.200,01 – 26.000 €", studio: 1620, introduttiva: 1147, istruttoria: 2430, decisionale: 4050 },
-    { range: "26.000,01 – 52.000 €", studio: 2430, introduttiva: 1620, istruttoria: 4050, decisionale: 6480 },
-    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", studio: 3969, introduttiva: 2700, istruttoria: 6885, decisionale: 11475 },
-    { range: "260.000,01 – 520.000 €", studio: 6075, introduttiva: 4050, istruttoria: 11475, decisionale: 17550 },
-    { range: "520.000,01 – 1.000.000 €", studio: 8910, introduttiva: 5940, istruttoria: 15660, decisionale: 25515 },
-    { range: "1.000.000,01 – 2.000.000 €", studio: 11610, introduttiva: 7740, istruttoria: 19815, decisionale: 34020 },
-    { range: "2.000.000,01 – 4.000.000 €", studio: 13230, introduttiva: 8910, istruttoria: 23490, decisionale: 38475 },
-    { range: "Oltre 4.000.000 €", studio: 14580, introduttiva: 9720, istruttoria: 25110, decisionale: 41310 }
+    { range: "Fino a 1.100 €", studio: 131, introduttiva: 131, istruttoria: 200, decisionale: 200 },
+    { range: "1.100,01 – 5.200 €", studio: 425, introduttiva: 425, istruttoria: 851, decisionale: 851 },
+    { range: "5.200,01 – 26.000 €", studio: 919, introduttiva: 777, istruttoria: 1680, decisionale: 1701 },
+    { range: "26.000,01 – 52.000 €", studio: 1701, introduttiva: 1204, istruttoria: 1806, decisionale: 2905 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", studio: 2552, introduttiva: 1628, istruttoria: 5670, decisionale: 4253 },
+    { range: "260.000,01 – 520.000 €", studio: 3544, introduttiva: 2338, istruttoria: 10411, decisionale: 6164 }
   ]},
   trib_lavoro: { label: "Tribunale — Lavoro e Previdenza", scaglioni: [
-    { range: "Fino a 1.100 €", studio: 247, introduttiva: 168, istruttoria: 405, decisionale: 405 },
-    { range: "1.100,01 – 5.200 €", studio: 360, introduttiva: 270, istruttoria: 810, decisionale: 810 },
-    { range: "5.200,01 – 26.000 €", studio: 1417, introduttiva: 950, istruttoria: 2025, decisionale: 3375 },
-    { range: "26.000,01 – 52.000 €", studio: 2025, introduttiva: 1350, istruttoria: 3375, decisionale: 5400 },
-    { range: "52.000,01 – 260.000 €", studio: 3307, introduttiva: 2250, istruttoria: 5737, decisionale: 9562 },
-    { range: "260.000,01 – 520.000 €", studio: 5062, introduttiva: 3375, istruttoria: 9562, decisionale: 14625 },
-    { range: "Oltre 520.000 €", studio: 7425, introduttiva: 4950, istruttoria: 13050, decisionale: 21262 }
+    { range: "Fino a 1.100 €", studio: 210, introduttiva: 126, istruttoria: 126, decisionale: 179 },
+    { range: "1.100,01 – 5.200 €", studio: 888, introduttiva: 425, istruttoria: 567, decisionale: 746 },
+    { range: "5.200,01 – 26.000 €", studio: 1822, introduttiva: 777, istruttoria: 1172, decisionale: 1617 },
+    { range: "26.000,01 – 52.000 €", studio: 3245, introduttiva: 1202, istruttoria: 1880, decisionale: 2930 },
+    { range: "52.000,01 – 260.000 €", studio: 4763, introduttiva: 1701, istruttoria: 2678, decisionale: 4253 },
+    { range: "260.000,01 – 520.000 €", studio: 6668, introduttiva: 2336, istruttoria: 3623, decisionale: 6290 }
   ]},
   trib_esec: { label: "Tribunale — Esecuzione", scaglioni: [
     { range: "Fino a 1.100 €", studio: 135, introduttiva: 120, istruttoria: 270, decisionale: 270 },
@@ -292,9 +287,9 @@ const PARAMETRI = {
     { range: "Oltre 260.000 €", studio: 3037, introduttiva: 2025, istruttoria: 5737, decisionale: 8775 }
   ]},
   gdp: { label: "Giudice di Pace", scaglioni: [
-    { range: "Fino a 1.100 €", studio: 90, introduttiva: 70, istruttoria: 165, decisionale: 215 },
-    { range: "1.100,01 – 5.200 €", studio: 162, introduttiva: 135, istruttoria: 320, decisionale: 380 },
-    { range: "Oltre 5.200 €", studio: 270, introduttiva: 225, istruttoria: 540, decisionale: 640 }
+    { range: "Fino a 1.100 €", studio: 68, introduttiva: 68, istruttoria: 68, decisionale: 142 },
+    { range: "1.100,01 – 5.200 €", studio: 236, introduttiva: 252, istruttoria: 352, decisionale: 425 },
+    { range: "5.200,01 – 26.000 €", studio: 425, introduttiva: 352, istruttoria: 567, decisionale: 746 }
   ]},
   corte_appello: { label: "Corte d'Appello civile", scaglioni: [
     { range: "Fino a 1.100 €", studio: 405, introduttiva: 270, istruttoria: 540, decisionale: 810 },

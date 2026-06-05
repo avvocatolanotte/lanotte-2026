@@ -202,10 +202,10 @@
         <div class="form-field" id="campo-esito" style="display:none">
           <label>3 · Esito della procedura</label>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
-            <label class="fase-pill"><input type="radio" name="esito" value="positivo" checked> ✅ Esito positivo</label>
-            <label class="fase-pill"><input type="radio" name="esito" value="negativo"> ❌ Esito negativo</label>
+            <label class="fase-pill"><input type="radio" name="esito" value="positivo"> ✅ Esito positivo</label>
+            <label class="fase-pill"><input type="radio" name="esito" value="negativo" checked> ❌ Esito negativo</label>
           </div>
-          <p style="font-size:11.5px;color:var(--text-muted);margin-top:6px;font-style:italic">In caso di esito positivo della mediazione o negoziazione assistita, il compenso può essere <strong>maggiorato del 25%</strong>.</p>
+          <p style="font-size:11.5px;color:var(--text-muted);margin-top:6px;font-style:italic">In caso di accordo, si aggiunge la <strong>fase di conciliazione</strong> e i compensi delle fasi di attivazione e negoziazione sono <strong>aumentati del 30%</strong>.</p>
         </div>
 
         <div class="form-field">
@@ -237,11 +237,12 @@
               <span style="font-size:13px;color:#cbd5e1">Compenso base</span>
               <strong style="font-family:var(--serif);font-size:26px;color:var(--gold-light)" id="calc-base">€ 0,00</strong>
             </div>
+            <div id="calc-fasi" style="display:none;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12)"></div>
           </div>
 
           <div id="calc-bonus-row" style="display:none;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);padding:14px;margin-bottom:14px">
             <div style="display:flex;justify-content:space-between;align-items:baseline">
-              <span style="font-size:12px;color:#86efac;font-weight:600">+ Maggiorazione esito positivo (25%)</span>
+              <span style="font-size:12px;color:#86efac;font-weight:600">+ Maggiorazione accordo (30% su attivazione e negoziazione)</span>
               <strong style="font-size:15px;color:#bbf7d0" id="calc-bonus-val">€ 0,00</strong>
             </div>
           </div>
@@ -315,54 +316,66 @@
 <script>
 const PARAMETRI = {
   parere_orale: { label: "Parere stragiudiziale orale", scaglioni: [
-    { range: "Affare fino a 26.000 €", valore: 270 },
-    { range: "Affare 26.001 – 260.000 € (anche valore indeterminato)", valore: 540 },
-    { range: "Affare 260.001 – 520.000 €", valore: 810 },
-    { range: "Affare oltre 520.000 €", valore: 1350 }
+    { range: "Fino a 1.100 €", valore: 284 },
+    { range: "1.100,01 – 5.200 €", valore: 1276 },
+    { range: "5.200,01 – 26.000 €", valore: 1985 },
+    { range: "26.000,01 – 52.000 €", valore: 2410 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", valore: 4536 },
+    { range: "260.000,01 – 520.000 €", valore: 6164 }
   ]},
   parere_scritto: { label: "Parere stragiudiziale scritto", scaglioni: [
-    { range: "Affare fino a 26.000 €", valore: 540 },
-    { range: "Affare 26.001 – 260.000 € (anche valore indeterminato)", valore: 1080 },
-    { range: "Affare 260.001 – 520.000 €", valore: 1620 },
-    { range: "Affare oltre 520.000 €", valore: 2700 }
+    { range: "Fino a 1.100 €", valore: 284 },
+    { range: "1.100,01 – 5.200 €", valore: 1276 },
+    { range: "5.200,01 – 26.000 €", valore: 1985 },
+    { range: "26.000,01 – 52.000 €", valore: 2410 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", valore: 4536 },
+    { range: "260.000,01 – 520.000 €", valore: 6164 }
   ]},
   redazione_atti: { label: "Redazione di contratti o atti non giudiziali", scaglioni: [
-    { range: "Affare fino a 26.000 €", valore: 810 },
-    { range: "Affare 26.001 – 260.000 € (anche valore indeterminato)", valore: 1620 },
-    { range: "Affare 260.001 – 520.000 €", valore: 2430 },
-    { range: "Affare oltre 520.000 €", valore: 4050 }
+    { range: "Fino a 1.100 €", valore: 284 },
+    { range: "1.100,01 – 5.200 €", valore: 1276 },
+    { range: "5.200,01 – 26.000 €", valore: 1985 },
+    { range: "26.000,01 – 52.000 €", valore: 2410 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", valore: 4536 },
+    { range: "260.000,01 – 520.000 €", valore: 6164 }
   ]},
   assist_negoz: { label: "Assistenza in trattative contrattuali", scaglioni: [
-    { range: "Affare fino a 26.000 €", valore: 540 },
-    { range: "Affare 26.001 – 260.000 € (anche valore indeterminato)", valore: 1080 },
-    { range: "Affare 260.001 – 520.000 €", valore: 1620 },
-    { range: "Affare oltre 520.000 €", valore: 2700 }
+    { range: "Fino a 1.100 €", valore: 284 },
+    { range: "1.100,01 – 5.200 €", valore: 1276 },
+    { range: "5.200,01 – 26.000 €", valore: 1985 },
+    { range: "26.000,01 – 52.000 €", valore: 2410 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", valore: 4536 },
+    { range: "260.000,01 – 520.000 €", valore: 6164 }
   ]},
   transazione: { label: "Transazione stragiudiziale", scaglioni: [
-    { range: "Affare fino a 26.000 €", valore: 945 },
-    { range: "Affare 26.001 – 260.000 € (anche valore indeterminato)", valore: 1890 },
-    { range: "Affare 260.001 – 520.000 €", valore: 2835 },
-    { range: "Affare oltre 520.000 €", valore: 4725 }
+    { range: "Fino a 1.100 €", valore: 284 },
+    { range: "1.100,01 – 5.200 €", valore: 1276 },
+    { range: "5.200,01 – 26.000 €", valore: 1985 },
+    { range: "26.000,01 – 52.000 €", valore: 2410 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", valore: 4536 },
+    { range: "260.000,01 – 520.000 €", valore: 6164 }
   ]},
-  mediazione: { label: "Mediazione civile (D.Lgs. 28/2010)", hasEsito: true, scaglioni: [
-    { range: "Affare fino a 1.000 €", valore: 162 },
-    { range: "1.001 – 5.200 €", valore: 270 },
-    { range: "5.201 – 26.000 €", valore: 540 },
-    { range: "26.001 – 260.000 € (anche valore indeterminato)", valore: 1350 },
-    { range: "260.001 – 520.000 €", valore: 2160 },
-    { range: "Oltre 520.000 €", valore: 3645 }
+  mediazione: { label: "Mediazione civile (D.Lgs. 28/2010)", hasEsito: true, adr: true, scaglioni: [
+    { range: "Fino a 1.100 €", attivazione: 63, negoziazione: 126, conciliazione: 246 },
+    { range: "1.100,01 – 5.200 €", attivazione: 284, negoziazione: 567, conciliazione: 1106 },
+    { range: "5.200,01 – 26.000 €", attivazione: 441, negoziazione: 882, conciliazione: 1720 },
+    { range: "26.000,01 – 52.000 €", attivazione: 536, negoziazione: 1071, conciliazione: 2088 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", attivazione: 1008, negoziazione: 2016, conciliazione: 3931 },
+    { range: "260.000,01 – 520.000 €", attivazione: 1370, negoziazione: 2741, conciliazione: 5343 }
   ]},
-  negoz_assistita: { label: "Negoziazione assistita (DL 132/2014)", hasEsito: true, scaglioni: [
-    { range: "Affare fino a 26.000 €", valore: 810 },
-    { range: "26.001 – 260.000 € (anche valore indeterminato)", valore: 1620 },
-    { range: "260.001 – 520.000 €", valore: 2430 },
-    { range: "Oltre 520.000 €", valore: 4050 }
+  negoz_assistita: { label: "Negoziazione assistita (DL 132/2014)", hasEsito: true, adr: true, scaglioni: [
+    { range: "Fino a 1.100 €", attivazione: 63, negoziazione: 126, conciliazione: 246 },
+    { range: "1.100,01 – 5.200 €", attivazione: 284, negoziazione: 567, conciliazione: 1106 },
+    { range: "5.200,01 – 26.000 €", attivazione: 441, negoziazione: 882, conciliazione: 1720 },
+    { range: "26.000,01 – 52.000 €", attivazione: 536, negoziazione: 1071, conciliazione: 2088 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", attivazione: 1008, negoziazione: 2016, conciliazione: 3931 },
+    { range: "260.000,01 – 520.000 €", attivazione: 1370, negoziazione: 2741, conciliazione: 5343 }
   ]},
   arbitrato: { label: "Arbitrato", scaglioni: [
-    { range: "Affare fino a 26.000 €", valore: 2025 },
-    { range: "26.001 – 260.000 €", valore: 4050 },
-    { range: "260.001 – 520.000 €", valore: 6075 },
-    { range: "Oltre 520.000 €", valore: 10125 }
+    { range: "Fino a 26.000 €", valore: 1701 },
+    { range: "26.000,01 – 52.000 €", valore: 4253 },
+    { range: "52.000,01 – 260.000 €", valore: 7439 },
+    { range: "260.000,01 – 520.000 €", valore: 17010 }
   ]},
   conciliazione: { label: "Conciliazione paritetica", scaglioni: [
     { range: "Affare fino a 26.000 €", valore: 405 },
@@ -391,7 +404,7 @@ function apriAnteprimaReport(){
       ['Esito', esito],
       ['Variazione', testo('slider-value')],
       ['Compenso base', testo('calc-base')],
-      ...rigaSeVisibile('calc-bonus-row', 'Maggiorazione esito positivo 25%', 'calc-bonus-val'),
+      ...rigaSeVisibile('calc-bonus-row', 'Maggiorazione accordo 30%', 'calc-bonus-val'),
       ...rigaSeVisibile('calc-spese-row', 'Spese generali 15%', 'calc-spese-val'),
       ...rigaSeVisibile('calc-cpa-row', 'CPA 4%', 'calc-cpa-val'),
       ...rigaSeVisibile('calc-iva-row', 'IVA 22%', 'calc-iva-val')
@@ -407,8 +420,8 @@ function aggiornaScaglioni(){
   document.getElementById('calc-titolo').textContent = params.label;
   document.getElementById('calc-scaglione').innerHTML = params.scaglioni.map((s, i) => '<option value="'+i+'">'+s.range+'</option>').join('');
   document.getElementById('campo-esito').style.display = params.hasEsito ? 'block' : 'none';
-  // Default a scaglione "valore indeterminato" (di solito 2° o 3°)
-  if (tipo === 'mediazione') document.getElementById('calc-scaglione').selectedIndex = 3;
+  // Default su secondo scaglione ADR, come nei principali raffronti tabellari.
+  if (tipo === 'mediazione' || tipo === 'negoz_assistita') document.getElementById('calc-scaglione').selectedIndex = 1;
   else document.getElementById('calc-scaglione').selectedIndex = 1;
   calcola();
 }
@@ -430,11 +443,29 @@ function calcola(){
   const sc = params.scaglioni[idx];
   if (!sc) return;
   const mult = 1 + (variaz / 100);
-  const base = sc.valore * mult;
+  const fasi = document.getElementById('calc-fasi');
+  let base = 0;
+  let adrBase = 0;
+  if (params.adr) {
+    const attivazione = sc.attivazione * mult;
+    const negoziazione = sc.negoziazione * mult;
+    const conciliazione = esito === 'positivo' ? sc.conciliazione * mult : 0;
+    adrBase = attivazione + negoziazione;
+    base = adrBase + conciliazione;
+    fasi.style.display = 'block';
+    fasi.innerHTML =
+      '<div class="riga-out"><span>Fase di attivazione</span><span>' + fmt(attivazione) + '</span></div>' +
+      '<div class="riga-out"><span>Fase di negoziazione</span><span>' + fmt(negoziazione) + '</span></div>' +
+      (esito === 'positivo' ? '<div class="riga-out"><span>Fase di conciliazione</span><span>' + fmt(conciliazione) + '</span></div>' : '');
+  } else {
+    base = sc.valore * mult;
+    fasi.style.display = 'none';
+    fasi.innerHTML = '';
+  }
   document.getElementById('calc-base').textContent = fmt(base);
   let bonus = 0;
   if (params.hasEsito && esito === 'positivo') {
-    bonus = base * 0.25;
+    bonus = params.adr ? adrBase * 0.30 : base * 0.25;
     document.getElementById('calc-bonus-row').style.display = 'block';
     document.getElementById('calc-bonus-val').textContent = fmt(bonus);
   } else {

@@ -265,35 +265,33 @@
 <script>
 const PARAMETRI = {
   gdp_pen: { label: "Giudice di Pace penale", scaglioni: [
-    { range: "Reati di competenza del GdP", studio: 225, introduttiva: 180, istruttoria: 360, decisionale: 405 }
+    { range: "Reati di competenza del GdP", studio: 378, introduttiva: 473, istruttoria: 756, decisionale: 662 }
   ]},
   trib_mono: { label: "Tribunale Penale Monocratico", scaglioni: [
-    { range: "Contravvenzioni", studio: 405, introduttiva: 360, istruttoria: 720, decisionale: 720 },
-    { range: "Delitti — pena edittale fino a 5 anni", studio: 945, introduttiva: 810, istruttoria: 1620, decisionale: 1890 },
-    { range: "Delitti — pena edittale superiore a 5 anni", studio: 1620, introduttiva: 1350, istruttoria: 2430, decisionale: 2700 }
+    { range: "Tabella II — Tribunale monocratico", studio: 473, introduttiva: 567, istruttoria: 1134, decisionale: 1418 }
   ]},
   trib_coll: { label: "Tribunale Penale Collegiale", scaglioni: [
-    { range: "Reati di competenza collegiale", studio: 2430, introduttiva: 1890, istruttoria: 3645, decisionale: 4050 }
+    { range: "Tabella II — Tribunale collegiale", studio: 473, introduttiva: 756, istruttoria: 1418, decisionale: 1418 }
   ]},
   assise: { label: "Corte d'Assise", scaglioni: [
-    { range: "Reati di competenza dell'Assise", studio: 4050, introduttiva: 3240, istruttoria: 6075, decisionale: 7290 }
+    { range: "Tabella II — Corte d'Assise", studio: 756, introduttiva: 1418, istruttoria: 2363, decisionale: 2835 }
   ]},
   appello: { label: "Corte d'Appello Penale", scaglioni: [
-    { range: "Contravvenzioni", studio: 945, introduttiva: 720, istruttoria: 1170, decisionale: 1417 },
-    { range: "Delitti", studio: 2025, introduttiva: 1620, istruttoria: 2700, decisionale: 3375 }
+    { range: "Tabella II — Corte d'Appello", studio: 473, introduttiva: 945, istruttoria: 1418, decisionale: 1418 }
   ]},
   assise_appello: { label: "Corte d'Assise d'Appello", scaglioni: [
-    { range: "Tutti i procedimenti", studio: 3645, introduttiva: 2835, istruttoria: 4860, decisionale: 6075 }
+    { range: "Tabella III — Corte d'Assise d'Appello", studio: 756, introduttiva: 1985, istruttoria: 2268, decisionale: 2336 }
   ]},
   cassazione: { label: "Cassazione Penale", scaglioni: [
-    { range: "Tutti i procedimenti", studio: 2430, introduttiva: 1620, istruttoria: 0, decisionale: 4050 }
+    { range: "Tabella III — Corte di Cassazione", studio: 945, introduttiva: 2646, istruttoria: 0, decisionale: 2741 }
   ]},
   riesame: { label: "Tribunale del Riesame (procedimento cautelare)", scaglioni: [
-    { range: "Riesame misure cautelari personali", studio: 1417, introduttiva: 950, istruttoria: 0, decisionale: 1620 },
-    { range: "Riesame misure cautelari reali", studio: 1080, introduttiva: 810, istruttoria: 0, decisionale: 1350 }
+    { range: "Cautelari personali", studio: 378, introduttiva: 1229, istruttoria: 0, decisionale: 1418 },
+    { range: "Cautelari reali", studio: 378, introduttiva: 1229, istruttoria: 0, decisionale: 1418 }
   ]},
   sorveglianza: { label: "Magistrato di Sorveglianza", scaglioni: [
-    { range: "Istanze di misure alternative / liberazione anticipata", studio: 540, introduttiva: 405, istruttoria: 0, decisionale: 945 }
+    { range: "Tabella III — Magistrato di Sorveglianza", studio: 315, introduttiva: 378, istruttoria: 0, decisionale: 945 },
+    { range: "Tabella III — Tribunale di Sorveglianza", studio: 473, introduttiva: 945, istruttoria: 1418, decisionale: 1418 }
   ]}
 };
 const FASE_LABELS = {studio:"Studio", introduttiva:"Introduttiva", istruttoria:"Istruttoria/Dibatt.", decisionale:"Decisionale"};
