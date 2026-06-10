@@ -295,13 +295,28 @@ function lanotte_calcolatori_pages_data() {
     ];
 }
 
+function lanotte_current_calcolatore_data() {
+    if (!is_page()) return null;
+    $post = get_post();
+    if (!$post instanceof WP_Post) return null;
+
+    $parent = $post->post_parent ? get_post($post->post_parent) : null;
+    if (!$parent instanceof WP_Post || $parent->post_name !== 'calcolatori') return null;
+
+    $data = lanotte_calcolatori_pages_data();
+    return $data[$post->post_name] ?? null;
+}
+
 function lanotte_calcolatore_page_content($slug, array $data) {
     $faq = '';
     foreach ($data['faq'] as $item) {
         $faq .= '<details><summary>' . esc_html($item[0]) . '</summary><p>' . esc_html($item[1]) . '</p></details>';
     }
 
-    return '<section class="lanotte-calc-seo-intro"><p>' . esc_html($data['intro']) . '</p><p><strong>Servizio collegato:</strong> ' . esc_html($data['service']) . '.</p></section>'
+    return '<section class="lanotte-calc-seo-intro"><p>' . esc_html($data['intro']) . '</p>'
+        . '<p>Per usare correttamente lo strumento inserisci i dati richiesti, controlla il risultato e scarica o stampa il report solo dopo aver verificato l\'anteprima. Il calcolo e pensato per una prima valutazione operativa, utile prima di una diffida, di una trattativa, di un ricorso o di una richiesta di preventivo.</p>'
+        . '<p>Quando il conteggio incide su diritti, prescrizioni, termini processuali, risarcimenti o somme contestate, e opportuno farlo verificare da un avvocato. Lo Studio puo controllare documenti, decorrenze, titolo del credito o provvedimento giudiziale e trasformare il risultato in una richiesta formale.</p>'
+        . '<p><strong>Query principale:</strong> ' . esc_html($data['keyword']) . '. <strong>Servizio collegato:</strong> ' . esc_html($data['service']) . '.</p></section>'
         . '[lanotte_calcolatore slug="' . esc_attr($slug) . '"]'
         . '<section class="lanotte-calc-seo-faq"><h2>Domande frequenti</h2>' . $faq . '<p><em>Strumento indicativo: non sostituisce la consulenza legale e va verificato sul caso concreto.</em></p><p><a class="btn btn-primary" href="' . esc_url(home_url('/contatti/')) . '">Richiedi una verifica dello Studio</a></p></section>';
 }
@@ -342,6 +357,66 @@ add_action('init', function() {
 
     update_option('lanotte_calcolatori_pages_version', LANOTTE_THEME_VERSION, false);
 }, 30);
+
+function lanotte_area_calcolatori_links($slug) {
+    $groups = [
+        'diritto-civile' => [
+            'interessi-legali' => 'Calcolo interessi legali',
+            'interessi-moratori' => 'Calcolo interessi di mora',
+            'svalutazione' => 'Rivalutazione monetaria ISTAT',
+            'contributo-unificato' => 'Contributo unificato',
+        ],
+        'impresa' => [
+            'interessi-moratori' => 'Interessi moratori B2B',
+            'interessi-legali' => 'Interessi legali',
+            'svalutazione' => 'Rivalutazione monetaria',
+        ],
+        'famiglia-successioni' => [
+            'mantenimento-istat' => 'Rivalutazione ISTAT mantenimento',
+            'stragiudiziale' => 'Mediazione e negoziazione assistita',
+            'scadenze' => 'Scadenze processuali',
+        ],
+        'infortunistica-malasanita' => [
+            'micropermanenti' => 'Lesioni micropermanenti',
+            'macropermanenti' => 'Danno biologico Tabelle Milano e TUN',
+            'danni-preesistenti' => 'Danni preesistenti e concorrenti',
+        ],
+        'condominio' => [
+            'stragiudiziale' => 'Mediazione civile',
+            'interessi-legali' => 'Interessi legali',
+            'contributo-unificato' => 'Contributo unificato',
+        ],
+        'bancario' => [
+            'interessi-legali' => 'Interessi legali',
+            'interessi-moratori' => 'Interessi di mora',
+            'svalutazione' => 'Rivalutazione monetaria',
+        ],
+        'proprieta-intellettuale' => [
+            'timeline-marchio' => 'Timeline deposito marchio',
+            'scadenze' => 'Scadenze processuali',
+        ],
+    ];
+
+    return $groups[$slug] ?? [];
+}
+
+add_filter('the_content', function($content) {
+    if (!is_singular('area') || !in_the_loop() || !is_main_query()) return $content;
+
+    $post = get_post();
+    if (!$post instanceof WP_Post) return $content;
+
+    $links = lanotte_area_calcolatori_links($post->post_name);
+    if (!$links) return $content;
+
+    $html = '<section class="lanotte-area-tools"><h2>Strumenti utili collegati</h2><p>Calcolatori gratuiti per una prima verifica orientativa del caso.</p><div class="lanotte-area-tools-grid">';
+    foreach ($links as $slug => $label) {
+        $html .= '<a href="' . esc_url(lanotte_calcolatore_url($slug)) . '">' . esc_html($label) . '</a>';
+    }
+    $html .= '</div></section>';
+
+    return $content . $html;
+}, 18);
 
 add_action('template_redirect', function() {
     $request = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '';

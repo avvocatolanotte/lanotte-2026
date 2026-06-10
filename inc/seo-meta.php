@@ -136,11 +136,21 @@ function lanotte_seo_current_key() {
 
 /* === Integrazione AIOSEO (filtri ufficiali) === */
 add_filter('aioseo_title', function($title) {
+    if (function_exists('lanotte_current_calcolatore_data')) {
+        $calc = lanotte_current_calcolatore_data();
+        if ($calc) return $calc['title'] . ' | Studio Legale Lanotte';
+    }
+
     $map = lanotte_seo_map();
     $k = lanotte_seo_current_key();
     return ($k && isset($map[$k]['t'])) ? $map[$k]['t'] : $title;
 });
 add_filter('aioseo_description', function($desc) {
+    if (function_exists('lanotte_current_calcolatore_data')) {
+        $calc = lanotte_current_calcolatore_data();
+        if ($calc) return wp_trim_words($calc['intro'], 28, '...');
+    }
+
     $map = lanotte_seo_map();
     $k = lanotte_seo_current_key();
     return ($k && isset($map[$k]['d'])) ? $map[$k]['d'] : $desc;
@@ -149,6 +159,11 @@ add_filter('aioseo_description', function($desc) {
 /* === Fallback nativo se AIOSEO non è attivo === */
 add_filter('document_title_parts', function($parts) {
     if (defined('AIOSEO_VERSION')) return $parts; // AIOSEO gestisce il title
+    if (function_exists('lanotte_current_calcolatore_data')) {
+        $calc = lanotte_current_calcolatore_data();
+        if ($calc) return ['title' => $calc['title'] . ' | Studio Legale Lanotte'];
+    }
+
     $map = lanotte_seo_map();
     $k = lanotte_seo_current_key();
     if ($k && isset($map[$k]['t'])) {
@@ -159,6 +174,14 @@ add_filter('document_title_parts', function($parts) {
 
 add_action('wp_head', function() {
     if (defined('AIOSEO_VERSION')) return; // AIOSEO genera la meta description
+    if (function_exists('lanotte_current_calcolatore_data')) {
+        $calc = lanotte_current_calcolatore_data();
+        if ($calc) {
+            echo '<meta name="description" content="' . esc_attr(wp_trim_words($calc['intro'], 28, '...')) . '">' . "\n";
+            return;
+        }
+    }
+
     $map = lanotte_seo_map();
     $k = lanotte_seo_current_key();
     if ($k && isset($map[$k]['d'])) {

@@ -381,6 +381,12 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
 .lanotte-calc-seo-faq summary{cursor:pointer;padding:14px 16px;font-weight:700;color:var(--navy)}
 .lanotte-calc-seo-faq details p{padding:0 16px 16px;margin:0}
 .lanotte-calcolatore-embed{background:#fafaf7}
+.lanotte-area-tools{margin:34px 0;padding:26px;background:#fdfbf5;border:1px solid #f0e9dc;border-top:3px solid var(--gold)}
+.lanotte-area-tools h2{font-family:var(--serif);font-size:24px;color:var(--navy);font-weight:600;margin:0 0 8px}
+.lanotte-area-tools p{font-size:14.5px;color:var(--text-muted);margin:0 0 16px}
+.lanotte-area-tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.lanotte-area-tools-grid a{display:block;padding:12px 14px;background:#fff;border:1px solid var(--border);border-radius:6px;color:var(--navy);font-size:14px;font-weight:700}
+.lanotte-area-tools-grid a:hover{border-color:var(--gold);color:var(--gold)}
 
 /* === RESPONSIVE === */
 @media (max-width:1024px){

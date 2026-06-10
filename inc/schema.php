@@ -170,4 +170,49 @@ function lanotte_output_jsonld() {
             }
         }
     }
+
+    // Calcolatori: schema WebApplication + FAQPage per le pagine WordPress vere.
+    if (function_exists('lanotte_current_calcolatore_data')) {
+        $calc = lanotte_current_calcolatore_data();
+        if ($calc) {
+            $webapp = [
+                '@context' => 'https://schema.org',
+                '@type' => 'WebApplication',
+                'name' => $calc['title'],
+                'url' => get_permalink(),
+                'applicationCategory' => 'LegalApplication',
+                'operatingSystem' => 'Any',
+                'isAccessibleForFree' => true,
+                'description' => wp_strip_all_tags($calc['intro']),
+                'provider' => [
+                    '@id' => $org_url . '#legalservice',
+                ],
+            ];
+            echo "\n<script type=\"application/ld+json\" id=\"lanotte-calcolatore-webapp\">\n";
+            echo wp_json_encode($webapp, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+            echo "\n</script>\n";
+
+            $main_entity = [];
+            foreach ($calc['faq'] as $item) {
+                $main_entity[] = [
+                    '@type' => 'Question',
+                    'name' => $item[0],
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text' => wp_strip_all_tags($item[1]),
+                    ],
+                ];
+            }
+            if ($main_entity) {
+                $faqpage = [
+                    '@context' => 'https://schema.org',
+                    '@type' => 'FAQPage',
+                    'mainEntity' => $main_entity,
+                ];
+                echo "\n<script type=\"application/ld+json\" id=\"lanotte-calcolatore-faqpage\">\n";
+                echo wp_json_encode($faqpage, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+                echo "\n</script>\n";
+            }
+        }
+    }
 }
