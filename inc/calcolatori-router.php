@@ -33,6 +33,35 @@ function lanotte_calcolatore_url($slug) {
     return home_url('/calcolatori/' . sanitize_title($slug) . '/');
 }
 
+function lanotte_inline_calcolatore_theme_scripts($html) {
+    $theme_uri = preg_quote(LANOTTE_THEME_URI, '~');
+
+    return preg_replace_callback(
+        '~<script\s+src=["\']' . $theme_uri . '/assets/js/([^"\']+\.js)["\']\s*></script>~i',
+        function($match) {
+            $relative = ltrim($match[1], '/');
+            if (strpos($relative, '..') !== false) {
+                return $match[0];
+            }
+
+            $base = realpath(LANOTTE_THEME_DIR . '/assets/js');
+            $path = realpath(LANOTTE_THEME_DIR . '/assets/js/' . $relative);
+            if (!$base || !$path || strpos($path, $base) !== 0 || !is_readable($path)) {
+                return $match[0];
+            }
+
+            $code = file_get_contents($path);
+            if ($code === false) {
+                return $match[0];
+            }
+
+            $code = str_replace('</script>', '<\/script>', $code);
+            return '<script data-lanotte-inline-asset="' . esc_attr($relative) . '">' . "\n" . $code . "\n" . '</script>';
+        },
+        $html
+    );
+}
+
 add_action('init', function() {
     add_rewrite_tag('%lanotte_calcolatori_sitemap%', '1');
     add_rewrite_rule('^lanotte-calcolatori\.xml$', 'index.php?lanotte_calcolatori_sitemap=1', 'top');
@@ -105,6 +134,7 @@ function lanotte_render_calcolatore($slug) {
     // La pagina WordPress fornisce gia titolo, intro SEO e avvertenze.
     // Qui incorporiamo solo lo strumento, evitando doppio hero/H1.
     $html = preg_replace('~^\s*<section\b[^>]*>.*?</section>\s*~is', '', $html, 2);
+    $html = lanotte_inline_calcolatore_theme_scripts($html);
 
     return '<div class="lanotte-calcolatore-embed" data-calcolatore="' . esc_attr($slug) . '">' . $html . '</div>';
 }
