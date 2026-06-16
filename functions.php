@@ -8,7 +8,7 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('LANOTTE_THEME_VERSION', '1.0.59');
+define('LANOTTE_THEME_VERSION', '1.0.60');
 define('LANOTTE_THEME_DIR', get_template_directory());
 define('LANOTTE_THEME_URI', get_template_directory_uri());
 
@@ -124,6 +124,7 @@ require_once LANOTTE_THEME_DIR . '/inc/seed-clienti-team.php';
 require_once LANOTTE_THEME_DIR . '/inc/seo-meta.php';
 require_once LANOTTE_THEME_DIR . '/inc/performance.php';
 require_once LANOTTE_THEME_DIR . '/inc/calcolatori-router.php';
+require_once LANOTTE_THEME_DIR . '/inc/blog-cleanup.php';
 
 /* ========================================================================
    WIDGET AREAS
