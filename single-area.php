@@ -22,6 +22,15 @@ if (!$tagline) $tagline = get_the_excerpt();
     <?php if ($tagline): ?>
       <p class="subtitle"><?php echo esc_html($tagline); ?></p>
     <?php endif; ?>
+
+    <?php $area_wa_text = rawurlencode('Buongiorno, vorrei un parere su ' . get_the_title() . '.'); ?>
+    <div class="hero-cta">
+      <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="btn btn-gold" data-lanotte-cta="call" data-lanotte-cta-location="area-hero" aria-label="Chiama lo Studio Legale Lanotte">
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.19 19a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.58 2.61a2 2 0 0 1-.45 2.11L7.9 9.73a16 16 0 0 0 6.37 6.37l1.29-1.29a2 2 0 0 1 2.11-.45c.84.26 1.71.46 2.61.58A2 2 0 0 1 22 16.92z"/></svg>
+        Chiama ora
+      </a>
+      <a href="<?php echo esc_url(lanotte_whatsapp_url() . '?text=' . $area_wa_text); ?>" class="btn btn-ghost" target="_blank" rel="noopener" data-lanotte-cta="whatsapp" data-lanotte-cta-location="area-hero" aria-label="Scrivi allo Studio su WhatsApp">WhatsApp</a>
+    </div>
   </div>
 </section>
 
@@ -93,6 +102,9 @@ if (!$tagline) $tagline = get_the_excerpt();
 </section>
 
 <style>
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-cta .btn{text-transform:uppercase}
+@media (max-width:600px){.hero-cta{flex-direction:column}.hero-cta .btn{width:100%}}
 .area-article{font-size:16px;line-height:1.7;color:#334155}
 .area-article > .lead-p,
 .area-article > p:first-child{font-size:18px;line-height:1.7;color:#1d2c4a;margin:0 0 26px;padding-left:14px;border-left:3px solid var(--gold);font-weight:500}
