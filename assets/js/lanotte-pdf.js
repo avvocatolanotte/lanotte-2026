@@ -174,6 +174,48 @@
     modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   }
 
+  function splitLines(doc, value, width){
+    return doc.splitTextToSize(String(value ?? ''), Math.max(8, width));
+  }
+
+  function ensurePage(doc, y, needed, margin, height){
+    if (y + needed <= height - 28) return y;
+    doc.addPage();
+    return margin;
+  }
+
+  function drawJustifiedParagraph(doc, text, x, y, width, lineHeight){
+    const lines = splitLines(doc, text, width);
+    lines.forEach((line, index) => {
+      const words = String(line).trim().split(/\s+/).filter(Boolean);
+      const isLast = index === lines.length - 1;
+      const lineWidth = doc.getTextWidth(line);
+      if (isLast || words.length < 3 || lineWidth < width * 0.72) {
+        doc.text(line, x, y);
+      } else {
+        const wordsWidth = words.reduce((sum, word) => sum + doc.getTextWidth(word), 0);
+        const gap = (width - wordsWidth) / (words.length - 1);
+        let cx = x;
+        words.forEach(word => {
+          doc.text(word, cx, y);
+          cx += doc.getTextWidth(word) + gap;
+        });
+      }
+      y += lineHeight;
+    });
+    return { y, lines };
+  }
+
+  function tableColumnWidths(headers, usableWidth){
+    if (headers.length === 6 && headers.includes('Norma')) {
+      return [34, 14, 17, 21, 61, usableWidth - 147];
+    }
+    if (headers.length === 5 && headers.includes('Norma')) {
+      return [38, 17, 23, 69, usableWidth - 147];
+    }
+    return headers.map(() => usableWidth / headers.length);
+  }
+
   function generate(opts){
     if (typeof window.jspdf === 'undefined') {
       alert('Errore: libreria jsPDF non caricata. Ricarica la pagina.');
@@ -277,18 +319,22 @@
       doc.text('Dati di partenza', M, y);
       y += 5;
 
-      doc.setFont('helvetica','normal');
-      doc.setFontSize(10);
-      doc.setTextColor(...COLORS.text);
       opts.dati.forEach(d => {
-        if (y > H - 40) { doc.addPage(); y = M; }
+        y = ensurePage(doc, y, 10, M, H);
+        doc.setFontSize(9.5);
+        doc.setFont('helvetica','normal');
+        const labelLines = splitLines(doc, d.label + ':', 52);
+        doc.setFont('helvetica','bold');
+        const valueLines = splitLines(doc, d.value, W - 2*M - 60);
+        const rowH = Math.max(labelLines.length, valueLines.length) * 4.5 + 2;
+
         doc.setTextColor(...COLORS.muted);
-        doc.text(d.label + ':', M, y);
+        doc.setFont('helvetica','normal');
+        doc.text(labelLines, M, y);
         doc.setTextColor(...COLORS.text);
         doc.setFont('helvetica','bold');
-        doc.text(String(d.value), M + 70, y);
-        doc.setFont('helvetica','normal');
-        y += 5;
+        doc.text(valueLines, M + 60, y);
+        y += rowH;
       });
       y += 4;
     }
@@ -304,46 +350,58 @@
 
       const headers = opts.tabella.headers;
       const rows = opts.tabella.rows;
-      const colWidth = (W - 2*M) / headers.length;
+      const usableW = W - 2*M;
+      const widths = tableColumnWidths(headers, usableW);
+      const lineH = 4.2;
+
+      function colX(index){
+        return M + widths.slice(0, index).reduce((sum, w) => sum + w, 0);
+      }
+
+      function drawHeader(){
+        doc.setFillColor(...COLORS.navy);
+        doc.rect(M, y, usableW, 8, 'F');
+        doc.setFont('helvetica','bold');
+        doc.setFontSize(8);
+        doc.setTextColor(255, 255, 255);
+        headers.forEach((h, i) => {
+          doc.text(splitLines(doc, h, widths[i] - 4), colX(i) + 2, y + 5);
+        });
+        y += 8;
+      }
 
       // Header riga
-      doc.setFillColor(...COLORS.navy);
-      doc.rect(M, y, W - 2*M, 7, 'F');
-      doc.setFont('helvetica','bold');
-      doc.setFontSize(9);
-      doc.setTextColor(255, 255, 255);
-      headers.forEach((h, i) => {
-        doc.text(h, M + i*colWidth + 2, y + 4.8);
-      });
-      y += 7;
+      drawHeader();
 
       // Righe dati
       doc.setFont('helvetica','normal');
-      doc.setFontSize(9);
+      doc.setFontSize(8.2);
       doc.setTextColor(...COLORS.text);
       rows.forEach((row, ri) => {
-        if (y > H - 30) {
+        const cellLines = row.map((cell, i) => splitLines(doc, cell, widths[i] - 4));
+        const rowH = Math.max(...cellLines.map(lines => lines.length)) * lineH + 3;
+
+        if (y + rowH > H - 30) {
           doc.addPage();
           y = M;
           // Ripeti header su nuova pagina
-          doc.setFillColor(...COLORS.navy);
-          doc.rect(M, y, W - 2*M, 7, 'F');
-          doc.setFont('helvetica','bold');
-          doc.setTextColor(255, 255, 255);
-          headers.forEach((h, i) => doc.text(h, M + i*colWidth + 2, y + 4.8));
-          y += 7;
+          drawHeader();
           doc.setFont('helvetica','normal');
+          doc.setFontSize(8.2);
           doc.setTextColor(...COLORS.text);
         }
         if (ri % 2 === 0) {
           doc.setFillColor(...COLORS.lightBg);
-          doc.rect(M, y, W - 2*M, 6, 'F');
+          doc.rect(M, y, usableW, rowH, 'F');
         }
-        row.forEach((cell, i) => {
-          const txt = String(cell);
-          doc.text(txt, M + i*colWidth + 2, y + 4);
+        cellLines.forEach((lines, i) => {
+          doc.setFont('helvetica', i === row.length - 1 ? 'bold' : 'normal');
+          doc.text(lines, colX(i) + 2, y + 4);
         });
-        y += 6;
+        doc.setDrawColor(229, 231, 235);
+        doc.setLineWidth(0.1);
+        doc.line(M, y + rowH, W - M, y + rowH);
+        y += rowH;
       });
       y += 6;
     }
@@ -354,8 +412,9 @@
       doc.setFillColor(...COLORS.lightBg);
       doc.setDrawColor(...COLORS.gold);
       doc.setLineWidth(0.3);
-      const lines = doc.splitTextToSize(opts.conclusioni, W - 2*M - 8);
+      const lines = splitLines(doc, opts.conclusioni, W - 2*M - 8);
       const blockH = 6 + lines.length * 4.5 + 4;
+      y = ensurePage(doc, y, blockH, M, H);
       doc.roundedRect(M, y, W - 2*M, blockH, 1.5, 1.5, 'FD');
       doc.setFont('helvetica','bold');
       doc.setFontSize(8.5);
@@ -364,7 +423,7 @@
       doc.setFont('helvetica','normal');
       doc.setFontSize(10);
       doc.setTextColor(...COLORS.text);
-      doc.text(lines, M + 4, y + 10);
+      drawJustifiedParagraph(doc, opts.conclusioni, M + 4, y + 10, W - 2*M - 8, 4.5);
       y += blockH + 4;
     }
 
