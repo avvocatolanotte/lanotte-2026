@@ -131,9 +131,17 @@ function lanotte_render_calcolatore($slug) {
         $html = $match[1];
     }
 
+    $data_status = '';
+    if (preg_match('~<div\s+id=["\']dataStatus["\'][^>]*>.*?</div>~is', $html, $status_match)) {
+        $data_status = $status_match[0];
+    }
+
     // La pagina WordPress fornisce gia titolo, intro SEO e avvertenze.
     // Qui incorporiamo solo lo strumento, evitando doppio hero/H1.
     $html = preg_replace('~^\s*<section\b[^>]*>.*?</section>\s*~is', '', $html, 2);
+    if ($data_status && strpos($html, 'id="dataStatus"') === false && strpos($html, "id='dataStatus'") === false) {
+        $html = preg_replace('~(<div\s+class=["\']calc-block["\'])~i', $data_status . "\n\n" . '$1', $html, 1);
+    }
     $html = lanotte_inline_calcolatore_theme_scripts($html);
 
     return '<div class="lanotte-calcolatore-embed" data-calcolatore="' . esc_attr($slug) . '">' . $html . '</div>';
