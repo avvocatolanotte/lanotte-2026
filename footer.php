@@ -83,6 +83,41 @@ if (!defined('ABSPATH')) exit;
       </div>
     </div>
 
+    <style>
+    .footer-calcolatori{border-top:1px solid rgba(255,255,255,.12);margin-top:8px;padding-top:26px}
+    .footer-calcolatori h5{margin:0 0 14px}
+    .footer-calc-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:7px 26px}
+    .footer-calc-list li{margin:0}
+    .footer-calc-list a{color:#94a3b8;font-size:13.5px;text-decoration:none;transition:color .15s}
+    .footer-calc-list a:hover{color:#fff;text-decoration:underline}
+    @media(max-width:600px){.footer-calc-list{grid-template-columns:1fr 1fr;gap:6px 16px}.footer-calc-list a{font-size:12.5px}}
+    </style>
+    <div class="footer-calcolatori">
+      <h5>Calcolatori giuridici utili</h5>
+      <ul class="footer-calc-list">
+        <?php
+        $footer_calc = [
+            'mantenimento-istat'              => 'Assegno di mantenimento (ISTAT)',
+            'spese-straordinarie-figli'       => 'Spese straordinarie per i figli',
+            'macropermanenti'                 => 'Danno biologico · macropermanenti',
+            'micropermanenti'                 => 'Danno biologico · micropermanenti',
+            'pignoramento-stipendio-pensione' => 'Pignoramento stipendio e pensione',
+            'opposizione-decreto-ingiuntivo'  => 'Opposizione a decreto ingiuntivo',
+            'prescrizione-crediti'            => 'Prescrizione dei crediti',
+            'interessi-legali'                => 'Calcolo interessi legali',
+            'interessi-moratori'              => 'Interessi moratori e soglia usura',
+            'istat-locazione'                 => 'Rivalutazione ISTAT locazioni',
+            'sfratti'                         => 'Tempi dello sfratto per morosità',
+            'contributo-unificato'            => 'Contributo unificato',
+        ];
+        foreach ($footer_calc as $slug => $label) {
+            echo '<li><a href="' . esc_url(home_url('/calcolatori/' . $slug . '/')) . '">' . esc_html($label) . '</a></li>';
+        }
+        ?>
+        <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori'))); ?>" style="color:#cbd5e1;font-weight:600">Tutti i calcolatori &rarr;</a></li>
+      </ul>
+    </div>
+
     <div class="footer-bottom">
       <div>© <?php echo esc_html(date('Y')); ?> Studio Legale Lanotte &amp; Partners · Tutti i diritti riservati</div>
       <div>
