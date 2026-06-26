@@ -179,6 +179,7 @@
           <label>1 · Tipo di termine</label>
           <select id="calc-tipo" onchange="aggiornaInfo()">
             <optgroup label="Riforma Cartabia (D.Lgs. 149/2022)">
+              <option value="166_convenuto" data-giorni="70" data-direzione="ritroso">Art. 166 c.p.c. · Costituzione convenuto da citazione (–70 gg)</option>
               <option value="171ter_prima" data-giorni="40" data-direzione="ritroso">Art. 171-ter c.p.c. · 1ª memoria preliminare (–40 gg)</option>
               <option value="171ter_replica" data-giorni="20" data-direzione="ritroso">Art. 171-ter c.p.c. · Replica (–20 gg)</option>
               <option value="171ter_dedotti" data-giorni="10" data-direzione="ritroso">Art. 171-ter c.p.c. · Deduzioni istruttorie (–10 gg)</option>
@@ -391,6 +392,23 @@ function calcGiorniSospensione(start, end) {
   return count;
 }
 
+function calcolaDataTermine(start, giorni, seg, applicaFeriale) {
+  const target = new Date(start);
+  let computati = 0;
+  let sospesi = 0;
+  let safety = 0;
+  while (computati < giorni && safety < 2000) {
+    target.setDate(target.getDate() + seg);
+    if (applicaFeriale && isSospensioneFeriale(target)) {
+      sospesi++;
+    } else {
+      computati++;
+    }
+    safety++;
+  }
+  return { target, sospesi };
+}
+
 function fmtData(d) {
   const giorni = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
   return giorni[d.getDay()] + ' ' + d.getDate() + ' ' + ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'][d.getMonth()] + ' ' + d.getFullYear();
@@ -443,26 +461,10 @@ function calcola(){
   const applicaProroga = document.getElementById('calc-proroga').checked;
   const seg = direzione === 'avanti' ? 1 : -1;
 
-  // Calcolo data: somma/sottrai giorni
-  const target = new Date(dataPartenza);
-  target.setDate(target.getDate() + (seg * giorni));
-
-  // Aggiungi giorni sospensione feriale (1-31 ago) compresi nell'intervallo
-  let giorniSospensione = 0;
-  if (applicaFeriale) {
-    giorniSospensione = calcGiorniSospensione(dataPartenza, target);
-    target.setDate(target.getDate() + (seg * giorniSospensione));
-    // Ricalcola eventuali ulteriori sospensioni ricadute nel periodo esteso
-    let extra = calcGiorniSospensione(target, new Date(target.getTime() + seg*86400000));
-    let safety = 0;
-    while(extra > 0 && safety < 10) {
-      target.setDate(target.getDate() + (seg * extra));
-      giorniSospensione += extra;
-      extra = calcGiorniSospensione(new Date(target.getTime() - seg*86400000*extra), target);
-      if (extra === giorniSospensione) extra = 0; // avoid loop
-      safety++;
-    }
-  }
+  // Calcolo data: conta i giorni utili saltando la sospensione feriale quando richiesta.
+  const risultato = calcolaDataTermine(dataPartenza, giorni, seg, applicaFeriale);
+  const target = risultato.target;
+  let giorniSospensione = risultato.sospesi;
 
   // Proroga al primo giorno non festivo (solo se in avanti; per termini a ritroso art. 155 c.p.c. comma 5 non si applica la proroga al successivo)
   let prorogaApplicata = false;
@@ -490,7 +492,10 @@ function calcola(){
   // Warning per termini perentori urgenti
   const w = document.getElementById('calc-warning');
   const wmsg = document.getElementById('warning-msg');
-  if (['riesame_pen', 'opp_esecut', 'cassazione_breve', 'appello_breve'].includes(tipo)) {
+  if (tipo === '166_convenuto') {
+    w.style.display = 'block';
+    wmsg.textContent = 'Costituzione del convenuto ex art. 166 c.p.c.: il termine ordinario e di almeno 70 giorni prima dell\'udienza di comparizione indicata nell\'atto di citazione. Verificare rito applicabile, eventuali rinvii e decadenze ex art. 167 c.p.c.';
+  } else if (['riesame_pen', 'opp_esecut', 'cassazione_breve', 'appello_breve'].includes(tipo)) {
     w.style.display = 'block';
     wmsg.textContent = 'Termine perentorio: la mancata osservanza comporta decadenza dall\'impugnazione. La sospensione feriale per i termini brevi va verificata caso per caso.';
   } else if (tipo === 'riesame_pen') {
