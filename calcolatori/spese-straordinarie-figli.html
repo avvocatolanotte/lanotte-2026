@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>Calcolo spese straordinarie figli — Studio Legale Lanotte &amp; Partners</title>
+<link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/spese-straordinarie-figli/">
+<meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/spese-straordinarie-figli/">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<section class="hero-internal">
+  <div class="container">
+    <div class="breadcrumbs"><a href="https://studiolegalelanotte.it/">Home</a><span>›</span><a href="https://studiolegalelanotte.it/calcolatori/">Calcolatori</a><span>›</span>Spese straordinarie figli</div>
+    <h1>Calcolo spese straordinarie figli</h1>
+    <p class="subtitle">Riparto percentuale, rimborso dovuto e nota operativa per spese mediche, scolastiche, sportive e altre voci.</p>
+  </div>
+</section>
+
+<section style="background:#fef3c7;border-bottom:1px solid #f59e0b;padding:16px 0">
+  <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
+    <div style="font-size:24px;flex-shrink:0">!</div>
+    <div style="font-size:13.5px;color:#78350f;line-height:1.55">
+      <strong>Conta il titolo.</strong> La ripartizione e le spese rimborsabili dipendono da sentenza, decreto, accordo o negoziazione assistita. Per alcune voci puo servire accordo preventivo.
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container" style="max-width:1120px">
+    <div class="sf-grid">
+      <div class="sf-panel">
+        <h3>Dati della spesa</h3>
+
+        <div class="form-field">
+          <label>1 · Importo totale della spesa</label>
+          <input type="number" id="sf-importo" value="350" min="0" step="0.01">
+        </div>
+
+        <div class="form-field">
+          <label>2 · Tipologia di spesa</label>
+          <select id="sf-tipo">
+            <option value="medica_urgente" data-accordo="Di regola non richiede accordo preventivo se urgente e documentata.">Medica urgente / farmaci / pronto soccorso</option>
+            <option value="medica_programmata" data-accordo="Spesa medica programmata: verificare accordo preventivo o prescrizione specialistica.">Medica programmata / specialistica</option>
+            <option value="scolastica" data-accordo="Spesa scolastica: verificare se ordinaria o straordinaria nel provvedimento.">Scolastica / libri / iscrizione</option>
+            <option value="sportiva" data-accordo="Sport, corsi e attivita extrascolastiche richiedono spesso accordo preventivo.">Sportiva / corso / attivita extrascolastica</option>
+            <option value="altro" data-accordo="Voce da verificare in base al provvedimento e ai protocolli locali.">Altro</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>3 · Riparto previsto</label>
+          <select id="sf-riparto">
+            <option value="50">50% / 50%</option>
+            <option value="70">70% genitore A / 30% genitore B</option>
+            <option value="30">30% genitore A / 70% genitore B</option>
+            <option value="100">100% genitore A / 0% genitore B</option>
+            <option value="0">0% genitore A / 100% genitore B</option>
+            <option value="custom">Personalizzato</option>
+          </select>
+        </div>
+
+        <div class="form-field" id="sf-custom-box" style="display:none">
+          <label>Percentuale a carico del genitore A</label>
+          <input type="number" id="sf-custom-a" value="50" min="0" max="100" step="1">
+        </div>
+
+        <div class="form-field">
+          <label>4 · Chi ha anticipato la spesa?</label>
+          <select id="sf-anticipa">
+            <option value="A">Genitore A</option>
+            <option value="B">Genitore B</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>5 · Rimborso gia ricevuto</label>
+          <input type="number" id="sf-pagato" value="0" min="0" step="0.01">
+        </div>
+
+        <div class="form-field">
+          <label>6 · Termine rimborso previsto</label>
+          <input type="number" id="sf-giorni" value="30" min="1" max="180" step="1">
+          <p class="sf-help">Inserire i giorni previsti dal provvedimento o dall'accordo. Se non indicati, usare il campo solo come promemoria.</p>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="calcolaSpeseFigli()">Calcola riparto</button>
+      </div>
+
+      <div class="sf-result">
+        <div class="sf-kicker">Riparto stimato</div>
+        <h3>Spesa straordinaria figli</h3>
+        <div class="sf-total">
+          <span>Rimborso residuo dovuto</span>
+          <strong id="sf-rimborso">€ 0,00</strong>
+        </div>
+        <div class="sf-rows">
+          <div><span>Quota genitore A</span><strong id="sf-quota-a">€ 0,00</strong></div>
+          <div><span>Quota genitore B</span><strong id="sf-quota-b">€ 0,00</strong></div>
+          <div><span>Anticipo effettuato da</span><strong id="sf-anticipante">-</strong></div>
+          <div><span>Scadenza promemoria</span><strong id="sf-scadenza">-</strong></div>
+        </div>
+        <p class="sf-note" id="sf-note"></p>
+        <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
+        <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Verifica con lo Studio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block-sm" style="background:var(--cream)">
+  <div class="container" style="max-width:980px">
+    <div class="section-title">
+      <div class="divider-dot"></div>
+      <div class="section-eyebrow">Documenti da conservare</div>
+      <h2>Prima di chiedere il rimborso</h2>
+    </div>
+    <div class="sf-docs">
+      <div><strong>Ricevuta o fattura</strong><span>Documento fiscale intestato o riferibile al figlio.</span></div>
+      <div><strong>Prova pagamento</strong><span>Bonifico, POS, quietanza o estratto conto.</span></div>
+      <div><strong>Comunicazione</strong><span>Richiesta rimborso con copia dei documenti e prova invio.</span></div>
+    </div>
+  </div>
+</section>
+
+<style>
+.sf-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:32px;align-items:start}
+.sf-panel{background:#fff;border:1px solid var(--border);padding:32px;border-top:4px solid var(--gold)}
+.sf-panel h3,.sf-result h3{font-family:var(--serif);font-size:22px;color:var(--navy);margin:0 0 24px}
+.sf-panel input,.sf-panel select{width:100%;padding:11px 14px;border:1px solid var(--border);background:#fff;font-family:inherit;font-size:14px;border-radius:2px}
+.sf-help{font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:6px}
+.sf-result{position:sticky;top:96px;background:linear-gradient(135deg,var(--navy),#1a2a4a);color:#fff;padding:32px;border-top:4px solid var(--gold)}
+.sf-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px}
+.sf-result h3{color:#fff;line-height:1.25}
+.sf-total{background:rgba(184,153,104,.15);border:1px solid var(--gold);padding:22px;margin-bottom:18px}
+.sf-total span{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px}
+.sf-total strong{font-family:var(--serif);font-size:34px;color:#fff;line-height:1}
+.sf-rows{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;margin-bottom:16px}
+.sf-rows div{display:flex;justify-content:space-between;gap:18px;margin-bottom:10px;font-size:13px;color:#cbd5e1}
+.sf-rows strong{color:#e2e8f0;font-weight:600;text-align:right}
+.sf-note{font-size:12px;color:#dbeafe;line-height:1.55;margin:0 0 18px;font-style:italic}
+.sf-docs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.sf-docs div{background:#fff;border:1px solid #e5e7eb;border-top:3px solid var(--gold);padding:18px}
+.sf-docs strong{display:block;color:var(--navy);margin-bottom:6px}.sf-docs span{font-size:13px;color:var(--text-muted);line-height:1.5}
+@media(max-width:860px){.sf-grid{grid-template-columns:1fr}.sf-result{position:static}.sf-docs{grid-template-columns:1fr}}
+</style>
+
+<script src="../assets/js/lanotte-preview.js"></script>
+<script>
+function euro(value){
+  return new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR'}).format(Number(value) || 0);
+}
+function num(id){
+  return parseFloat(String(document.getElementById(id).value || '0').replace(',', '.')) || 0;
+}
+function pad(n){ return String(n).padStart(2, '0'); }
+function fmtDate(d){ return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear(); }
+function quotaA(){
+  const riparto = document.getElementById('sf-riparto').value;
+  if (riparto === 'custom') return Math.min(100, Math.max(0, num('sf-custom-a')));
+  return parseFloat(riparto);
+}
+function calcolaSpeseFigli(){
+  const importo = num('sf-importo');
+  const aPerc = quotaA();
+  const bPerc = 100 - aPerc;
+  const quotaAVal = importo * aPerc / 100;
+  const quotaBVal = importo * bPerc / 100;
+  const anticipa = document.getElementById('sf-anticipa').value;
+  const pagato = num('sf-pagato');
+  const dovutoLordo = anticipa === 'A' ? quotaBVal : quotaAVal;
+  const rimborso = Math.max(0, dovutoLordo - pagato);
+  const scadenza = new Date();
+  scadenza.setDate(scadenza.getDate() + Math.max(1, parseInt(document.getElementById('sf-giorni').value || '30', 10)));
+  const tipo = document.getElementById('sf-tipo').selectedOptions[0];
+
+  document.getElementById('sf-custom-box').style.display = document.getElementById('sf-riparto').value === 'custom' ? 'block' : 'none';
+  document.getElementById('sf-rimborso').textContent = euro(rimborso);
+  document.getElementById('sf-quota-a').textContent = euro(quotaAVal) + ' (' + aPerc + '%)';
+  document.getElementById('sf-quota-b').textContent = euro(quotaBVal) + ' (' + bPerc + '%)';
+  document.getElementById('sf-anticipante').textContent = anticipa === 'A' ? 'Genitore A' : 'Genitore B';
+  document.getElementById('sf-scadenza').textContent = fmtDate(scadenza);
+  document.getElementById('sf-note').textContent = tipo.dataset.accordo + ' Conservare ricevute, prova del pagamento e comunicazione inviata all\'altro genitore.';
+}
+function txt(id){ return (document.getElementById(id).textContent || '').trim(); }
+function apriAnteprimaReport(){
+  calcolaSpeseFigli();
+  const tipo = document.getElementById('sf-tipo').selectedOptions[0].textContent;
+  LanottePreview.openSummary({
+    title: 'Riparto spese straordinarie figli',
+    subtitle: tipo,
+    rows: [
+      ['Importo totale', euro(num('sf-importo'))],
+      ['Riparto scelto', document.getElementById('sf-riparto').selectedOptions[0].textContent],
+      ['Quota genitore A', txt('sf-quota-a')],
+      ['Quota genitore B', txt('sf-quota-b')],
+      ['Anticipo effettuato da', txt('sf-anticipante')],
+      ['Rimborso gia ricevuto', euro(num('sf-pagato'))],
+      ['Scadenza promemoria', txt('sf-scadenza')],
+      ['Nota documentale', txt('sf-note')]
+    ],
+    totalLabel: 'Rimborso residuo dovuto',
+    total: txt('sf-rimborso'),
+    notes: 'Calcolo orientativo: prevalgono sempre sentenza, decreto, accordo o negoziazione assistita e gli eventuali protocolli locali.'
+  });
+}
+document.querySelectorAll('#sf-importo,#sf-tipo,#sf-riparto,#sf-custom-a,#sf-anticipa,#sf-pagato,#sf-giorni').forEach(el => {
+  el.addEventListener('input', calcolaSpeseFigli);
+  el.addEventListener('change', calcolaSpeseFigli);
+});
+calcolaSpeseFigli();
+</script>
+</body>
+</html>

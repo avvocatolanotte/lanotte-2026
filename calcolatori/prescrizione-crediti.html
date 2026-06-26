@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>Calcolo prescrizione crediti — Studio Legale Lanotte &amp; Partners</title>
+<link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/prescrizione-crediti/">
+<meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/prescrizione-crediti/">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<section class="hero-internal">
+  <div class="container">
+    <div class="breadcrumbs"><a href="https://studiolegalelanotte.it/">Home</a><span>›</span><a href="https://studiolegalelanotte.it/calcolatori/">Calcolatori</a><span>›</span>Prescrizione crediti</div>
+    <h1>Calcolo prescrizione crediti</h1>
+    <p class="subtitle">Stima della data di prescrizione per crediti ordinari, periodici, risarcitori, professionali e bollette.</p>
+  </div>
+</section>
+
+<section style="background:#fef3c7;border-bottom:1px solid #f59e0b;padding:16px 0">
+  <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
+    <div style="font-size:24px;flex-shrink:0">!</div>
+    <div style="font-size:13.5px;color:#78350f;line-height:1.55">
+      <strong>Verifica necessaria.</strong> La prescrizione dipende da titolo, decorrenza, atti interruttivi, riconoscimenti di debito, giudizi pendenti e disciplina speciale. Il calcolo non sostituisce l'esame degli atti.
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container" style="max-width:1120px">
+    <div class="pc-grid">
+      <div class="pc-panel">
+        <h3>Dati del credito</h3>
+
+        <div class="form-field">
+          <label>1 · Tipo di credito</label>
+          <select id="pc-tipo">
+            <option value="ordinario" data-anni="10" data-norma="Art. 2946 c.c." data-note="Prescrizione ordinaria decennale, salvo termini speciali.">Credito ordinario / contratto: 10 anni</option>
+            <option value="periodico" data-anni="5" data-norma="Art. 2948 c.c." data-note="Rate, canoni, interessi e prestazioni periodiche: verificare la natura del credito.">Canoni, interessi, rate periodiche: 5 anni</option>
+            <option value="risarcimento" data-anni="5" data-norma="Art. 2947 c.c." data-note="Danno da fatto illecito: regola generale quinquennale.">Risarcimento da fatto illecito: 5 anni</option>
+            <option value="sinistro" data-anni="2" data-norma="Art. 2947 c.c." data-note="Danno prodotto da circolazione di veicoli: termine ordinario biennale, salvo ipotesi di reato.">Sinistro stradale: 2 anni</option>
+            <option value="bollette" data-anni="2" data-norma="Regolazione ARERA / prescrizione breve consumi" data-note="Per energia, gas e servizio idrico i consumi oltre 2 anni possono essere eccepiti nei casi previsti.">Bollette luce, gas, acqua: 2 anni</option>
+            <option value="professionisti" data-anni="3" data-norma="Art. 2956 c.c." data-note="Prescrizione presuntiva triennale per compensi professionali: richiede verifica probatoria.">Compensi professionali: 3 anni</option>
+            <option value="custom" data-anni="10" data-norma="Termine personalizzato" data-note="Inserire il termine da verificare sul caso concreto.">Termine personalizzato</option>
+          </select>
+        </div>
+
+        <div class="form-field" id="pc-custom-box" style="display:none">
+          <label>Anni di prescrizione</label>
+          <input type="number" id="pc-custom" value="10" min="1" max="30" step="1">
+        </div>
+
+        <div class="form-field">
+          <label>2 · Data di decorrenza</label>
+          <input type="date" id="pc-decorrenza">
+          <p class="pc-help">Esempi: scadenza fattura, giorno dell'illecito, ultimazione prestazione, scadenza rata. Va verificata sul documento.</p>
+        </div>
+
+        <div class="form-field">
+          <label>3 · Ultimo atto interruttivo ricevuto dal debitore</label>
+          <input type="date" id="pc-interruzione">
+          <p class="pc-help">Facoltativo. Se compilato, il termine viene ricalcolato da questa data.</p>
+        </div>
+
+        <div class="form-field">
+          <label>4 · Proroga se scade in giorno festivo</label>
+          <label class="pc-check"><input type="checkbox" id="pc-proroga" checked> Proroga al primo giorno non festivo</label>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="calcolaPrescrizione()">Calcola prescrizione</button>
+      </div>
+
+      <div class="pc-result">
+        <div class="pc-kicker">Esito stimato</div>
+        <h3 id="pc-titolo">Prescrizione del credito</h3>
+        <div class="pc-total">
+          <span>Data stimata di prescrizione</span>
+          <strong id="pc-scadenza">-</strong>
+        </div>
+        <div class="pc-status" id="pc-status">-</div>
+        <div class="pc-rows">
+          <div><span>Decorrenza usata</span><strong id="pc-start">-</strong></div>
+          <div><span>Termine applicato</span><strong id="pc-termine">-</strong></div>
+          <div><span>Riferimento</span><strong id="pc-norma">-</strong></div>
+          <div id="pc-proroga-row" style="display:none"><span>Proroga festivi</span><strong>Applicata</strong></div>
+        </div>
+        <p class="pc-note" id="pc-note"></p>
+        <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
+        <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Verifica prescrizione</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block-sm" style="background:var(--cream)">
+  <div class="container" style="max-width:980px">
+    <div class="section-title">
+      <div class="divider-dot"></div>
+      <div class="section-eyebrow">Strumenti collegati</div>
+      <h2>Se il credito non e prescritto</h2>
+    </div>
+    <div class="pc-links">
+      <a href="https://studiolegalelanotte.it/calcolatori/interessi-legali/">Calcola interessi legali</a>
+      <a href="https://studiolegalelanotte.it/calcolatori/opposizione-decreto-ingiuntivo/">Termini opposizione decreto ingiuntivo</a>
+      <a href="https://studiolegalelanotte.it/calcolatori/pignoramento-stipendio-pensione/">Stima pignoramento</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.pc-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:32px;align-items:start}
+.pc-panel{background:#fff;border:1px solid var(--border);padding:32px;border-top:4px solid var(--gold)}
+.pc-panel h3,.pc-result h3{font-family:var(--serif);font-size:22px;color:var(--navy);margin:0 0 24px}
+.pc-panel input,.pc-panel select{width:100%;padding:11px 14px;border:1px solid var(--border);background:#fff;font-family:inherit;font-size:14px;border-radius:2px}
+.pc-check{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:14px;color:var(--text);line-height:1.45}
+.pc-check input{width:auto;margin-top:2px}
+.pc-help{font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:6px}
+.pc-result{position:sticky;top:96px;background:linear-gradient(135deg,var(--navy),#1a2a4a);color:#fff;padding:32px;border-top:4px solid var(--gold)}
+.pc-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px}
+.pc-result h3{color:#fff;line-height:1.25}
+.pc-total{background:rgba(184,153,104,.15);border:1px solid var(--gold);padding:22px;margin-bottom:14px}
+.pc-total span{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px}
+.pc-total strong{font-family:var(--serif);font-size:34px;color:#fff;line-height:1}
+.pc-status{padding:12px 14px;background:rgba(255,255,255,.1);border-left:3px solid var(--gold);font-size:13px;font-weight:700;margin-bottom:16px}
+.pc-status.is-expired{border-left-color:#f87171;color:#fecaca}.pc-status.is-open{border-left-color:#34d399;color:#bbf7d0}
+.pc-rows{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;margin-bottom:16px}
+.pc-rows div{display:flex;justify-content:space-between;gap:18px;margin-bottom:10px;font-size:13px;color:#cbd5e1}
+.pc-rows strong{color:#e2e8f0;font-weight:600;text-align:right}
+.pc-note{font-size:12px;color:#dbeafe;line-height:1.55;margin:0 0 18px;font-style:italic}
+.pc-links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.pc-links a{background:#fff;border:1px solid #e5e7eb;border-top:3px solid var(--gold);padding:18px;text-decoration:none;color:var(--navy);font-weight:700}
+@media(max-width:860px){.pc-grid{grid-template-columns:1fr}.pc-result{position:static}.pc-links{grid-template-columns:1fr}}
+</style>
+
+<script src="../assets/js/lanotte-preview.js"></script>
+<script>
+function pad(n){ return String(n).padStart(2, '0'); }
+function fmtDate(d){ return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear(); }
+function parseDate(id){
+  const value = document.getElementById(id).value;
+  return value ? new Date(value + 'T12:00:00') : null;
+}
+function addYears(date, years){
+  const d = new Date(date);
+  const month = d.getMonth();
+  d.setFullYear(d.getFullYear() + years);
+  if (d.getMonth() !== month) d.setDate(0);
+  return d;
+}
+function isFestivo(d){
+  if (d.getDay() === 0 || d.getDay() === 6) return true;
+  const key = (d.getMonth() + 1) + '-' + d.getDate();
+  return ['1-1','1-6','4-25','5-1','6-2','8-15','11-1','12-8','12-25','12-26'].includes(key);
+}
+function selectedData(){
+  const opt = document.getElementById('pc-tipo').selectedOptions[0];
+  const custom = document.getElementById('pc-tipo').value === 'custom';
+  return {
+    label: opt.textContent.trim(),
+    anni: custom ? Math.max(1, parseInt(document.getElementById('pc-custom').value || '10', 10)) : parseInt(opt.dataset.anni, 10),
+    norma: opt.dataset.norma,
+    note: opt.dataset.note,
+    custom
+  };
+}
+function calcolaPrescrizione(){
+  const data = selectedData();
+  document.getElementById('pc-custom-box').style.display = data.custom ? 'block' : 'none';
+  const decorrenza = parseDate('pc-interruzione') || parseDate('pc-decorrenza');
+  if (!decorrenza) return;
+  let scadenza = addYears(decorrenza, data.anni);
+  let proroga = false;
+  if (document.getElementById('pc-proroga').checked) {
+    while (isFestivo(scadenza)) {
+      scadenza.setDate(scadenza.getDate() + 1);
+      proroga = true;
+    }
+  }
+  const oggi = new Date();
+  oggi.setHours(12,0,0,0);
+  const diff = Math.ceil((scadenza - oggi) / 86400000);
+  const status = document.getElementById('pc-status');
+  status.classList.remove('is-expired','is-open');
+  if (diff < 0) {
+    status.textContent = 'Possibile prescrizione maturata da ' + Math.abs(diff) + ' giorni';
+    status.classList.add('is-expired');
+  } else if (diff === 0) {
+    status.textContent = 'Scadenza stimata oggi';
+    status.classList.add('is-expired');
+  } else {
+    status.textContent = 'Termine ancora pendente: circa ' + diff + ' giorni residui';
+    status.classList.add('is-open');
+  }
+  document.getElementById('pc-scadenza').textContent = fmtDate(scadenza);
+  document.getElementById('pc-start').textContent = fmtDate(decorrenza);
+  document.getElementById('pc-termine').textContent = data.anni + (data.anni === 1 ? ' anno' : ' anni');
+  document.getElementById('pc-norma').textContent = data.norma;
+  document.getElementById('pc-note').textContent = data.note;
+  document.getElementById('pc-titolo').textContent = data.label.replace(/:.*$/, '');
+  document.getElementById('pc-proroga-row').style.display = proroga ? 'flex' : 'none';
+}
+function txt(id){ return (document.getElementById(id).textContent || '').trim(); }
+function apriAnteprimaReport(){
+  calcolaPrescrizione();
+  const data = selectedData();
+  LanottePreview.openSummary({
+    title: 'Prescrizione crediti',
+    subtitle: data.label,
+    rows: [
+      ['Decorrenza considerata', txt('pc-start')],
+      ['Termine applicato', txt('pc-termine')],
+      ['Riferimento', txt('pc-norma')],
+      ['Esito alla data odierna', txt('pc-status')],
+      ...(document.getElementById('pc-proroga-row').style.display !== 'none' ? [['Proroga festivi', 'Applicata']] : []),
+      ['Nota', txt('pc-note')]
+    ],
+    totalLabel: 'Data stimata di prescrizione',
+    total: txt('pc-scadenza'),
+    notes: 'Calcolo orientativo: verificare atti interruttivi, riconoscimenti di debito, giudizi pendenti, decorrenza e termini speciali.'
+  });
+}
+document.querySelectorAll('#pc-tipo,#pc-custom,#pc-decorrenza,#pc-interruzione,#pc-proroga').forEach(el => {
+  el.addEventListener('input', calcolaPrescrizione);
+  el.addEventListener('change', calcolaPrescrizione);
+});
+const today = new Date();
+today.setFullYear(today.getFullYear() - 1);
+document.getElementById('pc-decorrenza').value = today.toISOString().slice(0, 10);
+calcolaPrescrizione();
+</script>
+</body>
+</html>

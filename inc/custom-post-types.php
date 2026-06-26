@@ -219,7 +219,7 @@ function lanotte_register_servizio_cpt() {
     ]);
 
     /* ============================================================
-       CPT: Calcolatore (le 14 card del hub /calcolatori/)
+       CPT: Calcolatore (card del hub /calcolatori/)
     ============================================================ */
     register_post_type('calcolatore', [
         'labels' => [

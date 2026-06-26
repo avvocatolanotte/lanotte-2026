@@ -13,9 +13,9 @@ $calc_base = home_url('/calcolatori');
 <section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;padding:80px 0 70px">
   <div class="container">
     <nav style="font-size:13px;color:#cbd5e1;margin-bottom:14px"><a href="<?php echo esc_url(home_url('/')); ?>" style="color:#cbd5e1">Home</a> <span style="opacity:.5">›</span> <span style="color:#b89968">Calcolatori</span></nav>
-    <span style="display:inline-block;padding:6px 14px;background:rgba(184,153,104,.18);border:1px solid rgba(184,153,104,.4);border-radius:2px;font-size:11px;letter-spacing:.14em;color:#d4b87f;font-weight:600;text-transform:uppercase;margin-bottom:18px">16 strumenti professionali · Tutti con PDF carta intestata</span>
+    <span style="display:inline-block;padding:6px 14px;background:rgba(184,153,104,.18);border:1px solid rgba(184,153,104,.4);border-radius:2px;font-size:11px;letter-spacing:.14em;color:#d4b87f;font-weight:600;text-transform:uppercase;margin-bottom:18px">20 strumenti professionali · Tutti con anteprima e PDF</span>
     <h1 style="font-family:var(--serif);font-size:54px;font-weight:600;line-height:1.05;margin:0 0 22px;color:#fff">Calcolatori<br><em style="font-style:italic;color:#d4b87f">giuridici e patrimoniali</em></h1>
-    <p style="font-size:17px;line-height:1.65;color:#cbd5e1;max-width:780px;margin:0">Parcelle, scadenze, lesioni, ISTAT, interessi, contestazioni bollette. Indici e tassi <strong style="color:#fff">aggiornati automaticamente</strong> dalle fonti ufficiali. Output PDF con carta intestata Studio.</p>
+    <p style="font-size:17px;line-height:1.65;color:#cbd5e1;max-width:780px;margin:0">Parcelle, scadenze, lesioni, ISTAT, interessi, prescrizione, pignoramenti e contestazioni bollette. Indici e tassi <strong style="color:#fff">aggiornati automaticamente</strong> dalle fonti ufficiali. Report con anteprima, stampa e PDF.</p>
   </div>
 </section>
 
@@ -72,6 +72,10 @@ $calc_base = home_url('/calcolatori');
     </div>
     <div class="calc-grid">
       <a href="<?php echo esc_url("$calc_base/scadenze/"); ?>" class="calc-card cat-4"><div class="calc-icon">📅</div><h3>Scadenze Processuali</h3><p>Sospensione feriale · Google Calendar + .ics</p><span class="calc-tag">L. 742/1969 + art. 155 c.p.c.</span></a>
+      <a href="<?php echo esc_url("$calc_base/opposizione-decreto-ingiuntivo/"); ?>" class="calc-card cat-4"><div class="calc-icon">⏳</div><h3>Opposizione Decreto Ingiuntivo</h3><p>40 giorni da notifica · feriale e proroga festivi</p><span class="calc-tag">Art. 641 c.p.c.</span></a>
+      <a href="<?php echo esc_url("$calc_base/pignoramento-stipendio-pensione/"); ?>" class="calc-card cat-4"><div class="calc-icon">💶</div><h3>Pignoramento Stipendio/Pensione</h3><p>Quinto, soglia pensione, riscossione esattoriale</p><span class="calc-tag">Art. 545 c.p.c. + DPR 602/1973</span></a>
+      <a href="<?php echo esc_url("$calc_base/prescrizione-crediti/"); ?>" class="calc-card cat-4"><div class="calc-icon">⌛</div><h3>Prescrizione Crediti</h3><p>10, 5, 3 o 2 anni · atti interruttivi</p><span class="calc-tag">Artt. 2946 ss. c.c.</span></a>
+      <a href="<?php echo esc_url("$calc_base/spese-straordinarie-figli/"); ?>" class="calc-card cat-4"><div class="calc-icon">👨‍👩‍👧‍👦</div><h3>Spese Straordinarie Figli</h3><p>Riparto percentuale e rimborso residuo</p><span class="calc-tag">Famiglia · accordi e provvedimenti</span></a>
       <a href="<?php echo esc_url("$calc_base/aqp/"); ?>" class="calc-card cat-4"><div class="calc-icon">💧</div><h3>Bolletta AQP — Verifica + Reclamo</h3><p>Verifica calcolo, perdite occulte, reclamo ARERA</p><span class="calc-tag">Delibera ARERA 547/2019 + 655/2015</span></a>
       <a href="<?php echo esc_url("$calc_base/contributo-unificato/"); ?>" class="calc-card cat-4"><div class="calc-icon">🏛️</div><h3>Contributo Unificato</h3><p>Tasse giudiziarie per valore e tipo di causa</p><span class="calc-tag">DPR 115/2002 art. 13</span></a>
       <a href="<?php echo esc_url("$calc_base/timeline-marchio/"); ?>" class="calc-card cat-4"><div class="calc-icon">™️</div><h3>Timeline Marchio UIBM/EUIPO</h3><p>Date stimate deposito → registrazione + opposizione</p><span class="calc-tag">Reg. UE 2017/1001 + CPI</span></a>

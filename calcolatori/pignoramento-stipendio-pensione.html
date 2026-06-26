@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>Calcolo pignoramento stipendio e pensione — Studio Legale Lanotte &amp; Partners</title>
+<link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/pignoramento-stipendio-pensione/">
+<meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/pignoramento-stipendio-pensione/">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<section class="hero-internal">
+  <div class="container">
+    <div class="breadcrumbs"><a href="https://studiolegalelanotte.it/">Home</a><span>›</span><a href="https://studiolegalelanotte.it/calcolatori/">Calcolatori</a><span>›</span>Pignoramento stipendio e pensione</div>
+    <h1>Calcolo pignoramento stipendio e pensione</h1>
+    <p class="subtitle">Stima della quota mensile pignorabile per crediti ordinari, riscossione esattoriale e crediti alimentari.</p>
+  </div>
+</section>
+
+<section style="background:#fef3c7;border-bottom:1px solid #f59e0b;padding:16px 0">
+  <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
+    <div style="font-size:24px;flex-shrink:0">!</div>
+    <div style="font-size:13.5px;color:#78350f;line-height:1.55">
+      <strong>Stima orientativa.</strong> Il risultato dipende da titolo esecutivo, natura del credito, eventuali pignoramenti gia in corso, ordinanza di assegnazione e regole speciali. Per i crediti alimentari la misura e stabilita dal giudice.
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container" style="max-width:1120px">
+    <div class="lc-grid">
+      <div class="lc-panel">
+        <h3>Parametri del pignoramento</h3>
+
+        <div class="form-field">
+          <label>1 · Reddito mensile netto</label>
+          <input type="number" id="pig-netto" value="1800" min="0" step="0.01">
+        </div>
+
+        <div class="form-field">
+          <label>2 · Tipo di reddito</label>
+          <select id="pig-reddito">
+            <option value="stipendio">Stipendio / salario netto</option>
+            <option value="pensione">Pensione netta</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>3 · Natura del credito</label>
+          <select id="pig-credito">
+            <option value="ordinario">Credito ordinario (limite tipico: 1/5)</option>
+            <option value="esattoriale">Riscossione esattoriale (1/10 · 1/7 · 1/5)</option>
+            <option value="alimentare">Credito alimentare / mantenimento (stima)</option>
+          </select>
+        </div>
+
+        <div class="form-field" id="pig-aliquota-box" style="display:none">
+          <label>Percentuale stimata per alimenti</label>
+          <input type="number" id="pig-alimenti" value="33" min="1" max="50" step="1">
+          <p class="lc-help">La misura effettiva e determinata dal giudice. Il valore serve solo per simulare un possibile ordine di grandezza.</p>
+        </div>
+
+        <div class="form-field" id="pig-assegno-box">
+          <label>Assegno sociale mensile per soglia pensione</label>
+          <input type="number" id="pig-assegno" value="546.24" min="0" step="0.01">
+          <p class="lc-help">La pensione e impignorabile fino al doppio dell'assegno sociale, con minimo di 1.000 euro. Campo modificabile per aggiornamenti annuali.</p>
+        </div>
+
+        <div class="form-field">
+          <label>4 · Pignoramenti gia in corso</label>
+          <input type="number" id="pig-gia" value="0" min="0" step="0.01">
+          <p class="lc-help">Inserisci la trattenuta mensile gia applicata, se presente. Il calcolo la sottrae dal margine prudenziale.</p>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="calcolaPignoramento()">Calcola quota pignorabile</button>
+      </div>
+
+      <div class="lc-result">
+        <div class="lc-kicker">Risultato stimato</div>
+        <h3 id="pig-titolo">Quota pignorabile</h3>
+        <div class="lc-total">
+          <span>Trattenuta mensile stimata</span>
+          <strong id="pig-quota">€ 0,00</strong>
+        </div>
+        <div class="lc-rows">
+          <div><span>Base pignorabile</span><strong id="pig-base">€ 0,00</strong></div>
+          <div><span>Soglia protetta</span><strong id="pig-soglia">€ 0,00</strong></div>
+          <div><span>Aliquota applicata</span><strong id="pig-aliquota">-</strong></div>
+          <div><span>Residuo dopo trattenuta</span><strong id="pig-residuo">€ 0,00</strong></div>
+        </div>
+        <p id="pig-note" class="lc-note"></p>
+        <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
+        <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Verifica con lo Studio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block-sm" style="background:var(--cream)">
+  <div class="container" style="max-width:980px">
+    <div class="section-title">
+      <div class="divider-dot"></div>
+      <div class="section-eyebrow">Collegamenti utili</div>
+      <h2>Dal calcolo alla strategia</h2>
+    </div>
+    <div class="lc-links">
+      <a href="https://studiolegalelanotte.it/calcolatori/prescrizione-crediti/">Verifica prescrizione del credito</a>
+      <a href="https://studiolegalelanotte.it/calcolatori/interessi-legali/">Calcola interessi legali</a>
+      <a href="https://studiolegalelanotte.it/calcolatori/contributo-unificato/">Stima contributo unificato</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.lc-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:32px;align-items:start}
+.lc-panel{background:#fff;border:1px solid var(--border);padding:32px;border-top:4px solid var(--gold)}
+.lc-panel h3,.lc-result h3{font-family:var(--serif);font-size:22px;color:var(--navy);margin:0 0 24px}
+.lc-panel input,.lc-panel select{width:100%;padding:11px 14px;border:1px solid var(--border);background:#fff;font-family:inherit;font-size:14px;border-radius:2px}
+.lc-help{font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:6px}
+.lc-result{position:sticky;top:96px;background:linear-gradient(135deg,var(--navy),#1a2a4a);color:#fff;padding:32px;border-top:4px solid var(--gold)}
+.lc-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px}
+.lc-result h3{color:#fff;line-height:1.25}
+.lc-total{background:rgba(184,153,104,.15);border:1px solid var(--gold);padding:22px;margin-bottom:18px}
+.lc-total span{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px}
+.lc-total strong{font-family:var(--serif);font-size:34px;color:#fff;line-height:1}
+.lc-rows{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;margin-bottom:16px}
+.lc-rows div{display:flex;justify-content:space-between;gap:18px;margin-bottom:10px;font-size:13px;color:#cbd5e1}
+.lc-rows strong{color:#e2e8f0;font-weight:600;text-align:right}
+.lc-note{font-size:12px;color:#dbeafe;line-height:1.55;margin:0 0 18px;font-style:italic}
+.lc-links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.lc-links a{background:#fff;border:1px solid #e5e7eb;border-top:3px solid var(--gold);padding:18px;text-decoration:none;color:var(--navy);font-weight:700}
+@media(max-width:860px){.lc-grid{grid-template-columns:1fr}.lc-result{position:static}.lc-links{grid-template-columns:1fr}}
+</style>
+
+<script src="../assets/js/lanotte-preview.js"></script>
+<script>
+function euro(value){
+  return new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR'}).format(Number(value) || 0);
+}
+
+function num(id){
+  return parseFloat(String(document.getElementById(id).value || '0').replace(',', '.')) || 0;
+}
+
+function calcolaPignoramento(){
+  const netto = num('pig-netto');
+  const tipoReddito = document.getElementById('pig-reddito').value;
+  const tipoCredito = document.getElementById('pig-credito').value;
+  const assegno = num('pig-assegno');
+  const gia = num('pig-gia');
+  const alimentiPerc = Math.min(50, Math.max(1, num('pig-alimenti'))) / 100;
+
+  document.getElementById('pig-aliquota-box').style.display = tipoCredito === 'alimentare' ? 'block' : 'none';
+  document.getElementById('pig-assegno-box').style.display = tipoReddito === 'pensione' ? 'block' : 'none';
+
+  const soglia = tipoReddito === 'pensione' ? Math.max(1000, assegno * 2) : 0;
+  const base = Math.max(0, netto - soglia);
+  let aliquota = 0.2;
+  let label = '1/5';
+  let note = 'Credito ordinario: stima del quinto della base pignorabile, salvi concorsi tra creditori e provvedimento del giudice.';
+
+  if (tipoCredito === 'esattoriale') {
+    if (netto <= 2500) {
+      aliquota = 0.1;
+      label = '1/10';
+    } else if (netto <= 5000) {
+      aliquota = 1 / 7;
+      label = '1/7';
+    } else {
+      aliquota = 0.2;
+      label = '1/5';
+    }
+    note = 'Riscossione esattoriale: aliquota graduata ex art. 72-ter DPR 602/1973 in base all\'importo mensile.';
+  } else if (tipoCredito === 'alimentare') {
+    aliquota = alimentiPerc;
+    label = Math.round(alimentiPerc * 100) + '%';
+    note = 'Credito alimentare o mantenimento: la misura effettiva e autorizzata dal giudice. Questa e solo una simulazione.';
+  }
+
+  const quotaLordo = base * aliquota;
+  const marginePrudenziale = Math.max(0, netto / 2 - gia);
+  const quota = Math.max(0, Math.min(quotaLordo, marginePrudenziale));
+  const residuo = Math.max(0, netto - gia - quota);
+
+  document.getElementById('pig-quota').textContent = euro(quota);
+  document.getElementById('pig-base').textContent = euro(base);
+  document.getElementById('pig-soglia').textContent = tipoReddito === 'pensione' ? euro(soglia) : 'Non applicata';
+  document.getElementById('pig-aliquota').textContent = label;
+  document.getElementById('pig-residuo').textContent = euro(residuo);
+  document.getElementById('pig-note').textContent = note;
+  document.getElementById('pig-titolo').textContent = tipoReddito === 'pensione' ? 'Pensione pignorabile' : 'Stipendio pignorabile';
+}
+
+function testo(id){ return (document.getElementById(id).textContent || '').trim(); }
+
+function apriAnteprimaReport(){
+  calcolaPignoramento();
+  const reddito = document.getElementById('pig-reddito').selectedOptions[0].textContent;
+  const credito = document.getElementById('pig-credito').selectedOptions[0].textContent;
+  LanottePreview.openSummary({
+    title: 'Pignoramento stipendio e pensione',
+    subtitle: credito,
+    rows: [
+      ['Reddito considerato', reddito],
+      ['Netto mensile', euro(num('pig-netto'))],
+      ['Soglia protetta', testo('pig-soglia')],
+      ['Base pignorabile', testo('pig-base')],
+      ['Aliquota applicata', testo('pig-aliquota')],
+      ['Pignoramenti gia in corso', euro(num('pig-gia'))],
+      ['Residuo stimato', testo('pig-residuo')],
+      ['Nota', testo('pig-note')]
+    ],
+    totalLabel: 'Trattenuta mensile stimata',
+    total: testo('pig-quota'),
+    notes: 'Calcolo orientativo. Verificare titolo, ordinanza di assegnazione, concorso tra creditori e disciplina speciale applicabile.'
+  });
+}
+
+document.querySelectorAll('#pig-netto,#pig-reddito,#pig-credito,#pig-alimenti,#pig-assegno,#pig-gia').forEach(el => {
+  el.addEventListener('input', calcolaPignoramento);
+  el.addEventListener('change', calcolaPignoramento);
+});
+calcolaPignoramento();
+</script>
+</body>
+</html>

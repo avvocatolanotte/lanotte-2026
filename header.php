@@ -207,39 +207,43 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
       <div class="nav-mega-col">
         <h6>Compensi forensi</h6>
         <ul>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/parcella-civile.html'); ?>">⚖️ Parcella Civile</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/parcella-penale.html'); ?>">🔨 Parcella Penale</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/stragiudiziale.html'); ?>">🤝 Stragiudiziale + Mediazione</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/sfratti.html'); ?>">🏠 Procedimento Sfratto</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/parcella-civile/')); ?>">⚖️ Parcella Civile</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/parcella-penale/')); ?>">🔨 Parcella Penale</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/stragiudiziale/')); ?>">🤝 Stragiudiziale + Mediazione</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/sfratti/')); ?>">🏠 Procedimento Sfratto</a></li>
         </ul>
       </div>
       <div class="nav-mega-col">
         <h6>Lesioni e Danni</h6>
         <ul>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/micropermanenti.html'); ?>">🩺 Micropermanenti</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/macropermanenti.html'); ?>">🦴 Macropermanenti</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/danni-preesistenti.html'); ?>">📊 Coesistenti / Concorrenti</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/micropermanenti/')); ?>">🩺 Micropermanenti</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/macropermanenti/')); ?>">🦴 Macropermanenti</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/danni-preesistenti/')); ?>">📊 Coesistenti / Concorrenti</a></li>
         </ul>
       </div>
       <div class="nav-mega-col">
         <h6>ISTAT &amp; Interessi <span style="background:#065f46;color:#fff;font-size:9px;padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle">AUTO ⚡</span></h6>
         <ul>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/istat-locazione.html'); ?>">🏘️ ISTAT Locazione</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/mantenimento-istat.html'); ?>">👨‍👩‍👧 Mantenimento ISTAT</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/svalutazione.html'); ?>">💰 Svalutazione Monetaria</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/interessi-legali.html'); ?>">📈 Interessi Legali</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/interessi-moratori.html'); ?>">⏰ Interessi Moratori B2B</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/istat-locazione/')); ?>">🏘️ ISTAT Locazione</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/mantenimento-istat/')); ?>">👨‍👩‍👧 Mantenimento ISTAT</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/svalutazione/')); ?>">💰 Svalutazione Monetaria</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/interessi-legali/')); ?>">📈 Interessi Legali</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/interessi-moratori/')); ?>">⏰ Interessi Moratori B2B</a></li>
         </ul>
       </div>
       <div class="nav-mega-col nav-mega-cta">
         <h6>Procedurali &amp; Utilities</h6>
         <ul>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/scadenze.html'); ?>">📅 Scadenze Processuali</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/aqp.html'); ?>">💧 Bolletta AQP</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/contributo-unificato.html'); ?>">🏛️ Contributo Unificato</a></li>
-          <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/timeline-marchio.html'); ?>">™ Timeline Marchio</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/scadenze/')); ?>">📅 Scadenze Processuali</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/opposizione-decreto-ingiuntivo/')); ?>">⏳ Opposizione Decreto Ingiuntivo</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/pignoramento-stipendio-pensione/')); ?>">💶 Pignoramento Stipendio/Pensione</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/prescrizione-crediti/')); ?>">⌛ Prescrizione Crediti</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/spese-straordinarie-figli/')); ?>">👨‍👩‍👧‍👦 Spese Straordinarie Figli</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/aqp/')); ?>">💧 Bolletta AQP</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/contributo-unificato/')); ?>">🏛️ Contributo Unificato</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/timeline-marchio/')); ?>">™ Timeline Marchio</a></li>
         </ul>
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-allbtn">Vedi tutti i 16 strumenti <span aria-hidden="true">→</span></a>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-allbtn">Vedi tutti i 20 strumenti <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -282,7 +286,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
       <div class="nav-mega-col nav-mega-cta">
         <h6>Strumenti utili</h6>
         <ul class="nav-mega-tools">
-          <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>">📊 Calcolatori (16)</a></li>
+          <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>">📊 Calcolatori (20)</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari'))); ?>">💼 Onorari trasparenti</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>">📰 Rassegna giuridica</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari')) . '#servizi-online'); ?>">🛒 Servizi online</a></li>
@@ -316,12 +320,14 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
   </ul>
   <div class="md-section">Calcolatori più richiesti</div>
   <ul>
-    <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/parcella-civile.html'); ?>">⚖️ Parcella Civile</a></li>
-    <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/parcella-penale.html'); ?>">🔨 Parcella Penale</a></li>
-    <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/istat-locazione.html'); ?>">🏘️ ISTAT Locazione</a></li>
-    <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/interessi-legali.html'); ?>">📈 Interessi Legali</a></li>
-    <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/scadenze.html'); ?>">📅 Scadenze Processuali</a></li>
-    <li><a href="<?php echo esc_url(LANOTTE_THEME_URI . '/calcolatori/aqp.html'); ?>">💧 Bolletta AQP</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/parcella-civile/')); ?>">⚖️ Parcella Civile</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/parcella-penale/')); ?>">🔨 Parcella Penale</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/istat-locazione/')); ?>">🏘️ ISTAT Locazione</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/interessi-legali/')); ?>">📈 Interessi Legali</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/scadenze/')); ?>">📅 Scadenze Processuali</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/opposizione-decreto-ingiuntivo/')); ?>">⏳ Opposizione Decreto Ingiuntivo</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/pignoramento-stipendio-pensione/')); ?>">💶 Pignoramento Stipendio/Pensione</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/prescrizione-crediti/')); ?>">⌛ Prescrizione Crediti</a></li>
   </ul>
   <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="md-cta">RICHIEDI CONSULENZA</a>
   <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="md-cta" style="background:#0f172a;margin-top:8px">📞 Chiama Studio</a>
