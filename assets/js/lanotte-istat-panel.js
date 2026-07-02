@@ -14,6 +14,8 @@
     const target = typeof selectorOrEl === 'string' ? document.querySelector(selectorOrEl) : selectorOrEl;
     if (!target) { console.warn('[LanotteISTATPanel] target non trovato'); return; }
 
+    const mesi = LanotteISTAT.mesiDisponibili ? LanotteISTAT.mesiDisponibili() : [];
+    const primo = mesi[0] || '2016-01';
     const ultimo = LanotteISTAT.ultimoMese();
     const next = nextMonth(ultimo);
 
@@ -25,14 +27,14 @@
         </summary>
         <div class="lp-body">
           <p class="lp-help">
-            <strong>Quando si usa</strong>: se l'API ISTAT è bloccata (CORS browser) e i dati locali sono fermi,
-            qui inserisci manualmente l'indice FOI del mese mancante direttamente dal sito
-            <a href="https://www.istat.it/it/archivio/30440" target="_blank" rel="noopener">istat.it</a>.<br>
+            <strong>Quando si usa</strong>: se devi calcolare un mese non ancora presente nell'archivio locale,
+            qui inserisci manualmente l'indice FOI senza tabacchi pubblicato da
+            <a href="https://www.istat.it/notizia/indice-dei-prezzi-per-le-rivalutazioni-monetarie/" target="_blank" rel="noopener">istat.it</a>.<br>
             <strong>Il valore viene salvato nel tuo browser</strong> e usato in tutti i calcolatori ISTAT del sito.
           </p>
           <div class="lp-row">
-            <label>Mese (YYYY-MM)<input type="month" class="lp-mese" value="${next}" min="2020-01"></label>
-            <label>Valore FOI (base 2015=100)<input type="number" class="lp-valore" step="0.1" min="80" max="200" placeholder="Es. 122.9"></label>
+            <label>Mese (YYYY-MM)<input type="month" class="lp-mese" value="${next}" min="${primo}"></label>
+            <label>Valore FOI (base 2015=100)<input type="number" class="lp-valore" step="0.1" min="80" max="200" placeholder="Es. 124.8"></label>
           </div>
           <div class="lp-actions">
             <button type="button" class="btn btn-primary lp-save">Salva nel browser</button>

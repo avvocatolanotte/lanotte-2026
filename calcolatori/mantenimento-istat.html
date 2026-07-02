@@ -292,17 +292,29 @@
   status.textContent = '⏳ Caricamento indici ISTAT...';
   try {
     await LanotteISTAT.load('../assets/data/istat-foi.json');
+    const mesi = LanotteISTAT.mesiDisponibili();
+    const primo = mesi[0];
     const ultimo = LanotteISTAT.ultimoMese();
+    const meseInizioEl = document.getElementById('meseInizio');
+    const meseFineEl = document.getElementById('meseFine');
     status.className = 'data-status ok';
-    status.innerHTML = '✓ Indici ISTAT FOI caricati - ultimo periodo: <strong>' + ultimo + '</strong>';
-    document.getElementById('meseFine').value = ultimo;
-    document.getElementById('meseFine').max = ultimo;
+    status.innerHTML = '✓ Indici ISTAT FOI caricati - periodo disponibile: <strong>' + primo + ' / ' + ultimo + '</strong>';
+    meseInizioEl.min = primo;
+    meseInizioEl.max = ultimo;
+    meseFineEl.min = primo;
+    meseFineEl.value = ultimo;
+    meseFineEl.max = ultimo;
     LanotteISTATPanel.inject('#istatPanelContainer', {
       onUpdate: async () => {
         await LanotteISTAT.load('../assets/data/istat-foi.json');
+        const mesiAgg = LanotteISTAT.mesiDisponibili();
+        const p = mesiAgg[0];
         const u = LanotteISTAT.ultimoMese();
-        document.getElementById('meseFine').max = u;
-        status.innerHTML = '✓ Indici aggiornati - ultimo: <strong>' + u + '</strong>';
+        meseInizioEl.min = p;
+        meseInizioEl.max = u;
+        meseFineEl.min = p;
+        meseFineEl.max = u;
+        status.innerHTML = '✓ Indici aggiornati - periodo disponibile: <strong>' + p + ' / ' + u + '</strong>';
       }
     });
   } catch(e) {
@@ -314,6 +326,7 @@
 
   let datiCalc = null;
   const fmtEur = v => '€ ' + v.toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2});
+  const fmtSignedEur = v => (v >= 0 ? '+' : '-') + fmtEur(Math.abs(v));
   const fmtPct = v => v.toFixed(3).replace('.', ',') + '%';
   const fmtMese = m => { const mesi=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic']; const [y,mm]=m.split('-'); return mesi[+mm-1]+' '+y; };
 
@@ -323,10 +336,17 @@
     const meseFine = document.getElementById('meseFine').value;
     const perc = parseInt(document.getElementById('indice').value);
     if (!assegno || !meseInizio || !meseFine) { alert('Compila i campi obbligatori'); return; }
+    if (meseFine < meseInizio) { alert('Il mese di calcolo deve essere uguale o successivo al mese di decorrenza/ultimo adeguamento.'); return; }
 
     const idxStart = LanotteISTAT.indice(meseInizio);
     const idxEnd = LanotteISTAT.indice(meseFine);
-    if (!idxStart || !idxEnd) { alert('Indice non disponibile'); return; }
+    if (idxStart == null || idxEnd == null) {
+      const mesi = LanotteISTAT.mesiDisponibili();
+      const primo = mesi[0] || 'non disponibile';
+      const ultimo = mesi[mesi.length - 1] || 'non disponibile';
+      alert('Indice ISTAT non disponibile per uno dei mesi selezionati. Periodo presente in archivio: ' + primo + ' / ' + ultimo + '. Per un mese diverso apri il pannello "Mancano valori ISTAT recenti?" e inserisci il valore FOI manualmente.');
+      return;
+    }
 
     const variazione = ((idxEnd - idxStart) / idxStart) * 100;
     const aumento = variazione * (perc / 100);
@@ -341,8 +361,8 @@
     document.getElementById('rAtt').textContent = fmtEur(assegno);
     document.getElementById('rVar').textContent = fmtPct(variazione) + ' (' + perc + '% applicato)';
     document.getElementById('rNew').textContent = fmtEur(nuovo);
-    document.getElementById('rDiff').textContent = '+' + fmtEur(diff);
-    document.getElementById('rDiffA').textContent = '+' + fmtEur(diff * 12);
+    document.getElementById('rDiff').textContent = fmtSignedEur(diff);
+    document.getElementById('rDiffA').textContent = fmtSignedEur(diff * 12);
     document.getElementById('rArr').textContent = totaleMesi + ' mesi';
 
     // Tabella storico per anno
@@ -351,13 +371,13 @@
     for (let y = yi; y <= yf; y++) {
       const meseRif = (y === yf) ? meseFine : (y === yi ? meseInizio : (y + '-12'));
       const iA = LanotteISTAT.indice(meseRif);
-      if (!iA) continue;
+      if (iA == null) continue;
       const vA = ((iA - idxStart) / idxStart) * 100;
       const aA = vA * (perc / 100);
       const nA = assegno * (1 + aA / 100);
       const dA = nA - assegno;
-      righeTab.push([y, iA.toFixed(2), fmtPct(vA), fmtEur(nA), '+' + fmtEur(dA)]);
-      tb.innerHTML += '<tr><td><strong>' + y + '</strong></td><td>' + iA.toFixed(2) + '</td><td>' + fmtPct(vA) + '</td><td><strong>' + fmtEur(nA) + '</strong></td><td>' + '+' + fmtEur(dA) + '</td></tr>';
+      righeTab.push([y, iA.toFixed(2), fmtPct(vA), fmtEur(nA), fmtSignedEur(dA)]);
+      tb.innerHTML += '<tr><td><strong>' + y + '</strong></td><td>' + iA.toFixed(2) + '</td><td>' + fmtPct(vA) + '</td><td><strong>' + fmtEur(nA) + '</strong></td><td>' + fmtSignedEur(dA) + '</td></tr>';
     }
 
     datiCalc = {
@@ -394,8 +414,8 @@
       {label:'% di applicazione', value: d.perc + '%'},
       {label:'Aumento ' + d.perc + '%', value: fmtPct(d.aumento)},
       {label:'Assegno aggiornato', value: fmtEur(d.nuovo) + ' / mese'},
-      {label:'Differenza mensile', value: '+' + fmtEur(d.diff)},
-      {label:'Differenza annua', value: '+' + fmtEur(d.diff * 12)},
+      {label:'Differenza mensile', value: fmtSignedEur(d.diff)},
+      {label:'Differenza annua', value: fmtSignedEur(d.diff * 12)},
       {label:'Mesi pregressi', value: d.totaleMesi + ' mesi'}
     );
     LanottePDF.preview({
@@ -408,7 +428,7 @@
         headers: ['Anno','Indice FOI','Var. cumulata','Assegno aggiornato','Differenza vs iniziale'],
         rows: d.righeTab
       },
-      conclusioni: 'L\'assegno di mantenimento per ' + benefLabel.toLowerCase() + ', adeguato secondo la variazione ISTAT FOI senza tabacchi del periodo ' + fmtMese(d.meseInizio) + ' → ' + fmtMese(d.meseFine) + ' (' + d.perc + '%), passa da ' + fmtEur(d.assegno) + ' a ' + fmtEur(d.nuovo) + ' mensili (+' + fmtEur(d.diff) + '/mese, ' + fmtEur(d.diff*12) + '/anno).',
+      conclusioni: 'L\'assegno di mantenimento per ' + benefLabel.toLowerCase() + ', adeguato secondo la variazione ISTAT FOI senza tabacchi del periodo ' + fmtMese(d.meseInizio) + ' → ' + fmtMese(d.meseFine) + ' (' + d.perc + '%), passa da ' + fmtEur(d.assegno) + ' a ' + fmtEur(d.nuovo) + ' mensili (' + fmtSignedEur(d.diff) + '/mese, ' + fmtSignedEur(d.diff*12) + '/anno).',
       fonteIstat: d.ultimo,
       filename: 'adeguamento-mantenimento_' + (d.cliente.nome ? d.cliente.nome.replace(/\s+/g,'-').toLowerCase() : 'cliente')
     });

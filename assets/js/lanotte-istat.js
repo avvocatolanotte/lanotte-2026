@@ -1,16 +1,15 @@
 /**
  * lanotte-istat.js — Modulo gestione indici ISTAT FOI
  *
- * Strategia (4 livelli con priorità):
+ * Strategia (3 livelli con priorità):
  *  1. Override manuale dell'utente (localStorage `lanotte_istat_override`)
- *  2. API ISTAT SDMX live (fetch best-effort, spesso bloccato da CORS)
- *  3. Indici "da verificare" (interpolazioni stima)
- *  4. Indici UFFICIALI nel JSON statico
+ *  2. Indici "da verificare" (se presenti)
+ *  3. Indici UFFICIALI nel JSON statico
  *
  * USO:
  *   await LanotteISTAT.load('/assets/data/istat-foi.json');
- *   const idx = LanotteISTAT.indice('2026-04');         // 122.6 (con flag)
- *   LanotteISTAT.aggiungiManuale('2026-05', 122.8);     // salva nel browser
+ *   const idx = LanotteISTAT.indice('2026-05');         // 124.8 (con flag)
+ *   LanotteISTAT.aggiungiManuale('2026-06', 125.1);     // salva nel browser
  */
 (function(global){
   'use strict';
@@ -67,7 +66,9 @@
     if (!res.ok) throw new Error('Impossibile caricare JSON ISTAT');
     const json = await res.json();
 
-    // Combina: ufficiali + da verificare + override + API live (se disponibile)
+    // Combina: ufficiali + da verificare + override manuale.
+    // Non facciamo fetch live da browser: le API ISTAT possono essere lente,
+    // cambiare endpoint o essere bloccate da CORS, lasciando il calcolatore fermo.
     const indici = Object.assign({}, json.indici);
     const flag = {};
     Object.keys(json.indici || {}).forEach(k => flag[k] = 'ufficiale');
@@ -80,14 +81,7 @@
       });
     }
 
-    // Tentativo API live (se funziona, sovrascrive le stime)
-    const live = await tryFetchISTAT();
-    if (live) {
-      Object.entries(live.indici).forEach(([k, v]) => {
-        indici[k] = v;
-        flag[k] = 'live';
-      });
-    }
+    const live = null;
 
     // Override manuale dell'utente (massima priorità)
     const overrides = getOverrides();
