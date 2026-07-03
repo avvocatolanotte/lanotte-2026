@@ -158,3 +158,25 @@ add_filter('body_class', function($classes) {
     if (is_singular('area')) $classes[] = 'area-detail-page';
     return $classes;
 });
+
+/* ========================================================================
+   DATI CALCOLATORI — alias percorsi JSON
+   Le pagine dei calcolatori richiedono i dati con percorsi relativi che,
+   dalle pretty URL /calcolatori/nome/, risolvono su /assets/data/... o
+   /calcolatori/assets/data/... (inesistenti → 404). Qui li serviamo dal
+   file reale del tema, qualunque variante venga chiamata.
+======================================================================== */
+
+add_action('template_redirect', 'lanotte_serve_calc_data', 0);
+function lanotte_serve_calc_data() {
+    $uri = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    if (!$uri || !preg_match('#^/(?:calcolatori/)?assets/data/([a-z0-9-]+\.json)$#', $uri, $m)) return;
+    $file = get_stylesheet_directory() . '/assets/data/' . $m[1];
+    if (!is_file($file)) return; // lascia il normale 404 per file inesistenti
+    status_header(200);
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: public, max-age=3600');
+    header('X-Robots-Tag: noindex');
+    readfile($file);
+    exit;
+}
