@@ -135,16 +135,24 @@ function lanotte_render_calcolatore($slug) {
         $html = $match[1];
     }
 
-    $data_status = '';
-    if (preg_match('~<div\s+id=["\']dataStatus["\'][^>]*>.*?</div>~is', $html, $status_match)) {
-        $data_status = $status_match[0];
+    // I div di stato (dataStatus/istatStatus) vivono nelle prime <section> del
+    // file, che sotto vengono rimosse: vanno estratti prima e re-iniettati poi,
+    // altrimenti lo startup JS crasha su null e il calcolatore resta muto.
+    $status_divs = [];
+    foreach (['dataStatus', 'istatStatus'] as $status_id) {
+        if (preg_match('~<div\s+id=["\']' . $status_id . '["\'][^>]*>.*?</div>~is', $html, $status_match)) {
+            $status_divs[$status_id] = $status_match[0];
+        }
     }
 
     // La pagina WordPress fornisce gia titolo, intro SEO e avvertenze.
     // Qui incorporiamo solo lo strumento, evitando doppio hero/H1.
     $html = preg_replace('~^\s*<section\b[^>]*>.*?</section>\s*~is', '', $html, 2);
-    if ($data_status && strpos($html, 'id="dataStatus"') === false && strpos($html, "id='dataStatus'") === false) {
-        $html = preg_replace('~(<div\s+class=["\']calc-block["\'])~i', $data_status . "\n\n" . '$1', $html, 1);
+    foreach ($status_divs as $status_id => $status_div) {
+        if (strpos($html, 'id="' . $status_id . '"') !== false || strpos($html, "id='" . $status_id . "'") !== false) continue;
+        $count = 0;
+        $html = preg_replace('~(<div\s+class=["\']calc-block["\'])~i', $status_div . "\n\n" . '$1', $html, 1, $count);
+        if (!$count) $html = $status_div . "\n\n" . $html;
     }
     $html = lanotte_inline_calcolatore_theme_scripts($html);
 
