@@ -29,19 +29,26 @@ get_header();
       <h2>Tre formule, una sola qualità</h2>
       <p>Scegli la modalità più comoda. La consulenza in videocall è indicata per clienti fuori Puglia o per un primo orientamento rapido.</p>
     </div>
+    <div style="max-width:860px;margin:0 auto 34px;background:#fdf6e3;border:1px solid var(--gold);border-left:4px solid var(--gold);border-radius:6px;padding:22px 28px;display:flex;gap:18px;align-items:flex-start">
+      <span style="font-size:28px;line-height:1;flex-shrink:0">💶</span>
+      <div>
+        <strong style="color:var(--navy);font-size:16.5px">Costo del primo colloquio</strong>
+        <p style="margin:7px 0 0;font-size:15px;color:#475569;line-height:1.65">Ogni consulenza, <strong>primo incontro incluso</strong> — in studio o in videocall — ha un <strong>costo fisso di € 150</strong> (oltre IVA e CPA). In quella sede riceverai un parere strutturato e il <strong>preventivo scritto</strong> per l'eventuale incarico, ex art. 13 L. 247/2012.</p>
+      </div>
+    </div>
     <div class="tariff-grid">
       <div class="tariff">
         <h3>Consulenza in studio</h3>
-        <div class="price" style="font-size:24px">Su preventivo</div>
-        <div class="price-note">Parametri DM 55/2014 · oltre IVA e CPA</div>
+        <div class="price" style="font-size:24px">€ 150</div>
+        <div class="price-note">Primo colloquio · oltre IVA e CPA</div>
         <p style="font-size:14px;color:var(--text-muted);margin-bottom:18px">Colloquio in presenza presso la sede di Barletta. Ideale per pratiche complesse e per la consegna documenti.</p>
         <ul><li>Analisi del caso e documentale</li><li>Parere verbale strutturato</li><li>Preventivo scritto ex art. 13 L. 247/2012</li></ul>
         <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-outline">Prenota appuntamento</a>
       </div>
       <div class="tariff featured">
         <h3>Videoconsulenza</h3>
-        <div class="price" style="font-size:24px">Su preventivo</div>
-        <div class="price-note">Parametri DM 55/2014 · oltre IVA e CPA</div>
+        <div class="price" style="font-size:24px">€ 150</div>
+        <div class="price-note">Primo colloquio · oltre IVA e CPA</div>
         <p style="font-size:14px;color:var(--text-muted);margin-bottom:18px">Colloquio in videocall (Google Meet, Zoom o Teams). Ottima per chi vive fuori provincia.</p>
         <ul><li>Analisi del caso a distanza</li><li>Documenti via email o cloud sicuro</li><li>Preventivo scritto ex art. 13 L. 247/2012</li></ul>
         <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary">Prenota videocall</a>
