@@ -184,6 +184,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
         </div>
       </span>
       <a href="<?php echo esc_url(get_post_type_archive_link('area')); ?>" class="nav-mega-trigger<?php if (is_post_type_archive('area') || is_singular('area')) echo ' active'; ?>">Aree <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="margin-left:4px;vertical-align:-1px"><path d="M6 9l6 6 6-6"/></svg></a>
+      <a href="<?php echo esc_url(get_permalink(get_page_by_path('avvocato-successioni-eredita'))); ?>" <?php if (is_page('avvocato-successioni-eredita')) echo 'class="active"'; ?>>Successioni</a>
       <a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari'))); ?>" <?php if (is_page('onorari')) echo 'class="active"'; ?>>Onorari &amp; Servizi</a>
       <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-trigger-calc<?php if (strpos($_SERVER['REQUEST_URI'], '/calcolatori') === 0) echo ' active'; ?>">Calcolatori <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="margin-left:4px;vertical-align:-1px"><path d="M6 9l6 6 6-6"/></svg></a>
       <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" <?php if (is_page('contatti')) echo 'class="active"'; ?>>Contatti</a>
@@ -305,6 +306,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
     <li><a href="<?php echo esc_url(home_url('/')); ?>">🏠 Home</a></li>
     <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('lo-studio'))); ?>">👥 Lo Studio</a></li>
     <li><a href="<?php echo esc_url(get_post_type_archive_link('area')); ?>">⚖️ Aree di Competenza</a></li>
+    <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('avvocato-successioni-eredita'))); ?>">📜 Successioni</a></li>
     <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari'))); ?>">💼 Onorari &amp; Servizi</a></li>
     <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>">📊 Calcolatori</a></li>
     <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>">📞 Contatti</a></li>
