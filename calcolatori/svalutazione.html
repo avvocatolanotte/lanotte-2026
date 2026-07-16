@@ -287,16 +287,24 @@
     await LanotteISTAT.load('../assets/data/istat-foi.json');
     await LanotteInteressi.load('legali', '../assets/data/interessi-legali.json');
     const ultimo = LanotteISTAT.ultimoMese();
+    const primo = LanotteISTAT.mesiDisponibili()[0];
     status.className = 'data-status ok';
-    status.innerHTML = '✓ Indici ISTAT FOI caricati - ultimo disponibile: <strong>' + ultimo + '</strong> · Tassi legali MEF caricati';
+    status.innerHTML = '✓ Indici ISTAT FOI caricati - periodo disponibile: <strong>' + primo + ' / ' + ultimo + '</strong> · Tassi legali MEF caricati';
+    document.getElementById('meseInizio').min = primo;
+    document.getElementById('meseInizio').max = ultimo;
+    document.getElementById('meseFine').min = primo;
     document.getElementById('meseFine').value = ultimo;
     document.getElementById('meseFine').max = ultimo;
     LanotteISTATPanel.inject('#istatPanelContainer', {
       onUpdate: async () => {
         await LanotteISTAT.load('../assets/data/istat-foi.json');
         const u = LanotteISTAT.ultimoMese();
+        const p = LanotteISTAT.mesiDisponibili()[0];
+        document.getElementById('meseInizio').min = p;
+        document.getElementById('meseInizio').max = u;
+        document.getElementById('meseFine').min = p;
         document.getElementById('meseFine').max = u;
-        status.innerHTML = '✓ Indici aggiornati - ultimo: <strong>' + u + '</strong>';
+        status.innerHTML = '✓ Indici aggiornati - periodo disponibile: <strong>' + p + ' / ' + u + '</strong>';
       }
     });
   } catch(e) {

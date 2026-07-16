@@ -417,9 +417,12 @@
       '<br><span style="opacity:.85">Ultimo mese disponibile: <strong style="color:#d4b87f">' + ultimo + '</strong> (' + flagBadge + ') · ' +
       'Ultimo UFFICIALE: <strong>' + ultimoUff + '</strong></span>';
 
+    const primo = LanotteISTAT.mesiDisponibili()[0];
     document.getElementById('meseFine').value = ultimo;
     document.getElementById('meseFine').max = ultimo;
+    document.getElementById('meseFine').min = primo;
     document.getElementById('meseInizio').max = ultimo;
+    document.getElementById('meseInizio').min = primo;
     document.getElementById('manuMese').max = '2099-12';
     document.getElementById('manuMese').value = nextMonth(ultimo);
   }
