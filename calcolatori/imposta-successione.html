@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>Calcolo imposta di successione — Studio Legale Lanotte &amp; Partners</title>
+<link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/imposta-successione/">
+<meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/imposta-successione/">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<section class="hero-internal">
+  <div class="container">
+    <div class="breadcrumbs"><a href="https://studiolegalelanotte.it/">Home</a><span>›</span><a href="https://studiolegalelanotte.it/calcolatori/">Calcolatori</a><span>›</span>Imposta di successione</div>
+    <h1>Calcolo imposta di successione</h1>
+    <p class="subtitle">Aliquote, franchigie per beneficiario, imposte ipotecaria e catastale con o senza benefici prima casa.</p>
+  </div>
+</section>
+
+<section style="background:#fef3c7;border-bottom:1px solid #f59e0b;padding:16px 0">
+  <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
+    <div style="font-size:24px;flex-shrink:0">!</div>
+    <div style="font-size:13.5px;color:#78350f;line-height:1.55">
+      <strong>Calcolo per singolo beneficiario.</strong> Franchigie e aliquote si applicano alla quota di ciascun erede o legatario. Il valore degli immobili rilevante e di regola quello catastale rivalutato. Passivita deducibili, agevolazioni particolari e casi speciali vanno verificati sulla dichiarazione.
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container" style="max-width:1120px">
+    <div class="imps-grid">
+      <div class="imps-panel">
+        <h3>Dati della quota ereditata</h3>
+
+        <div class="form-field">
+          <label>1 · Valore complessivo della quota del beneficiario</label>
+          <input type="number" id="imps-quota" value="250000" min="0" step="1000">
+          <p class="imps-help">Attivo ereditario di spettanza del singolo beneficiario, al netto delle passivita deducibili.</p>
+        </div>
+
+        <div class="form-field">
+          <label>2 · Di cui immobili (valore catastale)</label>
+          <input type="number" id="imps-immobili" value="150000" min="0" step="1000">
+          <p class="imps-help">Serve per le imposte ipotecaria e catastale. Se non ci sono immobili, lasciare 0.</p>
+        </div>
+
+        <div class="form-field">
+          <label>3 · Rapporto con il defunto</label>
+          <select id="imps-rapporto">
+            <option value="linea-retta" data-aliquota="4" data-franchigia="1000000">Coniuge, unito civilmente, figli e genitori (linea retta)</option>
+            <option value="fratelli" data-aliquota="6" data-franchigia="100000">Fratelli e sorelle</option>
+            <option value="parenti" data-aliquota="6" data-franchigia="0">Altri parenti fino al 4° grado e affini</option>
+            <option value="altri" data-aliquota="8" data-franchigia="0">Altri soggetti (compresi conviventi non uniti civilmente)</option>
+          </select>
+        </div>
+
+        <div class="form-field imps-check">
+          <label><input type="checkbox" id="imps-handicap"> Beneficiario con disabilita grave (art. 3 c. 3 L. 104/1992)</label>
+          <p class="imps-help">Applica la franchigia di 1.500.000 euro, qualunque sia il rapporto di parentela.</p>
+        </div>
+
+        <div class="form-field imps-check">
+          <label><input type="checkbox" id="imps-primacasa"> Benefici prima casa sugli immobili</label>
+          <p class="imps-help">Ipotecaria e catastale in misura fissa (200 euro ciascuna) invece del 2% e dell'1%.</p>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="calcolaImposta()">Calcola imposte</button>
+      </div>
+
+      <div class="imps-result">
+        <div class="imps-kicker">Stima imposte di successione</div>
+        <h3>Quota del beneficiario</h3>
+        <div class="imps-total">
+          <span>Totale imposte stimate</span>
+          <strong id="imps-totale">€ 0,00</strong>
+        </div>
+        <div class="imps-rows">
+          <div><span>Franchigia applicata</span><strong id="imps-franchigia">-</strong></div>
+          <div><span>Imponibile tassabile</span><strong id="imps-imponibile">-</strong></div>
+          <div><span>Aliquota</span><strong id="imps-aliquota">-</strong></div>
+          <div><span>Imposta di successione</span><strong id="imps-successione">-</strong></div>
+          <div><span>Imposta ipotecaria</span><strong id="imps-ipotecaria">-</strong></div>
+          <div><span>Imposta catastale</span><strong id="imps-catastale">-</strong></div>
+        </div>
+        <p class="imps-note" id="imps-note"></p>
+        <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
+        <a href="https://studiolegalelanotte.it/avvocato-successioni-eredita/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:var(--gold);color:#fff;font-weight:700;padding:14px">Assistenza successioni in tutta Italia</a>
+        <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Verifica con lo Studio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block-sm" style="background:var(--cream)">
+  <div class="container" style="max-width:980px">
+    <div class="section-title">
+      <div class="divider-dot"></div>
+      <div class="section-eyebrow">Riferimenti essenziali</div>
+      <h2>Come funziona l'imposta</h2>
+    </div>
+    <div class="imps-docs">
+      <div><strong>Aliquote e franchigie</strong><span>4% oltre 1.000.000 € per coniuge e linea retta; 6% oltre 100.000 € per fratelli e sorelle; 6% e 8% senza franchigia per gli altri (D.Lgs. 346/1990, art. 2 c. 48-49 D.L. 262/2006).</span></div>
+      <div><strong>Immobili</strong><span>Ipotecaria 2% e catastale 1% sul valore catastale, minimo 200 € ciascuna; con benefici prima casa sono fisse: 200 € + 200 €.</span></div>
+      <div><strong>Dichiarazione</strong><span>Entro 12 mesi dall'apertura della successione. Dal 2025 l'imposta e in autoliquidazione (D.Lgs. 139/2024), salvo controlli dell'Agenzia delle Entrate.</span></div>
+    </div>
+  </div>
+</section>
+
+<style>
+.imps-grid{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:32px;align-items:start}
+.imps-panel{background:#fff;border:1px solid var(--border);padding:32px;border-top:4px solid var(--gold)}
+.imps-panel h3,.imps-result h3{font-family:var(--serif);font-size:22px;color:var(--navy);margin:0 0 24px}
+.imps-panel input[type=number],.imps-panel select{width:100%;padding:11px 14px;border:1px solid var(--border);background:#fff;font-family:inherit;font-size:14px;border-radius:2px}
+.imps-check label{display:flex;align-items:flex-start;gap:10px;font-weight:600;color:var(--navy);font-size:14px;cursor:pointer}
+.imps-check input{margin-top:3px}
+.imps-help{font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:6px}
+.imps-result{position:sticky;top:96px;background:linear-gradient(135deg,var(--navy),#1a2a4a);color:#fff;padding:32px;border-top:4px solid var(--gold)}
+.imps-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px}
+.imps-result h3{color:#fff;line-height:1.25}
+.imps-total{background:rgba(184,153,104,.15);border:1px solid var(--gold);padding:22px;margin-bottom:18px}
+.imps-total span{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px}
+.imps-total strong{font-family:var(--serif);font-size:34px;color:#fff;line-height:1}
+.imps-rows{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;margin-bottom:16px}
+.imps-rows div{display:flex;justify-content:space-between;gap:18px;margin-bottom:10px;font-size:13px;color:#cbd5e1}
+.imps-rows strong{color:#e2e8f0;font-weight:600;text-align:right}
+.imps-note{font-size:12px;color:#dbeafe;line-height:1.55;margin:0 0 18px;font-style:italic}
+.imps-docs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.imps-docs div{background:#fff;border:1px solid #e5e7eb;border-top:3px solid var(--gold);padding:18px}
+.imps-docs strong{display:block;color:var(--navy);margin-bottom:6px}.imps-docs span{font-size:13px;color:var(--text-muted);line-height:1.5}
+@media(max-width:860px){.imps-grid{grid-template-columns:1fr}.imps-result{position:static}.imps-docs{grid-template-columns:1fr}}
+</style>
+
+<script src="../assets/js/lanotte-preview.js"></script>
+<script>
+function euro(value){
+  return new Intl.NumberFormat('it-IT', {style:'currency', currency:'EUR'}).format(Number(value) || 0);
+}
+function num(id){
+  return parseFloat(String(document.getElementById(id).value || '0').replace(',', '.')) || 0;
+}
+function calcolaImposta(){
+  const quota = Math.max(0, num('imps-quota'));
+  let immobili = Math.max(0, num('imps-immobili'));
+  let nota = '';
+  if (immobili > quota) {
+    immobili = quota;
+    nota = 'Il valore degli immobili non puo superare la quota: e stato riportato a ' + euro(quota) + '. ';
+  }
+
+  const opt = document.getElementById('imps-rapporto').selectedOptions[0];
+  const aliquota = parseFloat(opt.dataset.aliquota);
+  let franchigia = parseFloat(opt.dataset.franchigia);
+  const handicap = document.getElementById('imps-handicap').checked;
+  if (handicap) franchigia = Math.max(franchigia, 1500000);
+
+  const imponibile = Math.max(0, quota - franchigia);
+  const impostaSuccessione = imponibile * aliquota / 100;
+
+  const primaCasa = document.getElementById('imps-primacasa').checked;
+  let ipotecaria = 0, catastale = 0;
+  if (immobili > 0) {
+    if (primaCasa) { ipotecaria = 200; catastale = 200; }
+    else {
+      ipotecaria = Math.max(200, immobili * 0.02);
+      catastale = Math.max(200, immobili * 0.01);
+    }
+  }
+
+  const totale = impostaSuccessione + ipotecaria + catastale;
+
+  document.getElementById('imps-totale').textContent = euro(totale);
+  document.getElementById('imps-franchigia').textContent = franchigia > 0 ? euro(franchigia) + (handicap ? ' (L. 104/1992)' : '') : 'Nessuna';
+  document.getElementById('imps-imponibile').textContent = euro(imponibile);
+  document.getElementById('imps-aliquota').textContent = aliquota + '%';
+  document.getElementById('imps-successione').textContent = euro(impostaSuccessione);
+  document.getElementById('imps-ipotecaria').textContent = immobili > 0 ? euro(ipotecaria) + (primaCasa ? ' (fissa)' : '') : '—';
+  document.getElementById('imps-catastale').textContent = immobili > 0 ? euro(catastale) + (primaCasa ? ' (fissa)' : '') : '—';
+
+  if (imponibile === 0 && quota > 0) {
+    nota += 'La quota rientra nella franchigia: nessuna imposta di successione dovuta.' + (immobili > 0 ? ' Restano dovute ipotecaria e catastale sugli immobili.' : '');
+  } else {
+    nota += 'Stima al netto di imposta di bollo, tassa ipotecaria e tributi speciali. Passivita, agevolazioni e coacervo delle donazioni vanno verificati sul caso concreto.';
+  }
+  document.getElementById('imps-note').textContent = nota;
+}
+function txt(id){ return (document.getElementById(id).textContent || '').trim(); }
+function apriAnteprimaReport(){
+  calcolaImposta();
+  LanottePreview.openSummary({
+    title: 'Stima imposta di successione',
+    subtitle: document.getElementById('imps-rapporto').selectedOptions[0].textContent,
+    rows: [
+      ['Valore quota beneficiario', euro(num('imps-quota'))],
+      ['Di cui immobili (catastale)', euro(num('imps-immobili'))],
+      ['Franchigia applicata', txt('imps-franchigia')],
+      ['Imponibile tassabile', txt('imps-imponibile')],
+      ['Aliquota', txt('imps-aliquota')],
+      ['Imposta di successione', txt('imps-successione')],
+      ['Imposta ipotecaria', txt('imps-ipotecaria')],
+      ['Imposta catastale', txt('imps-catastale')]
+    ],
+    totalLabel: 'Totale imposte stimate',
+    total: txt('imps-totale'),
+    notes: 'Stima orientativa per singolo beneficiario (D.Lgs. 346/1990; D.Lgs. 139/2024). Dichiarazione entro 12 mesi. Non sostituisce la consulenza legale.'
+  });
+}
+document.querySelectorAll('#imps-quota,#imps-immobili,#imps-rapporto,#imps-handicap,#imps-primacasa').forEach(el => {
+  el.addEventListener('input', calcolaImposta);
+  el.addEventListener('change', calcolaImposta);
+});
+calcolaImposta();
+</script>
+</body>
+</html>

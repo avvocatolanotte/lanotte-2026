@@ -240,11 +240,12 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
           <li><a href="<?php echo esc_url(home_url('/calcolatori/pignoramento-stipendio-pensione/')); ?>">💶 Pignoramento Stipendio/Pensione</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/prescrizione-crediti/')); ?>">⌛ Prescrizione Crediti</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/spese-straordinarie-figli/')); ?>">👨‍👩‍👧‍👦 Spese Straordinarie Figli</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/imposta-successione/')); ?>">📜 Imposta di Successione</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/aqp/')); ?>">💧 Bolletta AQP</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/contributo-unificato/')); ?>">🏛️ Contributo Unificato</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/timeline-marchio/')); ?>">™ Timeline Marchio</a></li>
         </ul>
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-allbtn">Vedi tutti i 20 strumenti <span aria-hidden="true">→</span></a>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-allbtn">Vedi tutti i 21 strumenti <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>

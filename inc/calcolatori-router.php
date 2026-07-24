@@ -13,6 +13,7 @@ function lanotte_calcolatori_map() {
         'aqp'                  => 'aqp.html',
         'contributo-unificato' => 'contributo-unificato.html',
         'danni-preesistenti'   => 'danni-preesistenti.html',
+        'imposta-successione'  => 'imposta-successione.html',
         'interessi-legali'     => 'interessi-legali.html',
         'interessi-moratori'   => 'interessi-moratori.html',
         'istat-locazione'      => 'istat-locazione.html',
@@ -177,8 +178,19 @@ function lanotte_calcolatori_pages_data() {
                 ['Serve un avvocato?', 'Per importi contestati, prescrizione, decorrenza della mora o atti giudiziali e opportuno far verificare il conteggio.'],
             ],
         ],
+        'imposta-successione' => [
+            'title' => 'Calcolo imposta di successione 2026 (gratuito)',
+            'keyword' => 'calcolo imposta di successione',
+            'service' => 'Successioni ed eredita in tutta Italia',
+            'intro' => 'Il calcolatore stima l\'imposta di successione per singolo beneficiario secondo aliquote e franchigie vigenti: 4% oltre 1.000.000 di euro per coniuge e parenti in linea retta, 6% oltre 100.000 per fratelli e sorelle, 6% e 8% senza franchigia per gli altri soggetti. Calcola anche le imposte ipotecaria e catastale sugli immobili, con o senza benefici prima casa, secondo il D.Lgs. 346/1990 e l\'autoliquidazione introdotta dal D.Lgs. 139/2024.',
+            'faq' => [
+                ['La franchigia vale per ogni erede?', 'Si. La franchigia si applica alla quota di ciascun beneficiario: 1.000.000 di euro per coniuge e linea retta, 100.000 per fratelli e sorelle, 1.500.000 per beneficiari con disabilita grave (L. 104/1992).'],
+                ['Con i benefici prima casa cosa cambia?', 'Le imposte ipotecaria e catastale si pagano in misura fissa di 200 euro ciascuna, invece del 2% e dell\'1% sul valore catastale degli immobili.'],
+                ['Chi calcola e versa l\'imposta?', 'Dal 2025 l\'imposta e in autoliquidazione: si versa sulla base della dichiarazione, da presentare entro dodici mesi, salvo controlli dell\'Agenzia delle Entrate.'],
+            ],
+        ],
         'mantenimento-istat' => [
-            'title' => 'Calcolo rivalutazione ISTAT assegno di mantenimento',
+            'title' => 'Calcolo rivalutazione ISTAT assegno di mantenimento 2026 (gratuito)',
             'keyword' => 'calcolo rivalutazione ISTAT assegno mantenimento',
             'service' => 'Famiglia e separazioni',
             'intro' => 'Il calcolatore aggiorna l\'assegno di mantenimento secondo l\'indice ISTAT FOI, normalmente al 100% salvo diversa previsione nel provvedimento o nell\'accordo. Serve per verificare adeguamenti annuali, arretrati e differenze mensili dovute per coniuge o figli.',
@@ -354,7 +366,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'spese-straordinarie-figli' => [
-            'title' => 'Calcolo riparto spese straordinarie figli',
+            'title' => 'Calcolo riparto spese straordinarie figli 2026 (gratuito)',
             'keyword' => 'calcolo spese straordinarie figli separazione',
             'service' => 'Famiglia e separazioni',
             'intro' => 'Lo strumento ripartisce le spese straordinarie per i figli secondo la percentuale prevista da accordo, sentenza o decreto, calcolando quota di ciascun genitore, rimborso dovuto e promemoria documentale. E utile per spese mediche, scolastiche, sportive e altre voci non ordinarie.',
@@ -470,6 +482,7 @@ function lanotte_area_calcolatori_links($slug) {
             'opposizione-decreto-ingiuntivo' => 'Opposizione decreto ingiuntivo',
         ],
         'famiglia-successioni' => [
+            'imposta-successione' => 'Imposta di successione',
             'mantenimento-istat' => 'Rivalutazione ISTAT mantenimento',
             'spese-straordinarie-figli' => 'Spese straordinarie figli',
             'stragiudiziale' => 'Mediazione e negoziazione assistita',
