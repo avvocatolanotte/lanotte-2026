@@ -212,7 +212,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'macropermanenti' => [
-            'title' => 'Calcolo danno biologico tabelle Milano e TUN',
+            'title' => 'Calcolo danno biologico 2026 Tabelle Milano e TUN (gratuito)',
             'keyword' => 'calcolo danno biologico tabelle Milano',
             'service' => 'Infortunistica e risarcimento danni',
             'intro' => 'Il calcolatore stima il danno biologico per lesioni macropermanenti, confrontando Tabelle di Milano e Tabella Unica Nazionale quando applicabile. Il risultato dipende da invalidita permanente, eta, temporanea, personalizzazione e voci patrimoniali documentate.',
@@ -267,7 +267,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'parcella-civile' => [
-            'title' => 'Calcolo parcella avvocato civile',
+            'title' => 'Calcolo parcella avvocato civile 2026 (gratuito)',
             'keyword' => 'calcolo parcella avvocato civile',
             'service' => 'Onorari e preventivi',
             'intro' => 'Il calcolatore stima il compenso dell\'avvocato in materia civile secondo i parametri forensi, per scaglione, ufficio giudiziario e fasi dell\'attivita. Il risultato e orientativo e deve essere formalizzato in preventivo scritto.',
@@ -278,7 +278,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'parcella-penale' => [
-            'title' => 'Calcolo parcella avvocato penale',
+            'title' => 'Calcolo parcella avvocato penale 2026 (gratuito)',
             'keyword' => 'calcolo parcella avvocato penale',
             'service' => 'Difesa penale',
             'intro' => 'Il calcolatore stima i compensi del difensore penale secondo i parametri forensi, distinguendo ufficio, fase e tipologia di procedimento. Il valore finale richiede sempre valutazione professionale e preventivo.',
@@ -289,7 +289,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'stragiudiziale' => [
-            'title' => 'Calcolo compenso stragiudiziale, mediazione e negoziazione assistita',
+            'title' => 'Calcolo compenso stragiudiziale e mediazione 2026 (gratuito)',
             'keyword' => 'calcolo compenso mediazione negoziazione assistita',
             'service' => 'Mediazione e trattative',
             'intro' => 'Lo strumento stima il compenso per attivita stragiudiziale, pareri, trattative, transazioni, mediazione e negoziazione assistita secondo i parametri forensi aggiornati. Per le procedure ADR considera fasi e maggiorazioni previste in caso di accordo.',
