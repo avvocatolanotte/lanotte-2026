@@ -33,7 +33,11 @@ function lanotte_seo_map() {
         ],
         'calcolatori' => [
             't' => 'Calcolatori Giuridici Gratuiti · Avvocato Barletta | ' . $brand,
-            'd' => '16 calcolatori giuridici gratuiti: parcella forense, danni, ISTAT, interessi, scadenze, contributo unificato. Studio Legale a Barletta e Trani.',
+            'd' => '21 calcolatori giuridici gratuiti: mantenimento, danni, interessi, scadenze, parcelle, successioni e contributo unificato. Studio Legale Lanotte.',
+        ],
+        'servizi-online' => [
+            't' => 'Servizi Legali Online e Preventivo Scritto | ' . $brand,
+            'd' => 'Richiedi servizi legali online con preventivo scritto personalizzato: consulenze, contratti, famiglia, impresa, penale, marchi e successioni.',
         ],
         'casi-studio' => [
             't' => 'Casi Studio · Scenari Illustrativi | ' . $brand,
