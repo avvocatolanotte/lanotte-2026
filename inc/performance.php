@@ -50,6 +50,29 @@ add_action('wp_enqueue_scripts', function () {
     ] as $h) wp_dequeue_script($h);
 }, 99);
 
+// Alcuni plugin registrano gli asset dopo wp_enqueue_scripts: seconda pulizia
+// prima della stampa, limitata alle pagine che non usano WooCommerce.
+add_action('wp_print_styles', 'lanotte_dequeue_nonessential_wc_assets', 999);
+add_action('wp_print_footer_scripts', 'lanotte_dequeue_nonessential_wc_assets', 1);
+function lanotte_dequeue_nonessential_wc_assets() {
+    if (!class_exists('WooCommerce')) return;
+
+    $needs_wc =
+        (function_exists('is_woocommerce') && is_woocommerce()) ||
+        (function_exists('is_cart') && is_cart()) ||
+        (function_exists('is_checkout') && is_checkout()) ||
+        (function_exists('is_account_page') && is_account_page()) ||
+        is_page(['onorari', 'carrello', 'checkout', 'servizi-online', 'area-pagamenti']);
+    if ($needs_wc) return;
+
+    foreach (['wc-blocks-style', 'woocommerce-general', 'woocommerce-layout', 'woocommerce-smallscreen'] as $handle) {
+        wp_dequeue_style($handle);
+    }
+    foreach (['woocommerce', 'wc-cart-fragments', 'wc-add-to-cart', 'sourcebuster-js', 'wc-order-attribution'] as $handle) {
+        wp_dequeue_script($handle);
+    }
+}
+
 /* 3. Disabilita lo script emoji (peso inutile) */
 add_action('init', function () {
     remove_action('wp_head', 'print_emoji_detection_script', 7);

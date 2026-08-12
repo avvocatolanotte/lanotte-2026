@@ -419,13 +419,34 @@ function lanotte_calcolatore_page_content($slug, array $data) {
         $faq .= '<details><summary>' . esc_html($item[0]) . '</summary><p>' . esc_html($item[1]) . '</p></details>';
     }
 
+    $whatsapp_message = rawurlencode(
+        'Buongiorno, ho utilizzato il calcolatore "' . $data['title']
+        . '" e vorrei far verificare il risultato allo Studio.'
+    );
+    $whatsapp_url = lanotte_whatsapp_url() . (strpos(lanotte_whatsapp_url(), '?') === false ? '?' : '&') . 'text=' . $whatsapp_message;
+
     return '<section class="lanotte-calc-seo-intro"><p>' . esc_html($data['intro']) . '</p>'
         . '<p>Per usare correttamente lo strumento inserisci i dati richiesti, controlla il risultato e scarica o stampa il report solo dopo aver verificato l\'anteprima. Il calcolo e pensato per una prima valutazione operativa, utile prima di una diffida, di una trattativa, di un ricorso o di una richiesta di preventivo.</p>'
         . '<p>Quando il conteggio incide su diritti, prescrizioni, termini processuali, risarcimenti o somme contestate, e opportuno farlo verificare da un avvocato. Lo Studio puo controllare documenti, decorrenze, titolo del credito o provvedimento giudiziale e trasformare il risultato in una richiesta formale.</p>'
         . '<p><strong>Query principale:</strong> ' . esc_html($data['keyword']) . '. <strong>Servizio collegato:</strong> ' . esc_html($data['service']) . '.</p></section>'
         . '[lanotte_calcolatore slug="' . esc_attr($slug) . '"]'
+        . '<section class="lanotte-calc-conversion" data-calc-slug="' . esc_attr($slug) . '">'
+        . '<div><p class="lanotte-calc-conversion-kicker">Verifica professionale</p><h2>Vuoi controllare il risultato?</h2>'
+        . '<p>Invia il calcolo allo Studio: verifichiamo documenti, decorrenze e regole applicabili prima che il risultato venga utilizzato.</p></div>'
+        . '<div class="lanotte-calc-conversion-actions">'
+        . '<a class="btn btn-primary" data-lanotte-event="calc_whatsapp" href="' . esc_url($whatsapp_url) . '" target="_blank" rel="noopener">Invia su WhatsApp</a>'
+        . '<a class="btn btn-ghost" data-lanotte-event="calc_contact" href="' . esc_url(add_query_arg(['argomento' => $slug], home_url('/contatti/'))) . '">Richiedi una verifica</a>'
+        . '</div></section>'
         . '<section class="lanotte-calc-seo-faq"><h2>Domande frequenti</h2>' . $faq . '<p><em>Strumento indicativo: non sostituisce la consulenza legale e va verificato sul caso concreto.</em></p><p><a class="btn btn-primary" href="' . esc_url(home_url('/contatti/')) . '">Richiedi una verifica dello Studio</a></p></section>';
 }
+
+add_action('template_redirect', function() {
+    $path = wp_parse_url(wp_unslash($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH);
+    if (untrailingslashit((string) $path) !== '/calcolatori/rivalutazione-istat-assegno-mantenimento') return;
+
+    wp_safe_redirect(lanotte_calcolatore_url('mantenimento-istat'), 301);
+    exit;
+}, 1);
 
 add_action('init', function() {
     if (get_option('lanotte_calcolatori_pages_version') === LANOTTE_THEME_VERSION) return;

@@ -130,6 +130,7 @@
   }
 
   function openNode(node, title){
+    document.dispatchEvent(new CustomEvent('lanotte:calculation', {detail:{action:'preview_open'}}));
     ensureStyles();
     const modal = document.createElement('div');
     modal.className = 'lph-backdrop';
@@ -149,8 +150,14 @@
     document.body.appendChild(modal);
     modal.querySelector('.lph-close').addEventListener('click', () => modal.remove());
     modal.querySelector('[data-action="close"]').addEventListener('click', () => modal.remove());
-    modal.querySelector('[data-action="print"]').addEventListener('click', () => printNode(clone));
-    modal.querySelector('[data-action="pdf"]').addEventListener('click', () => downloadPdf(clone, title));
+    modal.querySelector('[data-action="print"]').addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('lanotte:calculation', {detail:{action:'report_print'}}));
+      printNode(clone);
+    });
+    modal.querySelector('[data-action="pdf"]').addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('lanotte:calculation', {detail:{action:'pdf_download'}}));
+      downloadPdf(clone, title);
+    });
     modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   }
 

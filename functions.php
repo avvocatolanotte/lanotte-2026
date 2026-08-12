@@ -70,6 +70,15 @@ function lanotte_enqueue_assets() {
     $css_ver  = file_exists($css_path) ? filemtime($css_path) : LANOTTE_THEME_VERSION;
     wp_enqueue_style('lanotte-main', LANOTTE_THEME_URI . '/assets/style.css', [], $css_ver);
 
+    $conversion_path = LANOTTE_THEME_DIR . '/assets/js/lanotte-conversions.js';
+    wp_enqueue_script(
+        'lanotte-conversions',
+        LANOTTE_THEME_URI . '/assets/js/lanotte-conversions.js',
+        [],
+        file_exists($conversion_path) ? filemtime($conversion_path) : LANOTTE_THEME_VERSION,
+        true
+    );
+
     // CSS dinamico con i colori override (da Branding)
     if (function_exists('get_field')) {
         $navy = get_field('color_navy_override', 'option');

@@ -151,6 +151,7 @@
   }
 
   function preview(opts){
+    document.dispatchEvent(new CustomEvent('lanotte:calculation', {detail:{action:'preview_open'}}));
     ensurePreviewStyles();
     const markup = previewHtml(opts || {});
     const modal = document.createElement('div');
@@ -169,8 +170,14 @@
     document.body.appendChild(modal);
     modal.querySelector('.lpv-close').addEventListener('click', () => modal.remove());
     modal.querySelector('[data-action="close"]').addEventListener('click', () => modal.remove());
-    modal.querySelector('[data-action="print"]').addEventListener('click', () => printMarkup(markup));
-    modal.querySelector('[data-action="pdf"]').addEventListener('click', () => generate(opts));
+    modal.querySelector('[data-action="print"]').addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('lanotte:calculation', {detail:{action:'report_print'}}));
+      printMarkup(markup);
+    });
+    modal.querySelector('[data-action="pdf"]').addEventListener('click', () => {
+      document.dispatchEvent(new CustomEvent('lanotte:calculation', {detail:{action:'pdf_download'}}));
+      generate(opts);
+    });
     modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   }
 
