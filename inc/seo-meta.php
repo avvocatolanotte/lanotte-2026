@@ -10,6 +10,14 @@
  */
 if (!defined('ABSPATH')) exit;
 
+// Vecchia homepage importata: evita un duplicato indicizzabile della home attiva.
+add_action('template_redirect', function() {
+    if (!is_page('homepage-main')) return;
+
+    wp_safe_redirect(home_url('/'), 301);
+    exit;
+}, 1);
+
 function lanotte_seo_map() {
     $brand = 'LANOTTE & Partners';
     return [
