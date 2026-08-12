@@ -18,8 +18,10 @@ function lanotte_calcolatori_map() {
         'interessi-moratori'   => 'interessi-moratori.html',
         'istat-locazione'      => 'istat-locazione.html',
         'macropermanenti'      => 'macropermanenti.html',
+        'mantenimento-orientativo' => 'mantenimento-orientativo.html',
         'mantenimento-istat'   => 'mantenimento-istat.html',
         'micropermanenti'      => 'micropermanenti.html',
+        'inail'                => 'inail.html',
         'opposizione-decreto-ingiuntivo' => 'opposizione-decreto-ingiuntivo.html',
         'parcella-civile'      => 'parcella-civile.html',
         'parcella-penale'      => 'parcella-penale.html',
@@ -200,6 +202,17 @@ function lanotte_calcolatori_pages_data() {
                 ['Posso chiedere arretrati?', 'Dipende dal titolo, dalla decorrenza e dalla prescrizione: il conteggio va verificato prima della richiesta.'],
             ],
         ],
+        'mantenimento-orientativo' => [
+            'title' => 'Calcolo orientativo assegno di mantenimento figli',
+            'keyword' => 'calcolo assegno di mantenimento figli',
+            'service' => 'Famiglia e separazioni',
+            'intro' => 'Lo strumento elabora una forchetta puramente orientativa considerando redditi, fabbisogno indicato, tempi di permanenza e spese dirette. Non esiste una formula vincolante: l\'assegno e determinato dal giudice o concordato dalle parti secondo i criteri dell\'art. 337-ter c.c.',
+            'faq' => [
+                ['Il risultato determina l\'assegno dovuto?', 'No. E una simulazione matematica informativa e non anticipa la decisione del giudice.'],
+                ['Comprende le spese straordinarie?', 'No. Le spese straordinarie devono essere disciplinate e ripartite separatamente.'],
+                ['Quali elementi vanno verificati?', 'Redditi effettivi, patrimonio, esigenze dei figli, casa familiare, tempi di cura e circostanze concrete.'],
+            ],
+        ],
         'svalutazione' => [
             'title' => 'Calcolo rivalutazione monetaria ISTAT',
             'keyword' => 'calcolo rivalutazione monetaria ISTAT',
@@ -231,6 +244,17 @@ function lanotte_calcolatori_pages_data() {
                 ['Cosa sono le micropermanenti?', 'Sono lesioni con invalidita permanente fino a 9 punti.'],
                 ['Il danno morale e incluso?', 'Lo strumento e orientativo: eventuali personalizzazioni o ulteriori voci vanno valutate caso per caso.'],
                 ['Il calcolo vale per ogni sinistro?', 'E pensato soprattutto per sinistri da circolazione, secondo l\'ambito dell\'art. 139 CdA.'],
+            ],
+        ],
+        'inail' => [
+            'title' => 'Calcolo indennizzo INAIL: verifica orientativa',
+            'keyword' => 'calcolo indennizzo INAIL',
+            'service' => 'Infortuni sul lavoro e malattie professionali',
+            'intro' => 'Lo strumento identifica la prestazione INAIL potenzialmente applicabile: nessun indennizzo permanente sotto il 6%, capitale dal 6% al 15% e rendita dal 16%. Il regime INAIL e distinto dal risarcimento civilistico e la quantificazione definitiva compete all\'Istituto.',
+            'faq' => [
+                ['Quando spetta il capitale?', 'Per menomazioni riconosciute da INAIL comprese tra il 6% e il 15%.'],
+                ['Quando spetta la rendita?', 'Dal 16% al 100%, con quota biologica e possibile quota patrimoniale.'],
+                ['E uguale al risarcimento civile?', 'No. Sono sistemi diversi e il danno differenziale richiede una valutazione separata.'],
             ],
         ],
         'danni-preesistenti' => [
@@ -504,12 +528,14 @@ function lanotte_area_calcolatori_links($slug) {
         ],
         'famiglia-successioni' => [
             'imposta-successione' => 'Imposta di successione',
+            'mantenimento-orientativo' => 'Stima orientativa mantenimento figli',
             'mantenimento-istat' => 'Rivalutazione ISTAT mantenimento',
             'spese-straordinarie-figli' => 'Spese straordinarie figli',
             'stragiudiziale' => 'Mediazione e negoziazione assistita',
             'scadenze' => 'Scadenze processuali',
         ],
         'infortunistica-malasanita' => [
+            'inail' => 'Indennizzo INAIL',
             'micropermanenti' => 'Lesioni micropermanenti',
             'macropermanenti' => 'Danno biologico Tabelle Milano e TUN',
             'danni-preesistenti' => 'Danni preesistenti e concorrenti',

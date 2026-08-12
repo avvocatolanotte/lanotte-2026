@@ -98,10 +98,12 @@ if (!defined('ABSPATH')) exit;
         <?php
         $footer_calc = [
             'mantenimento-istat'              => 'Assegno di mantenimento (ISTAT)',
+            'mantenimento-orientativo'        => 'Stima mantenimento figli',
             'spese-straordinarie-figli'       => 'Spese straordinarie per i figli',
             'imposta-successione'             => 'Imposta di successione completa',
             'macropermanenti'                 => 'Danno biologico · macropermanenti',
             'micropermanenti'                 => 'Danno biologico · micropermanenti',
+            'inail'                           => 'Indennizzo INAIL',
             'pignoramento-stipendio-pensione' => 'Pignoramento stipendio e pensione',
             'opposizione-decreto-ingiuntivo'  => 'Opposizione a decreto ingiuntivo',
             'prescrizione-crediti'            => 'Prescrizione dei crediti',

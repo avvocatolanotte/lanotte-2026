@@ -220,6 +220,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
           <li><a href="<?php echo esc_url(home_url('/calcolatori/micropermanenti/')); ?>">🩺 Micropermanenti</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/macropermanenti/')); ?>">🦴 Macropermanenti</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/danni-preesistenti/')); ?>">📊 Coesistenti / Concorrenti</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/inail/')); ?>">⛑️ Indennizzo INAIL</a></li>
         </ul>
       </div>
       <div class="nav-mega-col">
@@ -227,6 +228,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
         <ul>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/istat-locazione/')); ?>">🏘️ ISTAT Locazione</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/mantenimento-istat/')); ?>">👨‍👩‍👧 Mantenimento ISTAT</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/mantenimento-orientativo/')); ?>">👨‍👩‍👧 Stima Mantenimento</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/svalutazione/')); ?>">💰 Svalutazione Monetaria</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/interessi-legali/')); ?>">📈 Interessi Legali</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/interessi-moratori/')); ?>">⏰ Interessi Moratori B2B</a></li>
@@ -245,7 +247,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
           <li><a href="<?php echo esc_url(home_url('/calcolatori/contributo-unificato/')); ?>">🏛️ Contributo Unificato</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/timeline-marchio/')); ?>">™ Timeline Marchio</a></li>
         </ul>
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-allbtn">Vedi tutti i 21 strumenti <span aria-hidden="true">→</span></a>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-allbtn">Vedi tutti i 23 strumenti <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -288,7 +290,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
       <div class="nav-mega-col nav-mega-cta">
         <h6>Strumenti utili</h6>
         <ul class="nav-mega-tools">
-          <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>">📊 Calcolatori (21)</a></li>
+          <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>">📊 Calcolatori (23)</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari'))); ?>">💼 Onorari trasparenti</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>">📰 Rassegna giuridica</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari')) . '#servizi-online'); ?>">🛒 Servizi online</a></li>
@@ -332,6 +334,8 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
     <li><a href="<?php echo esc_url(home_url('/calcolatori/pignoramento-stipendio-pensione/')); ?>">💶 Pignoramento Stipendio/Pensione</a></li>
     <li><a href="<?php echo esc_url(home_url('/calcolatori/prescrizione-crediti/')); ?>">⌛ Prescrizione Crediti</a></li>
     <li><a href="<?php echo esc_url(home_url('/calcolatori/imposta-successione/')); ?>">📜 Imposta di Successione completa</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/mantenimento-orientativo/')); ?>">👨‍👩‍👧 Stima Mantenimento Figli</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/inail/')); ?>">⛑️ Indennizzo INAIL</a></li>
   </ul>
   <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="md-cta">RICHIEDI CONSULENZA</a>
   <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="md-cta" style="background:#0f172a;margin-top:8px">📞 Chiama Studio</a>

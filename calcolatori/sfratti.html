@@ -207,6 +207,18 @@
           <label class="opt-row"><input type="checkbox" id="calc-spese"><span>Aggiungi <strong>spese generali 15%</strong></span></label>
         </div>
 
+        <div style="margin-top:24px;padding:18px;background:var(--paper);border-left:3px solid var(--gold)">
+          <label class="opt-row"><input type="checkbox" id="mor-attiva"><span><strong>Integra facoltativamente il conteggio della morosita</strong></span></label>
+          <div id="mor-campi" style="display:none;margin-top:16px">
+            <div class="form-field"><label>Canone mensile</label><input type="number" id="mor-canone" min="0" value="700"></div>
+            <div class="form-field"><label>Mensilita insolute</label><input type="number" id="mor-mesi" min="0" value="3"></div>
+            <div class="form-field"><label>Oneri accessori insoluti</label><input type="number" id="mor-oneri" min="0" value="0"></div>
+            <div class="form-field"><label>Deposito cauzionale da portare in detrazione</label><input type="number" id="mor-deposito" min="0" value="0"><small>La compensazione del deposito prima della riconsegna va verificata sul contratto e sul caso concreto.</small></div>
+            <div class="form-field"><label>Interessi gia calcolati (facoltativi)</label><input type="number" id="mor-interessi" min="0" value="0"></div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:12px"><span>Morosita netta indicativa</span><strong id="mor-totale">€ 0,00</strong></div>
+          </div>
+        </div>
+
         <div style="margin-top:24px;background:var(--paper);padding:18px;border-left:3px solid var(--gold)">
           <strong style="font-family:var(--serif);font-size:15px;color:var(--navy);display:block;margin-bottom:8px">📌 Note operative</strong>
           <ul style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-left:18px;padding:0">
@@ -295,7 +307,8 @@ function apriAnteprimaReport(){
       ['Compenso fasi', testo('calc-fasi-totale')],
       ...rigaSeVisibile('calc-spese-row', 'Spese generali 15%', 'calc-spese-val'),
       ...rigaSeVisibile('calc-cpa-row', 'CPA 4%', 'calc-cpa-val'),
-      ...rigaSeVisibile('calc-iva-row', 'IVA 22%', 'calc-iva-val')
+      ...rigaSeVisibile('calc-iva-row', 'IVA 22%', 'calc-iva-val'),
+      ...(document.getElementById('mor-attiva').checked ? [['Morosita netta indicativa (separata dal compenso)', testo('mor-totale')]] : [])
     ],
     totalLabel: 'Totale stimato',
     total: testo('calc-totale'),
@@ -349,13 +362,17 @@ function calcola(){
   else { document.getElementById('calc-iva-row').style.display='none'; }
   document.getElementById('calc-iva-val').textContent = fmt(ivaVal);
   document.getElementById('calc-totale').textContent = fmt(totale);
+  calcolaMorosita();
 }
+function valMor(id){return Math.max(0,parseFloat(document.getElementById(id).value)||0)}
+function calcolaMorosita(){const attiva=document.getElementById('mor-attiva').checked;document.getElementById('mor-campi').style.display=attiva?'block':'none';const dovuto=valMor('mor-canone')*valMor('mor-mesi')+valMor('mor-oneri')+valMor('mor-interessi')-valMor('mor-deposito');document.getElementById('mor-totale').textContent=fmt(Math.max(0,dovuto))}
 document.addEventListener('DOMContentLoaded', function(){
   aggiornaScaglioni();
   document.getElementById('calc-scaglione').addEventListener('change', calcola);
   document.getElementById('calc-cpa').addEventListener('change', calcola);
   document.getElementById('calc-iva').addEventListener('change', calcola);
   document.getElementById('calc-spese').addEventListener('change', calcola);
+  document.querySelectorAll('#mor-attiva,#mor-canone,#mor-mesi,#mor-oneri,#mor-deposito,#mor-interessi').forEach(el=>{el.addEventListener('input',calcolaMorosita);el.addEventListener('change',calcolaMorosita)});
   calcola();
 });
 </script>

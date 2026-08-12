@@ -44,8 +44,10 @@
           <select id="pig-reddito">
             <option value="stipendio">Stipendio / salario netto</option>
             <option value="pensione">Pensione netta</option>
+            <option value="conto">Somme gia accreditate su conto corrente</option>
           </select>
         </div>
+        <div class="form-field" id="pig-conto-box" style="display:none"><label>Origine prevalente delle somme</label><select id="pig-origine"><option value="stipendio">Stipendio o pensione accreditati prima del pignoramento</option><option value="altro">Altre somme sul conto</option></select><p class="lc-help">Per accrediti anteriori di stipendio o pensione e protetto un importo pari al triplo dell'assegno sociale; le altre somme seguono regole diverse.</p></div>
 
         <div class="form-field">
           <label>3 · Natura del credito</label>
@@ -154,6 +156,13 @@ function calcolaPignoramento(){
 
   document.getElementById('pig-aliquota-box').style.display = tipoCredito === 'alimentare' ? 'block' : 'none';
   document.getElementById('pig-assegno-box').style.display = tipoReddito === 'pensione' ? 'block' : 'none';
+  document.getElementById('pig-conto-box').style.display = tipoReddito === 'conto' ? 'block' : 'none';
+
+  if (tipoReddito === 'conto') {
+    const protetta = document.getElementById('pig-origine').value === 'stipendio' ? assegno * 3 : 0;
+    const quotaConto = Math.max(0, netto - protetta);
+    document.getElementById('pig-quota').textContent=euro(quotaConto); document.getElementById('pig-base').textContent=euro(netto); document.getElementById('pig-soglia').textContent=euro(protetta); document.getElementById('pig-aliquota').textContent='Eccedenza disponibile'; document.getElementById('pig-residuo').textContent=euro(protetta); document.getElementById('pig-note').textContent='Somme gia accreditate: simulazione della sola protezione collegata a stipendio o pensione. Saldo, provenienza e data degli accrediti vanno documentati.'; document.getElementById('pig-titolo').textContent='Conto corrente pignorabile'; return;
+  }
 
   const soglia = tipoReddito === 'pensione' ? Math.max(1000, assegno * 2) : 0;
   const base = Math.max(0, netto - soglia);
@@ -218,7 +227,7 @@ function apriAnteprimaReport(){
   });
 }
 
-document.querySelectorAll('#pig-netto,#pig-reddito,#pig-credito,#pig-alimenti,#pig-assegno,#pig-gia').forEach(el => {
+document.querySelectorAll('#pig-netto,#pig-reddito,#pig-credito,#pig-alimenti,#pig-assegno,#pig-gia,#pig-origine').forEach(el => {
   el.addEventListener('input', calcolaPignoramento);
   el.addEventListener('change', calcolaPignoramento);
 });

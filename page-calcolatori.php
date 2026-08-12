@@ -13,7 +13,7 @@ $calc_base = home_url('/calcolatori');
 <section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;padding:80px 0 70px">
   <div class="container">
     <nav style="font-size:13px;color:#cbd5e1;margin-bottom:14px"><a href="<?php echo esc_url(home_url('/')); ?>" style="color:#cbd5e1">Home</a> <span style="opacity:.5">›</span> <span style="color:#b89968">Calcolatori</span></nav>
-    <span style="display:inline-block;padding:6px 14px;background:rgba(184,153,104,.18);border:1px solid rgba(184,153,104,.4);border-radius:2px;font-size:11px;letter-spacing:.14em;color:#d4b87f;font-weight:600;text-transform:uppercase;margin-bottom:18px">21 strumenti professionali · Tutti con anteprima e PDF</span>
+    <span style="display:inline-block;padding:6px 14px;background:rgba(184,153,104,.18);border:1px solid rgba(184,153,104,.4);border-radius:2px;font-size:11px;letter-spacing:.14em;color:#d4b87f;font-weight:600;text-transform:uppercase;margin-bottom:18px">23 strumenti professionali · Tutti con anteprima e PDF</span>
     <h1 style="font-family:var(--serif);font-size:54px;font-weight:600;line-height:1.05;margin:0 0 22px;color:#fff">Calcolatori<br><em style="font-style:italic;color:#d4b87f">giuridici e patrimoniali</em></h1>
     <p style="font-size:17px;line-height:1.65;color:#cbd5e1;max-width:780px;margin:0">Parcelle, scadenze, lesioni, ISTAT, interessi, prescrizione, pignoramenti e contestazioni bollette. Indici e tassi <strong style="color:#fff">aggiornati automaticamente</strong> dalle fonti ufficiali. Report con anteprima, stampa e PDF.</p>
   </div>
@@ -48,6 +48,7 @@ $calc_base = home_url('/calcolatori');
     </div>
     <div class="calc-grid">
       <a href="<?php echo esc_url("$calc_base/micropermanenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">🩺</div><h3>Micropermanenti</h3><p>1-9 punti IP · DM 18/7/2025</p><span class="calc-tag">Art. 139 CdA</span></a>
+      <a href="<?php echo esc_url("$calc_base/inail/"); ?>" class="calc-card cat-2"><div class="calc-icon">⛑️</div><h3>Indennizzo INAIL</h3><p>Capitale 6-15% · rendita dal 16%</p><span class="calc-tag">D.Lgs. 38/2000</span></a>
       <a href="<?php echo esc_url("$calc_base/macropermanenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">🦴</div><h3>Macropermanenti</h3><p>10-100 punti IP · TUN DPR 12/2025</p><span class="calc-tag">TUN + Milano</span></a>
       <a href="<?php echo esc_url("$calc_base/danni-preesistenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">📊</div><h3>Coesistenti / Concorrenti</h3><p>Formula Balthazard · Sottrazione monetaria</p><span class="calc-tag">Cass. SU 28986/2019</span></a>
     </div>
@@ -60,6 +61,7 @@ $calc_base = home_url('/calcolatori');
     <div class="calc-grid">
       <a href="<?php echo esc_url("$calc_base/istat-locazione/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">🏘️</div><h3>Aumento ISTAT Locazione</h3><p>Canone al 75% FOI · Bozza richiesta scritta</p><span class="calc-tag">Art. 32 L. 392/1978</span></a>
       <a href="<?php echo esc_url("$calc_base/mantenimento-istat/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">👨‍👩‍👧</div><h3>Adeguamento Mantenimento</h3><p>Coniuge/figli al 100% FOI · Arretrati</p><span class="calc-tag">Artt. 156 + 337-ter c.c.</span></a>
+      <a href="<?php echo esc_url("$calc_base/mantenimento-orientativo/"); ?>" class="calc-card cat-3"><div class="calc-icon">👨‍👩‍👧‍👦</div><h3>Stima Mantenimento Figli</h3><p>Forchetta orientativa distinta dall'adeguamento ISTAT</p><span class="calc-tag">Art. 337-ter c.c.</span></a>
       <a href="<?php echo esc_url("$calc_base/svalutazione/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT + MEF</span><div class="calc-icon">💰</div><h3>Svalutazione Monetaria</h3><p>FOI + interessi legali sul capitale rivalutato</p><span class="calc-tag">Art. 1224 c.c. + Cass. SU 1712/1995</span></a>
       <a href="<?php echo esc_url("$calc_base/interessi-legali/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ MEF</span><div class="calc-icon">📈</div><h3>Interessi Legali</h3><p>Tassi MEF dal 1942 ad oggi · Per scaglione</p><span class="calc-tag">Art. 1284 c.c.</span></a>
       <a href="<?php echo esc_url("$calc_base/interessi-moratori/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ MEF</span><div class="calc-icon">⏰</div><h3>Interessi Moratori B2B</h3><p>BCE + 8 punti · €40 spese recupero art. 6</p><span class="calc-tag">D.Lgs. 231/2002</span></a>

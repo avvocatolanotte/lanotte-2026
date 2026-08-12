@@ -43,6 +43,9 @@
             <option value="sinistro" data-anni="2" data-norma="Art. 2947 c.c." data-note="Danno prodotto da circolazione di veicoli: termine ordinario biennale, salvo ipotesi di reato.">Sinistro stradale: 2 anni</option>
             <option value="bollette" data-anni="2" data-norma="Regolazione ARERA / prescrizione breve consumi" data-note="Per energia, gas e servizio idrico i consumi oltre 2 anni possono essere eccepiti nei casi previsti.">Bollette luce, gas, acqua: 2 anni</option>
             <option value="professionisti" data-anni="3" data-norma="Art. 2956 c.c." data-note="Prescrizione presuntiva triennale per compensi professionali: richiede verifica probatoria.">Compensi professionali: 3 anni</option>
+            <option value="condominio" data-anni="5" data-norma="Art. 2948 c.c." data-note="Contributi condominiali periodici: decorrenza e delibere vanno verificate per ciascuna annualita.">Oneri condominiali: 5 anni</option>
+            <option value="lavoro" data-anni="5" data-norma="Art. 2948 c.c. e disciplina lavoristica" data-note="Crediti retributivi: decorrenza influenzata dalla stabilita del rapporto e dalla disciplina applicabile.">Retribuzioni e crediti di lavoro: 5 anni</option>
+            <option value="sentenza" data-anni="10" data-norma="Art. 2953 c.c." data-note="Diritti accertati con sentenza passata in giudicato: prescrizione decennale.">Credito riconosciuto da sentenza definitiva: 10 anni</option>
             <option value="custom" data-anni="10" data-norma="Termine personalizzato" data-note="Inserire il termine da verificare sul caso concreto.">Termine personalizzato</option>
           </select>
         </div>
@@ -63,6 +66,7 @@
           <input type="date" id="pc-interruzione">
           <p class="pc-help">Facoltativo. Se compilato, il termine viene ricalcolato da questa data.</p>
         </div>
+        <div class="form-field"><label>Precedenti atti interruttivi</label><input type="date" id="pc-interruzione-2"><input type="date" id="pc-interruzione-3" style="margin-top:8px"><p class="pc-help">Facoltativi. Il calcolo usa cronologicamente l'ultimo atto indicato; contenuto e prova della ricezione devono essere verificati.</p></div>
 
         <div class="form-field">
           <label>4 · Proroga se scade in giorno festivo</label>
@@ -168,7 +172,8 @@ function selectedData(){
 function calcolaPrescrizione(){
   const data = selectedData();
   document.getElementById('pc-custom-box').style.display = data.custom ? 'block' : 'none';
-  const decorrenza = parseDate('pc-interruzione') || parseDate('pc-decorrenza');
+  const eventi = ['pc-decorrenza','pc-interruzione-2','pc-interruzione-3','pc-interruzione'].map(parseDate).filter(Boolean).sort((a,b)=>a-b);
+  const decorrenza = eventi[eventi.length - 1];
   if (!decorrenza) return;
   let scadenza = addYears(decorrenza, data.anni);
   let proroga = false;
@@ -221,7 +226,7 @@ function apriAnteprimaReport(){
     notes: 'Calcolo orientativo: verificare atti interruttivi, riconoscimenti di debito, giudizi pendenti, decorrenza e termini speciali.'
   });
 }
-document.querySelectorAll('#pc-tipo,#pc-custom,#pc-decorrenza,#pc-interruzione,#pc-proroga').forEach(el => {
+document.querySelectorAll('#pc-tipo,#pc-custom,#pc-decorrenza,#pc-interruzione,#pc-interruzione-2,#pc-interruzione-3,#pc-proroga').forEach(el => {
   el.addEventListener('input', calcolaPrescrizione);
   el.addEventListener('change', calcolaPrescrizione);
 });
