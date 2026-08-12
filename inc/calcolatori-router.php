@@ -560,6 +560,37 @@ add_filter('the_content', function($content) {
     return $content . $html;
 }, 18);
 
+function lanotte_successione_calcolatore_cta() {
+    return '<aside class="lanotte-successione-calc-cta" aria-label="Calcolatore imposta di successione">'
+        . '<div><p class="lanotte-successione-calc-kicker">Strumento gratuito</p>'
+        . '<h2>Calcola le imposte di successione</h2>'
+        . '<p>Simula attivo, passivita, quota, parentela, franchigie, immobili e agevolazione prima casa. Il risultato e esclusivamente informativo e richiede verifica professionale.</p></div>'
+        . '<a class="btn btn-primary" href="' . esc_url(lanotte_calcolatore_url('imposta-successione')) . '">Apri il calcolatore</a>'
+        . '</aside>';
+}
+
+function lanotte_post_is_about_succession() {
+    if (!is_singular('post')) return false;
+
+    $post = get_post();
+    if (!$post instanceof WP_Post) return false;
+    $terms = wp_get_post_categories($post->ID, ['fields' => 'all']);
+    $category_text = implode(' ', array_map(function($term) {
+        return $term->name . ' ' . $term->slug;
+    }, $terms));
+    $haystack = remove_accents($post->post_title . ' ' . $post->post_name . ' ' . $category_text);
+
+    return (bool) preg_match('/succession|eredita|ereditari|testament|legittim|donazion|coerede/i', $haystack);
+}
+
+add_filter('the_content', function($content) {
+    if (!in_the_loop() || !is_main_query()) return $content;
+    if (is_page('avvocato-successioni-eredita') || lanotte_post_is_about_succession()) {
+        return $content . lanotte_successione_calcolatore_cta();
+    }
+    return $content;
+}, 19);
+
 add_action('template_redirect', function() {
     $request = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '';
     $path = $request ? wp_parse_url($request, PHP_URL_PATH) : '';

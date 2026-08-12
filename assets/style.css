@@ -409,6 +409,12 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
 .contact-privacy-note{font-size:12.5px!important;line-height:1.55;color:#64748b!important;margin:16px 0 0!important}
 .contact-privacy-note a{color:var(--navy);text-decoration:underline}
 @media(max-width:720px){.lanotte-calc-conversion{align-items:stretch;flex-direction:column}.lanotte-calc-conversion-actions{min-width:0;width:100%}}
+.lanotte-successione-calc-cta{margin:34px 0 10px;padding:26px;display:flex;align-items:center;justify-content:space-between;gap:28px;background:#fdfbf5;border:1px solid var(--border);border-left:4px solid var(--gold)}
+.lanotte-successione-calc-cta h2{font-family:var(--serif);font-size:25px;color:var(--navy);margin:3px 0 8px}
+.lanotte-successione-calc-cta p{margin:0;line-height:1.6;color:#475569;font-size:14.5px}
+.lanotte-successione-calc-kicker{font-size:11px!important;text-transform:uppercase;letter-spacing:.1em;color:var(--gold)!important;font-weight:700}
+.lanotte-successione-calc-cta .btn{flex:0 0 auto;white-space:nowrap}
+@media(max-width:680px){.lanotte-successione-calc-cta{align-items:stretch;flex-direction:column}.lanotte-successione-calc-cta .btn{text-align:center;justify-content:center;width:100%}}
 .lanotte-area-tools{margin:34px 0;padding:26px;background:#fdfbf5;border:1px solid #f0e9dc;border-top:3px solid var(--gold)}
 .lanotte-area-tools h2{font-family:var(--serif);font-size:24px;color:var(--navy);font-weight:600;margin:0 0 8px}
 .lanotte-area-tools p{font-size:14.5px;color:var(--text-muted);margin:0 0 16px}

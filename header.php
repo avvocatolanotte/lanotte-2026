@@ -288,7 +288,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
       <div class="nav-mega-col nav-mega-cta">
         <h6>Strumenti utili</h6>
         <ul class="nav-mega-tools">
-          <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>">📊 Calcolatori (20)</a></li>
+          <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>">📊 Calcolatori (21)</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari'))); ?>">💼 Onorari trasparenti</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>">📰 Rassegna giuridica</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari')) . '#servizi-online'); ?>">🛒 Servizi online</a></li>
@@ -331,6 +331,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
     <li><a href="<?php echo esc_url(home_url('/calcolatori/opposizione-decreto-ingiuntivo/')); ?>">⏳ Opposizione Decreto Ingiuntivo</a></li>
     <li><a href="<?php echo esc_url(home_url('/calcolatori/pignoramento-stipendio-pensione/')); ?>">💶 Pignoramento Stipendio/Pensione</a></li>
     <li><a href="<?php echo esc_url(home_url('/calcolatori/prescrizione-crediti/')); ?>">⌛ Prescrizione Crediti</a></li>
+    <li><a href="<?php echo esc_url(home_url('/calcolatori/imposta-successione/')); ?>">📜 Imposta di Successione completa</a></li>
   </ul>
   <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="md-cta">RICHIEDI CONSULENZA</a>
   <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="md-cta" style="background:#0f172a;margin-top:8px">📞 Chiama Studio</a>

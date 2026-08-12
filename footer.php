@@ -99,6 +99,7 @@ if (!defined('ABSPATH')) exit;
         $footer_calc = [
             'mantenimento-istat'              => 'Assegno di mantenimento (ISTAT)',
             'spese-straordinarie-figli'       => 'Spese straordinarie per i figli',
+            'imposta-successione'             => 'Imposta di successione completa',
             'macropermanenti'                 => 'Danno biologico · macropermanenti',
             'micropermanenti'                 => 'Danno biologico · micropermanenti',
             'pignoramento-stipendio-pensione' => 'Pignoramento stipendio e pensione',
