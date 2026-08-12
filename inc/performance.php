@@ -69,7 +69,7 @@ function lanotte_dequeue_nonessential_wc_assets() {
     foreach (['wc-blocks-style', 'woocommerce-general', 'woocommerce-layout', 'woocommerce-smallscreen'] as $handle) {
         wp_dequeue_style($handle);
     }
-    foreach (['woocommerce', 'wc-cart-fragments', 'wc-add-to-cart', 'sourcebuster-js', 'wc-order-attribution', 'wc-order-attribution-js'] as $handle) {
+    foreach (['woocommerce', 'wc-cart-fragments', 'wc-add-to-cart', 'sourcebuster-js', 'wc-order-attribution', 'wc-order-attribution-js', 'googlesitekit-events-provider-woocommerce'] as $handle) {
         wp_dequeue_script($handle);
     }
 }

@@ -12,9 +12,10 @@
 
   function track(name, params) {
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(Object.assign({event: name}, params || {}));
     if (typeof window.gtag === 'function') {
       window.gtag('event', name, params || {});
+    } else {
+      window.dataLayer.push(Object.assign({event: name}, params || {}));
     }
   }
 

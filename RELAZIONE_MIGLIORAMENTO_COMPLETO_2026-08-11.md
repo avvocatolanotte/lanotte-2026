@@ -6,7 +6,7 @@ Trasformare il traffico crescente di sito, calcolatori e social in richieste
 misurabili, senza alterare il funzionamento degli strumenti o delle vendite
 WooCommerce.
 
-## Modifiche incluse nella versione 1.0.79
+## Modifiche incluse nella versione 1.0.80
 
 1. CTA contestuale sotto ogni calcolatore, con WhatsApp precompilato e accesso
    alla pagina contatti con argomento del calcolo.
