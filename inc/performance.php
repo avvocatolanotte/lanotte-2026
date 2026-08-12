@@ -54,6 +54,7 @@ add_action('wp_enqueue_scripts', function () {
 // prima della stampa, limitata alle pagine che non usano WooCommerce.
 add_action('wp_print_styles', 'lanotte_dequeue_nonessential_wc_assets', 999);
 add_action('wp_print_footer_scripts', 'lanotte_dequeue_nonessential_wc_assets', 1);
+add_action('wp_footer', 'lanotte_dequeue_nonessential_wc_assets', 1);
 function lanotte_dequeue_nonessential_wc_assets() {
     if (!class_exists('WooCommerce')) return;
 
@@ -68,7 +69,7 @@ function lanotte_dequeue_nonessential_wc_assets() {
     foreach (['wc-blocks-style', 'woocommerce-general', 'woocommerce-layout', 'woocommerce-smallscreen'] as $handle) {
         wp_dequeue_style($handle);
     }
-    foreach (['woocommerce', 'wc-cart-fragments', 'wc-add-to-cart', 'sourcebuster-js', 'wc-order-attribution'] as $handle) {
+    foreach (['woocommerce', 'wc-cart-fragments', 'wc-add-to-cart', 'sourcebuster-js', 'wc-order-attribution', 'wc-order-attribution-js'] as $handle) {
         wp_dequeue_script($handle);
     }
 }
