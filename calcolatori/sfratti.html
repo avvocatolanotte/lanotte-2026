@@ -170,7 +170,7 @@
 
 <section class="block">
   <div class="container" style="max-width:1100px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+    <div class="sfratto-calc-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
 
       <div style="background:#fff;border:1px solid var(--border);padding:32px;border-top:4px solid var(--gold)">
         <h3 style="font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:24px">Parametri del calcolo</h3>
@@ -266,6 +266,8 @@
 .fase-bar-label{display:flex;justify-content:space-between;font-size:12px;color:#cbd5e1;margin-bottom:4px}
 .fase-bar-track{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}
 .fase-bar-fill{height:100%;background:linear-gradient(90deg,var(--gold-light),var(--gold));transition:width .5s ease;border-radius:4px}
+.sfratto-calc-grid input,.sfratto-calc-grid select{max-width:100%;box-sizing:border-box}
+@media(max-width:760px){.sfratto-calc-grid{grid-template-columns:minmax(0,1fr)!important;gap:22px!important}.sfratto-calc-grid>div{min-width:0}.sfratto-calc-grid>div[style*="position:sticky"]{position:static!important}}
 </style>
 
 <script src="../assets/js/lanotte-preview.js"></script>
