@@ -182,7 +182,7 @@ function lanotte_calcolatori_pages_data() {
             'title' => 'Calcolo imposta di successione 2026 (gratuito)',
             'keyword' => 'calcolo imposta di successione',
             'service' => 'Successioni ed eredita in tutta Italia',
-            'intro' => 'Il calcolatore stima l\'imposta di successione per singolo beneficiario secondo aliquote e franchigie vigenti: 4% oltre 1.000.000 di euro per coniuge e parenti in linea retta, 6% oltre 100.000 per fratelli e sorelle, 6% e 8% senza franchigia per gli altri soggetti. Calcola anche le imposte ipotecaria e catastale sugli immobili, con o senza benefici prima casa, secondo il D.Lgs. 346/1990 e l\'autoliquidazione introdotta dal D.Lgs. 139/2024.',
+            'intro' => 'Il calcolatore completo stima l\'imposta di successione per singolo beneficiario partendo da attivo, passivita, quota, rapporto di parentela, immobili, donazioni pregresse e agevolazione prima casa. Applica in via informativa aliquote e franchigie vigenti e segnala i casi particolari che richiedono verifica professionale secondo il D.Lgs. 346/1990 e il D.Lgs. 139/2024.',
             'faq' => [
                 ['La franchigia vale per ogni erede?', 'Si. La franchigia si applica alla quota di ciascun beneficiario: 1.000.000 di euro per coniuge e linea retta, 100.000 per fratelli e sorelle, 1.500.000 per beneficiari con disabilita grave (L. 104/1992).'],
                 ['Con i benefici prima casa cosa cambia?', 'Le imposte ipotecaria e catastale si pagano in misura fissa di 200 euro ciascuna, invece del 2% e dell\'1% sul valore catastale degli immobili.'],

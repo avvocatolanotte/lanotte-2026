@@ -23,7 +23,7 @@
   <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
     <div style="font-size:24px;flex-shrink:0">!</div>
     <div style="font-size:13.5px;color:#78350f;line-height:1.55">
-      <strong>Calcolo per singolo beneficiario.</strong> Franchigie e aliquote si applicano alla quota di ciascun erede o legatario. Il valore degli immobili rilevante e di regola quello catastale rivalutato. Passivita deducibili, agevolazioni particolari e casi speciali vanno verificati sulla dichiarazione.
+      <strong>Strumento esclusivamente informativo.</strong> Il risultato e una simulazione orientativa e non costituisce dichiarazione di successione, liquidazione fiscale, preventivo o consulenza legale. Franchigie e aliquote si applicano alla quota di ciascun beneficiario. Per una valutazione professionale e necessario contattare direttamente lo Studio.
     </div>
   </div>
 </section>
@@ -32,28 +32,57 @@
   <div class="container" style="max-width:1120px">
     <div class="imps-grid">
       <div class="imps-panel">
-        <h3>Dati della quota ereditata</h3>
+        <h3>Dati della successione e della quota</h3>
 
         <div class="form-field">
-          <label>1 · Valore complessivo della quota del beneficiario</label>
-          <input type="number" id="imps-quota" value="250000" min="0" step="1000">
-          <p class="imps-help">Attivo ereditario di spettanza del singolo beneficiario, al netto delle passivita deducibili.</p>
+          <label>1 · Attivo ereditario complessivo</label>
+          <input type="number" id="imps-attivo" value="500000" min="0" step="1000">
+          <p class="imps-help">Somma orientativa di immobili, liquidita, investimenti, beni mobili, aziende e partecipazioni compresi nell'asse.</p>
         </div>
 
         <div class="form-field">
-          <label>2 · Di cui immobili (valore catastale)</label>
+          <label>2 · Passivita potenzialmente deducibili</label>
+          <input type="number" id="imps-passivita" value="0" min="0" step="1000">
+          <p class="imps-help">Debiti, spese mediche e funerarie e altre passivita sono deducibili solo nei limiti e con la documentazione prevista dagli artt. 20-24 D.Lgs. 346/1990.</p>
+        </div>
+
+        <div class="form-field">
+          <label>3 · Quota spettante al beneficiario (%)</label>
+          <input type="number" id="imps-percentuale" value="50" min="0" max="100" step="0.01">
+          <p class="imps-help">La quota dipende da testamento, successione legittima, legittima e possibili rinunce: va verificata giuridicamente.</p>
+        </div>
+
+        <div class="form-field">
+          <label>4 · Valore della quota del beneficiario</label>
+          <input type="number" id="imps-quota" value="250000" min="0" step="1000">
+          <p class="imps-help">Calcolato automaticamente da attivo, passivita e percentuale. Puo essere corretto manualmente per legati o attribuzioni specifiche.</p>
+        </div>
+
+        <div class="form-field">
+          <label>5 · Di cui immobili nella quota (valore catastale)</label>
           <input type="number" id="imps-immobili" value="150000" min="0" step="1000">
           <p class="imps-help">Serve per le imposte ipotecaria e catastale. Se non ci sono immobili, lasciare 0.</p>
         </div>
 
         <div class="form-field">
-          <label>3 · Rapporto con il defunto</label>
+          <label>6 · Rapporto con il defunto</label>
           <select id="imps-rapporto">
             <option value="linea-retta" data-aliquota="4" data-franchigia="1000000">Coniuge, unito civilmente, figli e genitori (linea retta)</option>
             <option value="fratelli" data-aliquota="6" data-franchigia="100000">Fratelli e sorelle</option>
             <option value="parenti" data-aliquota="6" data-franchigia="0">Altri parenti fino al 4° grado e affini</option>
             <option value="altri" data-aliquota="8" data-franchigia="0">Altri soggetti (compresi conviventi non uniti civilmente)</option>
           </select>
+        </div>
+
+        <div class="form-field">
+          <label>7 · Donazioni pregresse ricevute dal defunto</label>
+          <input type="number" id="imps-donazioni" value="0" min="0" step="1000">
+          <p class="imps-help">Dato segnaletico: incidenza sulla franchigia, registrazione e trattamento delle liberalita richiedono verifica documentale.</p>
+        </div>
+
+        <div class="form-field imps-check">
+          <label><input type="checkbox" id="imps-speciali"> Sono presenti aziende/partecipazioni, beni esteri, trust, usufrutto, polizze o altre situazioni particolari</label>
+          <p class="imps-help">Questi beni possono seguire regole di valorizzazione, esclusione o agevolazione non calcolabili automaticamente.</p>
         </div>
 
         <div class="form-field imps-check">
@@ -85,6 +114,7 @@
           <div><span>Imposta catastale</span><strong id="imps-catastale">-</strong></div>
         </div>
         <p class="imps-note" id="imps-note"></p>
+        <div class="imps-disclaimer"><strong>Attenzione</strong><span>Risultato assolutamente informativo. Per predisporre o verificare una successione e necessario contattare lo Studio e sottoporre la documentazione.</span></div>
         <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
         <a href="https://studiolegalelanotte.it/avvocato-successioni-eredita/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:var(--gold);color:#fff;font-weight:700;padding:14px">Assistenza successioni in tutta Italia</a>
         <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Verifica con lo Studio</a>
@@ -126,6 +156,7 @@
 .imps-rows div{display:flex;justify-content:space-between;gap:18px;margin-bottom:10px;font-size:13px;color:#cbd5e1}
 .imps-rows strong{color:#e2e8f0;font-weight:600;text-align:right}
 .imps-note{font-size:12px;color:#dbeafe;line-height:1.55;margin:0 0 18px;font-style:italic}
+.imps-disclaimer{border:1px solid #f6c453;background:#fff8db;color:#713f12;padding:14px;margin:0 0 18px;font-size:12px;line-height:1.5}.imps-disclaimer strong,.imps-disclaimer span{display:block}.imps-disclaimer strong{text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
 .imps-docs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
 .imps-docs div{background:#fff;border:1px solid #e5e7eb;border-top:3px solid var(--gold);padding:18px}
 .imps-docs strong{display:block;color:var(--navy);margin-bottom:6px}.imps-docs span{font-size:13px;color:var(--text-muted);line-height:1.5}
@@ -140,7 +171,16 @@ function euro(value){
 function num(id){
   return parseFloat(String(document.getElementById(id).value || '0').replace(',', '.')) || 0;
 }
+let impsQuotaManuale = false;
+function aggiornaQuota(){
+  if (impsQuotaManuale) return;
+  const attivo = Math.max(0, num('imps-attivo'));
+  const passivita = Math.min(attivo, Math.max(0, num('imps-passivita')));
+  const percentuale = Math.min(100, Math.max(0, num('imps-percentuale')));
+  document.getElementById('imps-quota').value = ((attivo - passivita) * percentuale / 100).toFixed(2);
+}
 function calcolaImposta(){
+  aggiornaQuota();
   const quota = Math.max(0, num('imps-quota'));
   let immobili = Math.max(0, num('imps-immobili'));
   let nota = '';
@@ -155,6 +195,9 @@ function calcolaImposta(){
   const handicap = document.getElementById('imps-handicap').checked;
   if (handicap) franchigia = Math.max(franchigia, 1500000);
 
+  const donazioni = Math.max(0, num('imps-donazioni'));
+  // Le donazioni pregresse sono solo segnalate: data, natura e trattamento
+  // dell'atto vanno verificati prima di stabilire l'eventuale incidenza fiscale.
   const imponibile = Math.max(0, quota - franchigia);
   const impostaSuccessione = imponibile * aliquota / 100;
 
@@ -178,11 +221,14 @@ function calcolaImposta(){
   document.getElementById('imps-ipotecaria').textContent = immobili > 0 ? euro(ipotecaria) + (primaCasa ? ' (fissa)' : '') : '—';
   document.getElementById('imps-catastale').textContent = immobili > 0 ? euro(catastale) + (primaCasa ? ' (fissa)' : '') : '—';
 
+  const speciali = document.getElementById('imps-speciali').checked;
   if (imponibile === 0 && quota > 0) {
     nota += 'La quota rientra nella franchigia: nessuna imposta di successione dovuta.' + (immobili > 0 ? ' Restano dovute ipotecaria e catastale sugli immobili.' : '');
   } else {
-    nota += 'Stima al netto di imposta di bollo, tassa ipotecaria e tributi speciali. Passivita, agevolazioni e coacervo delle donazioni vanno verificati sul caso concreto.';
+    nota += 'Stima al netto di imposta di bollo, tassa ipotecaria e tributi speciali. Passivita, donazioni e agevolazioni vanno verificate sul caso concreto.';
   }
+  if (donazioni > 0) nota += ' Le donazioni pregresse non sono incluse nella formula automatica: data, natura e trattamento degli atti richiedono verifica professionale.';
+  if (speciali) nota += ' Sono presenti situazioni particolari non comprese nel calcolo automatico: e indispensabile una consulenza professionale.';
   document.getElementById('imps-note').textContent = nota;
 }
 function txt(id){ return (document.getElementById(id).textContent || '').trim(); }
@@ -192,6 +238,9 @@ function apriAnteprimaReport(){
     title: 'Stima imposta di successione',
     subtitle: document.getElementById('imps-rapporto').selectedOptions[0].textContent,
     rows: [
+      ['Attivo ereditario complessivo', euro(num('imps-attivo'))],
+      ['Passivita indicate', euro(num('imps-passivita'))],
+      ['Percentuale beneficiario', num('imps-percentuale').toLocaleString('it-IT') + '%'],
       ['Valore quota beneficiario', euro(num('imps-quota'))],
       ['Di cui immobili (catastale)', euro(num('imps-immobili'))],
       ['Franchigia applicata', txt('imps-franchigia')],
@@ -200,13 +249,19 @@ function apriAnteprimaReport(){
       ['Imposta di successione', txt('imps-successione')],
       ['Imposta ipotecaria', txt('imps-ipotecaria')],
       ['Imposta catastale', txt('imps-catastale')]
+      ,['Donazioni pregresse dichiarate', euro(num('imps-donazioni'))]
+      ,['Situazioni particolari', document.getElementById('imps-speciali').checked ? 'Si - verifica professionale necessaria' : 'Non indicate']
     ],
     totalLabel: 'Totale imposte stimate',
     total: txt('imps-totale'),
-    notes: 'Stima orientativa per singolo beneficiario (D.Lgs. 346/1990; D.Lgs. 139/2024). Dichiarazione entro 12 mesi. Non sostituisce la consulenza legale.'
+    notes: 'SIMULAZIONE ESCLUSIVAMENTE INFORMATIVA per singolo beneficiario (D.Lgs. 346/1990; D.Lgs. 139/2024). Non costituisce liquidazione fiscale, dichiarazione di successione, preventivo o consulenza. Per una valutazione professionale e necessario contattare lo Studio Legale Lanotte & Partners e fornire la documentazione completa.'
   });
 }
-document.querySelectorAll('#imps-quota,#imps-immobili,#imps-rapporto,#imps-handicap,#imps-primacasa').forEach(el => {
+document.getElementById('imps-quota').addEventListener('input', function(){ impsQuotaManuale = true; calcolaImposta(); });
+document.querySelectorAll('#imps-attivo,#imps-passivita,#imps-percentuale').forEach(el => {
+  el.addEventListener('input', function(){ impsQuotaManuale = false; calcolaImposta(); });
+});
+document.querySelectorAll('#imps-immobili,#imps-rapporto,#imps-donazioni,#imps-handicap,#imps-primacasa,#imps-speciali').forEach(el => {
   el.addEventListener('input', calcolaImposta);
   el.addEventListener('change', calcolaImposta);
 });
