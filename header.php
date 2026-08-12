@@ -35,6 +35,7 @@ header.site-header{position:sticky;top:0;z-index:50;background:#fff}
 .nav-dd-panel a:hover{background:#fafaf7;color:var(--gold,#b89968)}
 
 /* MOBILE DRAWER */
+html,body{overflow-x:clip}
 .mobile-drawer{position:fixed;top:0;right:0;transform:translateX(110%);visibility:hidden;width:min(360px,90vw);height:100vh;background:#fff;box-shadow:-10px 0 40px rgba(15,23,42,.25);z-index:200;overflow-y:auto;transition:transform .3s ease,visibility 0s linear .3s;padding:24px}
 .mobile-drawer.is-open{transform:translateX(0);visibility:visible;transition:transform .3s ease}
 .mobile-drawer-overlay{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:199;display:none;backdrop-filter:blur(2px)}
