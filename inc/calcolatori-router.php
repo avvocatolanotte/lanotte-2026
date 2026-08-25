@@ -228,11 +228,13 @@ function lanotte_calcolatori_pages_data() {
             'title' => 'Calcolo danno biologico 2026 Tabelle Milano e TUN (gratuito)',
             'keyword' => 'calcolo danno biologico tabelle Milano',
             'service' => 'Infortunistica e risarcimento danni',
-            'intro' => 'Il calcolatore stima il danno biologico per lesioni macropermanenti, confrontando Tabelle di Milano e Tabella Unica Nazionale quando applicabile. Il risultato dipende da invalidita permanente, eta, temporanea, personalizzazione e voci patrimoniali documentate.',
+            'intro' => 'Calcola online una stima del risarcimento del danno biologico per lesioni macropermanenti da 10 a 100 punti. Lo strumento individua la tabella applicabile in base al tipo e alla data dell\'evento, confrontando Tabelle di Milano 2024 e Tabella Unica Nazionale prevista dal D.P.R. 12/2025. Inserendo punti di invalidita permanente, eta e giorni di inabilita temporanea ottieni subito il dettaglio del danno permanente, temporaneo e della sofferenza soggettiva media. Le opzioni avanzate permettono inoltre di simulare personalizzazione, spese documentate e perdita di reddito. Il calcolo e gratuito, resta sul dispositivo e puo essere controllato in anteprima prima di stampare o salvare il report. La quantificazione definitiva richiede sempre una perizia medico-legale e la verifica giuridica del caso concreto.',
             'faq' => [
-                ['Quando si usano le Tabelle di Milano?', 'Per molte liquidazioni del danno non patrimoniale, salvo ambiti con tabelle normative specifiche.'],
-                ['Quando si usa la TUN?', 'Per le macrolesioni da circolazione nei casi in cui la Tabella Unica Nazionale e applicabile.'],
-                ['Serve una perizia medico-legale?', 'Si. I punti di invalidita e le ricadute soggettive devono essere valutati da un medico-legale.'],
+                ['Quando si usano le Tabelle di Milano?', 'Per gli eventi anteriori al 5 marzo 2025 e, di regola, per gli illeciti civili non coperti dalla TUN, come cadute e altre responsabilita diverse da circolazione e sanita.'],
+                ['Quando si usa la Tabella Unica Nazionale?', 'Per lesioni da 10 a 100 punti derivanti da circolazione di veicoli o responsabilita sanitaria, quando l\'evento rientra nell\'ambito temporale del D.P.R. 12/2025.'],
+                ['Dove trovo i punti di invalidita e i giorni di inabilita?', 'Sono normalmente indicati nella relazione medico-legale. Se non sono ancora stati valutati, il calcolo puo essere soltanto una simulazione.'],
+                ['La personalizzazione aumenta sempre il risarcimento?', 'No. Deve dipendere da conseguenze specifiche del caso, essere allegata e provata; non e una maggiorazione automatica.'],
+                ['Serve una perizia medico-legale?', 'Si. I punti di invalidita, i giorni di inabilita e le ricadute concrete devono essere valutati da un medico-legale.'],
             ],
         ],
         'micropermanenti' => [
@@ -449,10 +451,11 @@ function lanotte_calcolatore_page_content($slug, array $data) {
     );
     $whatsapp_url = lanotte_whatsapp_url() . (strpos(lanotte_whatsapp_url(), '?') === false ? '?' : '&') . 'text=' . $whatsapp_message;
 
-    return '<section class="lanotte-calc-seo-intro"><p>' . esc_html($data['intro']) . '</p>'
-        . '<p>Per usare correttamente lo strumento inserisci i dati richiesti, controlla il risultato e scarica o stampa il report solo dopo aver verificato l\'anteprima. Il calcolo e pensato per una prima valutazione operativa, utile prima di una diffida, di una trattativa, di un ricorso o di una richiesta di preventivo.</p>'
-        . '<p>Quando il conteggio incide su diritti, prescrizioni, termini processuali, risarcimenti o somme contestate, e opportuno farlo verificare da un avvocato. Lo Studio puo controllare documenti, decorrenze, titolo del credito o provvedimento giudiziale e trasformare il risultato in una richiesta formale.</p>'
-        . '<p><strong>Query principale:</strong> ' . esc_html($data['keyword']) . '. <strong>Servizio collegato:</strong> ' . esc_html($data['service']) . '.</p></section>'
+    $guidance = $slug === 'macropermanenti'
+        ? '<p><strong>Cosa ti serve:</strong> tipo e data dell\'evento, punti riconosciuti, eta alla data del fatto e giorni di inabilita indicati nella relazione medico-legale. Le spese e la perdita di reddito sono facoltative.</p>'
+        : '<p>Per usare correttamente lo strumento inserisci i dati richiesti, controlla il risultato e scarica o stampa il report solo dopo aver verificato l\'anteprima. Il calcolo e pensato per una prima valutazione operativa.</p><p>Quando il conteggio incide su diritti, prescrizioni, termini processuali, risarcimenti o somme contestate, e opportuno farlo verificare da un avvocato.</p>';
+
+    return '<section class="lanotte-calc-seo-intro"><p>' . esc_html($data['intro']) . '</p>' . $guidance . '</section>'
         . '[lanotte_calcolatore slug="' . esc_attr($slug) . '"]'
         . '<section class="lanotte-calc-conversion" data-calc-slug="' . esc_attr($slug) . '">'
         . '<div><p class="lanotte-calc-conversion-kicker">Verifica professionale</p><h2>Vuoi controllare il risultato?</h2>'
