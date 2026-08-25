@@ -148,9 +148,27 @@ function lanotte_render_calcolatore($slug) {
         }
     }
 
-    // La pagina WordPress fornisce gia titolo, intro SEO e avvertenze.
-    // Qui incorporiamo solo lo strumento, evitando doppio hero/H1.
-    $html = preg_replace('~^\s*<section\b[^>]*>.*?</section>\s*~is', '', $html, 2);
+    // La pagina WordPress fornisce gia titolo e introduzione SEO.
+    // Alcuni calcolatori includono stili prima del hero: rimuoviamo quindi
+    // hero e disclaimer per marcatori, evitando H1 e testi duplicati.
+    $hero_removed = 0;
+    $html = preg_replace(
+        '~<section\b[^>]*class=["\'][^"\']*\bhero-internal\b[^"\']*["\'][^>]*>.*?</section>\s*~is',
+        '',
+        $html,
+        1,
+        $hero_removed
+    );
+    if ($hero_removed) {
+        $html = preg_replace(
+            '~\s*<!--\s*DISCLAIMER ESTESO\s*-->\s*<section\b[^>]*>.*?</section>\s*~is',
+            '',
+            $html,
+            1
+        );
+    } else {
+        $html = preg_replace('~^\s*<section\b[^>]*>.*?</section>\s*~is', '', $html, 2);
+    }
     foreach ($status_divs as $status_id => $status_div) {
         if (strpos($html, 'id="' . $status_id . '"') !== false || strpos($html, "id='" . $status_id . "'") !== false) continue;
         $count = 0;
