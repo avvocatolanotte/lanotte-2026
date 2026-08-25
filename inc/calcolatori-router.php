@@ -466,7 +466,12 @@ function lanotte_calcolatore_page_content($slug, array $data) {
 
 add_action('template_redirect', function() {
     $path = wp_parse_url(wp_unslash($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH);
-    if (untrailingslashit((string) $path) !== '/calcolatori/rivalutazione-istat-assegno-mantenimento') return;
+    $legacy_paths = [
+        '/calcolatori/rivalutazione-istat-assegno-mantenimento',
+        '/calcolatori/adeguamento-istat-mantenimento',
+    ];
+
+    if (!in_array(untrailingslashit((string) $path), $legacy_paths, true)) return;
 
     wp_safe_redirect(lanotte_calcolatore_url('mantenimento-istat'), 301);
     exit;

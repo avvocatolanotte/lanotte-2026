@@ -18,6 +18,15 @@ add_action('template_redirect', function() {
     exit;
 }, 1);
 
+// Vecchio slug usato per il recupero crediti: confluisce nell'area civile attiva.
+add_action('template_redirect', function() {
+    $path = wp_parse_url(wp_unslash($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH);
+    if (untrailingslashit((string) $path) !== '/aree/recupero-crediti') return;
+
+    wp_safe_redirect(home_url('/aree/diritto-civile/'), 301);
+    exit;
+}, 1);
+
 function lanotte_seo_map() {
     $brand = 'LANOTTE & Partners';
     return [
