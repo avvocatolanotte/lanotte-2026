@@ -24,6 +24,11 @@
 (function(global){
   'use strict';
 
+  const pdfScriptUrl = document.currentScript && document.currentScript.src;
+  const reportLogoUrl = pdfScriptUrl
+    ? new URL('../img/logo-report.png', pdfScriptUrl).href
+    : '/wp-content/themes/lanotte-2026/assets/img/logo-report.png';
+
   const STUDIO = {
     nome: 'Studio Legale Lanotte & Partners',
     titolare: 'Avv. Giuseppe Lanotte',
@@ -70,11 +75,11 @@
     return `
       <article class="lpv-report">
         <header class="lpv-head">
-          <div>
-            <strong>Lanotte <span>&amp;</span> Partners</strong>
-            <small>Studio Legale · Foro di Trani</small>
+          <div class="lpv-brand">
+            <img class="lpv-logo" src="${esc(reportLogoUrl)}" alt="Lanotte &amp; Partners - Studio Legale">
+            <small>Avv. Giuseppe Lanotte · Foro di Trani</small>
           </div>
-          <div class="lpv-meta">${esc(nowIso())}</div>
+          <div class="lpv-meta"><strong>Prospetto di calcolo</strong>${esc(nowIso())}<br>Viale Falcone e Borsellino, 75 · Barletta (BT)<br>0883 1955533 · info@studiolegalelanotte.it</div>
         </header>
         <h1>${esc(opts.titolo || 'Calcolo')}</h1>
         ${opts.normativa ? `<p class="lpv-sub">Riferimento normativo: ${esc(opts.normativa)}</p>` : ''}
@@ -120,18 +125,20 @@
       .lpv-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;background:#0E1A33;color:#fff;border-bottom:3px solid #B89968}
       .lpv-top h3{margin:0;font-family:var(--serif, Georgia, serif);font-size:22px;font-weight:600}
       .lpv-close{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:4px;width:34px;height:34px;cursor:pointer;font-size:22px;line-height:1}
-      .lpv-body{overflow:auto;padding:24px;background:#f8fafc}
+      .lpv-body{overflow:auto;padding:24px;background:#eef1f5}
       .lpv-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;padding:16px 22px;border-top:1px solid #e5e7eb;background:#fff}
       .lpv-actions button{border:1px solid #B89968;background:#fff;color:#0E1A33;padding:11px 16px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit}
       .lpv-actions .primary{background:#B89968;color:#fff}
-      .lpv-report{background:#fff;color:#0f172a;padding:28px;border:1px solid #e5e7eb;line-height:1.5}
-      .lpv-head{display:flex;justify-content:space-between;gap:18px;border-bottom:2px solid #B89968;padding-bottom:14px;margin-bottom:18px}
-      .lpv-head strong{font-family:Georgia,serif;font-size:22px;color:#0E1A33;display:block}.lpv-head strong span{color:#B89968}.lpv-head small,.lpv-meta{color:#64748b;font-size:12px}
+      .lpv-report{width:min(794px,100%);margin:0 auto;background:#fff;color:#0f172a;padding:34px 38px;border:1px solid #d9dee7;box-shadow:0 8px 26px rgba(15,23,42,.08);line-height:1.5;box-sizing:border-box}
+      .lpv-head{display:flex;justify-content:space-between;align-items:flex-start;gap:22px;border-top:4px solid #B89968;border-bottom:1px solid #d9dee7;padding:18px 0 15px;margin-bottom:22px}
+      .lpv-brand{width:55%}.lpv-logo{display:block;width:285px;max-width:100%;height:auto;object-fit:contain;object-position:left top}.lpv-head small{display:block;color:#64748b;font-size:10px;margin-top:7px}.lpv-meta{color:#64748b;font-size:9px;line-height:1.6;text-align:right}.lpv-meta strong{display:block;color:#0E1A33;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
       .lpv-report h1{font-family:Georgia,serif;color:#0E1A33;font-size:28px;margin:0 0 6px}.lpv-sub{color:#64748b;font-style:italic;margin:0 0 18px}
       .lpv-report section{margin-top:20px}.lpv-report h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:#B89968;margin:0 0 10px}
-      .lpv-report table{width:100%;border-collapse:collapse;font-size:13px}.lpv-report th{background:#0E1A33;color:#fff;text-align:left;padding:8px}.lpv-report td{padding:8px;border-bottom:1px solid #e5e7eb;vertical-align:top}.lpv-report td:first-child{color:#64748b;font-weight:600}
+      .lpv-report table{width:100%;border-collapse:collapse;font-size:13px}.lpv-report th{background:#0E1A33;color:#fff;text-align:left;padding:8px}.lpv-report td{padding:8px;border-bottom:1px solid #e5e7eb;vertical-align:top}.lpv-report td:first-child{width:42%;color:#64748b;font-weight:600}
       .lpv-table-wrap{overflow:auto}.lpv-conclusioni{background:#fdfbf5;border-left:4px solid #B89968;padding:14px}.lpv-conclusioni p{margin:0}.lpv-report footer{margin-top:24px;padding-top:12px;border-top:1px solid #e5e7eb;color:#64748b;font-size:12px;font-style:italic}
-      @media print{body.lpv-printing > *:not(.lpv-print-root){display:none!important}.lpv-print-root{display:block!important}.lpv-report{border:0}.lpv-actions,.lpv-top{display:none!important}}
+      @media(max-width:640px){.lpv-backdrop{padding:0}.lpv-modal{height:100vh;max-height:100vh;border-radius:0}.lpv-body{padding:12px}.lpv-report{padding:22px 18px}.lpv-head{display:block}.lpv-brand{width:100%}.lpv-logo{width:250px}.lpv-meta{text-align:left;margin-top:12px}.lpv-actions{justify-content:stretch}.lpv-actions button{flex:1}}
+      @media print{body.lpv-printing > *:not(.lpv-print-root){display:none!important}.lpv-print-root{display:block!important}.lpv-report{max-width:none!important;margin:0!important;border:0;box-shadow:none}.lpv-actions,.lpv-top{display:none!important}}
+      @page{size:A4;margin:14mm}
     `;
     document.head.appendChild(style);
   }
@@ -143,11 +150,18 @@
     root.innerHTML = markup;
     document.body.appendChild(root);
     document.body.classList.add('lpv-printing');
-    window.print();
-    setTimeout(() => {
+    let cleaned = false;
+    const cleanup = () => {
+      if (cleaned) return;
+      cleaned = true;
       document.body.classList.remove('lpv-printing');
       root.remove();
-    }, 500);
+    };
+    global.addEventListener('afterprint', cleanup, {once:true});
+    setTimeout(cleanup, 60000);
+    global.requestAnimationFrame(() => {
+      global.requestAnimationFrame(() => global.print());
+    });
   }
 
   function preview(opts){
@@ -240,25 +254,30 @@
     doc.setFillColor(...COLORS.gold);
     doc.rect(0, 0, W, 4, 'F');
 
-    // Logo testuale stilizzato
+    // Logo dello Studio, con fallback testuale se l'immagine non e disponibile.
     y = 16;
-    doc.setFont('helvetica','bold');
-    doc.setFontSize(22);
-    doc.setTextColor(...COLORS.navy);
-    doc.text('Lanotte', M, y);
-    doc.setTextColor(...COLORS.gold);
-    doc.setFont('times','italic');
-    doc.text('&', M + 32, y);
-    doc.setFont('helvetica','bold');
-    doc.setTextColor(...COLORS.navy);
-    doc.text('Partners', M + 38, y);
-
-    // Sottotitolo studio legale
-    y += 5;
-    doc.setFont('helvetica','normal');
-    doc.setFontSize(8);
-    doc.setTextColor(...COLORS.gold);
-    doc.text('· STUDIO LEGALE ·', M, y);
+    const previewLogo = document.querySelector('.lpv-logo');
+    let logoAdded = false;
+    if (previewLogo && previewLogo.complete && previewLogo.naturalWidth) {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = previewLogo.naturalWidth;
+        canvas.height = previewLogo.naturalHeight;
+        canvas.getContext('2d').drawImage(previewLogo, 0, 0);
+        doc.addImage(canvas.toDataURL('image/png'), 'PNG', M, 9, 62, 20.7, 'lanotte-logo', 'FAST');
+        logoAdded = true;
+      } catch (e) {}
+    }
+    if (!logoAdded) {
+      doc.setFont('times','bold');
+      doc.setFontSize(18);
+      doc.setTextColor(...COLORS.navy);
+      doc.text('Lanotte & Partners', M, y);
+      doc.setFont('helvetica','normal');
+      doc.setFontSize(8);
+      doc.setTextColor(...COLORS.gold);
+      doc.text('STUDIO LEGALE', M, y + 5);
+    }
 
     // Blocco contatti a destra
     doc.setTextColor(...COLORS.text);

@@ -472,7 +472,9 @@ Personalizzazione max  = +20% (art. 139 c. 3 CdA, motivata)</pre>
 
 @media print {
   /* Nascondi tutto il sito */
-  body > *:not(#print-report){display:none !important}
+  body:not(.lph-printing) > *:not(#print-report){display:none !important}
+  body.lph-printing > .lph-print-root{display:block !important}
+  body.lph-printing .lph-print-root #print-report{display:block !important}
   .topbar, header.site-header, footer.site-footer, .proto-banner, .wa-float, .ctastrip{display:none !important}
   /* Mostra report */
   #print-report{display:block !important;padding:20mm 15mm;font-family:'Cormorant Garamond','Times New Roman',serif;color:#000;font-size:11pt;line-height:1.5;background:#fff}

@@ -4,6 +4,11 @@
 (function(global){
   'use strict';
 
+  const previewScriptUrl = document.currentScript && document.currentScript.src;
+  const reportLogoUrl = previewScriptUrl
+    ? new URL('../img/logo-report.png', previewScriptUrl).href
+    : '/wp-content/themes/lanotte-2026/assets/img/logo-report.png';
+
   function ensureStyles(){
     if (document.getElementById('lanotte-preview-html-styles')) return;
     const style = document.createElement('style');
@@ -14,9 +19,27 @@
       .lph-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;background:#0E1A33;color:#fff;border-bottom:3px solid #B89968}
       .lph-top h3{margin:0;font-family:var(--serif, Georgia, serif);font-size:22px;font-weight:600}
       .lph-close{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:4px;width:34px;height:34px;cursor:pointer;font-size:22px;line-height:1}
-      .lph-body{overflow:auto;padding:24px;background:#f8fafc}.lph-preview{background:#fff;color:#111;padding:26px;border:1px solid #e5e7eb}
+      .lph-body{overflow:auto;padding:24px;background:#eef1f5}.lph-preview{width:min(794px,100%);margin:0 auto;background:#fff;color:#111;padding:34px 38px;border:1px solid #d9dee7;box-shadow:0 8px 26px rgba(15,23,42,.08);box-sizing:border-box}
       .lph-preview #print-report{display:block!important}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]){color:#1f2937;font:400 12px/1.5 Arial,Helvetica,sans-serif}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) .print-title{margin:0 0 5px;color:#0E1A33;font:700 26px/1.15 Georgia,'Times New Roman',serif}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) .print-subtitle{margin:0 0 22px;color:#64748b;font:400 12px/1.45 Arial,Helvetica,sans-serif}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) .print-section{margin:0 0 19px}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) .print-section h3{margin:0;padding:8px 10px;color:#0E1A33;border-bottom:1px solid #B89968;background:#f7f8fa;font:700 12px/1.35 Arial,Helvetica,sans-serif;text-transform:uppercase;letter-spacing:.06em}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) table{width:100%;border-collapse:collapse;font:400 11px/1.4 Arial,Helvetica,sans-serif}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) td{padding:8px 10px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) td:first-child{width:52%;color:#64748b}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) td:last-child{text-align:right;color:#0E1A33;font-weight:700}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) .print-total td{background:#f7f3ec;border-top:2px solid #B89968;font-size:13px}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) .print-formula{padding:12px;background:#f8fafc;border-left:3px solid #B89968;font:400 10px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) .print-disclaimer{margin-top:18px;padding:13px 15px;background:#fff8e8;border:1px solid #ead7aa;border-left:4px solid #B89968;color:#5f4b22;font:400 10px/1.55 Arial,Helvetica,sans-serif}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) .print-disclaimer p{margin:5px 0 0}
+      .lph-preview #print-report:not([data-lanotte-structured-pdf]) .print-footer{display:flex;justify-content:space-between;gap:20px;margin-top:22px;padding-top:11px;border-top:1px solid #d9dee7;color:#64748b;font:400 9px/1.45 Arial,Helvetica,sans-serif}
       .lph-report{background:#fff;color:#111;font-family:Georgia,'Times New Roman',serif;line-height:1.5}
+      .lph-brand-head{display:flex;justify-content:space-between;align-items:flex-start;gap:22px;border-top:4px solid #B89968;border-bottom:1px solid #d9dee7;padding:18px 0 15px;margin-bottom:22px}
+      .lph-brand-logo{display:block;width:285px;max-width:57%;height:auto;object-fit:contain;object-position:left top}
+      .lph-brand-details{text-align:right;color:#64748b;font:400 10px/1.55 Arial,sans-serif}
+      .lph-brand-details strong{display:block;color:#0E1A33;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
       .lph-report-head{border-bottom:3px solid #B89968;padding-bottom:16px;margin-bottom:20px}
       .lph-report-kicker{font:700 11px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#B89968;margin-bottom:6px}
       .lph-report h1{margin:0;color:#0E1A33;font-size:28px;line-height:1.15;font-weight:600}
@@ -28,10 +51,13 @@
       .lph-report-total span{display:block;font:700 11px Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B89968;margin-bottom:4px}
       .lph-report-total strong{display:block;color:#0E1A33;font-size:26px;line-height:1.1}
       .lph-report-notes{margin-top:16px;color:#64748b;font:400 12px Arial,sans-serif;line-height:1.55}
+      .lph-report-footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #d9dee7;margin-top:24px;padding-top:11px;color:#64748b;font:400 9px/1.5 Arial,sans-serif}
       .lph-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;padding:16px 22px;border-top:1px solid #e5e7eb;background:#fff}
       .lph-actions button{border:1px solid #B89968;background:#fff;color:#0E1A33;padding:11px 16px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit}
       .lph-actions .primary{background:#B89968;color:#fff}
-      @media print{body.lph-printing > *:not(.lph-print-root){display:none!important}.lph-print-root{display:block!important}.lph-actions,.lph-top{display:none!important}}
+      @media(max-width:640px){.lph-backdrop{padding:0}.lph-modal{max-height:100vh;height:100vh;border-radius:0}.lph-body{padding:12px}.lph-preview{padding:22px 18px}.lph-brand-head{display:block}.lph-brand-logo{max-width:100%;width:250px}.lph-brand-details{text-align:left;margin-top:12px}.lph-actions{justify-content:stretch}.lph-actions button{flex:1}}
+      @media print{body.lph-printing > *:not(.lph-print-root){display:none!important}body.lph-printing > #print-report{display:none!important}.lph-print-root{display:block!important}.lph-print-root>.lph-report,.lph-print-root>#print-report{max-width:none!important;margin:0!important}.lph-actions,.lph-top{display:none!important}}
+      @page{size:A4;margin:14mm}
     `;
     document.head.appendChild(style);
   }
@@ -45,6 +71,25 @@
     const clone = source.cloneNode(true);
     clone.style.display = 'block';
     return clone;
+  }
+
+  function decorateReport(node){
+    if (!node || node.querySelector('.lph-brand-head,.print-logo-image,.lpv-logo')) return node;
+    const legacyHeader = node.querySelector('.print-header');
+    if (legacyHeader) legacyHeader.remove();
+    const header = document.createElement('header');
+    header.className = 'lph-brand-head';
+    header.innerHTML = `
+      <img class="lph-brand-logo" src="${esc(reportLogoUrl)}" alt="Lanotte &amp; Partners - Studio Legale">
+      <div class="lph-brand-details">
+        <strong>Prospetto di calcolo</strong>
+        Avv. Giuseppe Lanotte · Foro di Trani<br>
+        Viale Falcone e Borsellino, 75 · Barletta (BT)<br>
+        0883 1955533 · info@studiolegalelanotte.it
+      </div>
+    `;
+    node.insertBefore(header, node.firstChild);
+    return node;
   }
 
   function esc(value){
@@ -402,11 +447,43 @@
       const margin = 16;
       const width = 210 - margin * 2;
       const titleText = title || 'Anteprima report';
-      const bodyText = (node.innerText || node.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
-      let y = margin;
+      const textNode = node.cloneNode(true);
+      textNode.querySelectorAll('.lph-brand-head,.print-header,.lpv-head').forEach(function(el){ el.remove(); });
+      const firstTitle = textNode.querySelector('h1');
+      if (firstTitle) firstTitle.remove();
+      const bodyText = (textNode.innerText || textNode.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
+      let y = 13;
 
       doc.setFillColor(184, 153, 104);
       doc.rect(0, 0, 210, 4, 'F');
+      const logoImage = node.querySelector('.lph-brand-logo,.print-logo-image,.lpv-logo');
+      let logoAdded = false;
+      if (logoImage && logoImage.complete && logoImage.naturalWidth) {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = logoImage.naturalWidth;
+          canvas.height = logoImage.naturalHeight;
+          canvas.getContext('2d').drawImage(logoImage, 0, 0);
+          doc.addImage(canvas.toDataURL('image/png'), 'PNG', margin, y, 62, 20.7, 'lanotte-report-logo', 'FAST');
+          logoAdded = true;
+        } catch (e) {}
+      }
+      if (!logoAdded) {
+        doc.setFont('times', 'bold');
+        doc.setFontSize(18);
+        doc.setTextColor(14, 26, 51);
+        doc.text('Lanotte & Partners', margin, y + 10);
+      }
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(71, 85, 105);
+      doc.text('Avv. Giuseppe Lanotte - Foro di Trani', 210 - margin, y + 5, {align:'right'});
+      doc.text('Viale Falcone e Borsellino, 75 - Barletta (BT)', 210 - margin, y + 9, {align:'right'});
+      doc.text('Tel. 0883 1955533 - info@studiolegalelanotte.it', 210 - margin, y + 13, {align:'right'});
+      y += 28;
+      doc.setDrawColor(220, 224, 230);
+      doc.line(margin, y, 210 - margin, y);
+      y += 8;
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(16);
       doc.setTextColor(14, 26, 51);
@@ -418,13 +495,25 @@
       doc.setTextColor(51, 65, 85);
       const lines = doc.splitTextToSize(bodyText, width);
       lines.forEach(function(line){
-        if (y > 282) {
+        if (y > 274) {
           doc.addPage();
-          y = margin;
+          y = 18;
         }
         doc.text(line, margin, y);
         y += 5;
       });
+
+      const pages = doc.internal.getNumberOfPages();
+      for (let page = 1; page <= pages; page += 1) {
+        doc.setPage(page);
+        doc.setDrawColor(184, 153, 104);
+        doc.line(margin, 283, 210 - margin, 283);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(7);
+        doc.setTextColor(100, 116, 139);
+        doc.text('www.studiolegalelanotte.it · Documento informativo da verificare professionalmente', margin, 289);
+        doc.text('Pagina ' + page + ' di ' + pages, 210 - margin, 289, {align:'right'});
+      }
 
       const filename = titleText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'report';
       doc.save(filename + '.pdf');
@@ -447,7 +536,7 @@
         </div>
       </div>
     `;
-    const clone = node.cloneNode(true);
+    const clone = decorateReport(node.cloneNode(true));
     modal.querySelector('.lph-preview').appendChild(clone);
     document.body.appendChild(modal);
     modal.querySelector('.lph-close').addEventListener('click', () => modal.remove());
@@ -478,8 +567,16 @@
     article.className = 'lph-report';
     const rows = (opts.rows || []).filter(function(row){ return row && row.length >= 2 && row[1] !== ''; });
     article.innerHTML = `
+      <header class="lph-brand-head">
+        <img class="lph-brand-logo" src="${esc(reportLogoUrl)}" alt="Lanotte &amp; Partners - Studio Legale">
+        <div class="lph-brand-details">
+          <strong>Prospetto di calcolo</strong>
+          Avv. Giuseppe Lanotte · Foro di Trani<br>
+          ${esc(new Date().toLocaleString('it-IT', {dateStyle:'long', timeStyle:'short'}))}
+        </div>
+      </header>
       <div class="lph-report-head">
-        <div class="lph-report-kicker">${esc(opts.kicker || 'Studio Legale Lanotte & Partners')}</div>
+        <div class="lph-report-kicker">${esc(opts.kicker || 'Elaborazione automatica a carattere orientativo')}</div>
         <h1>${esc(opts.title || 'Report di calcolo')}</h1>
         ${opts.subtitle ? '<p class="lph-report-subtitle">' + esc(opts.subtitle) + '</p>' : ''}
       </div>
@@ -488,6 +585,7 @@
       </table>
       ${opts.total ? '<div class="lph-report-total"><span>' + esc(opts.totalLabel || 'Risultato') + '</span><strong>' + esc(opts.total) + '</strong></div>' : ''}
       ${opts.notes ? '<p class="lph-report-notes">' + esc(opts.notes) + '</p>' : ''}
+      <footer class="lph-report-footer"><span>www.studiolegalelanotte.it · P.IVA 06731750722</span><span>Documento informativo da verificare professionalmente</span></footer>
     `;
     openNode(article, opts.modalTitle || 'Anteprima report');
   }
