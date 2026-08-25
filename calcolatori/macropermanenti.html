@@ -469,9 +469,8 @@
   <div class="print-topline"></div>
   <div class="print-header">
     <div class="print-brand">
-      <div class="print-logo">L&amp;</div>
-      <div>
-        <strong>Studio Legale Lanotte &amp; Partners</strong><br>
+      <img src="../assets/img/logo-report.png" class="print-logo-image" alt="Lanotte &amp; Partners - Studio Legale" width="1200" height="400">
+      <div class="print-office-details">
         <small>Avv. Giuseppe Lanotte · Ordine degli Avvocati di Trani</small><br>
         <small>Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)</small><br>
         <small>Tel. 0883 1955533 · info@studiolegalelanotte.it</small>
@@ -568,9 +567,9 @@
 #print-report{position:relative;background:#fff;color:#1f2937;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.48;padding:38px 42px;max-width:820px;margin:0 auto;box-sizing:border-box}
 #print-report .print-topline{height:5px;background:#B89968;position:absolute;left:0;right:0;top:0}
 #print-report .print-header{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;border-bottom:1px solid #d9dee7;padding-bottom:17px;margin-bottom:24px}
-#print-report .print-brand{display:flex;gap:13px;align-items:center;color:#475569;font-size:10px;line-height:1.45}
-#print-report .print-brand strong{display:inline-block;color:#0E1A33;font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;line-height:1.1;margin-bottom:3px}
-#print-report .print-logo{width:50px;height:50px;background:#0E1A33;color:#B89968;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:21px;font-weight:700;flex:0 0 50px}
+#print-report .print-brand{width:58%;color:#475569;font-size:9px;line-height:1.45}
+#print-report .print-logo-image{display:block;width:245px;max-width:100%;height:auto;object-fit:contain;object-position:left center}
+#print-report .print-office-details{margin-top:6px;padding-left:2px}
 #print-report .print-meta{text-align:right;display:flex;flex-direction:column;gap:4px;color:#64748b;font-size:9px;line-height:1.35;min-width:155px}
 #print-report .print-meta strong{color:#0E1A33;letter-spacing:.14em;font-size:10px}
 #print-report .print-title-block{margin-bottom:18px}
@@ -603,7 +602,9 @@
 #print-report .print-footer > div:last-child{text-align:right}
 @media print {
   html,body,.lph-print-root{background:#fff!important}
-  body > *:not(#print-report){display:none !important}
+  body:not(.lph-printing) > *:not(#print-report){display:none !important}
+  body.lph-printing > .lph-print-root{display:block!important}
+  body.lph-printing .lph-print-root #print-report{display:block!important}
   .topbar, header.site-header, footer.site-footer, .proto-banner, .wa-float, .ctastrip{display:none !important}
   #print-report{display:block !important;max-width:none;margin:0;padding:8mm 9mm;font-size:9pt}
   #print-report .print-section{break-inside:avoid;page-break-inside:avoid}

@@ -59,11 +59,18 @@
     root.appendChild(node.cloneNode(true));
     document.body.appendChild(root);
     document.body.classList.add('lph-printing');
-    window.print();
-    setTimeout(() => {
+    let cleaned = false;
+    const cleanup = function(){
+      if (cleaned) return;
+      cleaned = true;
       document.body.classList.remove('lph-printing');
       root.remove();
-    }, 500);
+    };
+    global.addEventListener('afterprint', cleanup, {once:true});
+    setTimeout(cleanup, 60000);
+    global.requestAnimationFrame(function(){
+      global.requestAnimationFrame(function(){ global.print(); });
+    });
   }
 
   function loadJsPdf(callback){
@@ -222,21 +229,35 @@
     }
 
     pageHeader();
-    doc.setFillColor(navy[0], navy[1], navy[2]);
-    doc.rect(margin, y, 18, 18, 'F');
-    doc.setFont('times', 'bold');
-    doc.setFontSize(15);
-    doc.setTextColor(gold[0], gold[1], gold[2]);
-    doc.text('L&', margin + 9, y + 11.8, {align:'center'});
-    doc.setFont('times', 'bold');
-    doc.setFontSize(14);
-    setColor(navy);
-    doc.text('Studio Legale Lanotte & Partners', margin + 23, y + 6);
+    const logoImage = report.querySelector('.print-logo-image');
+    let logoAdded = false;
+    if (logoImage && logoImage.complete && logoImage.naturalWidth) {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = logoImage.naturalWidth;
+        canvas.height = logoImage.naturalHeight;
+        canvas.getContext('2d').drawImage(logoImage, 0, 0);
+        doc.addImage(canvas.toDataURL('image/png'), 'PNG', margin, y, 62, 20.7, 'lanotte-logo', 'FAST');
+        logoAdded = true;
+      } catch (e) {}
+    }
+    if (!logoAdded) {
+      doc.setFillColor(navy[0], navy[1], navy[2]);
+      doc.rect(margin, y, 18, 18, 'F');
+      doc.setFont('times', 'bold');
+      doc.setFontSize(15);
+      doc.setTextColor(gold[0], gold[1], gold[2]);
+      doc.text('L&', margin + 9, y + 11.8, {align:'center'});
+      doc.setFont('times', 'bold');
+      doc.setFontSize(14);
+      setColor(navy);
+      doc.text('Studio Legale Lanotte & Partners', margin + 23, y + 7);
+    }
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(7.5);
+    doc.setFontSize(6.8);
     setColor(slate);
-    doc.text('Avv. Giuseppe Lanotte - Ordine degli Avvocati di Trani', margin + 23, y + 11);
-    doc.text('Viale Falcone e Borsellino, 75 - Barletta (BT) | Tel. 0883 1955533', margin + 23, y + 15);
+    doc.text('Avv. Giuseppe Lanotte - Ordine degli Avvocati di Trani', margin + 1, y + 24);
+    doc.text('Viale Falcone e Borsellino, 75 - Barletta (BT) | Tel. 0883 1955533', margin + 1, y + 28);
     const meta = report.querySelector('.print-meta');
     const metaLines = meta ? cleanPdfText(meta.innerText).split(/(?=Documento n\.|Data calcolo:)/) : [];
     doc.setFont('helvetica', 'bold');
@@ -249,7 +270,7 @@
     metaLines.filter(Boolean).slice(-2).forEach(function(line, i){
       doc.text(cleanPdfText(line), pageWidth - margin, y + 9 + i * 4, {align:'right'});
     });
-    y += 25;
+    y += 33;
     doc.setDrawColor(220, 224, 230);
     doc.line(margin, y, pageWidth - margin, y);
     y += 8;
