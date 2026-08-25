@@ -73,20 +73,294 @@
     }
     const existing = document.querySelector('script[data-lanotte-jspdf]');
     if (existing) {
-      existing.addEventListener('load', callback, {once:true});
-      existing.addEventListener('error', function(){ printNode(document.querySelector('.lph-preview') || document.body); }, {once:true});
+      let completed = false;
+      const existingFallback = function(){
+        if (completed) return;
+        completed = true;
+        alert('Download PDF non disponibile. Si apre la stampa: scegli “Salva come PDF”.');
+        printNode(document.querySelector('.lph-preview') || document.body);
+      };
+      const existingTimer = setTimeout(existingFallback, 12000);
+      existing.addEventListener('load', function(){
+        if (completed) return;
+        completed = true;
+        clearTimeout(existingTimer);
+        callback();
+      }, {once:true});
+      existing.addEventListener('error', function(){
+        clearTimeout(existingTimer);
+        existingFallback();
+      }, {once:true});
       return;
     }
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
     script.async = true;
     script.dataset.lanotteJspdf = '1';
-    script.onload = callback;
-    script.onerror = function(){
+    let settled = false;
+    const fallback = function(){
+      if (settled) return;
+      settled = true;
       alert('Download PDF non disponibile. Si apre la stampa: scegli “Salva come PDF”.');
       printNode(document.querySelector('.lph-preview') || document.body);
     };
+    const timer = setTimeout(fallback, 12000);
+    script.onload = function(){
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      callback();
+    };
+    script.onerror = function(){
+      clearTimeout(timer);
+      fallback();
+    };
     document.head.appendChild(script);
+  }
+
+  function cleanPdfText(value){
+    return String(value || '')
+      .replace(/[\u2018\u2019]/g, "'")
+      .replace(/[\u2013\u2014]/g, '-')
+      .replace(/\u00a0/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function downloadStructuredReport(doc, report, title){
+    const navy = [14, 26, 51];
+    const gold = [184, 153, 104];
+    const slate = [71, 85, 105];
+    const light = [247, 248, 250];
+    const margin = 16;
+    const pageWidth = 210;
+    const contentWidth = pageWidth - margin * 2;
+    const pageBottom = 278;
+    let pageNumber = 1;
+    let y = 13;
+
+    function setColor(rgb){ doc.setTextColor(rgb[0], rgb[1], rgb[2]); }
+    function pageHeader(){
+      doc.setFillColor(gold[0], gold[1], gold[2]);
+      doc.rect(0, 0, pageWidth, 3, 'F');
+      if (pageNumber > 1) {
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8);
+        setColor(navy);
+        doc.text('STUDIO LEGALE LANOTTE & PARTNERS', margin, 10);
+        doc.setDrawColor(220, 224, 230);
+        doc.line(margin, 12, pageWidth - margin, 12);
+        y = 18;
+      }
+    }
+    function pageFooter(){
+      doc.setDrawColor(220, 224, 230);
+      doc.line(margin, 286, pageWidth - margin, 286);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      setColor(slate);
+      doc.text('www.studiolegalelanotte.it  |  Prospetto generato automaticamente', margin, 291);
+      doc.text('Pagina ' + pageNumber, pageWidth - margin, 291, {align:'right'});
+    }
+    function nextPage(){
+      pageFooter();
+      doc.addPage();
+      pageNumber += 1;
+      pageHeader();
+    }
+    function ensure(height){ if (y + height > pageBottom) nextPage(); }
+    function wrapped(text, width, size, style){
+      doc.setFont('helvetica', style || 'normal');
+      doc.setFontSize(size || 9);
+      return doc.splitTextToSize(cleanPdfText(text), width);
+    }
+    function sectionHeading(number, heading){
+      ensure(13);
+      doc.setFillColor(navy[0], navy[1], navy[2]);
+      doc.rect(margin, y, 8, 8, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7);
+      doc.setTextColor(255, 255, 255);
+      doc.text(number, margin + 4, y + 5.4, {align:'center'});
+      doc.setFontSize(9);
+      setColor(navy);
+      doc.text(cleanPdfText(heading).replace(/^\d{2}\s*/, '').toUpperCase(), margin + 12, y + 5.8);
+      doc.setDrawColor(gold[0], gold[1], gold[2]);
+      doc.line(margin + 12, y + 8, pageWidth - margin, y + 8);
+      y += 12;
+    }
+    function drawRows(rows){
+      rows.forEach(function(row, index){
+        const cells = row.querySelectorAll('td,th');
+        if (cells.length < 2) return;
+        const label = cleanPdfText(cells[0].innerText || cells[0].textContent);
+        const value = cleanPdfText(cells[1].innerText || cells[1].textContent);
+        const labelLines = wrapped(label, 103, 8.4, 'normal');
+        const valueLines = wrapped(value, 62, 8.7, 'bold');
+        const rowHeight = Math.max(8, Math.max(labelLines.length, valueLines.length) * 4.2 + 3.2);
+        ensure(rowHeight);
+        const isTotal = row.classList.contains('print-total');
+        if (isTotal) {
+          doc.setFillColor(245, 239, 229);
+          doc.setDrawColor(gold[0], gold[1], gold[2]);
+          doc.rect(margin, y, contentWidth, rowHeight, 'FD');
+        } else if (index % 2) {
+          doc.setFillColor(light[0], light[1], light[2]);
+          doc.rect(margin, y, contentWidth, rowHeight, 'F');
+        }
+        doc.setFont('helvetica', isTotal ? 'bold' : 'normal');
+        doc.setFontSize(isTotal ? 10 : 8.4);
+        setColor(isTotal ? navy : slate);
+        doc.text(labelLines, margin + 3, y + 5.2);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(isTotal ? 12 : 8.7);
+        setColor(navy);
+        doc.text(valueLines, pageWidth - margin - 3, y + 5.2, {align:'right'});
+        y += rowHeight;
+      });
+      y += 5;
+    }
+
+    pageHeader();
+    doc.setFillColor(navy[0], navy[1], navy[2]);
+    doc.rect(margin, y, 18, 18, 'F');
+    doc.setFont('times', 'bold');
+    doc.setFontSize(15);
+    doc.setTextColor(gold[0], gold[1], gold[2]);
+    doc.text('L&', margin + 9, y + 11.8, {align:'center'});
+    doc.setFont('times', 'bold');
+    doc.setFontSize(14);
+    setColor(navy);
+    doc.text('Studio Legale Lanotte & Partners', margin + 23, y + 6);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    setColor(slate);
+    doc.text('Avv. Giuseppe Lanotte - Ordine degli Avvocati di Trani', margin + 23, y + 11);
+    doc.text('Viale Falcone e Borsellino, 75 - Barletta (BT) | Tel. 0883 1955533', margin + 23, y + 15);
+    const meta = report.querySelector('.print-meta');
+    const metaLines = meta ? cleanPdfText(meta.innerText).split(/(?=Documento n\.|Data calcolo:)/) : [];
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7);
+    setColor(navy);
+    doc.text('PROSPETTO DI CALCOLO', pageWidth - margin, y + 4, {align:'right'});
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(6.7);
+    setColor(slate);
+    metaLines.filter(Boolean).slice(-2).forEach(function(line, i){
+      doc.text(cleanPdfText(line), pageWidth - margin, y + 9 + i * 4, {align:'right'});
+    });
+    y += 25;
+    doc.setDrawColor(220, 224, 230);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 8;
+
+    const kicker = report.querySelector('.print-kicker');
+    const reportTitle = report.querySelector('.print-title');
+    const subtitle = report.querySelector('.print-subtitle');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(gold[0], gold[1], gold[2]);
+    doc.text(cleanPdfText(kicker && kicker.innerText).toUpperCase(), margin, y);
+    y += 6;
+    doc.setFont('times', 'bold');
+    doc.setFontSize(22);
+    setColor(navy);
+    doc.text(cleanPdfText(reportTitle && reportTitle.innerText), margin, y);
+    y += 6;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    setColor(slate);
+    doc.text(wrapped(subtitle && subtitle.innerText, contentWidth, 8.5, 'normal'), margin, y);
+    y += 10;
+
+    const status = report.querySelector('.print-status');
+    if (status) {
+      const statusLines = wrapped(status.innerText, contentWidth - 8, 8, 'normal');
+      const statusHeight = statusLines.length * 3.8 + 7;
+      doc.setFillColor(244, 246, 249);
+      doc.setDrawColor(navy[0], navy[1], navy[2]);
+      doc.rect(margin, y, contentWidth, statusHeight, 'FD');
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      setColor(slate);
+      doc.text(statusLines, margin + 4, y + 5);
+      y += statusHeight + 7;
+    }
+
+    const sections = report.querySelectorAll('.print-section');
+    sections.forEach(function(section, index){
+      const heading = section.querySelector('h2');
+      sectionHeading(String(index + 1).padStart(2, '0'), heading ? heading.innerText : 'Sezione');
+      const table = section.querySelector('table');
+      if (table) {
+        drawRows(table.querySelectorAll('tr'));
+        return;
+      }
+      const paragraph = section.querySelector('p');
+      if (paragraph) {
+        const lines = wrapped(paragraph.innerText, contentWidth, 8.2, 'normal');
+        ensure(lines.length * 3.9 + 4);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.2);
+        setColor(slate);
+        doc.text(lines, margin, y);
+        y += lines.length * 3.9 + 4;
+      }
+      const formulaItems = section.querySelectorAll('.print-formula-grid > div');
+      if (formulaItems.length) {
+        ensure(19);
+        const gap = 3;
+        const boxWidth = (contentWidth - gap * 2) / 3;
+        formulaItems.forEach(function(item, itemIndex){
+          const x = margin + itemIndex * (boxWidth + gap);
+          doc.setFillColor(light[0], light[1], light[2]);
+          doc.setDrawColor(220, 224, 230);
+          doc.rect(x, y, boxWidth, 15, 'FD');
+          const parts = item.querySelectorAll('span,strong');
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6.7);
+          setColor(slate);
+          doc.text(cleanPdfText(parts[0] && parts[0].innerText), x + 2.5, y + 4.5);
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(8);
+          setColor(navy);
+          doc.text(cleanPdfText(parts[1] && parts[1].innerText), x + 2.5, y + 10.5);
+        });
+        y += 20;
+      }
+      const items = section.querySelectorAll('li');
+      if (items.length) {
+        items.forEach(function(item){
+          const lines = wrapped('- ' + item.innerText, contentWidth - 3, 7.7, 'normal');
+          ensure(lines.length * 3.7 + 1);
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(7.7);
+          setColor(slate);
+          doc.text(lines, margin + 2, y);
+          y += lines.length * 3.7 + 1;
+        });
+        y += 4;
+      }
+    });
+
+    const disclaimer = report.querySelector('.print-disclaimer');
+    if (disclaimer) {
+      const disclaimerLines = wrapped(disclaimer.innerText, contentWidth - 8, 7.5, 'normal');
+      const h = disclaimerLines.length * 3.5 + 8;
+      ensure(h);
+      doc.setFillColor(255, 248, 232);
+      doc.setDrawColor(gold[0], gold[1], gold[2]);
+      doc.rect(margin, y, contentWidth, h, 'FD');
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(95, 75, 34);
+      doc.text(disclaimerLines, margin + 4, y + 5);
+      y += h + 4;
+    }
+
+    pageFooter();
+    const filename = (title || 'prospetto-calcolo-danno-biologico').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    doc.save((filename || 'prospetto-calcolo-danno-biologico') + '.pdf');
   }
 
   function downloadPdf(node, title){
@@ -97,6 +371,13 @@
         return;
       }
       const doc = new jsPDF({orientation:'portrait', unit:'mm', format:'a4'});
+      const structuredReport = node.matches && node.matches('[data-lanotte-structured-pdf="damage-biological"]')
+        ? node
+        : node.querySelector('[data-lanotte-structured-pdf="damage-biological"]');
+      if (structuredReport) {
+        downloadStructuredReport(doc, structuredReport, title);
+        return;
+      }
       const margin = 16;
       const width = 210 - margin * 2;
       const titleText = title || 'Anteprima report';
