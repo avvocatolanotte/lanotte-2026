@@ -357,3 +357,34 @@ add_action('init', function() {
         update_option('lanotte_article_741_featured_20260826', 'done', false);
     }
 }, 22);
+
+add_action('init', function() {
+    if (get_option('lanotte_succession_phone_cta_20260826') === 'done') return;
+    if (!function_exists('wp_update_post')) return;
+
+    $page = get_post(8355);
+    if (!$page instanceof WP_Post || $page->post_type !== 'page') return;
+
+    $content = str_replace(
+        [
+            "href='tel:+393929703202'>Chiama 392 970 3202",
+            'href="tel:+393929703202">Chiama 392 970 3202',
+        ],
+        [
+            "href='tel:+3908831955533'>Chiama 0883 1955533",
+            'href="tel:+3908831955533">Chiama 0883 1955533',
+        ],
+        $page->post_content,
+        $replacements
+    );
+
+    if ($replacements > 0) {
+        $result = wp_update_post([
+            'ID'           => 8355,
+            'post_content' => $content,
+        ], true);
+        if (is_wp_error($result)) return;
+    }
+
+    update_option('lanotte_succession_phone_cta_20260826', 'done', false);
+}, 23);
