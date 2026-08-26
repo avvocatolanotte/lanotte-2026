@@ -21,11 +21,17 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
 
 <!-- FORM ISCRIZIONE PROMINENTE -->
 <!--
-  TODO: il form qui sotto è un mock client-side. Da collegare a:
-   - Mailchimp (action="https://<dc>.list-manage.com/subscribe/post?u=...&id=...") oppure
-   - Brevo / Sendinblue (https://api.brevo.com/v3/contacts) oppure
-   - endpoint custom AJAX (admin-ajax.php / REST route /newsletter/subscribe)
-  In ogni caso: confermare double opt-in, registrare il consenso GDPR con timestamp e IP.
+  Form collegato al plugin Newsletter (TNP): invia in POST a <home>/?na=s con i nomi
+  di campo attesi dal plugin (ne = email, nn = nome, ns = cognome, ny = consenso privacy,
+  nl[] = liste di interesse).
+
+  PER RENDERLO PIENAMENTE OPERATIVO servono quattro impostazioni nel pannello del plugin
+  (Newsletter -> Iscrizione / Moduli), che NON si possono dare per fatte:
+   1. attivare i campi Nome e Cognome (oggi disattivati: il plugin scarterebbe nn e ns);
+   2. attivare il DOPPIO OPT-IN (oggi e' su conferma singola, mentre questa pagina promette
+      l'email di conferma: finche' non lo si attiva, la promessa non e' vera);
+   3. creare le 8 liste nell'ordine delle caselle qui sotto, cosi' che gli id 1..8 combacino;
+   4. impostare il testo dell'email di conferma e di benvenuto.
 -->
 <section class="block" style="background:var(--cream)">
   <div class="container" style="max-width:720px">
@@ -33,34 +39,34 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
       <h2>Iscriviti gratuitamente</h2>
       <p class="nl-form-intro">Ricevi la newsletter mensile dello Studio: novità normative, commenti a sentenze, scadenze fiscali, casi pratici.</p>
 
-      <form id="nl-subscribe-form" action="" method="post" onsubmit="event.preventDefault();alert('Form non ancora collegato — vedi commento nel template.');" class="nl-form">
+      <form id="nl-subscribe-form" action="<?php echo esc_url( home_url( '/' ) ); ?>?na=s" method="post" class="nl-form">
         <div class="form-row nl-form-row">
-          <div class="form-field"><label>Nome</label><input type="text" name="nome" placeholder="Es. Mario" required></div>
-          <div class="form-field"><label>Cognome</label><input type="text" name="cognome" placeholder="Es. Rossi" required></div>
+          <div class="form-field"><label>Nome</label><input type="text" name="nn" placeholder="Es. Mario" required></div>
+          <div class="form-field"><label>Cognome</label><input type="text" name="ns" placeholder="Es. Rossi" required></div>
         </div>
-        <div class="form-field"><label>Email*</label><input type="email" name="email" placeholder="la-tua-email@esempio.it" required></div>
+        <div class="form-field"><label>Email*</label><input type="email" name="ne" placeholder="la-tua-email@esempio.it" required></div>
 
         <div class="form-field nl-form-aree">
           <label class="nl-aree-label">Aree di interesse <span>(opzionale — riceverai contenuti pertinenti)</span></label>
           <div class="nl-aree-grid">
-            <label><input type="checkbox" name="aree[]" value="penale"> Diritto Penale</label>
-            <label><input type="checkbox" name="aree[]" value="civile"> Diritto Civile</label>
-            <label><input type="checkbox" name="aree[]" value="famiglia"> Famiglia e Successioni</label>
-            <label><input type="checkbox" name="aree[]" value="lavoro"> Lavoro</label>
-            <label><input type="checkbox" name="aree[]" value="impresa"> Impresa</label>
-            <label><input type="checkbox" name="aree[]" value="tributario"> Tributario</label>
-            <label><input type="checkbox" name="aree[]" value="condominio"> Condominio</label>
-            <label><input type="checkbox" name="aree[]" value="ip"> Proprietà Intellettuale</label>
+            <label><input type="checkbox" name="nl[]" value="1"> Diritto Penale</label>
+            <label><input type="checkbox" name="nl[]" value="2"> Diritto Civile</label>
+            <label><input type="checkbox" name="nl[]" value="3"> Famiglia e Successioni</label>
+            <label><input type="checkbox" name="nl[]" value="4"> Lavoro</label>
+            <label><input type="checkbox" name="nl[]" value="5"> Impresa</label>
+            <label><input type="checkbox" name="nl[]" value="6"> Tributario</label>
+            <label><input type="checkbox" name="nl[]" value="7"> Condominio</label>
+            <label><input type="checkbox" name="nl[]" value="8"> Proprietà Intellettuale</label>
           </div>
         </div>
 
         <label class="checkbox-row nl-privacy">
-          <input type="checkbox" name="privacy" required>
+          <input type="checkbox" name="ny" value="1" required>
           <span>Acconsento al trattamento dei dati ex art. 13 GDPR per l'invio della newsletter. Ho letto l'<a href="<?php echo esc_url($privacy_url); ?>" style="color:var(--gold)">informativa privacy</a>. Posso disiscrivermi in qualunque momento.</span>
         </label>
 
         <button type="submit" class="btn btn-primary nl-submit">Iscrivimi alla Newsletter</button>
-        <p class="nl-foot">Riceverai una email di conferma (double opt-in). Senza conferma non sarai iscritto.</p>
+        <p class="nl-foot">Puoi disiscriverti in qualunque momento con un clic, dal collegamento presente in ogni invio.<!-- Quando il doppio opt-in sara' attivo nel plugin, si puo' tornare a promettere l'email di conferma. --></p>
       </form>
     </div>
   </div>
