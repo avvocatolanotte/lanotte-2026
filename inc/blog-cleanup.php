@@ -224,6 +224,62 @@ function lanotte_unpaid_maintenance_article_content() {
 HTML;
 }
 
+function lanotte_set_unpaid_maintenance_featured_image() {
+    $source_key = 'lanotte-assegno-mantenimento-non-pagato-2026';
+    $attachment_id = (int) get_option('lanotte_article_741_featured_media_20260826', 0);
+
+    if (!$attachment_id) {
+        $attachments = get_posts([
+            'post_type'      => 'attachment',
+            'post_status'    => 'inherit',
+            'posts_per_page' => 1,
+            'fields'         => 'ids',
+            'meta_key'       => '_lanotte_source_asset',
+            'meta_value'     => $source_key,
+        ]);
+        $attachment_id = isset($attachments[0]) ? (int) $attachments[0] : 0;
+    }
+
+    if (!$attachment_id) {
+        $source = LANOTTE_THEME_DIR . '/assets/img/blog/assegno-mantenimento-non-pagato-2026.jpg';
+        if (!is_readable($source)) return false;
+
+        $upload = wp_upload_bits(
+            'assegno-mantenimento-non-pagato-2026.jpg',
+            null,
+            file_get_contents($source)
+        );
+        if (!empty($upload['error'])) return false;
+
+        $attachment_id = wp_insert_attachment([
+            'post_mime_type' => 'image/jpeg',
+            'post_title'     => 'Assegno di mantenimento non pagato: recupero degli arretrati',
+            'post_content'   => '',
+            'post_status'    => 'inherit',
+        ], $upload['file'], 741, true);
+
+        if (is_wp_error($attachment_id)) return false;
+
+        require_once ABSPATH . 'wp-admin/includes/image.php';
+        $metadata = wp_generate_attachment_metadata($attachment_id, $upload['file']);
+        if ($metadata) wp_update_attachment_metadata($attachment_id, $metadata);
+
+        update_post_meta(
+            $attachment_id,
+            '_wp_attachment_image_alt',
+            'Consulenza legale per il recupero dell\'assegno di mantenimento non pagato'
+        );
+        update_post_meta($attachment_id, '_lanotte_source_asset', $source_key);
+    }
+
+    if ((int) get_post_thumbnail_id(741) !== $attachment_id && !set_post_thumbnail(741, $attachment_id)) {
+        return false;
+    }
+
+    update_option('lanotte_article_741_featured_media_20260826', $attachment_id, false);
+    return true;
+}
+
 function lanotte_blog_cleanup_target_url($entry) {
     if (!empty($entry['target_id'])) {
         $permalink = get_permalink((int) $entry['target_id']);
@@ -292,3 +348,12 @@ add_action('init', function() {
         update_option('lanotte_article_741_refresh_20260826', 'done', false);
     }
 }, 21);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_741_featured_20260826') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    if (lanotte_set_unpaid_maintenance_featured_image()) {
+        update_option('lanotte_article_741_featured_20260826', 'done', false);
+    }
+}, 22);
