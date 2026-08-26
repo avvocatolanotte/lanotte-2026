@@ -318,6 +318,58 @@ section.block-sm{padding:64px 0}
 .post-content ul,.post-content ol{margin:0 0 22px 28px;color:var(--text)}
 .post-content li{font-size:17px;line-height:1.7;margin-bottom:8px}
 .post-content blockquote{border-left:4px solid var(--gold);padding:8px 0 8px 24px;margin:28px 0;font-style:italic;font-size:18px;color:var(--navy);background:var(--cream);padding:20px 24px}
+.post-content .article-lead{font-size:19px;line-height:1.7;color:var(--navy);padding:20px 0 20px 22px;border-left:4px solid var(--gold)}
+.legal-fracture-map{margin:42px calc(50% - 46vw);padding:40px max(24px,calc((92vw - 960px)/2));background:#102a43;color:#fff;border-top:5px solid var(--gold)}
+.legal-fracture-map header{max-width:900px;margin:0 auto 28px}
+.legal-fracture-map header h2{margin:5px 0 12px;color:#fff;font-size:30px}
+.legal-fracture-map header p{margin:0;color:#d8e3ed;font-size:16px}
+.legal-fracture-kicker{display:block;color:#e9c46a;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.legal-fracture-flow{display:grid;grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr);align-items:stretch;max-width:900px;margin:0 auto 24px}
+.legal-flow-step{display:flex;flex-direction:column;gap:8px;min-height:158px;padding:22px;background:#fff;color:#102a43;border-radius:6px;border-top:4px solid #9aa9b7}
+.legal-flow-step strong{font-family:var(--serif);font-size:21px}
+.legal-flow-step span{font-size:14px;line-height:1.55;color:#52677a}
+.legal-flow-step b{margin-top:auto;color:#183b56;font-size:14px}
+.legal-flow-step.is-trigger{border-top-color:var(--gold)}
+.legal-flow-arrow{display:grid;place-items:center;color:#e9c46a;font-size:32px;font-weight:800}
+.legal-fracture-branches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:900px;margin:0 auto}
+.legal-branch{padding:20px;background:#f8fafc;color:#102a43;border-radius:6px;border-top:4px solid #4f7c99}
+.legal-branch.is-formal{border-top-color:#c89b2f}
+.legal-branch.is-strict{border-top-color:#a33a3a}
+.legal-branch span{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#52677a}
+.legal-branch h3{margin:6px 0 10px;color:#102a43;font-size:20px}
+.legal-branch p{margin:0;color:#425a70;font-size:14px;line-height:1.6}
+.legal-fracture-rule{max-width:900px;margin:18px auto 0;padding:16px 18px;border:1px solid rgba(233,196,106,.55);border-radius:6px;color:#fff;font-size:15px;line-height:1.6}
+.legal-timeline-wrap{width:min(1040px,92vw);margin:36px calc(50% - min(520px,46vw));overflow-x:auto;border:1px solid #dbe2e8;border-radius:6px;background:#fff}
+.legal-timeline{width:100%;min-width:760px;border-collapse:collapse;color:#243b53;font-size:14px;line-height:1.5}
+.legal-timeline th{padding:14px 16px;text-align:left;background:#102a43;color:#fff;font-size:13px}
+.legal-timeline td{padding:14px 16px;vertical-align:top;border-bottom:1px solid #e5e9ed}
+.legal-timeline tbody tr:last-child td{border-bottom:0}
+.legal-timeline td:first-child{width:23%}
+.legal-timeline td:nth-child(2){width:18%;font-weight:800}
+.legal-timeline .view-flexible td:first-child{border-left:4px solid #4f7c99}
+.legal-timeline .view-formal td:first-child{border-left:4px solid #c89b2f}
+.legal-timeline .view-strict td:first-child{border-left:4px solid #a33a3a}
+.article-legal-cta{margin:42px 0 24px;padding:28px;background:#f7f4ec;border-left:4px solid var(--gold)}
+.article-legal-cta h2{margin-top:0}
+.article-legal-cta p:last-child{margin-bottom:0}
+@media(max-width:760px){
+  .post-content .article-lead{font-size:17px;padding-left:16px}
+  .legal-fracture-map{margin:34px -24px;padding:32px 20px}
+  .legal-fracture-map header h2{font-size:26px}
+  .legal-fracture-flow{grid-template-columns:1fr;gap:10px}
+  .legal-flow-arrow{transform:rotate(90deg);min-height:30px}
+  .legal-fracture-branches{grid-template-columns:1fr}
+  .legal-flow-step{min-height:0}
+  .legal-timeline-wrap{width:calc(100% + 48px);margin:30px -24px;border-radius:0}
+}
+@media print{
+  .legal-fracture-map{margin:24px 0;padding:24px;background:#fff;color:#111;border:1px solid #999}
+  .legal-fracture-map header h2,.legal-fracture-rule{color:#111}
+  .legal-fracture-map header p{color:#333}
+  .legal-fracture-branches{grid-template-columns:repeat(3,1fr)}
+  .legal-timeline-wrap{width:100%;margin:24px 0;overflow:visible}
+  .legal-timeline{min-width:0;font-size:10px}
+}
 
 /* === ONORARI === */
 .tariff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}
