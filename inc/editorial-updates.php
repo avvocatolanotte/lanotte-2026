@@ -43,6 +43,17 @@ function lanotte_editorial_import_image($post_id, $asset, $title, $alt, $source_
         || set_post_thumbnail($post_id, $attachment_id);
 }
 
+function lanotte_editorial_get_or_create_category($slug, $name) {
+    $category = get_category_by_slug($slug);
+    if ($category instanceof WP_Term) return (int) $category->term_id;
+    if (!function_exists('wp_insert_term')) return 0;
+
+    $created = wp_insert_term($name, 'category', ['slug' => $slug]);
+    if (is_wp_error($created) || empty($created['term_id'])) return 0;
+
+    return (int) $created['term_id'];
+}
+
 add_action('init', function() {
     if (get_option('lanotte_article_7754_refresh_20260826') === 'done') return;
     if (!function_exists('wp_update_post')) return;
@@ -116,9 +127,9 @@ add_action('init', function() {
     if (is_wp_error($result) || !$result) return;
 
     $post_id = (int) $result;
-    $category = get_category_by_slug('successioni');
-    if ($category instanceof WP_Term) {
-        wp_set_post_categories($post_id, [(int) $category->term_id], false);
+    $category_id = lanotte_editorial_get_or_create_category('successioni', 'Successioni');
+    if ($category_id) {
+        wp_set_post_categories($post_id, [$category_id], false);
     }
 
     update_option('lanotte_article_conto_svuotato_20260827', 'done', false);
@@ -176,9 +187,9 @@ add_action('init', function() {
     if (is_wp_error($result) || !$result) return;
 
     $post_id = (int) $result;
-    $category = get_category_by_slug('condominio');
-    if ($category instanceof WP_Term) {
-        wp_set_post_categories($post_id, [(int) $category->term_id], false);
+    $category_id = lanotte_editorial_get_or_create_category('comunione-condominio', 'comunione-condominio');
+    if ($category_id) {
+        wp_set_post_categories($post_id, [$category_id], false);
     }
 
     update_option('lanotte_article_bolletta_elettrica_condominio_20260827', 'done', false);
@@ -203,3 +214,41 @@ add_action('init', function() {
         update_option('lanotte_article_bolletta_elettrica_condominio_featured_20260827', 'done', false);
     }
 }, 29);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_categories_fix_20260827') === 'done') return;
+    if (!function_exists('wp_set_post_categories')) return;
+
+    $successioni_id = lanotte_editorial_get_or_create_category('successioni', 'Successioni');
+    $condominio_id = lanotte_editorial_get_or_create_category('comunione-condominio', 'comunione-condominio');
+
+    $conto = get_page_by_path('conto-corrente-svuotato-prima-della-morte-rimedi-eredi', OBJECT, 'post');
+    if ($conto instanceof WP_Post && $successioni_id) {
+        wp_set_post_categories((int) $conto->ID, [$successioni_id], false);
+    }
+
+    $bolletta = get_page_by_path('bolletta-elettrica-condominiale-ripartizione-spese', OBJECT, 'post');
+    if ($bolletta instanceof WP_Post && $condominio_id) {
+        wp_set_post_categories((int) $bolletta->ID, [$condominio_id], false);
+    }
+
+    update_option('lanotte_article_categories_fix_20260827', 'done', false);
+}, 30);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_bolletta_elettrica_refresh_20260827') === 'done') return;
+    if (!function_exists('wp_update_post')) return;
+
+    $post = get_page_by_path('bolletta-elettrica-condominiale-ripartizione-spese', OBJECT, 'post');
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/consumi-elettrici-condominiali-ripartizione.html';
+    if (!$post instanceof WP_Post || !is_readable($content_file)) return;
+
+    $result = wp_update_post([
+        'ID'           => (int) $post->ID,
+        'post_content' => file_get_contents($content_file),
+    ], true);
+
+    if (!is_wp_error($result)) {
+        update_option('lanotte_article_bolletta_elettrica_refresh_20260827', 'done', false);
+    }
+}, 31);
