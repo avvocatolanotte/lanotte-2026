@@ -83,3 +83,63 @@ add_action('init', function() {
         update_option('lanotte_article_7754_featured_20260826', 'done', false);
     }
 }, 25);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_conto_svuotato_20260827') === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $slug = 'conto-corrente-svuotato-prima-della-morte-rimedi-eredi';
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/conto-corrente-svuotato-prima-della-morte.html';
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $published = current_time('mysql');
+    $post_data = [
+        'post_title'    => 'Conto corrente svuotato prima della morte: cosa possono fare gli eredi',
+        'post_name'     => $slug,
+        'post_excerpt'  => 'Prelievi, bonifici, deleghe e conti cointestati prima del decesso: documenti da chiedere alla banca e rimedi civili per gli eredi.',
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_date'     => $published,
+        'post_date_gmt' => get_gmt_from_date($published),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category = get_category_by_slug('successioni');
+    if ($category instanceof WP_Term) {
+        wp_set_post_categories($post_id, [(int) $category->term_id], false);
+    }
+
+    update_option('lanotte_article_conto_svuotato_20260827', 'done', false);
+}, 26);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_conto_svuotato_featured_20260827') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path('conto-corrente-svuotato-prima-della-morte-rimedi-eredi', OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    $updated = lanotte_editorial_import_image(
+        (int) $post->ID,
+        'conto-corrente-svuotato-prima-della-morte.jpg',
+        'Conto corrente svuotato prima della morte',
+        'Documenti bancari e pratica di successione esaminati su una scrivania legale',
+        'lanotte-conto-corrente-svuotato-prima-della-morte-2026'
+    );
+
+    if ($updated) {
+        update_option('lanotte_article_conto_svuotato_featured_20260827', 'done', false);
+    }
+}, 27);
