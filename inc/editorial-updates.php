@@ -143,3 +143,63 @@ add_action('init', function() {
         update_option('lanotte_article_conto_svuotato_featured_20260827', 'done', false);
     }
 }, 27);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_bolletta_elettrica_condominio_20260827') === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $slug = 'bolletta-elettrica-condominiale-ripartizione-spese';
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/consumi-elettrici-condominiali-ripartizione.html';
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $published = current_time('mysql');
+    $post_data = [
+        'post_title'    => 'Bolletta elettrica condominiale: come ripartire consumi, quote fisse e parti comuni',
+        'post_name'     => $slug,
+        'post_excerpt'  => 'Contatore unico, contatori di sottrazione, quota fissa e consumi comuni: schema pratico per capire quando il rendiconto condominiale è contestabile.',
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_date'     => $published,
+        'post_date_gmt' => get_gmt_from_date($published),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category = get_category_by_slug('condominio');
+    if ($category instanceof WP_Term) {
+        wp_set_post_categories($post_id, [(int) $category->term_id], false);
+    }
+
+    update_option('lanotte_article_bolletta_elettrica_condominio_20260827', 'done', false);
+}, 28);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_bolletta_elettrica_condominio_featured_20260827') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path('bolletta-elettrica-condominiale-ripartizione-spese', OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    $updated = lanotte_editorial_import_image(
+        (int) $post->ID,
+        'bolletta-elettrica-condominiale-ripartizione.jpg',
+        'Bolletta elettrica condominiale e ripartizione delle spese',
+        'Schema della ripartizione della bolletta elettrica condominiale tra consumi privati parti comuni e costi fissi',
+        'lanotte-bolletta-elettrica-condominiale-ripartizione-2026'
+    );
+
+    if ($updated) {
+        update_option('lanotte_article_bolletta_elettrica_condominio_featured_20260827', 'done', false);
+    }
+}, 29);
