@@ -372,3 +372,63 @@ add_action('init', function() {
         update_option('lanotte_article_successione_immobili_featured_20260829', 'done', false);
     }
 }, 35);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_legittima_lesa_20260830') === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $slug = 'quota-legittima-lesa-erede-escluso-rimedi-termini';
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/quota-legittima-lesa-erede-escluso-rimedi-termini.html';
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $published = current_time('mysql');
+    $post_data = [
+        'post_title'    => 'Quota di legittima lesa: rimedi e termini per l\'erede escluso',
+        'post_name'     => $slug,
+        'post_excerpt'  => 'Figli, coniuge e altri legittimari: come verificare la lesione di legittima, quali documenti raccogliere e quando valutare l\'azione di riduzione.',
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_date'     => $published,
+        'post_date_gmt' => get_gmt_from_date($published),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category_id = lanotte_editorial_get_or_create_category('successioni', 'Successioni');
+    if ($category_id) {
+        wp_set_post_categories($post_id, [$category_id], false);
+    }
+
+    update_option('lanotte_article_legittima_lesa_20260830', 'done', false);
+}, 36);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_legittima_lesa_featured_20260830') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path('quota-legittima-lesa-erede-escluso-rimedi-termini', OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    $updated = lanotte_editorial_import_image(
+        (int) $post->ID,
+        'quota-legittima-lesa-erede-escluso-rimedi-termini.jpg',
+        'Quota di legittima lesa erede escluso rimedi e termini',
+        'Schema sulla quota di legittima lesa con testamento donazioni azione di riduzione e termini',
+        'lanotte-quota-legittima-lesa-erede-escluso-rimedi-termini-2026'
+    );
+
+    if ($updated) {
+        update_option('lanotte_article_legittima_lesa_featured_20260830', 'done', false);
+    }
+}, 37);
