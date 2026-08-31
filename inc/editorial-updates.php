@@ -432,3 +432,63 @@ add_action('init', function() {
         update_option('lanotte_article_legittima_lesa_featured_20260830', 'done', false);
     }
 }, 37);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_eredita_debiti_20260831') === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $slug = 'eredita-con-debiti-beneficio-inventario-rinuncia';
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/eredita-con-debiti-beneficio-inventario-rinuncia.html';
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $published = current_time('mysql');
+    $post_data = [
+        'post_title'    => 'Eredità con debiti: beneficio d\'inventario o rinuncia',
+        'post_name'     => $slug,
+        'post_excerpt'  => 'Guida pratica per capire cosa fare quando l\'eredità contiene debiti: accettazione pura, beneficio d\'inventario, rinuncia, termini ed errori da evitare.',
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_date'     => $published,
+        'post_date_gmt' => get_gmt_from_date($published),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category_id = lanotte_editorial_get_or_create_category('successioni', 'Successioni');
+    if ($category_id) {
+        wp_set_post_categories($post_id, [$category_id], false);
+    }
+
+    update_option('lanotte_article_eredita_debiti_20260831', 'done', false);
+}, 38);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_eredita_debiti_featured_20260831') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path('eredita-con-debiti-beneficio-inventario-rinuncia', OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    $updated = lanotte_editorial_import_image(
+        (int) $post->ID,
+        'eredita-con-debiti-beneficio-inventario-rinuncia.jpg',
+        'Eredita con debiti beneficio inventario o rinuncia',
+        'Schema pratico sull eredita con debiti tra accettazione beneficio d inventario rinuncia e accettazione tacita',
+        'lanotte-eredita-con-debiti-beneficio-inventario-rinuncia-2026'
+    );
+
+    if ($updated) {
+        update_option('lanotte_article_eredita_debiti_featured_20260831', 'done', false);
+    }
+}, 39);
