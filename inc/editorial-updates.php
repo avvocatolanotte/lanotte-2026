@@ -492,3 +492,63 @@ add_action('init', function() {
         update_option('lanotte_article_eredita_debiti_featured_20260831', 'done', false);
     }
 }, 39);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_divisione_ereditaria_20260901') === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $slug = 'divisione-ereditaria-eredi-non-trovano-accordo';
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/divisione-ereditaria-eredi-non-accordo.html';
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $published = current_time('mysql');
+    $post_data = [
+        'post_title'    => 'Divisione ereditaria: cosa fare se gli eredi non trovano un accordo',
+        'post_name'     => $slug,
+        'post_excerpt'  => 'Guida pratica alla divisione ereditaria: comunione tra coeredi, accordo, mediazione, divisione giudiziale, immobili indivisibili e conguagli.',
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_date'     => $published,
+        'post_date_gmt' => get_gmt_from_date($published),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category_id = lanotte_editorial_get_or_create_category('successioni', 'Successioni');
+    if ($category_id) {
+        wp_set_post_categories($post_id, [$category_id], false);
+    }
+
+    update_option('lanotte_article_divisione_ereditaria_20260901', 'done', false);
+}, 40);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_divisione_ereditaria_featured_20260901') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path('divisione-ereditaria-eredi-non-trovano-accordo', OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    $updated = lanotte_editorial_import_image(
+        (int) $post->ID,
+        'divisione-ereditaria-eredi-non-accordo.jpg',
+        'Divisione ereditaria quando gli eredi non trovano accordo',
+        'Schema pratico della divisione ereditaria tra comunione accordo mediazione giudice quote e conguaglio',
+        'lanotte-divisione-ereditaria-eredi-non-accordo-2026'
+    );
+
+    if ($updated) {
+        update_option('lanotte_article_divisione_ereditaria_featured_20260901', 'done', false);
+    }
+}, 41);
