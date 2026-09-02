@@ -552,3 +552,63 @@ add_action('init', function() {
         update_option('lanotte_article_divisione_ereditaria_featured_20260901', 'done', false);
     }
 }, 41);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_adeguamento_istat_mantenimento_20260902') === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $slug = 'mancato-adeguamento-istat-assegno-mantenimento-arretrati';
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/mancato-adeguamento-istat-assegno-mantenimento.html';
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $published = current_time('mysql');
+    $post_data = [
+        'post_title'    => 'Mancato adeguamento ISTAT dell\'assegno di mantenimento: arretrati e recupero',
+        'post_name'     => $slug,
+        'post_excerpt'  => 'Come verificare il mancato adeguamento ISTAT dell\'assegno di mantenimento, calcolare gli arretrati e chiedere il pagamento delle differenze.',
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_date'     => $published,
+        'post_date_gmt' => get_gmt_from_date($published),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category_id = lanotte_editorial_get_or_create_category('diritto-di-famiglia', 'Diritto di famiglia');
+    if ($category_id) {
+        wp_set_post_categories($post_id, [$category_id], false);
+    }
+
+    update_option('lanotte_article_adeguamento_istat_mantenimento_20260902', 'done', false);
+}, 42);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_adeguamento_istat_mantenimento_featured_20260902') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path('mancato-adeguamento-istat-assegno-mantenimento-arretrati', OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    $updated = lanotte_editorial_import_image(
+        (int) $post->ID,
+        'mancato-adeguamento-istat-assegno-mantenimento.jpg',
+        'Mancato adeguamento ISTAT assegno di mantenimento',
+        'Schema pratico su assegno di mantenimento indice FOI ISTAT rivalutazione arretrati e recupero',
+        'lanotte-mancato-adeguamento-istat-assegno-mantenimento-2026'
+    );
+
+    if ($updated) {
+        update_option('lanotte_article_adeguamento_istat_mantenimento_featured_20260902', 'done', false);
+    }
+}, 43);
