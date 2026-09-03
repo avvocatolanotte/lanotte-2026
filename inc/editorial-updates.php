@@ -612,3 +612,63 @@ add_action('init', function() {
         update_option('lanotte_article_adeguamento_istat_mantenimento_featured_20260902', 'done', false);
     }
 }, 43);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_danno_biologico_tun_milano_20260903') === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $slug = 'danno-biologico-tun-tabelle-milano-2026';
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/danno-biologico-tun-tabelle-milano-2026.html';
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $published = current_time('mysql');
+    $post_data = [
+        'post_title'    => 'Danno biologico 2026: TUN o Tabelle di Milano?',
+        'post_name'     => $slug,
+        'post_excerpt'  => 'Come scegliere tra Tabella Unica Nazionale e Tabelle di Milano nel calcolo del danno biologico: data evento, responsabilità, invalidità e personalizzazione.',
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_date'     => $published,
+        'post_date_gmt' => get_gmt_from_date($published),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category_id = lanotte_editorial_get_or_create_category('risarcimento-danni', 'Risarcimento danni');
+    if ($category_id) {
+        wp_set_post_categories($post_id, [$category_id], false);
+    }
+
+    update_option('lanotte_article_danno_biologico_tun_milano_20260903', 'done', false);
+}, 44);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_danno_biologico_tun_milano_featured_20260903') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path('danno-biologico-tun-tabelle-milano-2026', OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    $updated = lanotte_editorial_import_image(
+        (int) $post->ID,
+        'danno-biologico-tun-tabelle-milano-2026.jpg',
+        'Danno biologico 2026 TUN o Tabelle di Milano',
+        'Schema pratico per scegliere tra Tabella Unica Nazionale e Tabelle di Milano nel calcolo del danno biologico',
+        'lanotte-danno-biologico-tun-tabelle-milano-2026'
+    );
+
+    if ($updated) {
+        update_option('lanotte_article_danno_biologico_tun_milano_featured_20260903', 'done', false);
+    }
+}, 45);
