@@ -672,3 +672,63 @@ add_action('init', function() {
         update_option('lanotte_article_danno_biologico_tun_milano_featured_20260903', 'done', false);
     }
 }, 45);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_impugnare_delibera_condominiale_20260905') === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $slug = 'impugnare-delibera-condominiale-termini-mediazione-nullita';
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/impugnare-delibera-condominiale-2026.html';
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $published = current_time('mysql');
+    $post_data = [
+        'post_title'    => 'Impugnare una delibera condominiale: termini, nullità e mediazione',
+        'post_name'     => $slug,
+        'post_excerpt'  => 'Guida pratica per capire quando una delibera condominiale è annullabile, quando è nulla, quali sono i termini e perché serve la mediazione.',
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_date'     => $published,
+        'post_date_gmt' => get_gmt_from_date($published),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category_id = lanotte_editorial_get_or_create_category('condominio', 'Condominio');
+    if ($category_id) {
+        wp_set_post_categories($post_id, [$category_id], false);
+    }
+
+    update_option('lanotte_article_impugnare_delibera_condominiale_20260905', 'done', false);
+}, 46);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_impugnare_delibera_condominiale_featured_20260905') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path('impugnare-delibera-condominiale-termini-mediazione-nullita', OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    $updated = lanotte_editorial_import_image(
+        (int) $post->ID,
+        'impugnare-delibera-condominiale-2026.jpg',
+        'Impugnare una delibera condominiale',
+        'Schema pratico su termini nullità e mediazione per impugnare una delibera condominiale',
+        'lanotte-impugnare-delibera-condominiale-2026'
+    );
+
+    if ($updated) {
+        update_option('lanotte_article_impugnare_delibera_condominiale_featured_20260905', 'done', false);
+    }
+}, 47);
