@@ -732,3 +732,35 @@ add_action('init', function() {
         update_option('lanotte_article_impugnare_delibera_condominiale_featured_20260905', 'done', false);
     }
 }, 47);
+
+add_action('init', function() {
+    if (get_option('lanotte_editorial_internal_links_fix_20260915') === 'done') return;
+    if (!function_exists('wp_update_post')) return;
+
+    $replacements = [
+        'https://studiolegalelanotte.it/fondo-speciale-condominiale-2026/' => 'https://studiolegalelanotte.it/lavori-straordinari-in-condominio-obbligatorio-costituire-il-fondo-speciale/',
+        '/aree/risarcimento-danni/' => '/aree/infortunistica-malasanita/',
+        '/aree/diritto-di-famiglia/' => '/aree/famiglia-successioni/',
+    ];
+
+    $slugs = [
+        'impugnare-delibera-condominiale-termini-mediazione-nullita',
+        'danno-biologico-tun-tabelle-milano-2026',
+        'mancato-adeguamento-istat-assegno-mantenimento-arretrati',
+    ];
+
+    foreach ($slugs as $slug) {
+        $post = get_page_by_path($slug, OBJECT, 'post');
+        if (!$post instanceof WP_Post) continue;
+
+        $updated = strtr($post->post_content, $replacements);
+        if ($updated === $post->post_content) continue;
+
+        wp_update_post([
+            'ID' => (int) $post->ID,
+            'post_content' => $updated,
+        ]);
+    }
+
+    update_option('lanotte_editorial_internal_links_fix_20260915', 'done', false);
+}, 48);
