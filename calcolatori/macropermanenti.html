@@ -174,6 +174,15 @@
 .damage-advanced[open] summary:after{content:'−'}
 .damage-advanced-body{padding:0 16px 16px}
 .damage-result{position:sticky;top:96px}
+.cta-servizio-sinistro{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-top:14px;padding:14px 16px;border:1px solid rgba(184,153,104,.55);background:rgba(255,255,255,.04)}
+.cta-ss-testo{display:flex;flex-direction:column;gap:4px;font-size:12px;line-height:1.5;color:#cbd5e1}
+.cta-ss-testo strong{font-family:var(--serif);font-size:15px;color:#fff;font-weight:600}
+.cta-ss-azione{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:118px;text-align:center}
+.cta-ss-prezzo{font-family:var(--serif);font-size:22px;color:var(--gold-light);font-weight:600;line-height:1.1}
+.cta-ss-nota{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8}
+.cta-ss-azione a{margin-top:6px;display:inline-block;background:var(--gold);color:#fff;font-weight:700;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;padding:9px 12px;text-decoration:none;white-space:nowrap}
+.cta-ss-azione a:hover{background:#a3875a}
+@media (max-width:480px){.cta-servizio-sinistro{flex-direction:column;align-items:stretch}.cta-ss-azione{min-width:0}}
 .damage-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
 .damage-reset{width:100%;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;padding:11px 14px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
 @media(max-width:860px){
@@ -411,6 +420,17 @@
           <div class="damage-actions">
             <button data-lanotte-event="calc_preview" onclick="LanottePreview.open({selector:'#print-report', beforeOpen: aggiornaReport, title:'Prospetto di calcolo del danno biologico'})" style="background:#fff;color:var(--navy);font-weight:700;padding:14px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--gold);cursor:pointer">Anteprima report</button>
             <a href="https://studiolegalelanotte.it/contatti/" data-lanotte-event="calc_contact" class="btn" style="background:var(--gold);color:#fff;font-weight:700;padding:14px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--gold);text-align:center">Verifica con lo Studio</a>
+          </div>
+          <div class="cta-servizio-sinistro">
+            <div class="cta-ss-testo">
+              <strong>Valutazione scritta del caso</strong>
+              <span>L&#39;Avvocato esamina la documentazione del sinistro e indica responsabilit&agrave;, voci di danno e termini da rispettare. A distanza, in tutta Italia.</span>
+            </div>
+            <div class="cta-ss-azione">
+              <span class="cta-ss-prezzo">300,00 &euro;</span>
+              <span class="cta-ss-nota">IVA inclusa</span>
+              <a href="https://studiolegalelanotte.it/servizi-online/valutazione-iniziale-sinistro/" data-lanotte-event="calc_service">Vedi il servizio</a>
+            </div>
           </div>
           <button type="button" class="damage-reset" onclick="azzeraCalcolo()">Azzera e ricomincia</button>
         </div>
