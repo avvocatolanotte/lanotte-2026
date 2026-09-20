@@ -38,16 +38,8 @@ function lanotte_phone($raw = false) {
  * WhatsApp link
  */
 function lanotte_whatsapp_url() {
-    // 1. Numero WhatsApp dedicato dal pannello Personalizza
-    $wa = lanotte_acf_option('studio_whatsapp', '');
-    if ($wa) {
-        $tel = preg_replace('/[^\d+]/', '', $wa);
-    } else {
-        // 2. Fallback al telefono studio
-        $tel = lanotte_phone(true);
-    }
-    $tel = ltrim($tel, '+');
-    return 'https://wa.me/' . $tel;
+    // Numero WhatsApp ufficiale dello Studio: non usare il fisso come fallback.
+    return 'https://wa.me/393929703202';
 }
 
 /**

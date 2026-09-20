@@ -76,6 +76,10 @@ function lanotte_seo_map() {
             't' => 'Newsletter Giuridica · Studio Legale | ' . $brand,
             'd' => 'Iscriviti alla newsletter dello Studio Legale LANOTTE & Partners di Barletta: aggiornamenti e approfondimenti giuridici, senza spam.',
         ],
+        'avvocato-successioni-eredita' => [
+            't' => 'Avvocato Successioni ed Eredità a Barletta | ' . $brand,
+            'd' => 'Assistenza legale per successioni, eredità, divisioni, testamenti e quote di legittima a Barletta e in tutta Italia. Consulenza su appuntamento.',
+        ],
         'privacy' => [
             't' => 'Privacy Policy | Studio Legale ' . $brand,
             'd' => 'Informativa sul trattamento dei dati personali dello Studio Legale LANOTTE & Partners, Barletta (Foro di Trani), ai sensi del Reg. UE 2016/679.',
@@ -143,6 +147,22 @@ function lanotte_seo_map() {
         ],
     ];
 }
+
+/*
+ * La pagina Successioni storica contiene un vecchio blocco CSS salvato come
+ * testo nel contenuto. Lo rimuoviamo in output: le regole vivono nel foglio
+ * stile del tema e non finiscono più nel testo visibile o negli estratti.
+ */
+add_filter('the_content', function($content) {
+    if (!is_page('avvocato-successioni-eredita')) return $content;
+
+    return preg_replace(
+        '#(<section[^>]*class=["\'][^"\']*\bsucc-hero\b[^"\']*["\'][^>]*>).*?(<div[^>]*class=["\'][^"\']*\bsucc-wrap\b[^"\']*\bsucc-hero-in\b[^"\']*["\'][^>]*>)#is',
+        '$1$2',
+        $content,
+        1
+    );
+}, 5);
 
 /**
  * Chiave SEO della pagina/area correntemente visualizzata.
