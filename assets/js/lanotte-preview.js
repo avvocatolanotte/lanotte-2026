@@ -42,7 +42,7 @@
       .lph-brand-details strong{display:block;color:#0E1A33;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
       .lph-report-head{border-bottom:3px solid #B89968;padding-bottom:16px;margin-bottom:20px}
       .lph-report-kicker{font:700 11px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#B89968;margin-bottom:6px}
-      .lph-report h1{margin:0;color:#0E1A33;font-size:28px;line-height:1.15;font-weight:600}
+      .lph-report .lph-title{margin:0;color:#0E1A33;font-size:28px;line-height:1.15;font-weight:600}
       .lph-report-subtitle{margin:8px 0 0;color:#475569;font:400 13px Arial,sans-serif}
       .lph-report table{width:100%;border-collapse:collapse;margin:18px 0;font:400 13px Arial,sans-serif}
       .lph-report th,.lph-report td{border-bottom:1px solid #e5e7eb;padding:10px 8px;text-align:left;vertical-align:top}
@@ -577,7 +577,7 @@
       </header>
       <div class="lph-report-head">
         <div class="lph-report-kicker">${esc(opts.kicker || 'Elaborazione automatica a carattere orientativo')}</div>
-        <h1>${esc(opts.title || 'Report di calcolo')}</h1>
+        <h2 class="lph-title">${esc(opts.title || 'Report di calcolo')}</h2>
         ${opts.subtitle ? '<p class="lph-report-subtitle">' + esc(opts.subtitle) + '</p>' : ''}
       </div>
       <table>
