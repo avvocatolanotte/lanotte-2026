@@ -81,7 +81,7 @@
           </div>
           <div class="lpv-meta"><strong>Prospetto di calcolo</strong>${esc(nowIso())}<br>Viale Falcone e Borsellino, 75 · Barletta (BT)<br>0883 1955533 · info@studiolegalelanotte.it</div>
         </header>
-        <h1>${esc(opts.titolo || 'Calcolo')}</h1>
+        <h2 class="lpv-title">${esc(opts.titolo || 'Calcolo')}</h2>
         ${opts.normativa ? `<p class="lpv-sub">Riferimento normativo: ${esc(opts.normativa)}</p>` : ''}
         ${(cliente.nome || cliente.codiceFiscale) ? `
           <section>
@@ -132,7 +132,7 @@
       .lpv-report{width:min(794px,100%);margin:0 auto;background:#fff;color:#0f172a;padding:34px 38px;border:1px solid #d9dee7;box-shadow:0 8px 26px rgba(15,23,42,.08);line-height:1.5;box-sizing:border-box}
       .lpv-head{display:flex;justify-content:space-between;align-items:flex-start;gap:22px;border-top:4px solid #B89968;border-bottom:1px solid #d9dee7;padding:18px 0 15px;margin-bottom:22px}
       .lpv-brand{width:55%}.lpv-logo{display:block;width:285px;max-width:100%;height:auto;object-fit:contain;object-position:left top}.lpv-head small{display:block;color:#64748b;font-size:10px;margin-top:7px}.lpv-meta{color:#64748b;font-size:9px;line-height:1.6;text-align:right}.lpv-meta strong{display:block;color:#0E1A33;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
-      .lpv-report h1{font-family:Georgia,serif;color:#0E1A33;font-size:28px;margin:0 0 6px}.lpv-sub{color:#64748b;font-style:italic;margin:0 0 18px}
+      .lpv-report .lpv-title{font-family:Georgia,serif;color:#0E1A33;font-size:28px;margin:0 0 6px}.lpv-sub{color:#64748b;font-style:italic;margin:0 0 18px}
       .lpv-report section{margin-top:20px}.lpv-report h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:#B89968;margin:0 0 10px}
       .lpv-report table{width:100%;border-collapse:collapse;font-size:13px}.lpv-report th{background:#0E1A33;color:#fff;text-align:left;padding:8px}.lpv-report td{padding:8px;border-bottom:1px solid #e5e7eb;vertical-align:top}.lpv-report td:first-child{width:42%;color:#64748b;font-weight:600}
       .lpv-table-wrap{overflow:auto}.lpv-conclusioni{background:#fdfbf5;border-left:4px solid #B89968;padding:14px}.lpv-conclusioni p{margin:0}.lpv-report footer{margin-top:24px;padding-top:12px;border-top:1px solid #e5e7eb;color:#64748b;font-size:12px;font-style:italic}

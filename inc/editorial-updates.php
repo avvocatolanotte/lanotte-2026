@@ -764,3 +764,64 @@ add_action('init', function() {
 
     update_option('lanotte_editorial_internal_links_fix_20260915', 'done', false);
 }, 48);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_opposizione_decreto_ingiuntivo_20260920') === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $slug = 'opposizione-decreto-ingiuntivo-40-giorni-cosa-fare';
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/opposizione-decreto-ingiuntivo-40-giorni.html';
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $published = current_time('mysql');
+    $post_data = [
+        'post_title'    => 'Opposizione a decreto ingiuntivo: 40 giorni per decidere e cosa verificare prima',
+        'post_name'     => $slug,
+        'post_excerpt'  => 'Da quando si contano i 40 giorni, che cosa succede se scadono, quando il decreto e\' gia\' esecutivo e le cinque verifiche da fare prima di opporsi, pagare o trattare.',
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_date'     => $published,
+        'post_date_gmt' => get_gmt_from_date($published),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category_id = lanotte_editorial_get_or_create_category('diritto-civile', 'Diritto civile');
+    if ($category_id) {
+        wp_set_post_categories($post_id, [$category_id], false);
+    }
+
+    update_option('lanotte_article_opposizione_decreto_ingiuntivo_20260920', 'done', false);
+}, 42);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_opposizione_decreto_ingiuntivo_featured_20260920') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path('opposizione-decreto-ingiuntivo-40-giorni-cosa-fare', OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    $updated = lanotte_editorial_import_image(
+        (int) $post->ID,
+        'opposizione-decreto-ingiuntivo-2026.jpg',
+        'Opposizione a decreto ingiuntivo: 40 giorni per decidere',
+        'Schema in tre passaggi: notifica, quaranta giorni con sospensione feriale, scelta tra opposizione pagamento e accordo',
+        'lanotte-opposizione-decreto-ingiuntivo-2026'
+    );
+
+    if ($updated) {
+        update_option('lanotte_article_opposizione_decreto_ingiuntivo_featured_20260920', 'done', false);
+    }
+}, 43);
+

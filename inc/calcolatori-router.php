@@ -213,7 +213,7 @@ function lanotte_calcolatori_pages_data() {
             'title' => 'Calcolo rivalutazione ISTAT assegno di mantenimento 2026 (gratuito)',
             'keyword' => 'calcolo rivalutazione ISTAT assegno mantenimento',
             'service' => 'Famiglia e separazioni',
-            'intro' => 'Il calcolatore aggiorna l\'assegno di mantenimento secondo l\'indice ISTAT FOI, normalmente al 100% salvo diversa previsione nel provvedimento o nell\'accordo. Serve per verificare adeguamenti annuali, arretrati e differenze mensili dovute per coniuge o figli.',
+            'intro' => 'Rivalutazione, adeguamento e aggiornamento ISTAT dell\'assegno di mantenimento per coniuge e figli: il calcolatore gratuito applica gli indici FOI ufficiali e quantifica differenze mensili e arretrati maturati. Il calcolatore aggiorna l\'assegno di mantenimento secondo l\'indice ISTAT FOI, normalmente al 100% salvo diversa previsione nel provvedimento o nell\'accordo. Serve per verificare adeguamenti annuali, arretrati e differenze mensili dovute per coniuge o figli.',
             'faq' => [
                 ['L\'adeguamento ISTAT e automatico?', 'Solo se previsto da sentenza, decreto omologato, accordo o negoziazione assistita.'],
                 ['Si usa il 100% o il 75%?', 'Per il mantenimento si usa di regola il 100%, salvo clausola diversa.'],
@@ -243,10 +243,10 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'macropermanenti' => [
-            'title' => 'Calcolo danno biologico 2026 Tabelle Milano e TUN (gratuito)',
+            'title' => 'Calcolo danno biologico macropermanenti 2026 – Tabelle Milano e TUN (gratuito)',
             'keyword' => 'calcolo danno biologico tabelle Milano',
             'service' => 'Infortunistica e risarcimento danni',
-            'intro' => 'Calcola online una stima del risarcimento del danno biologico per lesioni macropermanenti da 10 a 100 punti. Lo strumento individua la tabella applicabile in base al tipo e alla data dell\'evento, confrontando Tabelle di Milano 2024 e Tabella Unica Nazionale prevista dal D.P.R. 12/2025. Inserendo punti di invalidita permanente, eta e giorni di inabilita temporanea ottieni subito il dettaglio del danno permanente, temporaneo e della sofferenza soggettiva media. Le opzioni avanzate permettono inoltre di simulare personalizzazione, spese documentate e perdita di reddito. Il calcolo e gratuito, resta sul dispositivo e puo essere controllato in anteprima prima di stampare o salvare il report. La quantificazione definitiva richiede sempre una perizia medico-legale e la verifica giuridica del caso concreto.',
+            'intro' => 'Calcolatore gratuito del danno biologico per lesioni macropermanenti, da 10 a 100 punti, con Tabelle di Milano 2024 e Tabella Unica Nazionale 2025: inserisci età, punti di invalidità e giorni di inabilità e ottieni subito la stima. Calcola online una stima del risarcimento del danno biologico per lesioni macropermanenti da 10 a 100 punti. Lo strumento individua la tabella applicabile in base al tipo e alla data dell\'evento, confrontando Tabelle di Milano 2024 e Tabella Unica Nazionale prevista dal D.P.R. 12/2025. Inserendo punti di invalidita permanente, eta e giorni di inabilita temporanea ottieni subito il dettaglio del danno permanente, temporaneo e della sofferenza soggettiva media. Le opzioni avanzate permettono inoltre di simulare personalizzazione, spese documentate e perdita di reddito. Il calcolo e gratuito, resta sul dispositivo e puo essere controllato in anteprima prima di stampare o salvare il report. La quantificazione definitiva richiede sempre una perizia medico-legale e la verifica giuridica del caso concreto.',
             'faq' => [
                 ['Quando si usano le Tabelle di Milano?', 'Per gli eventi anteriori al 5 marzo 2025 e, di regola, per gli illeciti civili non coperti dalla TUN, come cadute e altre responsabilita diverse da circolazione e sanita.'],
                 ['Quando si usa la Tabella Unica Nazionale?', 'Per lesioni da 10 a 100 punti derivanti da circolazione di veicoli o responsabilita sanitaria, quando l\'evento rientra nell\'ambito temporale del D.P.R. 12/2025.'],
@@ -377,10 +377,10 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'opposizione-decreto-ingiuntivo' => [
-            'title' => 'Calcolo termine opposizione decreto ingiuntivo',
+            'title' => 'Calcolo termini opposizione decreto ingiuntivo: 40 giorni dalla notifica (gratuito)',
             'keyword' => 'calcolo opposizione decreto ingiuntivo 40 giorni',
             'service' => 'Recupero crediti e opposizioni',
-            'intro' => 'Il calcolatore stima la scadenza per proporre opposizione a decreto ingiuntivo partendo dalla data di notifica, con termine ordinario di quaranta giorni e opzioni per termini ridotti, aumentati o notifiche all\'estero. Include sospensione feriale e proroga al primo giorno non festivo quando applicabili.',
+            'intro' => 'Hai ricevuto un decreto ingiuntivo? Il calcolatore gratuito individua la scadenza per l\'opposizione (art. 641 c.p.c.): 40 giorni dalla notifica, termini ridotti o aumentati, sospensione feriale. Il calcolatore stima la scadenza per proporre opposizione a decreto ingiuntivo partendo dalla data di notifica, con termine ordinario di quaranta giorni e opzioni per termini ridotti, aumentati o notifiche all\'estero. Include sospensione feriale e proroga al primo giorno non festivo quando applicabili.',
             'faq' => [
                 ['Qual e il termine ordinario per opporsi?', 'Di regola il decreto ingiuntivo assegna quaranta giorni dalla notifica, salvo diversa indicazione del giudice.'],
                 ['Il termine puo essere diverso?', 'Si, l\'art. 641 c.p.c. consente termini ridotti o aumentati e prevede regole specifiche per intimati residenti all\'estero.'],
