@@ -543,3 +543,19 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
   .hero h1{font-size:34px}
   .topbar-left{font-size:12px;gap:12px}
 }
+
+/* === MOBILE: i contatti dentro la prima schermata (21/09/2026) ===
+   Misurato su viewport 375x812: il banner cookie occupa il 45% inferiore dello
+   schermo e copre la .conversion-dock fissa. Con 80px di padding e il
+   sottotitolo lungo, i pulsanti dell'hero finivano sotto la piega: chi arriva
+   dagli annunci (17 s di permanenza media, 0 contatti in 30 giorni) non li
+   vedeva mai. Qui, solo sotto i 600px, si accorcia l'hero e si porta la
+   .hero-cta sopra il sottotitolo. Il desktop resta invariato. */
+@media (max-width:600px){
+  .hero-internal{padding:40px 0 36px}
+  .hero-internal .container{display:flex;flex-direction:column}
+  .hero-internal .breadcrumbs{order:1}
+  .hero-internal h1{order:2;margin-bottom:14px}
+  .hero-internal .hero-cta{order:3;margin-top:4px}
+  .hero-internal .subtitle{order:4;margin-top:18px}
+}
