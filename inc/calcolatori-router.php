@@ -188,7 +188,7 @@ add_shortcode('lanotte_calcolatore', function($atts) {
 function lanotte_calcolatori_pages_data() {
     return [
         'interessi-legali' => [
-            'title' => 'Calcolo interessi legali',
+            'title' => 'Calcolo interessi legali 2026 – art. 1284 c.c. (gratuito)',
             'keyword' => 'calcolo interessi legali',
             'service' => 'Recupero crediti',
             'intro' => 'Il calcolatore degli interessi legali consente di stimare gli interessi maturati su un credito secondo il saggio legale previsto dall\'art. 1284 c.c., con suddivisione automatica per periodi e tassi annuali. E utile per recupero crediti, diffide, conteggi su somme dovute e verifiche preliminari prima di un atto giudiziale.',
@@ -221,7 +221,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'mantenimento-orientativo' => [
-            'title' => 'Calcolo orientativo assegno di mantenimento figli',
+            'title' => 'Calcolo orientativo assegno di mantenimento figli 2026 (gratuito)',
             'keyword' => 'calcolo assegno di mantenimento figli',
             'service' => 'Famiglia e separazioni',
             'intro' => 'Lo strumento elabora una forchetta puramente orientativa considerando redditi, fabbisogno indicato, tempi di permanenza e spese dirette. Non esiste una formula vincolante: l\'assegno e determinato dal giudice o concordato dalle parti secondo i criteri dell\'art. 337-ter c.c.',
@@ -232,7 +232,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'svalutazione' => [
-            'title' => 'Calcolo rivalutazione monetaria ISTAT',
+            'title' => 'Calcolo rivalutazione monetaria ISTAT e interessi 2026 (gratuito)',
             'keyword' => 'calcolo rivalutazione monetaria ISTAT',
             'service' => 'Recupero crediti e risarcimenti',
             'intro' => 'Lo strumento calcola la rivalutazione monetaria secondo indice ISTAT FOI e, se richiesto, gli interessi legali sul capitale via via rivalutato. E utile per crediti di valore, risarcimenti, conguagli e conteggi preliminari in sede stragiudiziale o giudiziale.',
@@ -256,10 +256,10 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'micropermanenti' => [
-            'title' => 'Calcolo lesioni micropermanenti',
+            'title' => 'Calcolo danno biologico micropermanenti 2026 – lesioni da 1 a 9 punti (gratuito)',
             'keyword' => 'calcolo micropermanenti',
             'service' => 'Infortunistica stradale',
-            'intro' => 'Il calcolatore consente di stimare il risarcimento per lesioni di lieve entita, da 1 a 9 punti di invalidita permanente, secondo l\'art. 139 del Codice delle Assicurazioni e i valori aggiornati. Include danno permanente, temporaneo e voci patrimoniali inserite.',
+            'intro' => 'Calcolatore gratuito del danno biologico per lesioni micropermanenti, da 1 a 9 punti di invalidita permanente, secondo l\'art. 139 del Codice delle Assicurazioni e i valori aggiornati: inserisci anni e punti e ottieni la stima del danno permanente, del danno temporaneo e delle voci patrimoniali indicate.',
             'faq' => [
                 ['Cosa sono le micropermanenti?', 'Sono lesioni con invalidita permanente fino a 9 punti.'],
                 ['Il danno morale e incluso?', 'Lo strumento e orientativo: eventuali personalizzazioni o ulteriori voci vanno valutate caso per caso.'],
@@ -267,7 +267,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'inail' => [
-            'title' => 'Calcolo indennizzo INAIL: verifica orientativa',
+            'title' => 'Calcolo indennizzo INAIL 2026: verifica orientativa (gratuito)',
             'keyword' => 'calcolo indennizzo INAIL',
             'service' => 'Infortuni sul lavoro e malattie professionali',
             'intro' => 'Lo strumento identifica la prestazione INAIL potenzialmente applicabile: nessun indennizzo permanente sotto il 6%, capitale dal 6% al 15% e rendita dal 16%. Il regime INAIL e distinto dal risarcimento civilistico e la quantificazione definitiva compete all\'Istituto.',
@@ -278,7 +278,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'danni-preesistenti' => [
-            'title' => 'Calcolo danni preesistenti e menomazioni concorrenti',
+            'title' => 'Calcolo danni preesistenti e menomazioni concorrenti 2026 (gratuito)',
             'keyword' => 'calcolo danno biologico preesistenze',
             'service' => 'Risarcimento danni',
             'intro' => 'Lo strumento aiuta a distinguere menomazioni coesistenti e concorrenti, applicando criteri di calcolo medico-legale e la sottrazione monetaria quando la preesistenza incide sul danno attuale. E utile nei casi di invalidita gia presente prima del sinistro.',
@@ -289,10 +289,10 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'interessi-moratori' => [
-            'title' => 'Calcolo interessi di mora',
+            'title' => 'Calcolo interessi moratori 2026 – interessi di mora D.Lgs. 231/2002 (gratuito)',
             'keyword' => 'calcolo interessi di mora',
             'service' => 'Recupero crediti commerciali',
-            'intro' => 'Il calcolatore stima gli interessi moratori nelle transazioni commerciali ai sensi del D.Lgs. 231/2002, applicando il tasso BCE maggiorato di otto punti. E pensato per fatture scadute tra imprese o verso pubbliche amministrazioni.',
+            'intro' => 'Calcolatore gratuito degli interessi moratori (interessi di mora) sulle fatture pagate in ritardo, ai sensi del D.Lgs. 231/2002: tasso BCE maggiorato di otto punti, aggiornato semestralmente dal MEF e applicato periodo per periodo. Vale per le transazioni commerciali tra imprese, verso la Pubblica Amministrazione e nel settore agroalimentare.',
             'faq' => [
                 ['Vale per debiti tra privati?', 'No, per rapporti civili ordinari si usano di regola gli interessi legali.'],
                 ['Da quando decorrono gli interessi moratori?', 'Di regola dal giorno successivo alla scadenza del pagamento, salvo casi particolari.'],
@@ -300,7 +300,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'istat-locazione' => [
-            'title' => 'Calcolo aumento ISTAT canone di locazione',
+            'title' => 'Calcolo aumento ISTAT canone di locazione 2026 (gratuito)',
             'keyword' => 'calcolo aumento ISTAT affitto',
             'service' => 'Locazioni',
             'intro' => 'Lo strumento calcola l\'aggiornamento ISTAT del canone di locazione secondo indice FOI e percentuale prevista dal contratto. Aiuta locatore e conduttore a verificare aumenti, decorrenze e importi mensili aggiornati.',
@@ -314,7 +314,7 @@ function lanotte_calcolatori_pages_data() {
             'title' => 'Calcolo parcella avvocato civile 2026 (gratuito)',
             'keyword' => 'calcolo parcella avvocato civile',
             'service' => 'Onorari e preventivi',
-            'intro' => 'Il calcolatore stima il compenso dell\'avvocato in materia civile secondo i parametri forensi, per scaglione, ufficio giudiziario e fasi dell\'attivita. Il risultato e orientativo e deve essere formalizzato in preventivo scritto.',
+            'intro' => 'Calcolatore gratuito della parcella dell\'avvocato civile secondo i parametri forensi (DM 55/2014 e aggiornamenti): scaglione di valore, ufficio giudiziario e fasi dell\'attivita, con il compenso tabellare di ogni fase. Il risultato e orientativo e va formalizzato in un preventivo scritto, come previsto dall\'art. 13 della legge 247/2012.',
             'faq' => [
                 ['Il calcolo coincide con il preventivo?', 'No, e una base orientativa da adattare a complessita, urgenza e attivita effettiva.'],
                 ['Posso selezionare solo alcune fasi?', 'Si, lo strumento consente di includere o escludere le fasi svolte.'],
@@ -344,7 +344,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'sfratti' => [
-            'title' => 'Calcolo compenso procedimento di sfratto',
+            'title' => 'Calcolo compenso procedimento di sfratto 2026 (gratuito)',
             'keyword' => 'calcolo parcella sfratto',
             'service' => 'Locazioni e sfratti',
             'intro' => 'Il calcolatore stima il compenso per procedimenti di sfratto per morosita o finita locazione, distinguendo convalida, sanatoria, termine di grazia e opposizione. Serve per una prima valutazione dei costi professionali.',
@@ -355,7 +355,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'contributo-unificato' => [
-            'title' => 'Calcolo contributo unificato',
+            'title' => 'Calcolo contributo unificato 2026 (gratuito)',
             'keyword' => 'calcolo contributo unificato',
             'service' => 'Costi giudiziari',
             'intro' => 'Lo strumento calcola il contributo unificato civile in base a valore, tipo di procedimento e competenza. E utile per stimare le spese vive iniziali di una causa, un decreto ingiuntivo, un appello o un\'esecuzione.',
@@ -366,7 +366,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'scadenze' => [
-            'title' => 'Calcolo scadenze processuali',
+            'title' => 'Calcolo scadenze processuali 2026 – sospensione feriale (gratuito)',
             'keyword' => 'calcolo scadenze processuali',
             'service' => 'Processo civile',
             'intro' => 'Il calcolatore aiuta a stimare termini processuali, giorni liberi, sospensione feriale e scadenze rilevanti. E uno strumento operativo utile, ma ogni termine va verificato sugli atti e sulla normativa applicabile.',
@@ -388,7 +388,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'pignoramento-stipendio-pensione' => [
-            'title' => 'Calcolo pignoramento stipendio e pensione',
+            'title' => 'Calcolo pignoramento stipendio e pensione 2026 (gratuito)',
             'keyword' => 'calcolo pignoramento stipendio pensione quinto pignorabile',
             'service' => 'Esecuzioni e recupero crediti',
             'intro' => 'Lo strumento stima la quota mensile pignorabile su stipendio o pensione distinguendo crediti ordinari, riscossione esattoriale e crediti alimentari. Per le pensioni considera la soglia impignorabile prevista dall\'art. 545 c.p.c., pari al doppio dell\'assegno sociale con minimo di mille euro.',
@@ -399,7 +399,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'prescrizione-crediti' => [
-            'title' => 'Calcolo prescrizione crediti',
+            'title' => 'Calcolo prescrizione crediti 2026 (gratuito)',
             'keyword' => 'calcolo prescrizione crediti',
             'service' => 'Recupero crediti e contestazioni',
             'intro' => 'Il calcolatore stima la data di prescrizione di alcune categorie ricorrenti di credito, distinguendo termine ordinario decennale, prescrizioni quinquennali, triennali e biennali. Consente di indicare un eventuale ultimo atto interruttivo e di verificare se il termine risulta ancora pendente o gia decorso.',
@@ -421,7 +421,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'aqp' => [
-            'title' => 'Calcolo e verifica bolletta AQP',
+            'title' => 'Calcolo e verifica bolletta AQP 2026 (gratuito)',
             'keyword' => 'contestazione bolletta AQP',
             'service' => 'Utenze e consumatori',
             'intro' => 'Lo strumento aiuta a verificare importi anomali in bolletta AQP, consumi, perdite occulte e possibili profili di reclamo. Serve per preparare una prima contestazione documentata prima dell\'eventuale assistenza legale.',
@@ -432,7 +432,7 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'timeline-marchio' => [
-            'title' => 'Calcolo tempi deposito marchio',
+            'title' => 'Calcolo tempi deposito marchio UIBM ed EUIPO 2026 (gratuito)',
             'keyword' => 'tempi registrazione marchio',
             'service' => 'Marchi e proprieta intellettuale',
             'intro' => 'Il calcolatore ricostruisce una timeline indicativa per deposito, pubblicazione, opposizione e registrazione di un marchio UIBM o EUIPO. Aiuta imprese e professionisti a programmare il lancio del segno distintivo.',
