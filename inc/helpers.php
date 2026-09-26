@@ -125,9 +125,9 @@ function lanotte_brand($variante = 'normal') {
 
     // 3. File brand nel tema — PNG ufficiale per variante, con fallback SVG
     $variants = [
-        'normal'  => ['logo.png',         'logo-fallback.svg',      '4:1', 280, 70],
+        'normal'  => ['logo.png',         'logo-fallback.svg',      '3:1', 300, 100],
         'dark'    => ['logo-dark.png',    'logo-dark-fallback.svg', '4:1', 280, 70],
-        'compact' => ['logo-compact.png', 'logo-fallback.svg',      '1:1', 80,  80],
+        'compact' => ['logo-compact.png', 'logo-fallback.svg',      '3:1', 120, 40],
     ];
     $cfg = $variants[$variante] ?? $variants['normal'];
     $candidates = [
