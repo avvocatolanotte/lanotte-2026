@@ -89,3 +89,53 @@ function lanotte_keep_ver_static($src) {
     // Mantiene ?ver per gli asset del tema (cache-busting su update) ma è no-op altrove.
     return $src;
 }
+
+/* 4. Contact Form 7 e reCAPTCHA solo dove c'è il modulo (26/09/2026)
+   Misurato: gli script di Contact Form 7 e di Google reCAPTCHA (api.js più il modulo
+   di CF7) si caricavano su tutte le pagine, mentre l'unico modulo è in /contatti/.
+   Su ogni altra pagina erano peso inutile e una chiamata a Google non necessaria;
+   il badge reCAPTCHA, in più, finiva sotto il tasto WhatsApp della barra mobile. */
+add_action('wp_enqueue_scripts', 'lanotte_cf7_solo_contatti', 100);
+add_action('wp_print_footer_scripts', 'lanotte_cf7_solo_contatti', 1);
+function lanotte_cf7_solo_contatti() {
+    if (is_page('contatti')) return;
+    foreach (['google-recaptcha', 'wpcf7-recaptcha', 'contact-form-7', 'googlesitekit-events-provider-contact-form-7'] as $h) {
+        wp_dequeue_script($h);
+    }
+    wp_dequeue_style('contact-form-7');
+}
+
+/* 5. Immagini incorporate in base64 -> file veri (26/09/2026)
+   Misurato: /palazzo-de-noia-terlizzi-in-vendita/ pesava 5,07 MB, di cui il 97% in
+   19 immagini incorporate nel testo come data:image;base64. Il browser le riscarica a
+   ogni visita (non si possono mettere in cache) e la pagina non si apre su rete lenta.
+   Qui, alla prima visualizzazione, ogni immagine incorporata oltre i 20 KB viene
+   salvata una volta in wp-content/uploads/lanotte-inline/ (nome = impronta SHA-1 del
+   contenuto) e servita da lì. Il contenuto nel database NON viene toccato: togliendo
+   questo filtro la pagina torna esattamente com'era. Se un file non si può scrivere,
+   quell'immagine resta incorporata: la pagina non si rompe mai. */
+add_filter('the_content', 'lanotte_estrai_immagini_incorporate', 20);
+function lanotte_estrai_immagini_incorporate($content) {
+    if (strpos($content, 'data:image/') === false) return $content;
+    $up = wp_upload_dir();
+    if (!empty($up['error'])) return $content;
+    $dir = trailingslashit($up['basedir']) . 'lanotte-inline';
+    $url = trailingslashit($up['baseurl']) . 'lanotte-inline';
+    if (!is_dir($dir) && !wp_mkdir_p($dir)) return $content;
+    $ext = ['png' => 'png', 'jpeg' => 'jpg', 'jpg' => 'jpg', 'gif' => 'gif', 'webp' => 'webp'];
+    return preg_replace_callback(
+        '#data:image/(png|jpe?g|gif|webp);base64,([A-Za-z0-9+/=\s]{20000,})#',
+        function ($m) use ($dir, $url, $ext) {
+            $bin = base64_decode(preg_replace('/\s+/', '', $m[2]), true);
+            if ($bin === false || @getimagesizefromstring($bin) === false) return $m[0];
+            $name = sha1($bin) . '.' . $ext[strtolower($m[1])];
+            $path = $dir . '/' . $name;
+            if (!file_exists($path) && @file_put_contents($path, $bin, LOCK_EX) !== strlen($bin)) {
+                @unlink($path);
+                return $m[0];
+            }
+            return esc_url($url . '/' . $name);
+        },
+        $content
+    );
+}

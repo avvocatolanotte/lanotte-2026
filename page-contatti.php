@@ -127,7 +127,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
       }
       if ($cf7 && shortcode_exists('contact-form-7')) {
           echo do_shortcode($cf7);
-          echo '<p class="contact-privacy-note">Inviando il modulo chiedi allo Studio di ricontattarti per la tua richiesta. I dati sono trattati secondo l\'<a href="' . esc_url(home_url('/privacy/')) . '" target="_blank" rel="noopener">informativa privacy</a> e non vengono usati per comunicazioni promozionali senza consenso.</p>';
+          echo '<p class="contact-privacy-note">Inviando il modulo chiedi allo Studio di ricontattarti per la tua richiesta. I dati sono trattati secondo l\'<a href="' . esc_url(home_url('/privacy/')) . '" target="_blank" rel="noopener">informativa privacy</a> e non vengono usati per comunicazioni promozionali senza consenso. Il modulo è protetto da reCAPTCHA: si applicano le <a href="https://policies.google.com/privacy?hl=it" target="_blank" rel="noopener">Norme sulla privacy</a> e i <a href="https://policies.google.com/terms?hl=it" target="_blank" rel="noopener">Termini di servizio</a> di Google.</p>';
       } else {
           // Mostriamo SEMPRE il form HTML pulito (non the_content() che potrebbe
           // contenere blocchi duplicati ereditati dal seed/import precedente)

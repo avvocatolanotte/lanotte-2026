@@ -559,3 +559,19 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
   .hero-internal .hero-cta{order:3;margin-top:4px}
   .hero-internal .subtitle{order:4;margin-top:18px}
 }
+
+/* === ACCESSIBILITÀ E BARRA MOBILE (26/09/2026) ===
+   - .screen-reader-text e .skip-link: testo per i lettori di schermo e salto diretto
+     al contenuto da tastiera (prima non c'erano, né c'era un <main>).
+   - Misurato a 375x812: il pulsante tondo di CookieYes (revoca del consenso, 45x45 px)
+     stava sopra il tasto «Chiama ora» della barra in basso. Lo si alza sopra la barra,
+     come già il selettore di lingua. Non si nasconde: serve a revocare il consenso.
+   - Il badge reCAPTCHA è nascosto; l'avviso richiesto da Google è nella nota sotto il
+     modulo di /contatti/, l'unica pagina che ora carica reCAPTCHA. */
+.screen-reader-text{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link:focus{position:fixed!important;top:10px;left:10px;width:auto;height:auto;margin:0;padding:12px 18px;clip:auto;white-space:normal;z-index:100000;background:var(--navy);color:#fff;border-radius:6px;font-weight:600;text-decoration:none}
+#contenuto:focus{outline:none}
+.grecaptcha-badge{visibility:hidden!important}
+@media (max-width:700px){
+  .cky-btn-revisit-wrapper{bottom:92px!important}
+}

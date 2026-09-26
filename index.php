@@ -10,7 +10,7 @@ get_header();
 <section class="hero-internal">
   <div class="container">
     <?php lanotte_breadcrumbs(); ?>
-    <h1><?php echo esc_html(wp_get_document_title()); ?></h1>
+    <h1><?php echo is_search() ? esc_html(sprintf('Risultati per «%s»', get_search_query(false))) : esc_html(wp_get_document_title()); ?></h1>
   </div>
 </section>
 

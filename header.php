@@ -109,6 +109,7 @@ html,body{overflow-x:clip}
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+<a class="skip-link screen-reader-text" href="#contenuto">Salta al contenuto</a>
 
 <!-- TOPBAR -->
 <div class="topbar">
@@ -385,3 +386,5 @@ html,body{overflow-x:clip}
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
 })();
 </script>
+
+<main id="contenuto" tabindex="-1">
