@@ -170,6 +170,7 @@ add_filter('the_content', function($content) {
 function lanotte_seo_current_key() {
     if (is_front_page()) return '_home';
     if (is_post_type_archive('caso')) return 'casi-studio';
+    if (is_post_type_archive('area')) return 'aree';
     $obj = get_queried_object();
     if ($obj instanceof WP_Post && !empty($obj->post_name)) return $obj->post_name;
     if ($obj instanceof WP_Term && $obj->taxonomy === 'category') return 'cat:' . $obj->slug;
@@ -265,6 +266,12 @@ function lanotte_seo_map_articoli() {
         'cat:responsabilita-medica' => ['t' => 'Responsabilità medica | LANOTTE & Partners', 'd' => 'Responsabilità medica e sanitaria: onere della prova, danno da errore medico e responsabilità della struttura sanitaria.'],
         'cat:risarcimento-danni' => ['t' => 'Risarcimento danni | LANOTTE & Partners', 'd' => 'Risarcimento del danno biologico, morale e patrimoniale: criteri di calcolo, Tabelle di Milano e Tabella Unica Nazionale.'],
         'cat:uncategorized' => ['t' => 'Approfondimenti giuridici | LANOTTE & Partners', 'd' => 'Approfondimenti giuridici dello Studio Legale LANOTTE su temi diversi, non ricondotti a una singola area.'],
+        // === ARCHIVI E PAGINE senza descrizione (26/09/2026) ===
+        'aree' => ['d' => 'Le aree di competenza dello Studio Legale LANOTTE di Barletta: civile e penale, famiglia e successioni, lavoro, condominio, impresa, marchi.'],
+        'notizie' => ['d' => 'Notizie giuridiche e sentenze commentate dallo Studio Legale LANOTTE di Barletta: civile, penale, famiglia, lavoro, condominio, successioni.'],
+        'valutazione-iniziale-sinistro' => ['t' => 'Valutazione iniziale del sinistro | LANOTTE & Partners'],
+        'deposito-richiesta-di-registrazione-marchio-internazionale' => ['t' => 'Marchio internazionale: deposito con il sistema di Madrid'],
+        'come-evitare-che-le-delibere-condominiali-su-ripartizione-spese-siano-nulle-per-legge' => ['t' => 'Delibere condominiali sulle spese: quando sono nulle'],
         // === ARTICOLI ===
         'riconoscimento-della-retribuzione-professionale-docenti-rpd-in-favore-degli-insegnanti-precari-assunti-con-contratti-di-lavoro-a-tempo-determinato-brevi-e-saltuari' => ['t' => 'Retribuzione professionale docenti (RPD) ai precari a termine'],
         'false-partite-iva-presunzione-lavoro-subordinato' => ['t' => 'False partite IVA e presunzione di lavoro subordinato'],

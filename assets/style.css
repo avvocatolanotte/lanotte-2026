@@ -553,7 +553,10 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
    .hero-cta sopra il sottotitolo. Il desktop resta invariato. */
 @media (max-width:600px){
   .hero-internal{padding:40px 0 36px}
-  .hero-internal .container{display:flex;flex-direction:column}
+  /* 26/09/2026: solo dove ci sono davvero i pulsanti (.hero-cta). Applicato a tutti i
+     riquadri, spostava sopra il titolo etichette e pulsanti di 5 modelli su 16 (404,
+     carriere, penale d'urgenza, casi studio). Senza :has() si torna all'ordine naturale. */
+  .hero-internal .container:has(> .hero-cta){display:flex;flex-direction:column}
   .hero-internal .breadcrumbs{order:1}
   .hero-internal h1{order:2;margin-bottom:14px}
   .hero-internal .hero-cta{order:3;margin-top:4px}
