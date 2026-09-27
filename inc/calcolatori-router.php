@@ -527,7 +527,7 @@ add_action('init', function() {
         }
 
         if ($post_id && !is_wp_error($post_id)) {
-            update_post_meta($post_id, '_aioseo_title', $data['title'] . ' | Studio Legale Lanotte');
+            update_post_meta($post_id, '_aioseo_title', $data['title'] . ' | Studio Legale LANOTTE');
             update_post_meta($post_id, '_aioseo_description', wp_trim_words($data['intro'], 28, '...'));
         }
     }

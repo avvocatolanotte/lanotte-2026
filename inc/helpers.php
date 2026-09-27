@@ -38,8 +38,20 @@ function lanotte_phone($raw = false) {
  * WhatsApp link
  */
 function lanotte_whatsapp_url() {
-    // Numero WhatsApp ufficiale dello Studio: non usare il fisso come fallback.
-    return 'https://wa.me/393929703202';
+    // Decisione dell'Avvocato del 27/09/2026: tutti i WhatsApp vanno al FISSO
+    // 0883 1955533, che è il WhatsApp Business dello Studio ed è quello sorvegliato
+    // dal presidio automatico (avviso di cortesia e archiviazione nei fascicoli).
+    // Il cellulare 392 970 3202 resta solo per le CHIAMATE urgenti (pagina Penale
+    // d'urgenza H24). Dal 20/09 il cellulare era scritto qui in modo fisso e i
+    // clienti dal sito scavalcavano il presidio. Ora il numero si cambia dal pannello
+    // «Personalizza Studio» (campo Numero WhatsApp), senza push.
+    $raw = trim((string) lanotte_acf_option('studio_whatsapp', '+39 0883 1955533'));
+    $internazionale = (strpos($raw, '+') === 0 || strpos($raw, '00') === 0);
+    $cifre = preg_replace('/\D/', '', $raw);
+    if (strpos($cifre, '00') === 0) $cifre = substr($cifre, 2);
+    if (!$internazionale) $cifre = '39' . $cifre;
+    if (strlen($cifre) < 11) $cifre = '3908831955533';
+    return 'https://wa.me/' . $cifre;
 }
 
 /**

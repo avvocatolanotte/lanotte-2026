@@ -60,7 +60,8 @@ $phone_urgenza     = '+39 392 970 3202';
     </div>
     <div class="urgenza-cta-col">
       <a href="tel:<?php echo esc_attr($phone_urgenza_raw); ?>" class="urgenza-cta urgenza-cta-call">📞 Reperibilità urgenze 24/7</a>
-      <a href="https://wa.me/<?php echo esc_attr(ltrim($phone_urgenza_raw, '+')); ?>?text=URGENZA%20PENALE%20-%20ho%20bisogno%20di%20assistenza%20immediata" class="urgenza-cta urgenza-cta-wa">💬 WhatsApp urgenze</a>
+      <?php /* 27/09/2026: il cellulare resta per le CHIAMATE urgenti; il WhatsApp va al fisso (WhatsApp Business dello Studio). */ ?>
+      <a href="<?php echo esc_url($wa_url . '?text=URGENZA%20PENALE%20-%20ho%20bisogno%20di%20assistenza%20immediata'); ?>" class="urgenza-cta urgenza-cta-wa">💬 WhatsApp urgenze</a>
     </div>
   </div>
 </section>

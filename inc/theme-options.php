@@ -30,7 +30,7 @@ function lanotte_options_schema() {
         'studio_pec'         => ['label' => 'PEC',                     'type' => 'email',    'default' => 'studiolegalelanotte@legalmail.it', 'group' => 'contatti'],
         'studio_indirizzo'   => ['label' => 'Indirizzo studio',        'type' => 'textarea', 'default' => 'Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)', 'group' => 'contatti', 'rows' => 2],
         'studio_orari'       => ['label' => 'Orari ricevimento',       'type' => 'text',     'default' => 'Lun · Mer · Ven 9-13 / 16-21', 'group' => 'contatti'],
-        'studio_whatsapp'    => ['label' => 'Numero WhatsApp',         'type' => 'text',     'default' => '+39 392 970 3202', 'group' => 'contatti', 'hint' => 'Senza spazi: es. +393929703202. Lascia vuoto per usare il telefono studio'],
+        'studio_whatsapp'    => ['label' => 'Numero WhatsApp',         'type' => 'text',     'default' => '+39 0883 1955533', 'group' => 'contatti', 'hint' => 'WhatsApp Business dello Studio (fisso, sorvegliato dal presidio). Es.: +39 0883 1955533. Lascia vuoto per usare il telefono studio'],
         'studio_url_riservata' => ['label' => 'URL Area Riservata',    'type' => 'url',      'default' => 'https://lanotte.netlex.cloud', 'group' => 'contatti', 'hint' => 'Link in topbar (Netlex Cloud o altro)'],
 
         // === SOCIAL ===
