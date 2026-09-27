@@ -77,6 +77,7 @@ if (!defined('ABSPATH')) exit;
         <?php else: ?>
         <ul>
           <li><a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>"><?php echo esc_html(lanotte_phone()); ?></a></li>
+          <li><a href="tel:<?php echo esc_attr(lanotte_cellulare(true)); ?>">Cell. <?php echo esc_html(lanotte_cellulare()); ?></a></li>
           <li><a href="mailto:<?php echo esc_attr(lanotte_email()); ?>"><?php echo esc_html(lanotte_email()); ?></a></li>
           <li><a href="mailto:<?php echo esc_attr(lanotte_pec()); ?>">PEC studio</a></li>
           <li><span style="color:#94a3b8"><?php echo esc_html(lanotte_orari()); ?></span></li>

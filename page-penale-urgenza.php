@@ -12,9 +12,9 @@ $phone_studio_raw = lanotte_phone(true);
 $phone_studio     = lanotte_phone();
 $email_studio     = lanotte_email();
 $wa_url           = lanotte_whatsapp_url();
-// Numero cellulare urgenze 24/7 (cellulare dedicato Avv. Lanotte)
-$phone_urgenza_raw = '+393929703202';
-$phone_urgenza     = '+39 392 970 3202';
+// Numero cellulare urgenze 24/7 (cellulare dell'Avv. LANOTTE, solo chiamate: lanotte_cellulare())
+$phone_urgenza_raw = lanotte_cellulare(true);
+$phone_urgenza     = lanotte_cellulare();
 ?>
 
 <!-- Schema.org EmergencyService -->

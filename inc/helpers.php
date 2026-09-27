@@ -35,6 +35,18 @@ function lanotte_phone($raw = false) {
 }
 
 /**
+ * Cellulare dell'Avvocato — SOLO CHIAMATE (27/09/2026).
+ * Regola dell'Avvocato: si può chiamare sia il fisso sia il suo cellulare 392 970 3202;
+ * i messaggi WhatsApp vanno solo al fisso (lanotte_whatsapp_url). Mai altri cellulari
+ * (il 328 della segreteria non si pubblica).
+ */
+function lanotte_cellulare($raw = false) {
+    $cell = lanotte_acf_option('studio_cellulare', '+39 392 970 3202');
+    if ($raw) return preg_replace('/[^\d+]/', '', $cell);
+    return $cell;
+}
+
+/**
  * WhatsApp link
  */
 function lanotte_whatsapp_url() {

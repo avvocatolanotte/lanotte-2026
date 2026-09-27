@@ -93,7 +93,8 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
         <div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.7 2.8a2 2 0 01-.5 1.953l-1.27 1.27a16 16 0 006.586 6.586l1.27-1.27a2 2 0 011.953-.502l2.8.7A2 2 0 0121 18.72V21a2 2 0 01-2 2C9.611 23 1 14.389 1 5z"/></svg></div>
         <div class="contact-text">
           <strong>Telefono</strong>
-          <p><a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>"><?php echo esc_html(lanotte_phone()); ?></a></p>
+          <p><a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>"><?php echo esc_html(lanotte_phone()); ?></a> <span style="color:#94a3b8;font-size:13px">Studio</span></p>
+          <p><a href="tel:<?php echo esc_attr(lanotte_cellulare(true)); ?>"><?php echo esc_html(lanotte_cellulare()); ?></a> <span style="color:#94a3b8;font-size:13px">cellulare Avv. LANOTTE</span></p>
           <small><?php echo esc_html(lanotte_orari()); ?></small>
         </div>
       </div>
@@ -103,7 +104,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
         <div class="contact-text">
           <strong>WhatsApp</strong>
           <p><a href="<?php echo esc_url(lanotte_whatsapp_url()); ?>" target="_blank" rel="noopener">Scrivici subito</a></p>
-          <small>Il modo più rapido per urgenze</small>
+          <small>Messaggi e documenti · per le urgenze, telefoni</small>
         </div>
       </div>
 
