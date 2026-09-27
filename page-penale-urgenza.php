@@ -60,8 +60,10 @@ $phone_urgenza     = '+39 392 970 3202';
     </div>
     <div class="urgenza-cta-col">
       <a href="tel:<?php echo esc_attr($phone_urgenza_raw); ?>" class="urgenza-cta urgenza-cta-call">📞 Reperibilità urgenze 24/7</a>
-      <?php /* 27/09/2026: il cellulare resta per le CHIAMATE urgenti; il WhatsApp va al fisso (WhatsApp Business dello Studio). */ ?>
-      <a href="<?php echo esc_url($wa_url . '?text=URGENZA%20PENALE%20-%20ho%20bisogno%20di%20assistenza%20immediata'); ?>" class="urgenza-cta urgenza-cta-wa">💬 WhatsApp urgenze</a>
+      <?php /* 27/09/2026 — regola dell'Avvocato: il cellulare solo per le CHIAMATE urgenti, ogni WhatsApp al fisso.
+         Il WhatsApp del fisso è letto dal presidio ogni 6 ore (la corsa delle 02 è muta): non è un canale
+         d'urgenza e non va presentato come tale. L'urgenza passa dalla chiamata qui sopra. */ ?>
+      <a href="<?php echo esc_url($wa_url . '?text=Buongiorno%2C%20scrivo%20dalla%20pagina%20Penale%20d%27urgenza'); ?>" class="urgenza-cta urgenza-cta-wa">💬 WhatsApp dello Studio</a>
     </div>
   </div>
 </section>
@@ -157,7 +159,7 @@ $phone_urgenza     = '+39 392 970 3202';
     <p>Non aspettare di "vedere come si mette". Le scelte processuali fatte nelle prime ore — silenzio, nomina difensore, modalità di interrogatorio — determinano spesso l'esito finale del procedimento.</p>
     <div class="urgenza-cta-strip-row">
       <a href="tel:<?php echo esc_attr($phone_studio_raw); ?>" class="btn btn-gold">📞 Chiama <?php echo esc_html($phone_studio); ?></a>
-      <a href="<?php echo esc_url($wa_url); ?>?text=URGENZA%20PENALE" class="btn btn-ghost">💬 WhatsApp</a>
+      <a href="<?php echo esc_url($wa_url); ?>?text=Buongiorno%2C%20scrivo%20dalla%20pagina%20Penale%20d%27urgenza" class="btn btn-ghost">💬 WhatsApp dello Studio</a>
     </div>
     <p class="urgenza-cta-strip-note">Reperibilità anche fuori orario di studio · Risposta tempestiva per casi d'urgenza</p>
   </div>
@@ -223,7 +225,7 @@ $phone_urgenza     = '+39 392 970 3202';
       </div>
       <div class="faq-item">
         <div class="faq-q">Se non rispondete subito al telefono?</div>
-        <div class="faq-a">Il numero <strong><?php echo esc_html($phone_urgenza); ?></strong> è il cellulare dedicato alle urgenze penali e attivo H24. Se la chiamata non viene presa, invia un <strong>WhatsApp con la parola "URGENZA"</strong> allo stesso numero: <a href="https://wa.me/<?php echo esc_attr(ltrim($phone_urgenza_raw, '+')); ?>" style="color:var(--gold)"><?php echo esc_html($phone_urgenza); ?></a>. Sarai ricontattato il prima possibile.</div>
+        <div class="faq-a">Il numero <strong><?php echo esc_html($phone_urgenza); ?></strong> è il cellulare dedicato alle urgenze penali e attivo H24. Se la chiamata non viene presa, <strong>richiama dopo qualche minuto</strong>: sarai ricontattato il prima possibile. Il WhatsApp dello Studio, <a href="<?php echo esc_url($wa_url); ?>" style="color:var(--gold)"><?php echo esc_html(lanotte_phone()); ?></a>, è per le comunicazioni che non hanno carattere d'urgenza.</div>
       </div>
     </div>
   </div>
