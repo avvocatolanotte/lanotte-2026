@@ -328,6 +328,7 @@ function lanotte_seo_map_articoli() {
         'la-procedura-di-composizione-della-crisi-da-sovraindebitamento' => ['t' => 'Crisi da sovraindebitamento: la procedura di composizione'],
         'quota-legittima-lesa-erede-escluso-rimedi-termini' => ['t' => 'Quota di legittima lesa: rimedi e termini | LANOTTE & Partners'],
         'condomino-moroso-vita-difficile-sospensione-utenze-comuni' => ['t' => 'Condomino moroso e sospensione dei servizi comuni'],
+        'modifica-collocamento-figli-conflitto-genitoriale-ctu' => ['t' => 'Collocamento dei figli: quando può cambiare | LANOTTE & Partners', 'd' => 'Affidamento condiviso confermato e collocamento dei figli modificato: condotte concrete, CTU, art. 337-ter c.c. e tutela della bigenitorialità.'],
     ];
 }
 

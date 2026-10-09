@@ -825,3 +825,69 @@ add_action('init', function() {
     }
 }, 43);
 
+add_action('init', function() {
+    if (get_option('lanotte_article_modifica_collocamento_figli_20261009') === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $slug = 'modifica-collocamento-figli-conflitto-genitoriale-ctu';
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/modifica-collocamento-figli-conflitto-genitoriale-ctu.html';
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $published = current_time('mysql');
+    $post_data = [
+        'post_title'    => 'Quando il collocamento dei figli può cambiare: conflitto genitoriale, CTU e bigenitorialità',
+        'post_name'     => $slug,
+        'post_excerpt'  => 'Affidamento condiviso confermato e collocamento prevalente modificato: un caso seguito dallo Studio su condotte concrete, CTU, bigenitorialità e mantenimento.',
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => 'publish',
+        'post_type'     => 'post',
+        'post_date'     => $published,
+        'post_date_gmt' => get_gmt_from_date($published),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category_id = lanotte_editorial_get_or_create_category('diritto-di-famiglia', 'Diritto di famiglia');
+    if (!$category_id) return;
+
+    $assigned = wp_set_post_categories($post_id, [$category_id], false);
+    if (is_wp_error($assigned) || empty($assigned)) return;
+
+    // wp_set_post_categories() restituisce term_taxonomy_id, non term_id.
+    $category = get_term($category_id, 'category');
+    if (!$category instanceof WP_Term) return;
+    if (!in_array((int) $category->term_taxonomy_id, array_map('intval', (array) $assigned), true)) return;
+
+    update_option('lanotte_article_modifica_collocamento_figli_20261009', 'done', false);
+}, 49);
+
+add_action('init', function() {
+    if (get_option('lanotte_article_modifica_collocamento_figli_featured_20261009') === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path('modifica-collocamento-figli-conflitto-genitoriale-ctu', OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    $updated = lanotte_editorial_import_image(
+        (int) $post->ID,
+        'modifica-collocamento-figli-conflitto-genitoriale-ctu.jpg',
+        'Modifica del collocamento dei figli e bigenitorialità',
+        'Modifica del collocamento dei figli e tutela della bigenitorialità',
+        'lanotte-modifica-collocamento-figli-conflitto-genitoriale-ctu-2026'
+    );
+
+    if ($updated) {
+        update_option('lanotte_article_modifica_collocamento_figli_featured_20261009', 'done', false);
+    }
+}, 50);
+
