@@ -329,6 +329,8 @@ function lanotte_seo_map_articoli() {
         'quota-legittima-lesa-erede-escluso-rimedi-termini' => ['t' => 'Quota di legittima lesa: rimedi e termini | LANOTTE & Partners'],
         'condomino-moroso-vita-difficile-sospensione-utenze-comuni' => ['t' => 'Condomino moroso e sospensione dei servizi comuni'],
         'modifica-collocamento-figli-conflitto-genitoriale-ctu' => ['t' => 'Collocamento dei figli: quando può cambiare | LANOTTE & Partners', 'd' => 'Affidamento condiviso confermato e collocamento dei figli modificato: condotte concrete, CTU, art. 337-ter c.c. e tutela della bigenitorialità.'],
+        'impugnare-testamento-motivi-termini' => ['t' => 'Impugnare un testamento: motivi e termini | LANOTTE & Partners', 'd' => 'Quando contestare un testamento per forma, incapacità o inganno. Quali termini si applicano e come tutelare la quota di legittima.'],
+        'assegno-divorzile-criteri-revisione-convivenza' => ['t' => 'Assegno divorzile: criteri e revisione | LANOTTE & Partners', 'd' => 'Criteri dell’assegno divorzile, importo e revisione: cosa conta per il giudice e quali effetti hanno nuove nozze e convivenza stabile.'],
     ];
 }
 

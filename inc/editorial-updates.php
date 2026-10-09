@@ -891,3 +891,114 @@ add_action('init', function() {
     }
 }, 50);
 
+
+/**
+ * Registra un articolo editoriale del tema (una sola volta).
+ * $status 'future' con $date futura programma l'uscita; con data passata WordPress pubblica subito.
+ */
+function lanotte_editorial_register_article($option, $slug, $title, $excerpt, $content_file, $category_slug, $category_name, $status = 'publish', $date = '') {
+    if (get_option($option) === 'done') return;
+    if (!function_exists('wp_insert_post')) return;
+
+    $content_file = LANOTTE_THEME_DIR . '/content/editorials/' . $content_file;
+    if (!is_readable($content_file)) return;
+
+    $existing = get_page_by_path($slug, OBJECT, 'post');
+    $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    $when = $date !== '' ? $date : current_time('mysql');
+    $post_data = [
+        'post_title'    => $title,
+        'post_name'     => $slug,
+        'post_excerpt'  => $excerpt,
+        'post_content'  => file_get_contents($content_file),
+        'post_status'   => $status,
+        'post_type'     => 'post',
+        'post_author'   => 1,
+        'post_date'     => $when,
+        'post_date_gmt' => get_gmt_from_date($when),
+    ];
+
+    if ($post_id) {
+        $post_data['ID'] = $post_id;
+        $result = wp_update_post($post_data, true);
+    } else {
+        $result = wp_insert_post($post_data, true);
+    }
+
+    if (is_wp_error($result) || !$result) return;
+
+    $post_id = (int) $result;
+    $category_id = lanotte_editorial_get_or_create_category($category_slug, $category_name);
+    if (!$category_id) return;
+
+    $assigned = wp_set_post_categories($post_id, [$category_id], false);
+    if (is_wp_error($assigned) || empty($assigned)) return;
+
+    // wp_set_post_categories() restituisce term_taxonomy_id, non term_id.
+    $category = get_term($category_id, 'category');
+    if (!$category instanceof WP_Term) return;
+    if (!in_array((int) $category->term_taxonomy_id, array_map('intval', (array) $assigned), true)) return;
+
+    update_option($option, 'done', false);
+}
+
+function lanotte_editorial_register_featured($option, $slug, $asset, $title, $alt, $source_key) {
+    if (get_option($option) === 'done') return;
+    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+
+    $post = get_page_by_path($slug, OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+
+    if (lanotte_editorial_import_image((int) $post->ID, $asset, $title, $alt, $source_key)) {
+        update_option($option, 'done', false);
+    }
+}
+
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_impugnare_testamento_20261009',
+        'impugnare-testamento-motivi-termini',
+        'Quando si può impugnare un testamento e con quali termini?',
+        'Quando contestare un testamento per forma, incapacità o inganno. Quali termini si applicano e come tutelare la quota di legittima.',
+        'impugnare-testamento-motivi-termini.html',
+        'successioni',
+        'Successioni'
+    );
+}, 51);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_impugnare_testamento_featured_20261009',
+        'impugnare-testamento-motivi-termini',
+        'impugnare-testamento-motivi-termini.jpg',
+        'Impugnare un testamento: motivi e termini',
+        'Schema in tre punti: difetti di forma, vizi della volontà e lesione della legittima con i relativi termini',
+        'lanotte-impugnare-testamento-motivi-termini-2026'
+    );
+}, 52);
+
+// Uscita programmata: venerdì 23 ottobre 2026 alle 9:00.
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_assegno_divorzile_20261009',
+        'assegno-divorzile-criteri-revisione-convivenza',
+        'Assegno divorzile: come si stabilisce e quando cambia?',
+        'Criteri dell’assegno divorzile, importo e revisione: cosa conta per il giudice e quali effetti hanno nuove nozze e convivenza stabile.',
+        'assegno-divorzile-criteri-revisione-convivenza.html',
+        'diritto-di-famiglia',
+        'Diritto di famiglia',
+        'future',
+        '2026-10-23 09:00:00'
+    );
+}, 53);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_assegno_divorzile_featured_20261009',
+        'assegno-divorzile-criteri-revisione-convivenza',
+        'assegno-divorzile-criteri-revisione-convivenza.jpg',
+        'Assegno divorzile: criteri, revisione e convivenza',
+        'Schema in tre punti: criteri dell’assegno divorzile, revisione per giustificati motivi e effetti della nuova convivenza',
+        'lanotte-assegno-divorzile-criteri-revisione-convivenza-2026'
+    );
+}, 54);
