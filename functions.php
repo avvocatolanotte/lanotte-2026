@@ -136,6 +136,7 @@ require_once LANOTTE_THEME_DIR . '/inc/calcolatori-router.php';
 require_once LANOTTE_THEME_DIR . '/inc/blog-cleanup.php';
 require_once LANOTTE_THEME_DIR . '/inc/editorial-updates.php';
 require_once LANOTTE_THEME_DIR . '/inc/woocommerce-tweaks.php';
+require_once LANOTTE_THEME_DIR . '/inc/contatti-prefill.php';
 
 /* ========================================================================
    WIDGET AREAS

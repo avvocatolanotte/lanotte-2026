@@ -333,6 +333,9 @@ function lanotte_seo_map_articoli() {
         'assegno-divorzile-criteri-revisione-convivenza' => ['t' => 'Assegno divorzile: criteri e revisione | LANOTTE & Partners', 'd' => 'Criteri dell’assegno divorzile, importo e revisione: cosa conta per il giudice e quali effetti hanno nuove nozze e convivenza stabile.'],
         'come-verificare-marchio-gia-registrato' => ['t' => 'Marchio già registrato: come verificare | LANOTTE & Partners', 'd' => 'Come cercare un marchio nelle banche dati UIBM, EUIPO, TMview e WIPO. Differenze tra segni identici e simili e limiti della ricerca.'],
         'quanto-costa-registrare-marchio' => ['t' => 'Quanto costa registrare un marchio? | LANOTTE & Partners', 'd' => 'Tasse per registrare un marchio in Italia, nell’UE e all’estero: classi, rinnovi, onorario professionale e possibili costi successivi.'],
+        'opposizione-marchio-termini-costi' => ['t' => 'Opposizione marchio: termini e costi | LANOTTE & Partners', 'd' => 'Opposizione UIBM ed EUIPO: termini, costi, conciliazione e difese per chi contesta una domanda di marchio o riceve un’opposizione.'],
+        'nullita-decadenza-marchio-uibm' => ['t' => 'Nullità e decadenza marchio UIBM | LANOTTE & Partners', 'd' => 'Nullità e decadenza del marchio davanti all’UIBM: chi può agire, costi, non uso, conciliazione, difese e ricorso alla Commissione.'],
+        'marchio-copiato-cosa-fare' => ['t' => 'Marchio copiato: cosa fare | LANOTTE & Partners', 'd' => 'Marchio copiato o diffida ricevuta: raccolta delle prove, misure urgenti e causa. Come valutare i diritti e la competenza del Tribunale di Bari.'],
     ];
 }
 

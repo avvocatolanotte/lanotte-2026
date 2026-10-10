@@ -1052,3 +1052,72 @@ add_action('init', function() {
         'lanotte-quanto-costa-registrare-marchio-2026'
     );
 }, 58);
+
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_opposizione_marchio_termini_costi_20261010',
+        'opposizione-marchio-termini-costi',
+        'Opposizione a un marchio: termini, costi e difese',
+        'Opposizione UIBM ed EUIPO: termini, costi, conciliazione e difese per chi contesta una domanda di marchio o riceve un’opposizione.',
+        'opposizione-marchio-termini-costi.html',
+        'proprieta-intellettuale',
+        'Proprietà intellettuale'
+    );
+}, 59);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_opposizione_marchio_termini_costi_featured_20261010',
+        'opposizione-marchio-termini-costi',
+        'opposizione-marchio-termini-costi.jpg',
+        'Opposizione a un marchio: termini, costi e difese',
+        'Schema in tre punti: opposizione a un marchio: termini, costi e difese',
+        'lanotte-opposizione-marchio-termini-costi-2026'
+    );
+}, 60);
+
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_nullita_decadenza_marchio_uibm_20261010',
+        'nullita-decadenza-marchio-uibm',
+        'Nullità e decadenza del marchio davanti all’UIBM',
+        'Nullità e decadenza del marchio davanti all’UIBM: chi può agire, costi, non uso, conciliazione, difese e ricorso alla Commissione.',
+        'nullita-decadenza-marchio-uibm.html',
+        'proprieta-intellettuale',
+        'Proprietà intellettuale'
+    );
+}, 61);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_nullita_decadenza_marchio_uibm_featured_20261010',
+        'nullita-decadenza-marchio-uibm',
+        'nullita-decadenza-marchio-uibm.jpg',
+        'Nullità e decadenza del marchio davanti all’UIBM',
+        'Schema in tre punti: nullità e decadenza del marchio davanti all’UIBM',
+        'lanotte-nullita-decadenza-marchio-uibm-2026'
+    );
+}, 62);
+
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_marchio_copiato_cosa_fare_20261010',
+        'marchio-copiato-cosa-fare',
+        'Marchio copiato: cosa fare',
+        'Marchio copiato o diffida ricevuta: raccolta delle prove, misure urgenti e causa. Come valutare i diritti e la competenza del Tribunale di Bari.',
+        'marchio-copiato-cosa-fare.html',
+        'proprieta-intellettuale',
+        'Proprietà intellettuale'
+    );
+}, 63);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_marchio_copiato_cosa_fare_featured_20261010',
+        'marchio-copiato-cosa-fare',
+        'marchio-copiato-cosa-fare.jpg',
+        'Marchio copiato: cosa fare',
+        'Schema in tre punti: marchio copiato: cosa fare',
+        'lanotte-marchio-copiato-cosa-fare-2026'
+    );
+}, 64);
