@@ -1003,3 +1003,52 @@ add_action('init', function() {
         'lanotte-assegno-divorzile-criteri-revisione-convivenza-2026'
     );
 }, 54);
+
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_verificare_marchio_20261010',
+        'come-verificare-marchio-gia-registrato',
+        'Come verificare se un marchio è già registrato?',
+        'Come cercare un marchio nelle banche dati UIBM, EUIPO, TMview e WIPO. Differenze tra segni identici e simili e limiti della ricerca.',
+        'come-verificare-marchio-gia-registrato.html',
+        'proprieta-intellettuale',
+        'Proprietà intellettuale'
+    );
+}, 55);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_verificare_marchio_featured_20261010',
+        'come-verificare-marchio-gia-registrato',
+        'come-verificare-marchio-gia-registrato.jpg',
+        'Come verificare se un marchio è già registrato',
+        'Schema in tre punti: banche dati UIBM EUIPO TMview WIPO, somiglianza tra marchi e ricerca di anteriorità',
+        'lanotte-come-verificare-marchio-gia-registrato-2026'
+    );
+}, 56);
+
+// Uscita programmata: lunedì 19 ottobre 2026 alle 9:00 italiane (07:00 UTC: il sito lavora in UTC).
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_costo_marchio_20261010',
+        'quanto-costa-registrare-marchio',
+        'Quanto costa registrare un marchio?',
+        'Tasse per registrare un marchio in Italia, nell’UE e all’estero: classi, rinnovi, onorario professionale e possibili costi successivi.',
+        'quanto-costa-registrare-marchio.html',
+        'proprieta-intellettuale',
+        'Proprietà intellettuale',
+        'future',
+        '2026-10-19 07:00:00'
+    );
+}, 57);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_costo_marchio_featured_20261010',
+        'quanto-costa-registrare-marchio',
+        'quanto-costa-registrare-marchio.jpg',
+        'Quanto costa registrare un marchio',
+        'Schema delle tasse per registrare un marchio in Italia, nell’Unione europea e con il sistema di Madrid',
+        'lanotte-quanto-costa-registrare-marchio-2026'
+    );
+}, 58);

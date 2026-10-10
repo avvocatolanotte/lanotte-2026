@@ -331,6 +331,8 @@ function lanotte_seo_map_articoli() {
         'modifica-collocamento-figli-conflitto-genitoriale-ctu' => ['t' => 'Collocamento dei figli: quando può cambiare | LANOTTE & Partners', 'd' => 'Affidamento condiviso confermato e collocamento dei figli modificato: condotte concrete, CTU, art. 337-ter c.c. e tutela della bigenitorialità.'],
         'impugnare-testamento-motivi-termini' => ['t' => 'Impugnare un testamento: motivi e termini | LANOTTE & Partners', 'd' => 'Quando contestare un testamento per forma, incapacità o inganno. Quali termini si applicano e come tutelare la quota di legittima.'],
         'assegno-divorzile-criteri-revisione-convivenza' => ['t' => 'Assegno divorzile: criteri e revisione | LANOTTE & Partners', 'd' => 'Criteri dell’assegno divorzile, importo e revisione: cosa conta per il giudice e quali effetti hanno nuove nozze e convivenza stabile.'],
+        'come-verificare-marchio-gia-registrato' => ['t' => 'Marchio già registrato: come verificare | LANOTTE & Partners', 'd' => 'Come cercare un marchio nelle banche dati UIBM, EUIPO, TMview e WIPO. Differenze tra segni identici e simili e limiti della ricerca.'],
+        'quanto-costa-registrare-marchio' => ['t' => 'Quanto costa registrare un marchio? | LANOTTE & Partners', 'd' => 'Tasse per registrare un marchio in Italia, nell’UE e all’estero: classi, rinnovi, onorario professionale e possibili costi successivi.'],
     ];
 }
 
