@@ -29,10 +29,19 @@ add_action('wp_footer', function() {
     }
   };
   var t = temi[a] || { s: 'Richiesta dalla pagina: ' + a.replace(/-/g, ' '), m: '' };
-  var oggetto = document.querySelector('input[name="your-subject"]');
-  var messaggio = document.querySelector('textarea[name="your-message"]');
-  if (oggetto && !oggetto.value) oggetto.value = t.s;
-  if (messaggio && !messaggio.value && t.m) messaggio.value = t.m;
+  // Contact Form 7 svuota i campi durante la propria inizializzazione, che parte dopo
+  // questo script (provato il 10/10/2026 su una copia della pagina): si compila subito
+  // e di nuovo a pagina caricata, sempre e solo sui campi vuoti.
+  function compila() {
+    var oggetto = document.querySelector('input[name="your-subject"]');
+    var messaggio = document.querySelector('textarea[name="your-message"]');
+    if (oggetto && !oggetto.value) oggetto.value = t.s;
+    if (messaggio && !messaggio.value && t.m) messaggio.value = t.m;
+  }
+  compila();
+  document.addEventListener('DOMContentLoaded', compila);
+  window.addEventListener('load', function () { setTimeout(compila, 0); });
+  window.addEventListener('pageshow', compila);
 })();
 </script>
     <?php
