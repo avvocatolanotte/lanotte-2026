@@ -977,7 +977,8 @@ add_action('init', function() {
     );
 }, 52);
 
-// Uscita programmata: venerdì 23 ottobre 2026 alle 9:00.
+// Uscita programmata: venerdì 23 ottobre 2026 alle 9:00 italiane.
+// WordPress qui lavora in UTC (fuso vuoto in Impostazioni): 07:00 UTC = 9:00 CEST.
 add_action('init', function() {
     lanotte_editorial_register_article(
         'lanotte_article_assegno_divorzile_20261009',
@@ -988,7 +989,7 @@ add_action('init', function() {
         'diritto-di-famiglia',
         'Diritto di famiglia',
         'future',
-        '2026-10-23 09:00:00'
+        '2026-10-23 07:00:00'
     );
 }, 53);
 
