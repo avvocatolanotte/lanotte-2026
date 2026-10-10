@@ -46,7 +46,7 @@ while (have_posts()): the_post();
 
       <h2>Ritratti dei professionisti</h2>
       <ul>
-        <li><strong>Avv. Giuseppe Lanotte</strong>, <strong>Dott.ssa Cristina De Lillo</strong>, <strong>Dott. Ruggiero Lanotte</strong> — ritratti di proprietà dei rispettivi professionisti, già in uso sul sito ufficiale dello Studio dal 2019.</li>
+        <li><strong>Avv. Giuseppe LANOTTE</strong>, <strong>Dott.ssa Cristina DE LILLO</strong>, <strong>Dott. Ruggiero LANOTTE</strong> — ritratti di proprietà dei rispettivi professionisti, già in uso sul sito ufficiale dello Studio dal 2019.</li>
       </ul>
 
       <h2>Tipografia</h2>

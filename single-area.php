@@ -27,7 +27,7 @@ if (!$tagline) $tagline = get_the_excerpt();
     <div class="hero-cta">
       <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="btn btn-gold" data-lanotte-cta="call" data-lanotte-cta-location="area-hero" aria-label="Chiama lo Studio Legale Lanotte">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.19 19a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.58 2.61a2 2 0 0 1-.45 2.11L7.9 9.73a16 16 0 0 0 6.37 6.37l1.29-1.29a2 2 0 0 1 2.11-.45c.84.26 1.71.46 2.61.58A2 2 0 0 1 22 16.92z"/></svg>
-        Chiama ora
+        Telefoni ora
       </a>
       <a href="<?php echo esc_url(lanotte_whatsapp_url() . '?text=' . $area_wa_text); ?>" class="btn btn-ghost" target="_blank" rel="noopener" data-lanotte-cta="whatsapp" data-lanotte-cta-location="area-hero" aria-label="Scrivi allo Studio su WhatsApp">WhatsApp</a>
     </div>
@@ -53,9 +53,9 @@ if (!$tagline) $tagline = get_the_excerpt();
 
       <aside class="area-sidebar">
         <div class="sidebar-card">
-          <h4>Hai un caso urgente?</h4>
-          <p>Contatta lo Studio: rispondiamo entro 24 ore lavorative. Per il penale è attiva la reperibilità H24.</p>
-          <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary">Richiedi consulenza</a>
+          <h4>Ha un caso urgente?</h4>
+          <p>Contatti lo Studio: di regola rispondiamo entro 24 ore lavorative. Per le urgenze penali è disponibile il cellulare <?php echo esc_html(lanotte_cellulare()); ?>.</p>
+          <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary">Richieda una consulenza</a>
         </div>
 
         <div class="sidebar-card" style="background:#fff;border:1px solid var(--border);padding:24px">
@@ -79,8 +79,8 @@ if (!$tagline) $tagline = get_the_excerpt();
         <?php if ($show_urgency): ?>
         <div class="sidebar-card" style="background:var(--navy);color:#fff;border-top-color:var(--gold);padding:24px">
           <h4 style="color:#fff">Penale d'urgenza</h4>
-          <p style="color:#cbd5e1">Arresti, fermi, convalide: reperibilità telefonica anche notturna e festiva.</p>
-          <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="btn btn-gold" style="background:var(--gold)">📞 Chiama subito</a>
+          <p style="color:#cbd5e1">Arresti, fermi, convalide: cellulare per le urgenze penali, con risposta appena possibile, compatibilmente con udienze e impegni.</p>
+          <a href="tel:<?php echo esc_attr(lanotte_cellulare(true)); ?>" class="btn btn-gold" style="background:var(--gold)">📞 <?php echo esc_html(lanotte_cellulare()); ?></a>
         </div>
         <?php endif; ?>
       </aside>
@@ -91,8 +91,8 @@ if (!$tagline) $tagline = get_the_excerpt();
 <section class="ctastrip">
   <div class="container ctastrip-inner">
     <div>
-      <h3>Vuoi un parere su <?php echo esc_html(strtolower(get_the_title())); ?>?</h3>
-      <p>Prima valutazione o consulenza con preventivo scritto: scegli tu.</p>
+      <h3>Desidera un parere su <?php echo esc_html(strtolower(get_the_title())); ?>?</h3>
+      <p>Prima valutazione o consulenza con preventivo scritto: scelga Lei.</p>
     </div>
     <div class="ctastrip-actions">
       <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-gold">Scrivi allo Studio</a>

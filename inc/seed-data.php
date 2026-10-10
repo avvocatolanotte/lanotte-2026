@@ -396,16 +396,16 @@ function lanotte_seed_aree_data() {
     return [
         [
             'slug' => 'diritto-penale', 'title' => 'Diritto Penale',
-            'tagline' => 'Difesa in ogni grado di giudizio, reperibilità H24 per arresti e fermi.',
+            'tagline' => 'Difesa in ogni grado di giudizio, con una linea telefonica per le urgenze penali.',
             'lead' => 'Il diritto penale è il ramo del diritto che si occupa di quelle infrazioni talmente gravi da essere sanzionate con le pene, prima fra tutte la sottrazione della libertà.',
             'urgency' => true,
             'sezioni' => [
                 ['h' => 'Cosa facciamo', 'body' => '<p>Assistiamo persone fisiche, professionisti e imprese in ogni fase del procedimento penale, dalle indagini preliminari al giudizio di legittimità.</p><ul><li><strong>Misure cautelari</strong> personali e reali</li><li><strong>Riti speciali</strong>: patteggiamento, abbreviato, decreto penale</li><li><strong>Difesa in dibattimento</strong> davanti a Tribunale, Corte d\'Assise, GdP</li><li><strong>Appello e Cassazione</strong></li><li><strong>Esecuzione penale</strong>: misure alternative</li></ul>'],
-                ['h' => 'Penale d\'urgenza · Reperibilità H24', 'body' => '<p>Per <strong>arresti, fermi e convalide</strong> è attiva una linea di reperibilità telefonica anche notturna e festiva.</p>'],
+                ['h' => 'Penale d\'urgenza', 'body' => '<p>Per <strong>arresti, fermi e convalide</strong> è disponibile il cellulare dello Studio per le urgenze penali, che risponde appena possibile, compatibilmente con udienze e impegni.</p>'],
             ],
             'faq' => [
-                ['q' => 'Mi è stato notificato un avviso di garanzia: cosa devo fare?', 'a' => 'L\'avviso di garanzia significa che è iscritto un procedimento penale a tuo carico. È fondamentale nominare subito un difensore di fiducia.'],
-                ['q' => 'Posso scegliere il rito abbreviato anche se sono innocente?', 'a' => 'Sì. Il rito abbreviato comporta uno sconto di pena fino a un terzo. La scelta va valutata caso per caso con il difensore.'],
+                ['q' => 'Mi è stato notificato un avviso di garanzia: cosa devo fare?', 'a' => 'L\'informazione di garanzia comunica che si procede nei Suoi confronti per un reato e contiene l\'invito a nominare un difensore di fiducia (art. 369 c.p.p.). Conviene farlo prima degli atti a cui il difensore ha diritto di assistere.'],
+                ['q' => 'Posso scegliere il rito abbreviato anche se sono innocente?', 'a' => 'Sì. In caso di condanna la pena è diminuita di un terzo per i delitti e della metà per le contravvenzioni, con un ulteriore sesto se la sentenza non viene impugnata (art. 442 c.p.p.). La scelta va valutata caso per caso con il difensore.'],
                 ['q' => 'Quanto costa una difesa penale?', 'a' => 'Forniamo preventivo scritto sin dal primo incontro, conforme all\'art. 13 L. 247/2012, sulla base dei parametri DM 55/2014.'],
             ],
         ],
@@ -418,7 +418,7 @@ function lanotte_seed_aree_data() {
             ],
             'faq' => [
                 ['q' => 'Quanto dura una causa civile?', 'a' => 'Dipende dal Tribunale e dalla complessità. Una causa ordinaria di primo grado richiede mediamente 2-4 anni.'],
-                ['q' => 'Cos\'è il decreto ingiuntivo?', 'a' => 'È un provvedimento del giudice che ordina al debitore di pagare entro 40 giorni una somma certa, liquida ed esigibile.'],
+                ['q' => 'Cos\'è il decreto ingiuntivo?', 'a' => 'È un provvedimento del giudice che ordina al debitore di pagare una somma certa, liquida ed esigibile; l\'opposizione va proposta di regola entro 40 giorni dalla notificazione, salvo il diverso termine indicato nel decreto (art. 641 c.p.c.).'],
             ],
         ],
         [
@@ -442,7 +442,7 @@ function lanotte_seed_aree_data() {
                 ['h' => 'Cosa facciamo', 'body' => '<ul><li>Impugnazione di delibere assembleari</li><li>Recupero crediti condominiali (decreto ingiuntivo ex art. 63)</li><li>Lavori straordinari: contratti, contenzioso</li><li>Liti tra condòmini</li><li>Mediazione obbligatoria ex D.Lgs. 28/2010</li></ul>'],
             ],
             'faq' => [
-                ['q' => 'Quanto tempo ho per impugnare una delibera?', 'a' => '30 giorni dalla data dell\'assemblea (per dissenzienti o astenuti) o dalla comunicazione del verbale (per assenti).'],
+                ['q' => 'Quanto tempo ho per impugnare una delibera?', 'a' => 'Per le delibere annullabili il termine è di 30 giorni dalla data della deliberazione per dissenzienti o astenuti e dalla comunicazione per gli assenti (art. 1137 c.c.). Le delibere nulle si possono contestare anche oltre questo termine (Cass. SU, 14 aprile 2021, n. 9839).'],
             ],
         ],
         [
@@ -465,7 +465,7 @@ function lanotte_seed_aree_data() {
                 ['h' => 'Malasanità', 'body' => '<ul><li>Errore diagnostico, terapeutico, chirurgico</li><li>Mancato consenso informato</li><li>Legge Gelli-Bianco</li></ul>'],
             ],
             'faq' => [
-                ['q' => 'Quanto tempo ho per chiedere il risarcimento?', 'a' => '2 anni dal sinistro per i danni materiali (5 anni se c\'è reato).'],
+                ['q' => 'Quanto tempo ho per chiedere il risarcimento?', 'a' => 'Per i danni da circolazione di veicoli, alle cose e alle persone, il termine è di 2 anni; se il fatto è previsto come reato e il reato ha una prescrizione più lunga, vale quest\'ultima (art. 2947 c.c.). Nella responsabilità sanitaria la struttura risponde a titolo contrattuale e il medico, di regola, extracontrattuale (art. 7 L. 24/2017), con termini diversi.'],
             ],
         ],
         [
@@ -488,7 +488,7 @@ function lanotte_seed_aree_data() {
                 ['h' => 'Servizi tributari', 'body' => '<ul><li>Avvisi di accertamento</li><li>Cartelle esattoriali, rateizzazione, definizione agevolata</li><li>Contenzioso davanti alla Corte di Giustizia Tributaria</li><li>Reati tributari</li><li>Strumenti deflativi</li></ul>'],
             ],
             'faq' => [
-                ['q' => 'Cosa fare se ricevo un accertamento?', 'a' => 'Hai 60 giorni per presentare osservazioni o aderire (con sconto delle sanzioni). Poi 60 giorni per ricorrere.'],
+                ['q' => 'Cosa fare se ricevo un accertamento?', 'a' => 'Il ricorso va proposto entro 60 giorni dalla notificazione dell\'atto (art. 21 d.lgs. 546/1992). L\'istanza di accertamento con adesione, quando ammessa, sospende il termine per 90 giorni (art. 6 d.lgs. 218/1997), o per 30 giorni nei casi dell\'art. 6, comma 2-bis. Conviene esaminare subito l\'atto.'],
             ],
         ],
         [
@@ -521,7 +521,7 @@ function lanotte_seed_aree_data() {
                 ['h' => 'Aree', 'body' => '<ul><li>Cittadinanza italiana</li><li>Matrimoni misti e divorzi internazionali</li><li>Sottrazione internazionale di minori (Aja 1980)</li><li>Riconoscimento sentenze estere</li><li>Contratti internazionali</li><li>Successioni internazionali</li></ul>'],
             ],
             'faq' => [
-                ['q' => 'Una sentenza di divorzio estera vale in Italia?', 'a' => 'Sì, ma va trascritta. Per i Paesi UE è automatica.'],
+                ['q' => 'Una sentenza di divorzio estera vale in Italia?', 'a' => 'Sì, se ne ricorrono le condizioni. Le decisioni degli Stati UE sono riconosciute senza un procedimento particolare, anche per aggiornare i registri dello stato civile, salvi i motivi di diniego (artt. 30 e 38 reg. UE 2019/1111); per gli altri Paesi valgono le condizioni dell\'art. 64 L. 218/1995. Per l\'annotazione occorre presentare la documentazione richiesta.'],
             ],
         ],
         [
@@ -532,7 +532,7 @@ function lanotte_seed_aree_data() {
                 ['h' => 'Materie trattate', 'body' => '<ul><li>Pensione di vecchiaia, anticipata, reversibilità</li><li>Invalidità civile</li><li>Legge 104/1992</li><li>Indennità di accompagnamento</li><li>Infortuni INAIL</li><li>Naspi</li></ul>'],
             ],
             'faq' => [
-                ['q' => 'Quanto tempo ho per ricorrere contro un verbale INPS?', 'a' => 'Dopo istanza amministrativa (entro 90 gg), hai 6 mesi per il ricorso giudiziale.'],
+                ['q' => 'Quanto tempo ho per ricorrere contro un verbale INPS?', 'a' => 'Per invalidità civile, handicap e prestazioni collegate non c\'è ricorso amministrativo: la domanda giudiziale, con ricorso per accertamento tecnico preventivo (art. 445-bis c.p.c.), va proposta entro 6 mesi dalla comunicazione del provvedimento (art. 42, comma 3, D.L. 269/2003). Per le altre prestazioni i termini dipendono dalla prestazione.'],
             ],
         ],
         [

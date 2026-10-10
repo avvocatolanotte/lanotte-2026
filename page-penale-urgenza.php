@@ -21,20 +21,14 @@ $phone_urgenza     = lanotte_cellulare();
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "EmergencyService",
-  "name": "Studio Legale Lanotte & Partners — Difesa penale d'urgenza H24",
-  "description": "Reperibilità 24/7 per arresti, fermi, perquisizioni, sequestri. Difesa penale d'urgenza in tutta la BAT e Foro di Trani.",
+  "@type": "LegalService",
+  "name": "Studio Legale LANOTTE & Partners — Difesa penale d'urgenza",
+  "description": "Linea telefonica per le urgenze penali (arresti, fermi, perquisizioni, sequestri). Foro di Trani e distretto della Corte d'appello di Bari.",
   "telephone": "<?php echo esc_js($phone_urgenza_raw); ?>",
   "availableLanguage": ["it", "en"],
   "areaServed": {
     "@type": "AdministrativeArea",
-    "name": "Foro di Trani — BAT, Bari, Puglia"
-  },
-  "hoursAvailable": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    "opens": "00:00",
-    "closes": "23:59"
+    "name": "Foro di Trani — distretto della Corte d'appello di Bari"
   }
 }
 </script>
@@ -42,9 +36,9 @@ $phone_urgenza     = lanotte_cellulare();
 <section class="hero-internal" style="background-image:linear-gradient(135deg,rgba(120,30,30,.95) 0%,rgba(60,15,15,.9) 100%),url('<?php echo esc_url($hero_bg); ?>');background-size:cover;background-position:center;padding:90px 0 60px">
   <div class="container" style="position:relative;z-index:2">
     <?php lanotte_breadcrumbs(); ?>
-    <div class="urgenza-badge">⚡ Reperibilità H24 · 7 giorni su 7</div>
+    <div class="urgenza-badge">Linea per le urgenze penali</div>
     <h1 style="color:#fff;font-size:clamp(28px,5vw,48px);line-height:1.15;margin:8px 0 14px">Difesa penale d'urgenza<br>per arresti, fermi, perquisizioni.</h1>
-    <p class="subtitle" style="color:#fee2e2;max-width:760px">Le prime 48 ore di un procedimento penale possono determinare l'esito di tutto il giudizio. Chiama subito uno dei nostri legali per un primo orientamento e — ove possibile — l'intervento tempestivo del difensore di fiducia.</p>
+    <p class="subtitle" style="color:#fee2e2;max-width:760px">In caso di arresto, fermo, perquisizione o sequestro può chiamare il cellulare dello Studio dedicato alle urgenze penali: risponderemo appena possibile, compatibilmente con udienze e impegni, per un primo orientamento e, se lo desidera, per la nomina del difensore di fiducia.</p>
   </div>
 </section>
 
@@ -52,18 +46,18 @@ $phone_urgenza     = lanotte_cellulare();
 <section class="urgenza-bar">
   <div class="container urgenza-bar-grid">
     <div>
-      <div class="urgenza-label">REPERIBILITÀ PENALE 24/7</div>
+      <div class="urgenza-label">URGENZE PENALI · CELLULARE</div>
       <a href="tel:<?php echo esc_attr($phone_urgenza_raw); ?>" class="urgenza-tel-big"><?php echo esc_html($phone_urgenza); ?></a>
-      <div class="urgenza-sub">Cellulare dedicato urgenze · giorno e notte</div>
+      <div class="urgenza-sub">Solo chiamate · risposta appena possibile, compatibilmente con udienze e impegni</div>
       <div class="urgenza-label" style="margin-top:6px">STUDIO · ORARIO UFFICIO</div>
       <a href="tel:<?php echo esc_attr($phone_studio_raw); ?>" class="urgenza-tel-sm"><?php echo esc_html($phone_studio); ?></a>
     </div>
     <div class="urgenza-cta-col">
-      <a href="tel:<?php echo esc_attr($phone_urgenza_raw); ?>" class="urgenza-cta urgenza-cta-call">📞 Reperibilità urgenze 24/7</a>
+      <a href="tel:<?php echo esc_attr($phone_urgenza_raw); ?>" class="urgenza-cta urgenza-cta-call">📞 Chiami il cellulare urgenze</a>
       <?php /* 27/09/2026 — regola dell'Avvocato: il cellulare solo per le CHIAMATE urgenti, ogni WhatsApp al fisso.
          Il WhatsApp del fisso è letto dal presidio ogni 6 ore (la corsa delle 02 è muta): non è un canale
          d'urgenza e non va presentato come tale. L'urgenza passa dalla chiamata qui sopra. */ ?>
-      <a href="<?php echo esc_url($wa_url . '?text=Buongiorno%2C%20scrivo%20dalla%20pagina%20Penale%20d%27urgenza'); ?>" class="urgenza-cta urgenza-cta-wa">💬 WhatsApp dello Studio</a>
+      <a href="<?php echo esc_url($wa_url . '?text=Buongiorno%2C%20scrivo%20dalla%20pagina%20Penale%20d%27urgenza'); ?>" class="urgenza-cta urgenza-cta-wa">💬 WhatsApp dello Studio (non urgente)</a>
     </div>
   </div>
 </section>
@@ -75,23 +69,23 @@ $phone_urgenza     = lanotte_cellulare();
       <div class="divider-dot"></div>
       <div class="section-eyebrow">Le prime 48 ore</div>
       <h2>Cosa fare in caso di emergenza penale</h2>
-      <p>Tre regole essenziali da seguire prima di qualsiasi altra cosa.</p>
+      <p>Tre indicazioni utili.</p>
     </div>
     <div class="urgenza-rules-grid">
       <div class="urgenza-rule">
         <div class="urgenza-rule-num">01</div>
-        <h3>Esercita il diritto al silenzio</h3>
-        <p>Hai il diritto di non rispondere alle domande della Polizia Giudiziaria finché non parli con un avvocato. Comunicare di propria iniziativa <strong>solo dati anagrafici</strong>. Tutto il resto va valutato con il difensore.</p>
+        <h3>La facoltà di non rispondere</h3>
+        <p>Prima dell'interrogatorio la persona sottoposta alle indagini deve essere avvertita che ha <strong>facoltà di non rispondere</strong> ad alcuna domanda, salvo l'obbligo di fornire le proprie generalità (art. 64 c.p.p.). Ogni dichiarazione è opportuno valutarla con il difensore.</p>
       </div>
       <div class="urgenza-rule">
         <div class="urgenza-rule-num">02</div>
-        <h3>Nomina un difensore di fiducia</h3>
-        <p>Il difensore d'ufficio non è sempre la scelta migliore: viene assegnato dal sistema e non conosce la tua situazione. Hai diritto a nominare <strong>il tuo avvocato di fiducia</strong> in qualunque momento.</p>
+        <h3>Il difensore di fiducia</h3>
+        <p>Ha diritto di nominare un <strong>difensore di fiducia</strong> (art. 96 c.p.p.); in mancanza, la difesa è assicurata dal difensore d'ufficio, che cessa dalle funzioni con la nomina del difensore di fiducia (art. 97 c.p.p.). Per chi è fermato o arrestato la nomina può essere fatta da un prossimo congiunto.</p>
       </div>
       <div class="urgenza-rule">
         <div class="urgenza-rule-num">03</div>
-        <h3>Non firmare nulla senza l'avvocato</h3>
-        <p>Verbali, dichiarazioni, atti di consenso: tutto va letto e valutato dal difensore prima della firma. Una firma data sotto pressione può <strong>condizionare l'esito del procedimento</strong>.</p>
+        <h3>Prima di firmare, leggere</h3>
+        <p>Verbali e dichiarazioni vanno letti con attenzione prima della sottoscrizione; quando possibile, è opportuno valutarli con il difensore.</p>
       </div>
     </div>
   </div>
@@ -102,50 +96,50 @@ $phone_urgenza     = lanotte_cellulare();
   <div class="container">
     <div class="section-title">
       <div class="divider-dot"></div>
-      <div class="section-eyebrow">Casi che gestiamo H24</div>
-      <h2>Quando chiamare subito</h2>
+      <div class="section-eyebrow">Situazioni urgenti</div>
+      <h2>Quando chiamare il cellulare urgenze</h2>
     </div>
     <div class="urgenza-casi-grid">
       <div class="urgenza-caso">
         <div class="urgenza-caso-icon">🚨</div>
         <div>
           <h4>Arresto in flagranza</h4>
-          <p>Convalida dell'arresto entro 96 ore. È fondamentale che il difensore sia presente all'interrogatorio di garanzia.</p>
+          <p>Il pubblico ministero chiede la convalida entro 48 ore e il giudice fissa l'udienza entro le 48 ore successive, dandone avviso al difensore (art. 390 c.p.p.).</p>
         </div>
       </div>
       <div class="urgenza-caso">
         <div class="urgenza-caso-icon">🛑</div>
         <div>
-          <h4>Fermo di Polizia Giudiziaria</h4>
-          <p>Misura pre-cautelare: il difensore può intervenire immediatamente e contestare il fermo se non sussistono i presupposti.</p>
+          <h4>Fermo di indiziato di delitto</h4>
+          <p>Misura precautelare disposta dal pubblico ministero o, nei casi previsti, dalla polizia giudiziaria (art. 384 c.p.p.); nell'udienza di convalida il difensore può contestarne i presupposti.</p>
         </div>
       </div>
       <div class="urgenza-caso">
         <div class="urgenza-caso-icon">🔍</div>
         <div>
           <h4>Perquisizione domiciliare o personale</h4>
-          <p>Hai diritto a farti assistere dal difensore. Le irregolarità nel verbale possono portare a inutilizzabilità delle prove raccolte.</p>
+          <p>La polizia giudiziaria deve avvertire la persona sottoposta alle indagini, se presente, della facoltà di farsi assistere dal difensore di fiducia (art. 114 disp. att. c.p.p.). Il verbale va letto con attenzione.</p>
         </div>
       </div>
       <div class="urgenza-caso">
         <div class="urgenza-caso-icon">📋</div>
         <div>
           <h4>Sequestro probatorio o preventivo</h4>
-          <p>Riesame entro 10 giorni. Il difensore può chiedere il dissequestro o la restituzione dei beni.</p>
+          <p>La richiesta di riesame si propone entro 10 giorni dall'esecuzione o dalla conoscenza del sequestro (art. 324 c.p.p.); si può chiedere anche la restituzione dei beni.</p>
         </div>
       </div>
       <div class="urgenza-caso">
         <div class="urgenza-caso-icon">🚔</div>
         <div>
           <h4>Incidente con omicidio o lesioni stradali</h4>
-          <p>Reato grave: serve assistenza immediata sia per la difesa penale che per il risarcimento alla parte offesa.</p>
+          <p>Sono reati gravi, che richiedono assistenza sia per la difesa penale sia per gli aspetti risarcitori.</p>
         </div>
       </div>
       <div class="urgenza-caso">
         <div class="urgenza-caso-icon">⚖️</div>
         <div>
-          <h4>Notifica di avviso di garanzia</h4>
-          <p>Anche senza arresto, ricevere un avviso significa essere iscritti nel registro indagati. Agire subito può evitare misure cautelari.</p>
+          <h4>Informazione di garanzia</h4>
+          <p>Il pubblico ministero la notifica quando deve compiere un atto al quale il difensore ha diritto di assistere; contiene l'invito a nominare un difensore di fiducia (art. 369 c.p.p.). Di regola non richiede un intervento immediato: conviene valutare con il difensore atti e termini.</p>
         </div>
       </div>
     </div>
@@ -155,13 +149,13 @@ $phone_urgenza     = lanotte_cellulare();
 <!-- SECONDO RICHIAMO CONTATTO -->
 <section class="urgenza-cta-strip">
   <div class="container" style="text-align:center;max-width:780px;margin:0 auto">
-    <h2>Ogni minuto conta.</h2>
-    <p>Non aspettare di "vedere come si mette". Le scelte processuali fatte nelle prime ore — silenzio, nomina difensore, modalità di interrogatorio — determinano spesso l'esito finale del procedimento.</p>
+    <h2>Come contattare lo Studio</h2>
+    <p>Per le urgenze penali chiami il cellulare dedicato. Per tutte le altre comunicazioni sono a disposizione il telefono dello Studio in orario d'ufficio e il WhatsApp del fisso.</p>
     <div class="urgenza-cta-strip-row">
-      <a href="tel:<?php echo esc_attr($phone_studio_raw); ?>" class="btn btn-gold">📞 Chiama <?php echo esc_html($phone_studio); ?></a>
-      <a href="<?php echo esc_url($wa_url); ?>?text=Buongiorno%2C%20scrivo%20dalla%20pagina%20Penale%20d%27urgenza" class="btn btn-ghost">💬 WhatsApp dello Studio</a>
+      <a href="tel:<?php echo esc_attr($phone_urgenza_raw); ?>" class="btn btn-gold">📞 Urgenze: <?php echo esc_html($phone_urgenza); ?></a>
+      <a href="<?php echo esc_url($wa_url); ?>?text=Buongiorno%2C%20scrivo%20dalla%20pagina%20Penale%20d%27urgenza" class="btn btn-ghost">💬 WhatsApp dello Studio (non urgente)</a>
     </div>
-    <p class="urgenza-cta-strip-note">Reperibilità anche fuori orario di studio · Risposta tempestiva per casi d'urgenza</p>
+    <p class="urgenza-cta-strip-note">Il cellulare urgenze risponde appena possibile, compatibilmente con udienze e impegni.</p>
   </div>
 </section>
 
@@ -171,28 +165,28 @@ $phone_urgenza     = lanotte_cellulare();
     <div class="section-title left" style="margin-bottom:32px">
       <div class="divider-dot"></div>
       <div class="section-eyebrow">Come lavoriamo nelle emergenze</div>
-      <h2>Cosa succede dopo che ci chiami</h2>
+      <h2>Che cosa succede dopo la chiamata</h2>
     </div>
     <div class="urgenza-timeline">
       <div class="urgenza-step">
         <div class="urgenza-step-num">1</div>
-        <h4>Triage telefonico immediato</h4>
-        <p>In 5-10 minuti raccogliamo i dati essenziali: cosa è successo, dove ti trovi, chi ti sta interrogando, di quale reato si parla. Valutiamo se c'è urgenza assoluta o se è un caso da gestire l'indomani.</p>
+        <h4>Primo colloquio telefonico</h4>
+        <p>Raccogliamo i dati essenziali: che cosa è accaduto, dove si trova la persona interessata, di quale reato si parla. Valutiamo se occorre intervenire subito o se il caso può essere gestito nei giorni successivi.</p>
       </div>
       <div class="urgenza-step">
         <div class="urgenza-step-num">2</div>
         <h4>Nomina di fiducia e accesso agli atti</h4>
-        <p>Inviamo la nomina di fiducia agli organi competenti (Polizia, Procura, Casa Circondariale). Otteniamo accesso agli atti d'indagine disponibili al difensore.</p>
+        <p>Se ci viene conferito l'incarico, la nomina è comunicata all'autorità procedente e chiediamo gli atti che il difensore può consultare.</p>
       </div>
       <div class="urgenza-step">
         <div class="urgenza-step-num">3</div>
         <h4>Presenza all'interrogatorio</h4>
-        <p>Ti raggiungiamo presso la sede dell'audizione o dell'interrogatorio di garanzia (Tribunale di Trani o Casa Circondariale). Concordiamo insieme strategia difensiva e domande a cui rispondere.</p>
+        <p>Il difensore partecipa agli atti e alle udienze per cui è previsto (interrogatorio, udienza di convalida), presso l'ufficio giudiziario o l'istituto penitenziario, e concorda con l'assistito la linea difensiva.</p>
       </div>
       <div class="urgenza-step" style="margin-bottom:0">
         <div class="urgenza-step-num">4</div>
         <h4>Strategia post-urgenza</h4>
-        <p>Superata la fase d'urgenza, definiamo strategia complessiva: opposizione a misure cautelari, richieste alternative (domiciliari, obbligo di firma), riti speciali (patteggiamento, abbreviato), istanze al GIP.</p>
+        <p>Superata la fase urgente, si valutano con l'assistito le iniziative possibili: impugnazione delle misure cautelari, richieste di misure meno gravose, riti speciali (patteggiamento, abbreviato), istanze al GIP.</p>
       </div>
     </div>
   </div>
@@ -209,23 +203,23 @@ $phone_urgenza     = lanotte_cellulare();
     <div class="faq">
       <div class="faq-item">
         <div class="faq-q">Quanto costa l'intervento d'urgenza?</div>
-        <div class="faq-a">Il primo contatto telefonico serve a inquadrare la situazione e a valutare l'urgenza. Se si conferisce mandato, viene consegnato un <strong>preventivo scritto</strong> sin dal primo incontro, ai sensi dell'art. 13 c. 5 L. 247/2012 (modif. da L. 124/2017), con indicazione di onorari, spese e oneri tributari secondo i parametri del DM 55/2014.</div>
+        <div class="faq-a">Il primo contatto telefonico serve a inquadrare la situazione e a valutare l'urgenza. Se si conferisce mandato, viene consegnato un <strong>preventivo scritto</strong> sin dal primo incontro, ai sensi dell'art. 13, comma 5, L. 247/2012, con indicazione di onorari, spese e oneri tributari secondo i parametri del DM 55/2014.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Posso cambiare il difensore d'ufficio già assegnato?</div>
-        <div class="faq-a">Sì, in qualunque momento. La revoca del difensore d'ufficio e la nomina del difensore di fiducia sono atti immediati. Basta firmare l'atto di nomina che ti porteremo noi.</div>
+        <div class="faq-a">Sì. Con la nomina di un difensore di fiducia il difensore d'ufficio cessa dalle sue funzioni (art. 97, comma 6, c.p.p.). Le indichiamo come sottoscrivere la nomina.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Mio figlio/familiare è stato arrestato. Posso chiamarvi io?</div>
-        <div class="faq-a">Assolutamente sì. La nomina del difensore di fiducia può essere fatta da un familiare prossimo, dal coniuge o dal convivente. Vi indichiamo i passaggi formali da fare per ottenere subito l'incarico.</div>
+        <div class="faq-a">Sì. Finché la persona fermata, arrestata o in custodia cautelare non vi ha provveduto, la nomina del difensore di fiducia può essere fatta da un prossimo congiunto (art. 96, comma 3, c.p.p.). Le indichiamo i passaggi formali.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">In che Tribunali siete attivi?</div>
-        <div class="faq-a">Operiamo presso il <strong>Tribunale di Trani</strong> (sezioni penale, riesame, sorveglianza) e la <strong>Corte d'Appello di Bari</strong>. Per gli altri Fori e per la <strong>Cassazione</strong> ci avvaliamo di corrispondenti qualificati.</div>
+        <div class="faq-a">Operiamo presso il <strong>Tribunale di Trani</strong>, il <strong>Tribunale di Bari</strong> per il riesame delle misure cautelari personali (art. 309, comma 7, c.p.p.), il <strong>Tribunale di sorveglianza di Bari</strong> e la <strong>Corte d'Appello di Bari</strong>. Per gli altri Fori e per la <strong>Cassazione</strong> ci avvaliamo di colleghi corrispondenti.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Se non rispondete subito al telefono?</div>
-        <div class="faq-a">Il numero <strong><?php echo esc_html($phone_urgenza); ?></strong> è il cellulare dedicato alle urgenze penali e attivo H24. Se la chiamata non viene presa, <strong>richiama dopo qualche minuto</strong>: sarai ricontattato il prima possibile. Il WhatsApp dello Studio, <a href="<?php echo esc_url($wa_url); ?>" style="color:var(--gold)"><?php echo esc_html(lanotte_phone()); ?></a>, è per le comunicazioni che non hanno carattere d'urgenza.</div>
+        <div class="faq-a">Il numero <strong><?php echo esc_html($phone_urgenza); ?></strong> è il cellulare dedicato alle urgenze penali. Se la chiamata non viene presa, <strong>richiami dopo qualche minuto</strong>: sarà ricontattato appena possibile, compatibilmente con udienze e impegni. Il WhatsApp dello Studio, <a href="<?php echo esc_url($wa_url); ?>" style="color:var(--gold)"><?php echo esc_html(lanotte_phone()); ?></a>, è per le comunicazioni che non hanno carattere d'urgenza.</div>
       </div>
     </div>
   </div>

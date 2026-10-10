@@ -62,9 +62,9 @@ $content_starts_with_img = (bool) preg_match('/^\s*<(figure|img|p[^>]*>\s*<img)/
 
     <aside class="post-sidebar">
       <div class="ps-card ps-cta">
-        <h4>Vuoi un parere su questo tema?</h4>
+        <h4>Desidera un parere su questo tema?</h4>
         <p>Prima valutazione in studio o videocall. Risposta entro 24 ore.</p>
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary" style="width:100%">Prenota colloquio →</a>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary" style="width:100%">Prenoti un colloquio →</a>
         <a href="<?php echo esc_url(lanotte_whatsapp_url()); ?>" target="_blank" rel="noopener" class="ps-wa">WhatsApp diretto →</a>
       </div>
 
@@ -94,11 +94,11 @@ $content_starts_with_img = (bool) preg_match('/^\s*<(figure|img|p[^>]*>\s*<img)/
 <section class="ctastrip">
   <div class="container ctastrip-inner">
     <div>
-      <h3>Vuoi un parere sulla tua situazione?</h3>
+      <h3>Desidera un parere sulla Sua situazione?</h3>
       <p>Consulenza riservata in studio o in videocall. Risposta entro 24 ore.</p>
     </div>
     <div class="ctastrip-actions">
-      <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-gold">Prenota colloquio</a>
+      <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-gold">Prenoti un colloquio</a>
       <a href="<?php echo esc_url(lanotte_whatsapp_url()); ?>" class="btn btn-ghost" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>

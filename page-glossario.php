@@ -50,7 +50,7 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="affidamento condiviso">
       <h3>Affidamento condiviso <small>Diritto di Famiglia</small></h3>
-      <p>Modalità di affido dei figli minori (introdotta dalla L. 54/2006) in cui entrambi i genitori conservano la potestà e prendono insieme le decisioni più importanti. È la <strong>regola</strong> in caso di separazione o divorzio; l'affidamento esclusivo è l'eccezione, giustificata solo da un pregiudizio concreto per il minore.</p>
+      <p>Modalità di affido dei figli minori (introdotta dalla L. 54/2006) in cui entrambi i genitori esercitano la responsabilità genitoriale e assumono di comune accordo le decisioni di maggiore interesse per i figli (art. 337-ter c.c.). È la <strong>regola</strong> in caso di separazione o divorzio; l'affidamento esclusivo è l'eccezione, giustificata solo da un pregiudizio concreto per il minore.</p>
       <div class="vedi-anche"><strong>Vedi anche:</strong> <a href="<?php echo esc_url($famiglia_url); ?>">Famiglia e Successioni</a> · bigenitorialità · affido super-esclusivo</div>
     </div>
 
@@ -76,12 +76,12 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="contraddittorio">
       <h3>Contraddittorio <small>Procedura Generale</small></h3>
-      <p>Principio cardine del giusto processo (art. 111 Cost.): le parti devono potersi confrontare davanti al giudice, ognuna con i propri argomenti. Senza contraddittorio l'atto è nullo.</p>
+      <p>Principio cardine del giusto processo (art. 111 Cost.): le parti devono potersi confrontare davanti al giudice, ognuna con i propri argomenti. Il giudice, salvo che la legge disponga altrimenti, non può decidere su una domanda se la controparte non è stata regolarmente citata (art. 101 c.p.c.); in alcuni casi previsti dalla legge, come il decreto ingiuntivo, il contraddittorio si instaura dopo il provvedimento.</p>
     </div>
 
     <div class="glossario-term" data-term="custodia cautelare">
       <h3>Custodia cautelare <small>Diritto Penale</small></h3>
-      <p>Misura cautelare personale (art. 285 c.p.p.) consistente nella detenzione in carcere prima del giudizio. Applicabile solo in caso di gravi indizi e di pericolosità. Può essere sostituita con misure meno gravose (domiciliari, obbligo di firma).</p>
+      <p>Misura cautelare personale (art. 285 c.p.p.) consistente nella detenzione in carcere prima del giudizio. Richiede gravi indizi di colpevolezza e specifiche esigenze cautelari (pericolo per le prove, di fuga o di commissione di gravi reati: artt. 273 e 274 c.p.p.) e può essere disposta solo quando le altre misure, anche applicate insieme, risultano inadeguate (art. 275, comma 3, c.p.p.).</p>
       <div class="vedi-anche"><strong>Vedi anche:</strong> arresti domiciliari · interrogatorio di garanzia · riesame</div>
     </div>
 
@@ -89,7 +89,7 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="decreto ingiuntivo">
       <h3>Decreto ingiuntivo <small>Procedura Civile</small></h3>
-      <p>Provvedimento del giudice (art. 633 c.p.c.) che ordina al debitore di pagare una somma certa, liquida ed esigibile entro 40 giorni. Se non viene proposta opposizione, diventa <strong>titolo esecutivo</strong> e si può procedere a pignoramento. Procedura rapida, basata su prova scritta del credito.</p>
+      <p>Provvedimento del giudice (art. 633 c.p.c.) che ordina al debitore di pagare una somma certa, liquida ed esigibile entro il termine indicato nel decreto, di regola 40 giorni dalla notificazione (art. 641 c.p.c.). Se non viene proposta opposizione, diventa <strong>titolo esecutivo</strong> e si può procedere a pignoramento. Procedura rapida, basata su prova scritta del credito.</p>
       <div class="vedi-anche"><strong>Vedi anche:</strong> opposizione a decreto ingiuntivo · titolo esecutivo · precetto</div>
     </div>
 
@@ -115,7 +115,7 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="fermo">
       <h3>Fermo <small>Diritto Penale</small></h3>
-      <p>Misura pre-cautelare disposta dalla Polizia Giudiziaria (art. 384 c.p.p.) nei confronti di chi è gravemente indiziato di reato, quando c'è pericolo di fuga. Deve essere convalidato dal GIP entro 96 ore, altrimenti la persona deve essere rilasciata.</p>
+      <p>Misura precautelare disposta dal pubblico ministero o, nei casi previsti dalla legge, dalla polizia giudiziaria (art. 384 c.p.p.) nei confronti di chi è gravemente indiziato di reato, quando c'è pericolo di fuga. Deve essere convalidato dal GIP entro 96 ore, altrimenti la persona deve essere rilasciata.</p>
       <div class="vedi-anche"><strong>Vedi anche:</strong> arresto · convalida · interrogatorio di garanzia</div>
     </div>
 
@@ -123,14 +123,14 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="gip">
       <h3>GIP (Giudice per le Indagini Preliminari) <small>Diritto Penale</small></h3>
-      <p>Giudice che interviene nella fase delle indagini per autorizzare atti che incidono sui diritti fondamentali (intercettazioni, misure cautelari, perquisizioni). Diverso dal GUP (Giudice dell'udienza preliminare) e dal giudice del dibattimento.</p>
+      <p>Giudice che interviene nella fase delle indagini per autorizzare atti che incidono sui diritti fondamentali (per esempio intercettazioni e misure cautelari). Le perquisizioni durante le indagini sono di regola disposte dal pubblico ministero con decreto motivato (art. 247 c.p.p.). Diverso dal GUP (Giudice dell'udienza preliminare) e dal giudice del dibattimento.</p>
     </div>
 
     <div class="glossario-letter" id="I">I</div>
 
     <div class="glossario-term" data-term="impugnazione">
       <h3>Impugnazione <small>Procedura Generale</small></h3>
-      <p>Atto con cui una parte chiede a un giudice superiore di riesaminare una sentenza ritenuta sfavorevole o errata. Forme principali: appello, ricorso per Cassazione, opposizione, revocazione.</p>
+      <p>Rimedio con cui una parte contesta un provvedimento davanti al giudice indicato dalla legge: un giudice superiore (appello, ricorso per Cassazione) o, in alcuni casi, lo stesso ufficio (opposizione, revocazione).</p>
     </div>
 
     <div class="glossario-term" data-term="indagato">
@@ -140,7 +140,7 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="interrogatorio di garanzia">
       <h3>Interrogatorio di garanzia <small>Diritto Penale</small></h3>
-      <p>Atto previsto dall'art. 294 c.p.p. che deve avvenire entro 5 giorni dall'applicazione di una misura cautelare. È il primo momento in cui l'indagato sente le accuse e può rispondere o tacere. La presenza del difensore è essenziale.</p>
+      <p>Interrogatorio della persona sottoposta a misura cautelare (art. 294 c.p.p.): se il giudice non vi ha già provveduto, avviene entro 5 giorni dall'inizio della custodia in carcere ed entro 10 giorni dall'esecuzione o notificazione delle altre misure. La persona può rispondere o avvalersi della facoltà di non rispondere; il difensore ha l'obbligo di intervenire.</p>
     </div>
 
     <div class="glossario-letter" id="L">L</div>
@@ -174,14 +174,14 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="negoziazione assistita">
       <h3>Negoziazione assistita <small>Procedura Civile</small></h3>
-      <p>Procedura (DL 132/2014) in cui le parti, con l'assistenza obbligatoria dei rispettivi avvocati, cercano un accordo prima di andare in giudizio. Obbligatoria per il risarcimento da circolazione stradale (fino a 50.000 €) e per separazioni/divorzi consensuali con figli minori.</p>
+      <p>Procedura (DL 132/2014) in cui le parti, con l'assistenza obbligatoria dei rispettivi avvocati, cercano un accordo prima di andare in giudizio. È condizione di procedibilità per il risarcimento del danno da circolazione di veicoli e natanti e per le domande di pagamento di somme fino a 50.000 € fuori dalle materie della mediazione obbligatoria (art. 3 D.L. 132/2014); per separazione, divorzio e modifica delle condizioni è una facoltà (art. 6).</p>
     </div>
 
     <div class="glossario-letter" id="O">O</div>
 
     <div class="glossario-term" data-term="opposizione">
       <h3>Opposizione (a decreto ingiuntivo) <small>Procedura Civile</small></h3>
-      <p>Atto con cui il debitore destinatario di un decreto ingiuntivo contesta la pretesa creditoria, instaurando il giudizio ordinario di cognizione. Termine perentorio: 40 giorni dalla notifica del decreto.</p>
+      <p>Atto con cui il debitore destinatario di un decreto ingiuntivo contesta la pretesa creditoria, instaurando il giudizio ordinario di cognizione. Di regola va proposta entro 40 giorni dalla notificazione, salvo il diverso termine fissato nel decreto (art. 641 c.p.c.); se il decreto è provvisoriamente esecutivo, il creditore può procedere all'esecuzione anche prima della scadenza (art. 642 c.p.c.).</p>
     </div>
 
     <div class="glossario-letter" id="P">P</div>
@@ -204,31 +204,31 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="prescrizione">
       <h3>Prescrizione <small>Procedura Generale</small></h3>
-      <p>Estinzione di un diritto o di un'azione per inerzia prolungata del titolare. Termini variabili: 5 anni (risarcimento da fatto illecito), 10 anni (ordinaria), 6 mesi (azione di garanzia), 2 anni (risarcimento RC auto). Si interrompe con atti di costituzione in mora.</p>
+      <p>Estinzione di un diritto o di un'azione per inerzia prolungata del titolare. Termini variabili: 5 anni (risarcimento da fatto illecito), 10 anni (ordinaria), 1 anno dalla consegna (garanzia per vizi nella vendita, art. 1495 c.c.), 2 anni (danni da circolazione di veicoli, art. 2947 c.c.). Si interrompe con atti di costituzione in mora.</p>
     </div>
 
     <div class="glossario-letter" id="Q">Q</div>
 
     <div class="glossario-term" data-term="querela">
       <h3>Querela <small>Diritto Penale</small></h3>
-      <p>Manifestazione di volontà della persona offesa da un reato perseguibile a querela, finalizzata all'avvio del procedimento penale. Va presentata entro 3 mesi dalla conoscenza del fatto, può essere remessa (con conseguente estinzione del reato).</p>
+      <p>Manifestazione di volontà della persona offesa da un reato perseguibile a querela, finalizzata all'avvio del procedimento penale. Il termine ordinario è di 3 mesi dalla notizia del fatto, salvo termini diversi previsti dalla legge (art. 124 c.p.); la querela può essere rimessa, estinguendo il reato, salvo i casi in cui la legge la rende irrevocabile.</p>
     </div>
 
     <div class="glossario-letter" id="R">R</div>
 
     <div class="glossario-term" data-term="rito abbreviato">
       <h3>Rito abbreviato <small>Diritto Penale</small></h3>
-      <p>Rito speciale (art. 438 c.p.p.) deciso allo stato degli atti, senza dibattimento. Comporta sconto di pena fino a un terzo (1/2 per contravvenzioni). Scelta strategica: conviene quando le prove d'indagine sono deboli o quando la condanna è probabile e si vuole limitare il danno.</p>
+      <p>Rito speciale (art. 438 c.p.p.) deciso allo stato degli atti, senza dibattimento. In caso di condanna la pena è diminuita di un terzo per i delitti e della metà per le contravvenzioni; se né l'imputato né il difensore impugnano la sentenza, è ridotta di un ulteriore sesto in fase di esecuzione (art. 442, commi 2 e 2-bis, c.p.p.). Scelta strategica: conviene quando le prove d'indagine sono deboli o quando la condanna è probabile e si vuole limitare il danno.</p>
     </div>
 
     <div class="glossario-term" data-term="riesame">
       <h3>Riesame <small>Diritto Penale</small></h3>
-      <p>Strumento di impugnazione (art. 309 c.p.p.) delle misure cautelari personali e reali, davanti al Tribunale della libertà. Termine: 10 giorni dalla notifica. Permette di rivedere la sussistenza dei presupposti della misura.</p>
+      <p>Impugnazione davanti al tribunale del riesame. Per le misure coercitive la richiesta si propone entro 10 giorni dall'esecuzione o notificazione dell'ordinanza (art. 309 c.p.p.); per il sequestro entro 10 giorni dall'esecuzione o dalla conoscenza del sequestro (art. 324 c.p.p.). Le altre ordinanze sulle misure cautelari personali, come quelle interdittive, si impugnano con l'appello (art. 310 c.p.p.).</p>
     </div>
 
     <div class="glossario-term" data-term="risarcimento del danno">
       <h3>Risarcimento del danno <small>Diritto Civile</small></h3>
-      <p>Obbligo del responsabile di un fatto illecito o di un inadempimento di reintegrare la sfera giuridica del danneggiato. Comprende: danno emergente (perdita subita), lucro cessante (guadagno mancato), danno biologico, morale, esistenziale. Le tabelle del Tribunale di Milano sono riferimento nazionale.</p>
+      <p>Obbligo del responsabile di un fatto illecito o di un inadempimento di reintegrare la sfera giuridica del danneggiato. Comprende il danno patrimoniale (danno emergente e lucro cessante) e il danno non patrimoniale (danno biologico e sofferenza morale). Per il danno alla salute da circolazione e responsabilità sanitaria si applicano le tabelle di legge (art. 139 CdA e Tabella Unica Nazionale, D.P.R. 12/2025); la Cassazione indica la TUN come parametro equitativo anche negli altri casi (Cass. civ., sez. III, 7 aprile 2026, n. 8630).</p>
       <div class="vedi-anche"><strong>Vedi anche:</strong> <a href="<?php echo esc_url($infort_url); ?>">Infortunistica</a> · responsabilità · CTU medico-legale</div>
     </div>
 
@@ -241,7 +241,7 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="sequestro">
       <h3>Sequestro <small>Diritto Penale</small></h3>
-      <p>Misura cautelare reale (artt. 253-262 c.p.p.) che colpisce cose pertinenti al reato (sequestro probatorio) o che possono essere oggetto di confisca (sequestro preventivo). Impugnabile con riesame entro 10 giorni.</p>
+      <p>Il sequestro probatorio (art. 253 c.p.p.) è un mezzo di ricerca della prova sul corpo del reato e sulle cose pertinenti necessarie per accertare i fatti; il sequestro preventivo (art. 321 c.p.p.) è una misura cautelare reale sulle cose la cui libera disponibilità può aggravare le conseguenze del reato o di cui è consentita la confisca. Il riesame si propone entro 10 giorni dall'esecuzione o dalla conoscenza del sequestro (art. 324 c.p.p.).</p>
     </div>
 
     <div class="glossario-letter" id="T">T</div>
@@ -265,13 +265,13 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="usura">
       <h3>Usura <small>Diritto Bancario / Penale</small></h3>
-      <p>Pratica di applicare interessi che superano il tasso soglia stabilito dalla Banca d'Italia. Configura reato (art. 644 c.p.) e rende non dovuti gli interessi. Distinta in "usura in concreto" (verifica sul singolo rapporto) e "usura in astratto" (superamento del tasso soglia).</p>
+      <p>Reato di chi si fa dare o promettere interessi o altri vantaggi usurari (art. 644 c.p.). Sono sempre usurari gli interessi oltre la soglia di legge, calcolata sul tasso effettivo globale medio rilevato trimestralmente dal Ministero dell'economia, sentita la Banca d'Italia (art. 2 L. 108/1996); sono usurari anche interessi inferiori alla soglia ma sproporzionati, quando chi li dà o li promette è in difficoltà economica o finanziaria (cosiddetta usura in concreto). Nel mutuo la clausola di interessi usurari è nulla e non sono dovuti interessi (art. 1815 c.c.).</p>
       <div class="vedi-anche"><strong>Vedi anche:</strong> <a href="<?php echo esc_url($bancario_url); ?>">Diritto Bancario</a> · anatocismo · tasso soglia</div>
     </div>
 
     <div class="glossario-cta-box">
       <h3>Non trovi il termine che cerchi?</h3>
-      <p>Stiamo arricchendo il glossario settimanalmente. Scrivici se un termine ti è poco chiaro: lo aggiungiamo al prossimo aggiornamento.</p>
+      <p>Stiamo arricchendo il glossario settimanalmente. Ci scriva se un termine non è chiaro: lo aggiungeremo al prossimo aggiornamento.</p>
       <a href="<?php echo esc_url($contatti_url); ?>" class="btn btn-outline">Suggerisci un termine</a>
     </div>
 

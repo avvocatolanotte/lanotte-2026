@@ -13,7 +13,7 @@ $hero_bg = LANOTTE_THEME_URI . '/assets/img/trani/cattedrale-trani.jpg';
 <section class="hero-internal" style="background-image:linear-gradient(135deg,rgba(14,26,51,.88) 0%,rgba(26,42,74,.78) 100%),url('<?php echo esc_url($hero_bg); ?>');background-size:cover;background-position:center 60%;padding:90px 0 70px;color:#fff">
   <div class="container" style="position:relative;z-index:2">
     <?php lanotte_breadcrumbs(); ?>
-    <h1 style="font-size:clamp(30px,5vw,52px);color:#fff;margin:8px 0 14px">Lo Studio Legale<br>Lanotte &amp; Partners</h1>
+    <h1 style="font-size:clamp(30px,5vw,52px);color:#fff;margin:8px 0 14px">Lo Studio Legale<br>LANOTTE &amp; Partners</h1>
     <p class="subtitle" style="color:#d4d8e0;max-width:720px">Studio iscritto al Foro di Trani · Sede in Barletta · Attività multidisciplinare in materia civile, penale, commerciale, del lavoro e tributaria.</p>
   </div>
 </section>
@@ -43,7 +43,7 @@ if ($has_custom_content):
 
     <p style="font-size:16.5px;line-height:1.75;color:#334155;margin:0 0 18px">L'Avv. <strong>Giuseppe LANOTTE</strong>, titolare dello Studio, esercita la professione con un approccio interdisciplinare: la formazione civilistica si integra con un'immutata pratica penalistica e con la consulenza alle imprese, alle associazioni del terzo settore e alle società sportive dilettantistiche.</p>
 
-    <p style="font-size:16.5px;line-height:1.75;color:#334155;margin:0">Lo Studio assiste persone fisiche, famiglie, professionisti, imprese ed enti, garantendo continuità del rapporto e seguito personale del titolare o di chi del mandato. Le questioni complesse sono trattate con il supporto di colleghi consulenti, ciascuno specializzato nella materia di competenza, secondo un modello collaborativo orientato alla tutela effettiva dell'assistito.</p>
+    <p style="font-size:16.5px;line-height:1.75;color:#334155;margin:0">Lo Studio assiste persone fisiche, famiglie, professionisti, imprese ed enti, garantendo continuità del rapporto e seguito personale del titolare o del professionista incaricato. Le questioni complesse sono trattate con il supporto di colleghi consulenti, ciascuno specializzato nella materia di competenza, secondo un modello collaborativo orientato alla tutela effettiva dell'assistito.</p>
   </div>
 </section>
 
@@ -64,7 +64,7 @@ if ($has_custom_content):
 <section style="background:#fff;padding:60px 0">
   <div class="container" style="max-width:900px">
     <h3 style="font-family:var(--serif);font-size:clamp(22px,3.2vw,30px);color:var(--navy);font-weight:600;margin:0 0 20px">Patrocinio innanzi alle giurisdizioni superiori</h3>
-    <p style="font-size:16px;line-height:1.7;color:#334155;margin:0 0 18px">Per il patrocinio innanzi alle giurisdizioni superiori — Corte Suprema di Cassazione, Consiglio di Stato e Corte di Cassazione tributaria — lo Studio si avvale stabilmente della collaborazione di professionisti abilitati al patrocinio in Cassazione, individuati di volta in volta in base alla specifica materia trattata.</p>
+    <p style="font-size:16px;line-height:1.7;color:#334155;margin:0 0 18px">Per il patrocinio innanzi alle giurisdizioni superiori — Corte di Cassazione, anche per le controversie tributarie, e Consiglio di Stato — lo Studio si avvale stabilmente della collaborazione di professionisti abilitati al patrocinio in Cassazione, individuati di volta in volta in base alla specifica materia trattata.</p>
     <p style="font-size:16px;line-height:1.7;color:#334155;margin:0">La pratica forense è esercitata nel rigoroso rispetto del Codice Deontologico Forense e dei principi di indipendenza, lealtà processuale e segreto professionale.</p>
   </div>
 </section>
@@ -120,7 +120,7 @@ if ($has_custom_content):
       <article class="ls-collab-card">
         <div class="ls-collab-tag">Patrocinio innanzi a giurisdizioni superiori</div>
         <h5>Avvocati cassazionisti specializzati</h5>
-        <p>Per i gradi di legittimità innanzi alla Corte di Cassazione, al Consiglio di Stato e alla Corte di Cassazione tributaria, lo Studio si avvale di colleghi cassazionisti specializzati, distintamente per il ramo civile, penale, amministrativo e tributario.</p>
+        <p>Per i gradi di legittimità innanzi alla Corte di Cassazione, anche per le controversie tributarie, e al Consiglio di Stato, lo Studio si avvale di colleghi cassazionisti specializzati, distintamente per il ramo civile, penale, amministrativo e tributario.</p>
       </article>
 
       <article class="ls-collab-card">
@@ -146,7 +146,7 @@ if ($has_custom_content):
         <div class="terr-info">
           <div class="terr-tag">Foro · Iscrizione</div>
           <h4>Trani</h4>
-          <p>Foro di iscrizione dello Studio. Sede storica della Corte d'Appello delle Puglie dal 1817 al 1923. Tribunale ordinario competente per l'intera provincia BAT.</p>
+          <p>Foro di iscrizione dello Studio. Sede storica della Corte d'Appello delle Puglie dal 1817 al 1923. Tribunale del circondario di Barletta, Andria, Trani, Bisceglie, Canosa di Puglia, Corato, Minervino Murge, Molfetta, Ruvo di Puglia, Spinazzola e Terlizzi.</p>
         </div>
       </div>
       <div class="terr-card">
@@ -162,7 +162,7 @@ if ($has_custom_content):
         <div class="terr-info">
           <div class="terr-tag">Corte d'Appello</div>
           <h4>Bari</h4>
-          <p>Capoluogo regionale, sede della Corte d'Appello dal 1923 con giurisdizione su Bari, Foggia, Lecce, Taranto e Trani. Lo Studio opera presso le sue sedi giudiziarie nel secondo grado.</p>
+          <p>Capoluogo regionale, sede della Corte d'Appello dal 1923 il cui distretto comprende i circondari dei Tribunali di Bari, Foggia e Trani. Lo Studio opera presso le sue sedi giudiziarie nel secondo grado.</p>
         </div>
       </div>
     </div>
@@ -190,7 +190,7 @@ if ($has_custom_content):
           <div class="sedi-photo-caption">
             <div class="sedi-photo-tag">Sezione Civile</div>
             <h4>Tribunale di Trani</h4>
-            <small>Tribunale ordinario competente per l'intera provincia BAT</small>
+            <small>Tribunale del circondario di Barletta, Andria, Trani, Bisceglie, Canosa di Puglia, Corato, Minervino Murge, Molfetta, Ruvo di Puglia, Spinazzola e Terlizzi</small>
           </div>
         </div>
       </div>
@@ -228,14 +228,14 @@ if ($has_custom_content):
       <div class="valore">
         <div class="valore-num">II</div>
         <h4>Segreto professionale</h4>
-        <p>Quanto appreso dall'assistito è coperto da segreto in modo assoluto. Comunicazioni su canali sicuri e tracciati.</p>
+        <p>Quanto appreso dall'assistito è tutelato dal segreto professionale e dal dovere di riservatezza, nei termini previsti dalla legge e dal codice deontologico (art. 28 c.d.f.). Comunicazioni su canali sicuri e tracciati.</p>
         <small>Art. 28 c.d.f. · Artt. 200 c.p.p. e 622 c.p.</small>
       </div>
       <div class="valore">
         <div class="valore-num">III</div>
         <h4>Verità del compenso</h4>
-        <p>Preventivo scritto sin dal primo incontro, ai sensi dell'art. 13 c. 5 L. 247/2012 (come modif. da L. 124/2017). I patti di quota lite sono vietati dall'art. 29 c. 4 c.d.f.</p>
-        <small>Art. 29 c.d.f. · L. 247/2012</small>
+        <p>Preventivo scritto sin dal primo incontro, ai sensi dell'art. 13, comma 5, L. 247/2012. I patti di quota lite sono vietati dall'art. 13, comma 4, L. 247/2012 e dall'art. 25, comma 2, c.d.f.</p>
+        <small>Art. 25 c.d.f. · L. 247/2012</small>
       </div>
       <div class="valore">
         <div class="valore-num">IV</div>

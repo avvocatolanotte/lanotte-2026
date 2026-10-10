@@ -17,7 +17,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
   <div class="container">
     <?php lanotte_breadcrumbs(); ?>
     <h1 style="font-size:clamp(32px,5vw,52px);line-height:1.1;margin-bottom:14px">Parliamone.</h1>
-    <p class="subtitle" style="max-width:680px">Per appuntamenti, urgenze penali o richiesta di preventivo, il modo più rapido è il modulo qui sotto o WhatsApp.</p>
+    <p class="subtitle" style="max-width:680px">Per appuntamenti e richieste di preventivo può usare il modulo qui sotto o il WhatsApp dello Studio. Per le urgenze penali telefoni al cellulare <?php echo esc_html(lanotte_cellulare()); ?>.</p>
   </div>
 </section>
 
@@ -35,7 +35,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
       <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="qa-btn qa-tel">
         <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.7 2.8a2 2 0 01-.5 1.953l-1.27 1.27a16 16 0 006.586 6.586l1.27-1.27a2 2 0 011.953-.502l2.8.7A2 2 0 0121 18.72V21a2 2 0 01-2 2C9.611 23 1 14.389 1 5z"/></svg>
         <div>
-          <strong>Chiama</strong>
+          <strong>Telefono</strong>
           <span><?php echo esc_html(lanotte_phone()); ?></span>
         </div>
       </a>
@@ -43,7 +43,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
         <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         <div>
           <strong>Email</strong>
-          <span>Scrivici</span>
+          <span>Scriva allo Studio</span>
         </div>
       </a>
     </div>
@@ -63,7 +63,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
         style="border:0;display:block"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        title="Sede Studio Legale Lanotte &amp; Partners — Barletta"
+        title="Sede Studio Legale LANOTTE &amp; Partners — Barletta"
         allowfullscreen></iframe>
     <?php endif; ?>
     <a href="https://www.google.com/maps?q=<?php echo esc_attr($indirizzo_query); ?>" target="_blank" rel="noopener" class="map-cta">
@@ -77,9 +77,9 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
   <div class="container contact-grid">
 
     <div class="contact-info">
-      <div class="section-eyebrow">Studio Legale Lanotte &amp; Partners</div>
+      <div class="section-eyebrow">Studio Legale LANOTTE &amp; Partners</div>
       <h2 style="font-size:clamp(26px,3.5vw,34px);line-height:1.2;margin:8px 0 14px">Come scriverci.</h2>
-      <p class="intro" style="font-size:15.5px;line-height:1.65;margin:0 0 28px">Risposta entro 24 ore lavorative. Per il <strong>penale d'urgenza</strong> è attiva la reperibilità telefonica anche festiva e notturna.</p>
+      <p class="intro" style="font-size:15.5px;line-height:1.65;margin:0 0 28px">Di regola rispondiamo entro 24 ore lavorative. Per le <strong>urgenze penali</strong> è disponibile il cellulare <?php echo esc_html(lanotte_cellulare()); ?>, che risponde appena possibile, compatibilmente con udienze e impegni.</p>
 
       <div class="contact-row">
         <div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a7 7 0 0114 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg></div>
@@ -103,7 +103,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
         <div class="contact-icon" style="background:#dcfce7;color:#16a34a"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg></div>
         <div class="contact-text">
           <strong>WhatsApp</strong>
-          <p><a href="<?php echo esc_url(lanotte_whatsapp_url()); ?>" target="_blank" rel="noopener">Scrivici subito</a></p>
+          <p><a href="<?php echo esc_url(lanotte_whatsapp_url()); ?>" target="_blank" rel="noopener">Scriva subito</a></p>
           <small>Messaggi e documenti · per le urgenze, telefoni</small>
         </div>
       </div>
@@ -119,8 +119,8 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
     </div>
 
     <div class="contact-form">
-      <h3 style="font-family:var(--serif);font-size:24px;color:var(--navy);margin:0 0 8px">Scrivici</h3>
-      <p style="font-size:14.5px;color:#475569;margin:0 0 22px">Compila il modulo e ti rispondiamo entro 24 ore lavorative.</p>
+      <h3 style="font-family:var(--serif);font-size:24px;color:var(--navy);margin:0 0 8px">Scriva allo Studio</h3>
+      <p style="font-size:14.5px;color:#475569;margin:0 0 22px">Compili il modulo: di regola rispondiamo entro 24 ore lavorative.</p>
       <?php
       $cf7 = function_exists('get_field') ? get_field('cf7_shortcode') : '';
       if (!$cf7 && shortcode_exists('contact-form-7')) {
@@ -128,7 +128,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
       }
       if ($cf7 && shortcode_exists('contact-form-7')) {
           echo do_shortcode($cf7);
-          echo '<p class="contact-privacy-note">Inviando il modulo chiedi allo Studio di ricontattarti per la tua richiesta. I dati sono trattati secondo l\'<a href="' . esc_url(home_url('/privacy/')) . '" target="_blank" rel="noopener">informativa privacy</a> e non vengono usati per comunicazioni promozionali senza consenso. Il modulo è protetto da reCAPTCHA: si applicano le <a href="https://policies.google.com/privacy?hl=it" target="_blank" rel="noopener">Norme sulla privacy</a> e i <a href="https://policies.google.com/terms?hl=it" target="_blank" rel="noopener">Termini di servizio</a> di Google.</p>';
+          echo '<p class="contact-privacy-note">Inviando il modulo chiede allo Studio di ricontattarLa per la Sua richiesta. I dati sono trattati secondo l\'<a href="' . esc_url(home_url('/privacy/')) . '" target="_blank" rel="noopener">informativa privacy</a> e non vengono usati per comunicazioni promozionali senza consenso. Il modulo è protetto da reCAPTCHA: si applicano le <a href="https://policies.google.com/privacy?hl=it" target="_blank" rel="noopener">Norme sulla privacy</a> e i <a href="https://policies.google.com/terms?hl=it" target="_blank" rel="noopener">Termini di servizio</a> di Google.</p>';
       } else {
           // Mostriamo SEMPRE il form HTML pulito (non the_content() che potrebbe
           // contenere blocchi duplicati ereditati dal seed/import precedente)

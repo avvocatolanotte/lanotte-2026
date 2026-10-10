@@ -44,7 +44,7 @@ function lanotte_render_section_hero() {
           <h1><?php echo wp_kses_post($hero_title); ?></h1>
           <p class="lead"><?php echo wp_kses_post($hero_lead); ?></p>
           <div class="hero-cta">
-            <a href="<?php echo esc_url($cf_url); ?>" class="btn btn-primary">Prenota una consulenza</a>
+            <a href="<?php echo esc_url($cf_url); ?>" class="btn btn-primary">Prenoti una consulenza</a>
             <a href="<?php echo esc_url(get_post_type_archive_link('area')); ?>" class="btn btn-ghost">Aree di competenza</a>
           </div>
           <?php
@@ -67,25 +67,25 @@ function lanotte_render_section_hero() {
 
         <?php if ($hero_cf7): ?>
           <div class="hero-card">
-            <h3>Hai un caso da discutere?</h3>
+            <h3>Ha un caso da discutere?</h3>
             <p>Rispondiamo entro 24 ore con un primo riscontro.</p>
             <?php echo do_shortcode($hero_cf7); ?>
           </div>
         <?php else: ?>
           <div class="hero-card">
-            <h3>Hai un caso da discutere?</h3>
-            <p>Rispondiamo entro 24 ore con un primo riscontro. Scegli il canale più comodo:</p>
+            <h3>Ha un caso da discutere?</h3>
+            <p>Di regola rispondiamo entro 24 ore lavorative con un primo riscontro. Scelga il canale più comodo:</p>
             <div class="hero-card-actions">
               <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="hca hca-phone">
                 <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.7 2.8a2 2 0 01-.5 1.953l-1.27 1.27a16 16 0 006.586 6.586l1.27-1.27a2 2 0 011.953-.502l2.8.7A2 2 0 0121 18.72V21a2 2 0 01-2 2C9.611 23 1 14.389 1 5z"/></svg>
-                <span><strong>Chiama</strong><?php echo esc_html(lanotte_phone()); ?></span>
+                <span><strong>Telefono</strong><?php echo esc_html(lanotte_phone()); ?></span>
               </a>
               <a href="<?php echo esc_url(lanotte_whatsapp_url()); ?>" target="_blank" rel="noopener" class="hca hca-wa">
                 <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37s-1.04 1.02-1.04 2.48 1.07 2.88 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.12-.27-.2-.57-.35"/><path d="M12.05 2C6.6 2 2.13 6.45 2.13 11.9c0 1.76.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 004.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.9 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.05 2"/></svg>
                 <span><strong>WhatsApp</strong>Risposta rapida</span>
               </a>
             </div>
-            <a href="<?php echo esc_url($cf_url); ?>" class="btn btn-primary" style="margin-top:14px;width:100%">Compila il modulo contatti →</a>
+            <a href="<?php echo esc_url($cf_url); ?>" class="btn btn-primary" style="margin-top:14px;width:100%">Compili il modulo contatti →</a>
           </div>
         <?php endif; ?>
       </div>
@@ -112,7 +112,7 @@ function lanotte_render_section_painpoint() {
     <section class="painpoint">
       <div class="container">
         <div class="pp-intro">
-          <h2>Di cosa hai bisogno?</h2>
+          <h2>Di che cosa ha bisogno?</h2>
           <p>Assistenza legale multidisciplinare e tutela della proprietà intellettuale. Operativi sui Fori di Trani e Bari e in ambito internazionale.</p>
         </div>
         <div class="pp-grid">

@@ -67,7 +67,7 @@ $is_legal = is_page(['privacy', 'cookie', 'privacy-policy', 'cookie-policy', 'cr
         ?>
         <h2>Informativa privacy</h2>
         <p>Questa informativa e in fase di aggiornamento. Per esercitare i diritti previsti dal GDPR o per richieste relative al trattamento dei dati personali puo contattare lo Studio ai recapiti indicati di seguito.</p>
-        <p><strong>Titolare del trattamento:</strong> Studio Legale Lanotte &amp; Partners.</p>
+        <p><strong>Titolare del trattamento:</strong> Studio Legale LANOTTE &amp; Partners.</p>
         <p><strong>Email:</strong> <a href="mailto:<?php echo esc_attr(lanotte_email()); ?>"><?php echo esc_html(lanotte_email()); ?></a><br><strong>PEC:</strong> <a href="mailto:<?php echo esc_attr(lanotte_pec()); ?>"><?php echo esc_html(lanotte_pec()); ?></a></p>
         <p>La versione completa dell'informativa sara pubblicata in questa pagina.</p>
         <?php

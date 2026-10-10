@@ -15,12 +15,12 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
   <div class="container" style="position:relative;z-index:2">
     <?php lanotte_breadcrumbs(); ?>
     <h1 style="color:#fff;font-size:clamp(28px,5vw,48px);line-height:1.15;margin:8px 0 14px">Newsletter dello Studio.<br>Solo cose che servono.</h1>
-    <p class="subtitle" style="color:#d4d8e0;max-width:760px">Un'email al mese con le novità giuridiche più rilevanti per imprese, professionisti e privati. Niente spam, niente filler. Disiscrizione in 1 click.</p>
+    <p class="subtitle" style="color:#d4d8e0;max-width:760px">Un'email al mese con le novità giuridiche più rilevanti per imprese, professionisti e privati. Nessuna pubblicità; cancellazione con un clic.</p>
   </div>
 </section>
 
 <!-- FORM ISCRIZIONE PROMINENTE -->
-<!--
+<?php /*
   Form collegato al plugin Newsletter (TNP): invia in POST a <home>/?na=s con i nomi
   di campo attesi dal plugin (ne = email, nn = nome, ns = cognome, ny = consenso privacy,
   nl[] = liste di interesse).
@@ -32,22 +32,22 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
       l'email di conferma: finche' non lo si attiva, la promessa non e' vera);
    3. creare le 8 liste nell'ordine delle caselle qui sotto, cosi' che gli id 1..8 combacino;
    4. impostare il testo dell'email di conferma e di benvenuto.
--->
+*/ ?>
 <section class="block" style="background:var(--cream)">
   <div class="container" style="max-width:720px">
     <div class="nl-form-card">
-      <h2>Iscriviti gratuitamente</h2>
-      <p class="nl-form-intro">Ricevi la newsletter mensile dello Studio: novità normative, commenti a sentenze, scadenze fiscali, casi pratici.</p>
+      <h2>Iscrizione gratuita</h2>
+      <p class="nl-form-intro">Riceva la newsletter mensile dello Studio: novità normative, commenti a sentenze, scadenze fiscali, casi pratici.</p>
 
       <form id="nl-subscribe-form" action="<?php echo esc_url( home_url( '/' ) ); ?>?na=s" method="post" class="nl-form">
         <div class="form-row nl-form-row">
           <div class="form-field"><label>Nome</label><input type="text" name="nn" placeholder="Es. Mario" required></div>
           <div class="form-field"><label>Cognome</label><input type="text" name="ns" placeholder="Es. Rossi" required></div>
         </div>
-        <div class="form-field"><label>Email*</label><input type="email" name="ne" placeholder="la-tua-email@esempio.it" required></div>
+        <div class="form-field"><label>Email*</label><input type="email" name="ne" placeholder="nome@esempio.it" required></div>
 
         <div class="form-field nl-form-aree">
-          <label class="nl-aree-label">Aree di interesse <span>(opzionale — riceverai contenuti pertinenti)</span></label>
+          <label class="nl-aree-label">Aree di interesse <span>(facoltative: riceverà contenuti pertinenti)</span></label>
           <div class="nl-aree-grid">
             <label><input type="checkbox" name="nl[]" value="1"> Diritto Penale</label>
             <label><input type="checkbox" name="nl[]" value="2"> Diritto Civile</label>
@@ -62,11 +62,11 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
 
         <label class="checkbox-row nl-privacy">
           <input type="checkbox" name="ny" value="1" required>
-          <span>Acconsento al trattamento dei dati ex art. 13 GDPR per l'invio della newsletter. Ho letto l'<a href="<?php echo esc_url($privacy_url); ?>" style="color:var(--gold)">informativa privacy</a>. Posso disiscrivermi in qualunque momento.</span>
+          <span>Acconsento al trattamento dei dati per l'invio della newsletter (art. 6, par. 1, lett. a, GDPR). Ho letto l'<a href="<?php echo esc_url($privacy_url); ?>" style="color:var(--gold)">informativa privacy</a>. Posso revocare il consenso e cancellarmi in qualunque momento.</span>
         </label>
 
         <button type="submit" class="btn btn-primary nl-submit">Iscrivimi alla Newsletter</button>
-        <p class="nl-foot">Puoi disiscriverti in qualunque momento con un clic, dal collegamento presente in ogni invio.<!-- Quando il doppio opt-in sara' attivo nel plugin, si puo' tornare a promettere l'email di conferma. --></p>
+        <p class="nl-foot">Può cancellare l'iscrizione in qualunque momento con un clic, dal collegamento presente in ogni invio.<?php /* Quando il doppio opt-in sarà attivo nel plugin, si potrà tornare a promettere l'email di conferma. */ ?></p>
       </form>
     </div>
   </div>
@@ -77,7 +77,7 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
   <div class="container">
     <div class="section-title">
       <div class="divider-dot"></div>
-      <div class="section-eyebrow">Cosa troverai</div>
+      <div class="section-eyebrow">Che cosa troverà</div>
       <h2>Contenuti curati dai professionisti dello Studio</h2>
     </div>
     <div class="nl-feat-grid">
@@ -105,6 +105,8 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
   </div>
 </section>
 
+<?php /* 11/10/2026 — Archivio nascosto: i numeri elencati non risultano pubblicati (collegamenti vuoti "#").
+   Si ripristina solo con numeri realmente pubblicati e collegamenti funzionanti. */ if (false): ?>
 <!-- ARCHIVIO -->
 <section class="block" style="background:var(--cream)">
   <div class="container">
@@ -137,13 +139,15 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
   </div>
 </section>
 
+<?php endif; ?>
+
 <!-- TRUST -->
 <section class="block">
   <div class="container" style="max-width:780px;text-align:center">
     <div class="section-title">
       <div class="divider-dot"></div>
-      <div class="section-eyebrow">Cosa garantiamo</div>
-      <h2>Il tuo indirizzo email è al sicuro</h2>
+      <div class="section-eyebrow">Impegni dello Studio</div>
+      <h2>Il Suo indirizzo email</h2>
     </div>
     <div class="nl-trust-grid">
       <div class="nl-trust">
@@ -152,11 +156,11 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
       </div>
       <div class="nl-trust">
         <h4>🚫 Disiscrizione 1 click</h4>
-        <p>Link "unsubscribe" in fondo a ogni email. Una richiesta e sei subito fuori dalla lista.</p>
+        <p>Collegamento di cancellazione in fondo a ogni email: con un clic l'iscrizione è cancellata.</p>
       </div>
       <div class="nl-trust">
-        <h4>🔒 GDPR compliant</h4>
-        <p>Dati ospitati in UE. Mai condivisi con terzi. Diritto di accesso, rettifica e cancellazione sempre garantiti.</p>
+        <h4>🔒 Protezione dei dati</h4>
+        <p>I dati sono trattati come indicato nell'informativa privacy e non sono ceduti a terzi per finalità commerciali. Restano garantiti i diritti di accesso, rettifica e cancellazione (artt. 15-17 GDPR).</p>
       </div>
     </div>
   </div>

@@ -27,13 +27,13 @@ get_header();
       <div class="divider-dot"></div>
       <div class="section-eyebrow">Modalità di consulenza</div>
       <h2>Tre formule, una sola qualità</h2>
-      <p>Scegli la modalità più comoda. La consulenza in videocall è indicata per clienti fuori Puglia o per un primo orientamento rapido.</p>
+      <p>Scelga la modalità più comoda. La consulenza in videocall è indicata per chi vive fuori Puglia o per un primo orientamento.</p>
     </div>
     <div style="max-width:860px;margin:0 auto 34px;background:#fdf6e3;border:1px solid var(--gold);border-left:4px solid var(--gold);border-radius:6px;padding:22px 28px;display:flex;gap:18px;align-items:flex-start">
       <span style="font-size:28px;line-height:1;flex-shrink:0">💶</span>
       <div>
         <strong style="color:var(--navy);font-size:16.5px">Costo del primo colloquio</strong>
-        <p style="margin:7px 0 0;font-size:15px;color:#475569;line-height:1.65">Ogni consulenza, <strong>primo incontro incluso</strong> — in studio o in videocall — ha un <strong>costo fisso di € 150</strong> (oltre IVA e CPA). In quella sede riceverai un parere strutturato e il <strong>preventivo scritto</strong> per l'eventuale incarico, ex art. 13 L. 247/2012.</p>
+        <p style="margin:7px 0 0;font-size:15px;color:#475569;line-height:1.65">Non sono previste consulenze gratuite. La consulenza in studio, <strong>primo incontro incluso</strong>, ha un <strong>costo fisso di € 150</strong> (oltre IVA e CPA); la <strong>videoconsulenza</strong> acquistabile online costa <strong>€ 100, IVA inclusa</strong>. In quella sede riceverà un parere strutturato e, per l'eventuale incarico, il <strong>preventivo scritto</strong> (art. 13 L. 247/2012).</p>
       </div>
     </div>
     <div class="tariff-grid">
@@ -43,15 +43,15 @@ get_header();
         <div class="price-note">Primo colloquio · oltre IVA e CPA</div>
         <p style="font-size:14px;color:var(--text-muted);margin-bottom:18px">Colloquio in presenza presso la sede di Barletta. Ideale per pratiche complesse e per la consegna documenti.</p>
         <ul><li>Analisi del caso e documentale</li><li>Parere verbale strutturato</li><li>Preventivo scritto ex art. 13 L. 247/2012</li></ul>
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-outline">Prenota appuntamento</a>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-outline">Prenoti un appuntamento</a>
       </div>
       <div class="tariff featured">
         <h3>Videoconsulenza</h3>
-        <div class="price" style="font-size:24px">€ 150</div>
-        <div class="price-note">Primo colloquio · oltre IVA e CPA</div>
+        <div class="price" style="font-size:24px">€ 100</div>
+        <div class="price-note">Primo colloquio · IVA inclusa</div>
         <p style="font-size:14px;color:var(--text-muted);margin-bottom:18px">Colloquio in videocall (Google Meet, Zoom o Teams). Ottima per chi vive fuori provincia.</p>
         <ul><li>Analisi del caso a distanza</li><li>Documenti via email o cloud sicuro</li><li>Preventivo scritto ex art. 13 L. 247/2012</li></ul>
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary">Prenota videocall</a>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary">Prenoti la videoconsulenza</a>
       </div>
       <div class="tariff">
         <h3>Parere scritto</h3>
@@ -59,7 +59,7 @@ get_header();
         <div class="price-note">Parametri DM 55/2014 · oltre IVA e CPA</div>
         <p style="font-size:14px;color:var(--text-muted);margin-bottom:18px">Parere motivato per iscritto, citante norme e giurisprudenza, su quesito specifico.</p>
         <ul><li>Analisi documentale completa</li><li>Citazione norme e giurisprudenza</li><li>Conclusioni operative</li></ul>
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-outline">Richiedi parere</a>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-outline">Richieda un parere</a>
       </div>
     </div>
   </div>
@@ -79,7 +79,7 @@ get_header();
       <div style="background:#fff;padding:28px;border-top:3px solid var(--gold)"><div style="font-family:var(--serif);font-size:36px;color:var(--gold);font-weight:600">3</div><h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin:8px 0">Fase istruttoria</h4><p style="font-size:13.5px;color:var(--text-muted)">Memorie, prove, CTU, udienze.</p></div>
       <div style="background:#fff;padding:28px;border-top:3px solid var(--gold)"><div style="font-family:var(--serif);font-size:36px;color:var(--gold);font-weight:600">4</div><h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin:8px 0">Fase decisoria</h4><p style="font-size:13.5px;color:var(--text-muted)">Conclusionali, repliche, discussione, sentenza.</p></div>
     </div>
-    <p style="text-align:center;margin-top:30px;font-size:14px;color:var(--text-muted)">Vuoi una stima orientativa? Usa i nostri <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" style="color:var(--gold);font-weight:600">calcolatori di parcella civile e penale</a> basati sul DM 55/2014.</p>
+    <p style="text-align:center;margin-top:30px;font-size:14px;color:var(--text-muted)">Desidera una stima orientativa? Può usare i nostri <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" style="color:var(--gold);font-weight:600">calcolatori di parcella civile e penale</a> basati sul DM 55/2014.</p>
   </div>
 </section>
 
@@ -94,7 +94,7 @@ get_header();
 <section style="background:#fef9e7;border-bottom:1px solid #f0e9dc;padding:18px 0">
   <div class="container" style="display:flex;align-items:flex-start;gap:14px">
     <svg width="22" height="22" fill="none" stroke="#92400e" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-    <div style="font-size:13.5px;color:#78350f;line-height:1.55"><strong>Servizi non vendibili a prezzo fisso indeterminato.</strong> Ex art. 13 L. 247/2012 ogni prestazione richiede preventivo scritto personalizzato.</div>
+    <div style="font-size:13.5px;color:#78350f;line-height:1.55"><strong>Compensi chiari.</strong> Le prestazioni ben definite possono avere un compenso fisso; gli incarichi che dipendono dal caso concreto richiedono un preventivo scritto personalizzato. In ogni caso lo Studio comunica per iscritto la prevedibile misura del costo, distinguendo oneri, spese e compenso (art. 13, commi 3 e 5, L. 247/2012).</div>
   </div>
 </section>
 
@@ -127,13 +127,13 @@ get_header();
         ['cat'=>'contratti','sku'=>'con-redazione','nome'=>'Redazione contratto','badge'=>'Contratti','grad'=>'linear-gradient(135deg,#1e3a8a,#1e40af)','desc'=>'Contratto personalizzato: compravendita, locazione, opera, NDA, distribuzione.','feat'=>['Brief esigenze','Prima bozza 7 giorni','Revisione finale']],
         ['cat'=>'contratti','sku'=>'con-disdetta','nome'=>'Disdetta locazione','badge'=>'Contratti','grad'=>'linear-gradient(135deg,#1e3a8a,#1e40af)','desc'=>'Lettera disdetta L. 431/1998 o L. 392/1978 nel rispetto dei termini.','feat'=>['Verifica preavviso','Data cessazione','Cause legittime']],
         ['cat'=>'impresa','sku'=>'imp-costituzione','nome'=>'Costituzione società/ETS','badge'=>'Impresa','grad'=>'linear-gradient(135deg,#064e3b,#065f46)','desc'=>'Costituzione SRL, SAS, associazione, fondazione, ETS. Statuto, RUNTS.','feat'=>['Statuto su misura','Coordinamento notaio','Iscrizione RUNTS']],
-        ['cat'=>'impresa','sku'=>'imp-noprofit','nome'=>'Consulenza Terzo Settore','badge'=>'Impresa','grad'=>'linear-gradient(135deg,#064e3b,#065f46)','desc'=>'Adempimenti CTS D.Lgs. 117/2017: RUNTS, ODV/APS, 5x1000.','feat'=>['Specializzazione No Profit','Coordinamento commercialista','Modulistica']],
+        ['cat'=>'impresa','sku'=>'imp-noprofit','nome'=>'Consulenza Terzo Settore','badge'=>'Impresa','grad'=>'linear-gradient(135deg,#064e3b,#065f46)','desc'=>'Adempimenti CTS D.Lgs. 117/2017: RUNTS, ODV/APS, 5x1000.','feat'=>['Assistenza a enti del Terzo settore','Coordinamento commercialista','Modulistica']],
         ['cat'=>'ip','sku'=>'ip-marchio-it','nome'=>'Marchio italiano UIBM','badge'=>'Marchi &amp; IP','grad'=>'linear-gradient(135deg,#581c87,#6b21a8)','desc'=>'Deposito marchio nazionale UIBM: anteriorità, Nizza, monitoraggio.','feat'=>['Ricerca anteriorità','Classi Nizza fino a 3','Tutela 10 anni rinnovabile']],
         ['cat'=>'ip','sku'=>'ip-marchio-eu','nome'=>'Marchio UE (EUIPO)','badge'=>'Marchi &amp; IP','grad'=>'linear-gradient(135deg,#581c87,#6b21a8)','desc'=>'Marchio UE con effetto in 27 Stati membri. Deposito EUIPO, opposizioni.','feat'=>['Tutela in 27 Paesi UE','Procedura telematica','Esperienza diretta EUIPO']],
-        ['cat'=>'famiglia','sku'=>'fam-separazione','nome'=>'Separazione consensuale','badge'=>'Famiglia','grad'=>'linear-gradient(135deg,#9d174d,#be185d)','desc'=>'Separazione consensuale art. 711 c.p.c. o negoziazione assistita DL 132/2014.','feat'=>['Negoziazione o ricorso','Tutela bigenitorialità','Verifica Procura Minori']],
+        ['cat'=>'famiglia','sku'=>'fam-separazione','nome'=>'Separazione consensuale','badge'=>'Famiglia','grad'=>'linear-gradient(135deg,#9d174d,#be185d)','desc'=>'Separazione consensuale con domanda congiunta (art. 473-bis.51 c.p.c.) o negoziazione assistita (art. 6 D.L. 132/2014).','feat'=>['Negoziazione o ricorso','Tutela bigenitorialità','Verifica Procura Minori']],
         ['cat'=>'famiglia','sku'=>'fam-successione','nome'=>'Pratica successoria','badge'=>'Famiglia','grad'=>'linear-gradient(135deg,#9d174d,#be185d)','desc'=>'Dichiarazione successione, divisione ereditaria, azione di riduzione.','feat'=>['Voltura catastale','Coordinamento Agenzia Entrate','Contenziosi eredi']],
-        ['cat'=>'penale','sku'=>'pen-querela','nome'=>'Querela / Denuncia','badge'=>'Penale','grad'=>'linear-gradient(135deg,#7f1d1d,#991b1b)','desc'=>'Redazione querela ex art. 336 c.p.p., denuncia per reati procedibili d\'ufficio.','feat'=>['Termini 3 mesi','Costituzione parte civile','Difesa procedimento']],
-        ['cat'=>'penale','sku'=>'pen-urgenza','nome'=>'Penale d\'urgenza H24','badge'=>'Penale','grad'=>'linear-gradient(135deg,#7f1d1d,#991b1b)','desc'=>'Reperibilità 24h per arresti, fermi, perquisizioni, sequestri. Foro di Trani.','feat'=>['<strong style="color:#dc2626">Cell: 392 970 3202</strong>','Intervento entro 1 ora','Prima consulenza gratuita']],
+        ['cat'=>'penale','sku'=>'pen-querela','nome'=>'Querela / Denuncia','badge'=>'Penale','grad'=>'linear-gradient(135deg,#7f1d1d,#991b1b)','desc'=>'Redazione querela ex art. 336 c.p.p., denuncia per reati procedibili d\'ufficio.','feat'=>['Verifica del termine (di regola 3 mesi)','Costituzione parte civile','Difesa procedimento']],
+        ['cat'=>'penale','sku'=>'pen-urgenza','nome'=>'Penale d\'urgenza','badge'=>'Penale','grad'=>'linear-gradient(135deg,#7f1d1d,#991b1b)','desc'=>'Linea per urgenze penali: arresti, fermi, perquisizioni, sequestri. Foro di Trani e distretto di Bari.','feat'=>['<strong style="color:#dc2626">Cell: 392 970 3202</strong>','Risposta appena possibile, compatibilmente con udienze e impegni','Preventivo prima dell\'incarico']],
       ];
       foreach ($servizi as $s):
       ?>
@@ -161,7 +161,7 @@ get_header();
     <div class="section-title"><div class="divider-dot"></div><div class="section-eyebrow">Trasparenza</div><h2>Quattro impegni di chiarezza</h2></div>
     <div class="faq">
       <div class="faq-item"><div class="faq-q">Preventivo scritto sin dal primo incontro</div><div class="faq-a">Art. 13 L. 247/2012: prima dell'accettazione del mandato consegniamo un preventivo scritto con voci di compenso, spese di domiciliazione, anticipazioni e oneri tributari.</div></div>
-      <div class="faq-item"><div class="faq-q">Niente patti di quota lite</div><div class="faq-a">Lo Studio non applica patti che leghino l'onorario al risultato (art. 25 c.d.f.).</div></div>
+      <div class="faq-item"><div class="faq-q">Niente patti di quota lite</div><div class="faq-a">Lo Studio non stipula patti con cui l'avvocato riceva come compenso una quota del bene oggetto della prestazione o della ragione litigiosa, vietati dall'art. 13, comma 4, L. 247/2012 e dall'art. 25, comma 2, del codice deontologico forense.</div></div>
       <div class="faq-item"><div class="faq-q">Onorari fissi o orari, mai a sorpresa</div><div class="faq-a">Onorari fissi (attività ben definite) o tariffe orarie. Le ore vengono rendicontate periodicamente.</div></div>
       <div class="faq-item"><div class="faq-q">Ricevuta e fattura elettronica</div><div class="faq-a">Tutti i pagamenti sono fatturati elettronicamente. Rateizzazione per pratiche lunghe.</div></div>
     </div>

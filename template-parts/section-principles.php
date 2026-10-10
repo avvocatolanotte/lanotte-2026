@@ -10,7 +10,7 @@ $principi = function_exists('get_field') ? get_field('principi', 'option') : nul
 if (!$principi) {
     $principi = [
         ['numero' => '01', 'titolo' => 'Indipendenza', 'descrizione' => 'L\'avvocato è autonomo nelle valutazioni tecniche e nelle scelte processuali. Non accettiamo mandati che possano comprometterne la libertà di giudizio.', 'riferimento' => ''],
-        ['numero' => '02', 'titolo' => 'Segreto professionale', 'descrizione' => 'Quanto appreso dall\'assistito è coperto da segreto in modo assoluto. Comunicazioni su canali sicuri e tracciati.', 'riferimento' => 'Art. 13 c.d.f. · Artt. 200 c.p.p. e 622 c.p.'],
+        ['numero' => '02', 'titolo' => 'Segreto professionale', 'descrizione' => 'Quanto appreso dall\'assistito è tutelato dal segreto professionale e dal dovere di riservatezza, nei termini previsti dalla legge e dal codice deontologico. Comunicazioni su canali sicuri e tracciati.', 'riferimento' => 'Art. 13 c.d.f. · Artt. 200 c.p.p. e 622 c.p.'],
         ['numero' => '03', 'titolo' => 'Verità del compenso', 'descrizione' => 'Preventivo scritto sin dal primo incontro, conforme all\'art. 13 L. 247/2012. Lo Studio non applica patti di quota lite.', 'riferimento' => 'Art. 25 c.d.f.'],
         ['numero' => '04', 'titolo' => 'Continuità del rapporto', 'descrizione' => 'Le pratiche sono seguite personalmente dal titolare in ogni fase del mandato, con il supporto di colleghi consulenti specializzati per materia.', 'riferimento' => ''],
     ];

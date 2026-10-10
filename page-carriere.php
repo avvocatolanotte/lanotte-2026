@@ -157,7 +157,7 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
 
     <div class="carriere-cta-box">
       <h3>Candidature spontanee benvenute</h3>
-      <p>Anche se non hai un profilo perfettamente in linea con quelli sopra, mandaci la tua candidatura. Valutiamo regolarmente nuovi inserimenti su tutte le aree.</p>
+      <p>Anche se il Suo profilo non corrisponde esattamente a quelli indicati, può inviarci la candidatura: valutiamo regolarmente nuovi inserimenti in tutte le aree.</p>
       <a href="<?php echo esc_url($candidatura_mail); ?>" class="btn btn-primary">Candidati</a>
     </div>
   </div>

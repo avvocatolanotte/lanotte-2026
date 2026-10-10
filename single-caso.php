@@ -43,8 +43,8 @@ $area_name = ($aree && !is_wp_error($aree)) ? $aree[0]->name : '';
 <section class="ctastrip">
   <div class="container ctastrip-inner">
     <div>
-      <h3>Hai una situazione simile?</h3>
-      <p>Ogni caso reale è diverso. Raccontaci il tuo: ti diciamo se e come possiamo assisterti, con preventivo scritto ex art. 13 L. 247/2012.</p>
+      <h3>Ha una situazione simile?</h3>
+      <p>Ogni caso reale è diverso. Ci descriva il Suo: Le diremo se e come possiamo assisterLa, con preventivo scritto (art. 13 L. 247/2012).</p>
     </div>
     <div class="ctastrip-actions">
       <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-gold">Scrivi allo Studio</a>

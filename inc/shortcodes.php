@@ -55,7 +55,7 @@ add_shortcode('whatsapp-url', function() {
 });
 
 add_shortcode('whatsapp-link', function($atts, $content = null) {
-    if (!$content) $content = 'Scrivici su WhatsApp';
+    if (!$content) $content = 'Scriva su WhatsApp';
     return sprintf('<a href="%s" target="_blank" rel="noopener">%s</a>',
         esc_url(lanotte_whatsapp_url()),
         wp_kses_post($content)

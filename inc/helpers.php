@@ -256,3 +256,13 @@ function lanotte_reading_time($post_id = null) {
 add_filter('the_content', function($content) {
     return preg_replace('/<p>(\s*(?:<a [^>]+>)?\s*<img [^>]+>\s*(?:<\/a>)?\s*)<\/p>/i', '<figure>$1</figure>', $content);
 });
+
+/**
+ * Cognome in maiuscolo nel nome dell'autore mostrato sul sito (es. «Studio Lanotte» → «Studio LANOTTE»),
+ * senza modificare l'account WordPress.
+ */
+function lanotte_autore_maiuscolo($nome) {
+    return is_string($nome) ? preg_replace('/\bLanotte\b/u', 'LANOTTE', $nome) : $nome;
+}
+add_filter('the_author', 'lanotte_autore_maiuscolo');
+add_filter('get_the_author_display_name', 'lanotte_autore_maiuscolo');

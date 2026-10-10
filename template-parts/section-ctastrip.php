@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) exit;
 
 $cta = function_exists('get_field') ? get_field('ctastrip', 'option') : null;
 $titolo = $cta['titolo']  ?? 'Una consulenza riservata, in 24 ore.';
-$sub    = $cta['sottotitolo'] ?? 'Raccontaci il tuo caso: un avvocato dello Studio ti ricontatta entro un giorno lavorativo con un primo orientamento.';
+$sub    = $cta['sottotitolo'] ?? 'Ci descriva il Suo caso: un avvocato dello Studio La ricontatta, di regola entro un giorno lavorativo, con un primo orientamento.';
 $btn_l  = $cta['btn1_label'] ?? 'Richiedi consulenza';
 $btn_u  = $cta['btn1_url']   ?? get_permalink(get_page_by_path('contatti'));
 ?>

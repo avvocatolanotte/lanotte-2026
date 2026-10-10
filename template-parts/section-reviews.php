@@ -2,50 +2,32 @@
 /**
  * Sezione "Recensioni" — home
  *
+ * Decisione dell'Avvocato (10/10/2026): nel sito non si riportano testimonianze né nomi di
+ * assistiti; si indica il voto pubblico del profilo Google con la data della rilevazione e il
+ * collegamento al profilo, dove le recensioni si leggono per intero.
+ * Voto e numero vanno aggiornati a mano con la data: un dato senza data invecchia in silenzio.
+ *
  * @package lanotte-2026
  */
 if (!defined('ABSPATH')) exit;
 
-$reviews = function_exists('get_field') ? get_field('recensioni', 'option') : null;
-$avg     = function_exists('get_field') ? get_field('media_recensioni', 'option') : '4.9 / 5';
-$total   = function_exists('get_field') ? get_field('totale_recensioni', 'option') : 47;
-
-if (!$reviews) {
-    $reviews = [
-        ['testo' => 'Professionalità, chiarezza e disponibilità anche fuori orario. Mi sono sentito tutelato in ogni fase del procedimento.', 'stelle' => 5, 'autore' => 'Marco P.', 'fonte' => 'Recensione Google · 2026'],
-        ['testo' => 'Hanno gestito una vicenda ereditaria complessa con metodo e umanità. Preventivo trasparente, nessuna sorpresa.', 'stelle' => 5, 'autore' => 'Laura C.', 'fonte' => 'Recensione Google · 2026'],
-        ['testo' => 'Consulenza preziosa per la mia impresa: contrattualistica, recupero crediti, formazione interna. Un riferimento solido.', 'stelle' => 5, 'autore' => 'Antonio R.', 'fonte' => 'Cliente azienda · 2025'],
-    ];
-}
+$google_voto       = '5,0';
+$google_recensioni = 58;
+$google_rilevato   = '10 ottobre 2026';
+$google_url        = 'https://www.google.com/maps?cid=11964124714583216065';
 ?>
 <section class="block">
   <div class="container">
     <div class="section-title">
       <div class="divider-dot"></div>
-      <div class="section-eyebrow">Cosa dicono i clienti</div>
-      <h2>Recensioni verificate</h2>
-      <p>Selezione dalle valutazioni pubbliche su Google e dai feedback ricevuti al termine del mandato.</p>
+      <div class="section-eyebrow">Valutazioni pubbliche</div>
+      <h2>Le recensioni su Google</h2>
+      <p>Le recensioni dei clienti sono pubblicate sul profilo Google dello Studio, dove si possono leggere per intero.</p>
     </div>
-    <div class="reviews-grid">
-      <?php foreach ($reviews as $r):
-          $stars = (int) ($r['stelle'] ?? 5);
-          $initial = strtoupper(mb_substr($r['autore'] ?? '?', 0, 1));
-      ?>
-      <div class="review">
-        <div class="stars"><?php echo str_repeat('★', $stars); ?></div>
-        <p class="review-text"><?php echo esc_html($r['testo']); ?></p>
-        <div class="review-author">
-          <div class="review-avatar"><?php echo esc_html($initial); ?></div>
-          <div>
-            <strong><?php echo esc_html($r['autore']); ?></strong>
-            <span><?php echo esc_html($r['fonte'] ?? ''); ?></span>
-          </div>
-        </div>
-      </div>
-      <?php endforeach; ?>
+    <div class="reviews-foot" style="text-align:center">
+      <div class="stars" aria-hidden="true" style="font-size:22px;color:var(--gold)">★★★★★</div>
+      <p style="margin:8px 0 18px"><strong><?php echo esc_html($google_voto); ?> su 5</strong> · <?php echo (int) $google_recensioni; ?> recensioni <span style="color:var(--text-muted)">(dato rilevato il <?php echo esc_html($google_rilevato); ?>)</span></p>
+      <a class="btn btn-outline" href="<?php echo esc_url($google_url); ?>" target="_blank" rel="noopener">Legga le recensioni su Google</a>
     </div>
-    <?php if ($avg): ?>
-    <div class="reviews-foot"><strong><?php echo esc_html($avg); ?></strong> <?php if ($total): ?>su <?php echo (int) $total; ?> recensioni<?php endif; ?></div>
-    <?php endif; ?>
   </div>
 </section>

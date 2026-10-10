@@ -54,7 +54,7 @@ function lanotte_seo_map() {
         ],
         'servizi-online' => [
             't' => 'Servizi Legali Online e Preventivo Scritto | ' . $brand,
-            'd' => 'Richiedi servizi legali online con preventivo scritto personalizzato: consulenze, contratti, famiglia, impresa, penale, marchi e successioni.',
+            'd' => 'Servizi legali online con preventivo scritto personalizzato: consulenze, contratti, famiglia, impresa, penale, marchi e successioni.',
         ],
         'casi-studio' => [
             't' => 'Casi Studio · Scenari Illustrativi | ' . $brand,
@@ -74,7 +74,7 @@ function lanotte_seo_map() {
         ],
         'newsletter' => [
             't' => 'Newsletter Giuridica · Studio Legale | ' . $brand,
-            'd' => 'Iscriviti alla newsletter dello Studio Legale LANOTTE & Partners di Barletta: aggiornamenti e approfondimenti giuridici, senza spam.',
+            'd' => 'Newsletter dello Studio Legale LANOTTE & Partners di Barletta: aggiornamenti e approfondimenti giuridici, senza spam.',
         ],
         'avvocato-successioni-eredita' => [
             't' => 'Avvocato Successioni ed Eredità a Barletta | ' . $brand,

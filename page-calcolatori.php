@@ -88,7 +88,7 @@ $calc_base = home_url('/calcolatori');
     <div style="margin-top:60px;padding:40px;background:linear-gradient(135deg,var(--navy) 0%,#1a2a4a 100%);border-radius:8px;color:#fff;text-align:center">
       <h3 style="font-family:var(--serif);font-size:26px;color:#fff;margin:0 0 12px">Desidera un preventivo scritto sul Suo caso?</h3>
       <p style="color:#cbd5e1;font-size:15px;max-width:580px;margin:0 auto 24px;line-height:1.6">I calcolatori forniscono valori indicativi. Per un preventivo personalizzato (art. 13 L. 247/2012) può contattare lo Studio.</p>
-      <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary">Richiedi un preventivo →</a>
+      <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary">Richieda un preventivo →</a>
     </div>
 
   </div>

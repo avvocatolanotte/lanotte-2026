@@ -207,7 +207,7 @@ function lanotte_unpaid_maintenance_article_content() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Lo Studio Legale Lanotte &amp; Partners assiste nella verifica del titolo, nel calcolo delle somme, nella diffida, nel pagamento diretto da parte del terzo e nelle procedure esecutive, oltre che nella valutazione degli eventuali profili penali. Per esaminare la documentazione è possibile <a href="https://studiolegalelanotte.it/contatti/">richiedere un appuntamento con lo Studio</a> oppure consultare l'area dedicata a <a href="https://studiolegalelanotte.it/aree/famiglia-successioni/">famiglia e successioni</a>.</p>
+<p>Lo Studio Legale LANOTTE &amp; Partners assiste nella verifica del titolo, nel calcolo delle somme, nella diffida, nel pagamento diretto da parte del terzo e nelle procedure esecutive, oltre che nella valutazione degli eventuali profili penali. Per esaminare la documentazione è possibile <a href="https://studiolegalelanotte.it/contatti/">richiedere un appuntamento con lo Studio</a> oppure consultare l'area dedicata a <a href="https://studiolegalelanotte.it/aree/famiglia-successioni/">famiglia e successioni</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

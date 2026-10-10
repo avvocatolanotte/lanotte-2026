@@ -32,7 +32,7 @@ get_header();
           </div>
           <h4><?php the_title(); ?></h4>
           <p><?php echo esc_html(wp_trim_words(get_the_excerpt() ?: get_the_content(), 32, '…')); ?></p>
-          <span class="post-link">Leggi l'articolo →</span>
+          <span class="post-link">Articolo completo →</span>
         </div>
       </a>
       <?php endwhile; ?>

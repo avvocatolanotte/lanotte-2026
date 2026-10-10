@@ -21,7 +21,7 @@ $studio_img = LANOTTE_THEME_URI . '/assets/img/trani/palazzo-tribunale.jpg';
       <p>La metodologia privilegia l'analisi preventiva del rischio, la soluzione negoziata ove possibile e — in sede contenziosa — una difesa costruita con rigore metodologico.</p>
       <div class="studio-sign">
         <div>
-          <div class="studio-sign-name">Avv. Giuseppe Lanotte</div>
+          <div class="studio-sign-name">Avv. Giuseppe LANOTTE</div>
           <div class="studio-sign-role">Titolare dello Studio</div>
         </div>
         <a href="<?php echo esc_url(get_permalink(get_page_by_path('lo-studio'))); ?>" class="btn btn-outline" style="margin-left:auto">Scopri di più →</a>

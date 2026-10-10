@@ -197,7 +197,7 @@ html,body{overflow-x:clip}
         <span class="cart-count" data-cart-count>0</span>
       </a>
       <?php $cta_url = lanotte_acf_option('cta_principale_url', get_permalink(get_page_by_path('contatti'))); ?>
-      <a href="<?php echo esc_url($cta_url ?: '#'); ?>" class="btn btn-primary cta-desktop">Richiedi consulenza</a>
+      <a href="<?php echo esc_url($cta_url ?: '#'); ?>" class="btn btn-primary cta-desktop">Richieda una consulenza</a>
       <button class="hamburger-btn" id="hamburgerBtn" aria-label="Apri menu" type="button" style="display:none;background:none;border:1px solid #e5e7eb;border-radius:6px;padding:8px;cursor:pointer;color:#1d2c4a">
         <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
@@ -340,8 +340,8 @@ html,body{overflow-x:clip}
     <li><a href="<?php echo esc_url(home_url('/calcolatori/mantenimento-orientativo/')); ?>">👨‍👩‍👧 Stima Mantenimento Figli</a></li>
     <li><a href="<?php echo esc_url(home_url('/calcolatori/inail/')); ?>">⛑️ Indennizzo INAIL</a></li>
   </ul>
-  <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="md-cta">RICHIEDI CONSULENZA</a>
-  <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="md-cta" style="background:#0f172a;margin-top:8px">📞 Chiama Studio</a>
+  <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="md-cta">RICHIEDA UNA CONSULENZA</a>
+  <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="md-cta" style="background:#0f172a;margin-top:8px">📞 Telefoni allo Studio</a>
 </aside>
 
 <!-- GLOBAL: cart badge + mega-menu hover -->
