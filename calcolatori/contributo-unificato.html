@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,follow">
-<title>Calcolo Contributo Unificato — DPR 115/2002 art. 13 — Studio Legale Lanotte &amp; Partners</title>
+<title>Calcolo Contributo Unificato — DPR 115/2002 art. 13 — Studio Legale LANOTTE &amp; Partners</title>
 
 <link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/contributo-unificato/">
 <meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/contributo-unificato/">
@@ -42,8 +42,8 @@
 <!-- HEADER -->
 <header class="site-header">
   <div class="container header-inner">
-    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="Lanotte &amp; Partners — Studio Legale (home)">
-      <img src="../assets/img/logo.png" alt="Lanotte &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
+    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="LANOTTE &amp; Partners — Studio Legale (home)">
+      <img src="../assets/img/logo.png" alt="LANOTTE &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
            onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
     </a>
     <nav class="primary">
@@ -163,7 +163,7 @@
   <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
     <div style="font-size:24px;flex-shrink:0">⚠️</div>
     <div style="font-size:13.5px;color:#78350f;line-height:1.55">
-      <strong>Valori indicativi aggiornati al DPR 115/2002 e successive modifiche.</strong> Esenzioni e importi possono variare; verificare sempre con lo Studio il caso concreto. Il Contributo Unificato <strong>non è dovuto</strong> nei procedimenti in materia di famiglia, separazione e divorzio e — per chi è sotto la soglia reddituale — nei processi di lavoro e previdenza (esenzioni art. 10 DPR 115/2002).
+      <strong>Valori indicativi aggiornati al DPR 115/2002 e successive modifiche.</strong> Esenzioni e importi possono variare; verificare sempre con lo Studio il caso concreto. Per separazione e divorzio il contributo è di <strong>€ 43</strong> su domanda congiunta e di <strong>€ 98</strong> nei procedimenti contenziosi (art. 13, comma 1, lett. a e b); non è dovuto nei processi in materia di assegni per il mantenimento della prole (art. 10, comma 2). Nelle controversie di lavoro e di previdenza è dovuto solo dalle parti con reddito superiore al triplo della soglia del patrocinio a spese dello Stato (art. 9, comma 1-bis).
     </div>
   </div>
 </section>
@@ -202,6 +202,9 @@
               <option value="esec_immobiliare">Esecuzione immobiliare</option>
               <option value="esec_mobiliare">Esecuzione mobiliare</option>
               <option value="esec_altro">Altri processi esecutivi</option>
+              <option value="opp_atti">Opposizione agli atti esecutivi</option>
+              <option value="fam_congiunta">Separazione o divorzio su domanda congiunta</option>
+              <option value="fam_contenziosa">Separazione o divorzio contenzioso</option>
             </select>
             <p id="cu-tipo-nota" style="font-size:11.5px;color:var(--text-muted);margin-top:6px;font-style:italic"></p>
           </div>
@@ -327,8 +330,8 @@
     { max: 520000,  cu: 1214, label: "€ 260.000,01 – 520.000" },
     { max: Infinity,cu: 1686, label: "oltre € 520.000" }
   ];
-  // Valore indeterminabile (art. 13 c. 6): € 759 (tribunale) / € 518 (GdP, competenza esclusiva).
-  var INDET_TRIB = 759, INDET_GDP = 518;
+  // Valore indeterminabile (art. 13, comma 1, lett. d e c): € 518 (processi civili) / € 237 (contenziosi di competenza esclusiva del GdP).
+  var INDET_TRIB = 518, INDET_GDP = 237;
   var FORFAIT = 27; // Anticipazione forfettaria spese — art. 30 DPR 115/2002.
 
   var TIPI = {
@@ -336,9 +339,12 @@
     ingiunzione:       { titolo: "Procedimento di ingiunzione (D.I.)",         molt: 0.5,  moltLabel: "Riduzione alla metà (×0,5)", nota: "Contributo ridotto alla metà — art. 13 c. 3 DPR 115/2002." },
     appello:           { titolo: "Appello / giudizio di impugnazione",         molt: 1.5,  moltLabel: "Maggiorazione +50% (×1,5)",  nota: "Contributo aumentato della metà — art. 13 c. 1-bis." },
     cassazione:        { titolo: "Ricorso per Cassazione",                     molt: 2,    moltLabel: "Raddoppio (×2)",            nota: "Contributo raddoppiato — art. 13 c. 1-bis." },
-    esec_immobiliare:  { titolo: "Esecuzione immobiliare",                     fisso: 278, nota: "Importo fisso di € 278 a prescindere dal valore — art. 13 c. 1." },
-    esec_mobiliare:    { titolo: "Esecuzione mobiliare",                       molt: 0.5,  moltLabel: "Riduzione alla metà (×0,5)", nota: "Riduzione alla metà; se di valore inferiore a € 2.500 il contributo è di € 43 fisso (art. 13 c. 1)." },
-    esec_altro:        { titolo: "Altri processi esecutivi",                   molt: 0.5,  moltLabel: "Riduzione alla metà (×0,5)", nota: "Contributo ridotto alla metà — art. 13 c. 1." }
+    esec_immobiliare:  { titolo: "Esecuzione immobiliare",                     fisso: 278, nota: "Importo fisso di € 278 a prescindere dal valore — art. 13, comma 2." },
+    esec_mobiliare:    { titolo: "Esecuzione mobiliare",                       fisso: 139, nota: "Importo fisso di € 139 (metà di € 278); € 43 se il valore è inferiore a € 2.500 — art. 13, comma 2." },
+    esec_altro:        { titolo: "Altri processi esecutivi",                   fisso: 139, nota: "Importo fisso di € 139 (metà di € 278) — art. 13, comma 2." },
+    opp_atti:          { titolo: "Opposizione agli atti esecutivi",            fisso: 168, nota: "Importo fisso di € 168 — art. 13, comma 2." },
+    fam_congiunta:     { titolo: "Separazione o divorzio su domanda congiunta", fisso: 43, nota: "€ 43 per i procedimenti su domanda congiunta dell'art. 473-bis.51 c.p.c. — art. 13, comma 1, lett. a)." },
+    fam_contenziosa:   { titolo: "Separazione o divorzio contenzioso",         fisso: 98,  nota: "€ 98 per i procedimenti contenziosi dell'art. 473-bis.47 c.p.c. — art. 13, comma 1, lett. b)." }
   };
 
   function fmt(n){ return '€ ' + Number(n).toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
@@ -373,10 +379,16 @@
     var moltLabelTxt = '';
     var noteFisso = '';
 
-    if (tipoKey === 'esec_immobiliare'){
-      // Importo fisso indipendente dal valore.
-      base = tipo.fisso; cu = tipo.fisso;
-      scaglioneLabel = 'Importo fisso (art. 13 c. 1)';
+    if (tipo.fisso !== undefined){
+      if (tipoKey === 'esec_mobiliare' && valore > 0 && valore < 2500){
+        base = 43; cu = 43;
+        scaglioneLabel = 'Esecuzione mobiliare < € 2.500';
+        noteFisso = 'Importo fisso di € 43 (valore inferiore a € 2.500, art. 13, comma 2).';
+      } else {
+        // Importo fisso indipendente dal valore.
+        base = tipo.fisso; cu = tipo.fisso;
+        scaglioneLabel = 'Importo fisso';
+      }
     } else if (indet){
       // Valore indeterminabile: importo legato alla competenza.
       base = (comp === 'gdp') ? INDET_GDP : INDET_TRIB;
@@ -388,11 +400,6 @@
       } else {
         cu = base;
       }
-    } else if (tipoKey === 'esec_mobiliare' && valore > 0 && valore < 2500){
-      // Esecuzione mobiliare di modico valore: € 43 fisso.
-      base = 43; cu = 43;
-      scaglioneLabel = 'Esecuzione mobiliare < € 2.500';
-      noteFisso = 'Importo fisso di € 43 (valore inferiore a € 2.500).';
     } else {
       var sc = scaglionePerValore(valore);
       base = sc.cu;
@@ -436,7 +443,7 @@
     var avviso = el('cu-esenzione');
     var msg = '';
     if (noteFisso) msg = noteFisso + ' ';
-    msg += 'Il contributo non è dovuto in materia di famiglia, separazione e divorzio, e nei processi di lavoro/previdenza per le parti sotto la soglia reddituale (esenzioni art. 10 DPR 115/2002).';
+    msg += 'Non è dovuto nei processi, anche esecutivi, di opposizione e cautelari, in materia di assegni per il mantenimento della prole (art. 10, comma 2). Nelle controversie di lavoro e di previdenza è dovuto solo dalle parti con reddito superiore al triplo della soglia del patrocinio a spese dello Stato (art. 9, comma 1-bis). Verificare il caso concreto.';
     avviso.innerHTML = '⚠️ ' + msg;
     avviso.style.display = 'block';
 
@@ -456,7 +463,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="../assets/img/logo-dark.png" alt="Lanotte &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
+        <img src="../assets/img/logo-dark.png" alt="LANOTTE &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
              onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
         <p>Avv. Giuseppe LANOTTE — Iscritto all'Ordine degli Avvocati di Trani.<br>C.F.: LNTGPP78B01L328P · P.IVA: 06731750722</p>
         <p style="margin-top:14px"><strong style="color:#fff">Sede:</strong> Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)</p>
@@ -500,7 +507,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Studio Legale Lanotte &amp; Partners · Tutti i diritti riservati</div>
+      <div>© 2026 Studio Legale LANOTTE &amp; Partners · Tutti i diritti riservati</div>
       <div>
         <a href="https://studiolegalelanotte.it/privacy/">Privacy</a>
         <a href="https://studiolegalelanotte.it/cookie/">Cookie</a>

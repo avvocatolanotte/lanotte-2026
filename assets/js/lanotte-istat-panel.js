@@ -22,19 +22,19 @@
     target.innerHTML = `
       <details class="lp-panel">
         <summary>
-          <span>⚙️ Mancano valori ISTAT recenti? Aggiornali manualmente</span>
+          <span>⚙️ Mancano valori ISTAT recenti? Li aggiorni manualmente</span>
           <span class="lp-summary-cta">apri pannello ›</span>
         </summary>
         <div class="lp-body">
           <p class="lp-help">
-            <strong>Quando si usa</strong>: se devi calcolare un mese non ancora presente nell'archivio locale,
-            qui inserisci manualmente l'indice FOI senza tabacchi pubblicato da
+            <strong>Quando si usa</strong>: se deve calcolare un mese non ancora presente nell'archivio locale,
+            qui può inserire l'indice FOI senza tabacchi così come pubblicato da
             <a href="https://www.istat.it/notizia/indice-dei-prezzi-per-le-rivalutazioni-monetarie/" target="_blank" rel="noopener">istat.it</a>.<br>
-            <strong>Il valore viene salvato nel tuo browser</strong> e usato in tutti i calcolatori ISTAT del sito.
+            Dal gennaio 2026 l'indice è in base 2025=100: il calcolatore lo raccorda alla serie precedente (coefficiente 1,214).<br><strong>Il valore viene salvato nel Suo browser</strong> e usato in tutti i calcolatori ISTAT del sito.
           </p>
           <div class="lp-row">
             <label>Mese (YYYY-MM)<input type="month" class="lp-mese" value="${next}" min="${primo}"></label>
-            <label>Valore FOI (base 2015=100)<input type="number" class="lp-valore" step="0.1" min="80" max="200" placeholder="Es. 124.8"></label>
+            <label>Valore FOI pubblicato (dal 2026 base 2025=100)<input type="number" class="lp-valore" step="0.1" min="50" max="200" placeholder="Es. 103,7"></label>
           </div>
           <div class="lp-actions">
             <button type="button" class="btn btn-primary lp-save">Salva nel browser</button>
@@ -54,7 +54,7 @@
 
     root.querySelector('.lp-save').addEventListener('click', async () => {
       const m = meseInput.value, v = valoreInput.value;
-      if (!m || !v) { msg.innerHTML = '<span class="lp-err">⚠️ Compila entrambi i campi</span>'; return; }
+      if (!m || !v) { msg.innerHTML = '<span class="lp-err">⚠️ Compili entrambi i campi</span>'; return; }
       try {
         LanotteISTAT.aggiungiManuale(m, v);
         msg.innerHTML = '<span class="lp-ok">✓ Salvato. Indice FOI ' + m + ' = ' + v + ' ora disponibile.</span>';

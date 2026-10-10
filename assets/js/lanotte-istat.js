@@ -9,7 +9,7 @@
  * USO:
  *   await LanotteISTAT.load('/assets/data/istat-foi.json');
  *   const idx = LanotteISTAT.indice('2026-05');         // 124.8 (con flag)
- *   LanotteISTAT.aggiungiManuale('2026-06', 125.1);     // salva nel browser
+ *   LanotteISTAT.aggiungiManuale('2026-09', 103.9);     // valore pubblicato (base 2025=100 dal 2026), salvato nel browser
  */
 (function(global){
   'use strict';
@@ -18,6 +18,15 @@
   const OVERRIDE_KEY = 'lanotte_istat_override_v1';
   const CACHE_TTL    = 24 * 60 * 60 * 1000; // 24h
   let DATA = null;
+
+  // Dal gennaio 2026 l'ISTAT pubblica il FOI in base 2025=100: il valore inserito a mano
+  // per quei mesi viene riportato in base 2015=100 con il coefficiente ufficiale 1,214.
+  const RACCORDO_2025 = 1.214;
+  function baseDelMese(yyyymm){ return yyyymm >= '2026-01' ? '2025' : '2015'; }
+  function valoreInterno(v){
+    if (v && typeof v === 'object') return v.base === '2025' ? v.pubblicato * RACCORDO_2025 : v.pubblicato;
+    return v; // valori salvati prima del 10/10/2026: già in base 2015
+  }
 
   function getOverrides(){
     try { return JSON.parse(localStorage.getItem(OVERRIDE_KEY)) || {}; }
@@ -86,7 +95,9 @@
     // Override manuale dell'utente (massima priorità)
     const overrides = getOverrides();
     Object.entries(overrides).forEach(([k, v]) => {
-      indici[k] = v;
+      const interno = valoreInterno(v);
+      if (typeof interno !== 'number' || isNaN(interno)) return;
+      indici[k] = interno;
       flag[k] = 'manuale';
     });
 
@@ -156,14 +167,16 @@
   // Aggiunge/modifica un valore manualmente (salvato nel browser)
   function aggiungiManuale(yyyymm, valore){
     if (!yyyymm.match(/^\d{4}-\d{2}$/)) throw new Error('Formato mese non valido (YYYY-MM)');
-    const v = parseFloat(valore);
-    if (isNaN(v) || v < 50 || v > 200) throw new Error('Valore non plausibile (FOI tipico: 100-130)');
+    const v = parseFloat(String(valore).replace(',', '.'));
+    const base = baseDelMese(yyyymm);
+    if (base === '2025' && (isNaN(v) || v < 90 || v > 120)) throw new Error('Valore non plausibile: dal 2026 l\'indice FOI è pubblicato in base 2025=100 (valori intorno a 100-110). Se ha copiato un valore in base 2015, usi quello in base 2025.');
+    if (base === '2015' && (isNaN(v) || v < 50 || v > 200)) throw new Error('Valore non plausibile (FOI in base 2015=100: valori tipici 100-130)');
     const overrides = getOverrides();
-    overrides[yyyymm] = v;
+    overrides[yyyymm] = { pubblicato: v, base: base };
     setOverrides(overrides);
     // Aggiorna anche DATA in memoria
     if (DATA) {
-      DATA.indici[yyyymm] = v;
+      DATA.indici[yyyymm] = valoreInterno(overrides[yyyymm]);
       DATA.flag[yyyymm] = 'manuale';
     }
     return true;
@@ -175,8 +188,15 @@
     setOverrides(overrides);
   }
 
+  // Per la visualizzazione: valore come pubblicato dall'ISTAT, con la base indicata
   function listaManuali(){
-    return getOverrides();
+    const out = {};
+    Object.entries(getOverrides()).forEach(([k, v]) => {
+      out[k] = (v && typeof v === 'object')
+        ? String(v.pubblicato).replace('.', ',') + ' (base ' + v.base + '=100)'
+        : String(v).replace('.', ',') + ' (base 2015=100)';
+    });
+    return out;
   }
 
   global.LanotteISTAT = {

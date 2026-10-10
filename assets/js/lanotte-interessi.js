@@ -52,6 +52,8 @@
    */
   function calcola(opts){
     const { importo, dataIniziale, dataFinale, tipo } = opts;
+    // Punti aggiuntivi sul saggio (es. +4 per le cessioni agroalimentari: art. 4, c. 2, d.lgs. 198/2021)
+    const maggiorazione = Number(opts.maggiorazione) || 0;
     const ds = DATASETS[tipo];
     if (!ds) throw new Error('Dataset ' + tipo + ' non caricato');
     if (!importo || importo <= 0) throw new Error('Importo non valido');
@@ -72,8 +74,8 @@
         scaglioni.push({
           dal: overlapStart,
           al: overlapEnd,
-          tasso: tipo === 'moratori' ? t.moratorio : t.tasso,
-          norma: t.norma
+          tasso: Math.round(((tipo === 'moratori' ? t.moratorio : t.tasso) + maggiorazione) * 1000) / 1000,
+          norma: maggiorazione ? t.norma + ' + ' + maggiorazione + ' punti' : t.norma
         });
       }
     });

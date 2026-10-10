@@ -5,17 +5,18 @@
     "fonte_url": "https://www.istat.it/notizia/indice-dei-prezzi-per-le-rivalutazioni-monetarie/",
     "fonte_tabella": "Camera di Commercio di Modena - dati ISTAT FOI senza tabacchi",
     "fonte_tabella_url": "https://www.mo.camcom.it/informazione-economica/indice-istat-foi/variazione-degli-indici-istat-nazionali-dei-prezzi-al-consumo-per-le-famiglie-di-operai-e-impiegati-senza-tabacchi",
-    "ultimo_aggiornamento_manuale": "2026-07-16",
-    "ultimo_mese_disponibile": "2026-05",
+    "ultimo_aggiornamento_manuale": "2026-10-10",
+    "ultimo_mese_disponibile": "2026-08",
     "base": "2015=100",
-    "nota_importante": "Serie continua 1998-2026 in base 2015=100. I valori dal 2016-01 al 2026-05 sono quelli ufficialmente pubblicati in base 2015=100 (2026 riportato dalla base 2025=100 tramite raccordo). I valori ANTERIORI al 2016-01 sono RICOSTRUITI: ISTAT li pubblica in base 2010=100 (anni 2011-2015) e base 1995=100 (anni 1998-2010), e sono stati raccordati alla base 2015=100 con i coefficienti indicati in 'raccordi'. Verificare sempre il dato su ISTAT Rivaluta prima dell'uso in atti.",
+    "nota_importante": "Serie continua 1998-2026 in base 2015=100. I valori dal 2016-01 al 2025-12 sono quelli ufficialmente pubblicati in base 2015=100; i valori 2026 (da gennaio ad agosto) sono quelli pubblicati in base 2025=100 (vedi 'indici_base_2025') moltiplicati per il coefficiente ufficiale di raccordo 1,214. I valori ANTERIORI al 2016-01 sono RICOSTRUITI: ISTAT li pubblica in base 2010=100 (anni 2011-2015) e base 1995=100 (anni 1998-2010), e sono stati raccordati alla base 2015=100 con i coefficienti indicati in 'raccordi'. Verificare sempre il dato su ISTAT Rivaluta prima dell'uso in atti.",
     "primo_mese_disponibile": "1998-01"
   },
   "raccordi": {
-    "base_2025_to_base_2015": 1.21425,
+    "base_2025_to_base_2015": 1.214,
     "metodo": "Ogni coefficiente = 100 diviso la media aritmetica dei 12 indici dell'anno-base espressi nella base precedente (es. media 2015 in base 2010 = 107,0583 -> coeff. 0,934070, coincidente con il raccordo ufficiale ISTAT 1/1,0706). Il raccordo 1995->2015 e' ottenuto concatenando 1995->2010 e 2010->2015. Verifica: la media 2015 riportata in base 2015 vale esattamente 100,000.",
     "base_2010_to_base_2015": 0.93407,
-    "base_1995_to_base_2015": 0.680561
+    "base_1995_to_base_2015": 0.680561,
+    "nota_2025": "Coefficiente di raccordo ufficiale ISTAT tra base 2025=100 e base 2015=100: 1,214 (pagina ISTAT 'Indice dei prezzi per le rivalutazioni monetarie', letta il 10/10/2026). I valori 2026 in 'indici' sono quelli pubblicati in base 2025 moltiplicati per 1,214, senza arrotondamento intermedio."
   },
   "indici": {
     "1998-01": 72.68,
@@ -354,11 +355,24 @@
     "2025-10": 121.4,
     "2025-11": 121.3,
     "2025-12": 121.5,
-    "2026-01": 121.9,
-    "2026-02": 122.5,
-    "2026-03": 123.2,
-    "2026-04": 124.5,
-    "2026-05": 124.8
+    "2026-01": 121.8856,
+    "2026-02": 122.4926,
+    "2026-03": 123.221,
+    "2026-04": 124.435,
+    "2026-05": 124.7992,
+    "2026-06": 124.7992,
+    "2026-07": 125.1634,
+    "2026-08": 125.8918
   },
-  "indici_da_verificare": {}
+  "indici_da_verificare": {},
+  "indici_base_2025": {
+    "2026-01": 100.4,
+    "2026-02": 100.9,
+    "2026-03": 101.5,
+    "2026-04": 102.5,
+    "2026-05": 102.8,
+    "2026-06": 102.8,
+    "2026-07": 103.1,
+    "2026-08": 103.7
+  }
 }

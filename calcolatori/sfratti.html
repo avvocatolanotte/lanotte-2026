@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,follow">
-<title>Calcolatore Sfratti — DM 55/2014 — Studio Legale Lanotte &amp; Partners</title>
+<title>Calcolatore Sfratti — D.M. 55/2014, tabella 5 — Studio Legale LANOTTE &amp; Partners</title>
 
 <link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/sfratti/">
 <meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/sfratti/">
@@ -42,8 +42,8 @@
 <!-- HEADER -->
 <header class="site-header">
   <div class="container header-inner">
-    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="Lanotte &amp; Partners — Studio Legale (home)">
-      <img src="../assets/img/logo.png" alt="Lanotte &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
+    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="LANOTTE &amp; Partners — Studio Legale (home)">
+      <img src="../assets/img/logo.png" alt="LANOTTE &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
            onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
     </a>
     <nav class="primary">
@@ -155,7 +155,7 @@
   <div class="container">
     <div class="breadcrumbs"><a href="https://studiolegalelanotte.it/">Home</a><span>›</span><a href="https://studiolegalelanotte.it/calcolatori/">Calcolatori</a><span>›</span>Sfratti</div>
     <h1>Procedimento di Sfratto</h1>
-    <p class="subtitle">Calcolatore per i procedimenti di sfratto (artt. 657 e ss. c.p.c.): per finita locazione, per morosità, con convalida, con opposizione, mutamento del rito. Importi fissi DM 55/2014 — Tab. 12 ad hoc per procedure speciali.</p>
+    <p class="subtitle">Stima del compenso per i procedimenti per convalida di licenza o di sfratto (artt. 657 e seguenti c.p.c.), secondo la tabella 5 «Procedimenti per convalida locatizia» del D.M. 55/2014, come sostituita dal D.M. 147/2022: parametri distinti per scaglione di valore e per fase.</p>
   </div>
 </section>
 
@@ -163,7 +163,7 @@
   <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
     <div style="font-size:24px;flex-shrink:0">⚠️</div>
     <div style="font-size:13.5px;color:#78350f;line-height:1.55">
-      <strong>Avvertenza.</strong> Per il procedimento di sfratto si applica una tabella specifica del DM 55/2014, con importi <strong>fissi</strong>. Se l'intimato si oppone e il giudizio prosegue nelle forme del rito locatizio, si applicano gli scaglioni del giudizio ordinario (vedi <a href="https://studiolegalelanotte.it/calcolatori/parcella-civile/" style="color:#78350f;text-decoration:underline">calcolatore Parcella Civile</a>). Valori indicativi, preventivo art. 13 L. 247/2012.
+      <strong>Avvertenza.</strong> La tabella 5 del D.M. 55/2014 prevede parametri diversi per scaglione di valore e per fase. Se l'intimato si oppone e il giudizio prosegue con il mutamento del rito, per la fase successiva si applicano i parametri del giudizio ordinario (vedi il <a href="https://studiolegalelanotte.it/calcolatori/parcella-civile/" style="color:#78350f;text-decoration:underline">calcolatore Parcella civile</a>). Valori indicativi: il compenso è concordato per iscritto con preventivo (art. 13 L. 247/2012).
     </div>
   </div>
 </section>
@@ -177,20 +177,28 @@
 
         <div class="form-field">
           <label>1 · Tipo di procedimento</label>
-          <select id="calc-tipo" onchange="aggiornaScaglioni()">
-            <option value="finita_loc">Sfratto per finita locazione</option>
+          <select id="calc-tipo" onchange="calcola()">
+            <option value="finita_loc">Licenza o sfratto per finita locazione</option>
             <option value="morosita">Sfratto per morosità</option>
-            <option value="opposizione">Procedimento con opposizione (mutamento rito)</option>
           </select>
         </div>
 
         <div class="form-field">
-          <label>2 · Esito / fase raggiunta</label>
-          <select id="calc-scaglione"></select>
+          <label for="calc-valore">2 · Valore della controversia (€)</label>
+          <input type="number" id="calc-valore" min="0" step="0.01" value="4200" oninput="calcola()">
+          <small>Il valore si determina secondo le regole del codice di procedura civile richiamate dall'art. 5 del D.M. 55/2014; in caso di dubbio lo indica lo Studio sul caso concreto.</small>
         </div>
 
         <div class="form-field">
-          <label>3 · Variazione sul valore medio <span style="font-weight:400;color:var(--text-muted);font-size:11px">(art. 4 DM)</span></label>
+          <label>3 · Fasi svolte</label>
+          <label class="opt-row"><input type="checkbox" class="calc-fase" value="studio" checked onchange="calcola()"><span>Fase di studio della controversia</span></label>
+          <label class="opt-row"><input type="checkbox" class="calc-fase" value="introduttiva" checked onchange="calcola()"><span>Fase introduttiva del giudizio</span></label>
+          <label class="opt-row"><input type="checkbox" class="calc-fase" value="istruttoria" onchange="calcola()"><span>Fase istruttoria e/o di trattazione</span></label>
+          <label class="opt-row"><input type="checkbox" class="calc-fase" value="decisionale" checked onchange="calcola()"><span>Fase decisionale</span></label>
+        </div>
+
+        <div class="form-field">
+          <label>4 · Variazione sul valore medio <span style="font-weight:400;color:var(--text-muted);font-size:11px">(art. 4 D.M. 55/2014: fino a ±50%)</span></label>
           <div style="background:var(--paper);padding:14px">
             <input type="range" id="calc-variazione" min="-50" max="50" value="0" step="5" style="width:100%;accent-color:var(--gold)" oninput="aggiornaSliderLabel()">
             <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:var(--text-muted)">
@@ -208,23 +216,23 @@
         </div>
 
         <div style="margin-top:24px;padding:18px;background:var(--paper);border-left:3px solid var(--gold)">
-          <label class="opt-row"><input type="checkbox" id="mor-attiva"><span><strong>Integra facoltativamente il conteggio della morosita</strong></span></label>
+          <label class="opt-row"><input type="checkbox" id="mor-attiva"><span><strong>Integra facoltativamente il conteggio della morosità</strong></span></label>
           <div id="mor-campi" style="display:none;margin-top:16px">
             <div class="form-field"><label>Canone mensile</label><input type="number" id="mor-canone" min="0" value="700"></div>
-            <div class="form-field"><label>Mensilita insolute</label><input type="number" id="mor-mesi" min="0" value="3"></div>
+            <div class="form-field"><label>Mensilità insolute</label><input type="number" id="mor-mesi" min="0" value="3"></div>
             <div class="form-field"><label>Oneri accessori insoluti</label><input type="number" id="mor-oneri" min="0" value="0"></div>
             <div class="form-field"><label>Deposito cauzionale da portare in detrazione</label><input type="number" id="mor-deposito" min="0" value="0"><small>La compensazione del deposito prima della riconsegna va verificata sul contratto e sul caso concreto.</small></div>
-            <div class="form-field"><label>Interessi gia calcolati (facoltativi)</label><input type="number" id="mor-interessi" min="0" value="0"></div>
-            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:12px"><span>Morosita netta indicativa</span><strong id="mor-totale">€ 0,00</strong></div>
+            <div class="form-field"><label>Interessi già calcolati (facoltativi)</label><input type="number" id="mor-interessi" min="0" value="0"></div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--border);padding-top:12px"><span>Morosità netta indicativa</span><strong id="mor-totale">€ 0,00</strong></div>
           </div>
         </div>
 
         <div style="margin-top:24px;background:var(--paper);padding:18px;border-left:3px solid var(--gold)">
           <strong style="font-family:var(--serif);font-size:15px;color:var(--navy);display:block;margin-bottom:8px">📌 Note operative</strong>
           <ul style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-left:18px;padding:0">
-            <li>Lo sfratto per morosità prevede la <strong>sanatoria giudiziale</strong> (art. 55 L. 392/1978) entro l'udienza di convalida.</li>
-            <li>Il <strong>termine per il rilascio</strong> è fissato dal giudice nel decreto di convalida o nell'ordinanza ex art. 665 c.p.c.</li>
-            <li>Se l'intimato si oppone, il procedimento <strong>muta in giudizio ordinario</strong> di cognizione e si applicano i parametri Civile.</li>
+            <li>Nelle <strong>locazioni abitative</strong> la morosità può essere sanata alla prima udienza, pagando canoni, oneri, interessi e spese; in presenza di comprovate difficoltà il giudice può assegnare un termine non superiore a 90 giorni (120 nei casi del quarto comma) (art. 55 L. 392/1978). Per le locazioni a uso diverso la sanatoria non si applica (Cass. civ., sez. III, 20 gennaio 2017, n. 1428).</li>
+            <li>Il <strong>termine per il rilascio</strong> è fissato dal giudice con la convalida o con l'ordinanza di rilascio ex art. 665 c.p.c.</li>
+            <li>Se l'intimato si oppone, il procedimento prosegue con il <strong>mutamento del rito</strong>: per le fasi successive si applicano i parametri del giudizio ordinario.</li>
           </ul>
         </div>
       </div>
@@ -234,6 +242,7 @@
           <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px">Stima del compenso</div>
           <h3 id="calc-titolo" style="font-family:var(--serif);font-size:22px;font-weight:600;margin-bottom:24px;color:#fff"></h3>
 
+          <div style="font-size:12px;color:#cbd5e1;margin:-12px 0 18px">Scaglione: <strong id="calc-scaglione-label" style="color:#fff"></strong></div>
           <div id="calc-fasi-bars" style="margin-bottom:24px"></div>
 
           <div style="border-top:1px solid rgba(255,255,255,.15);padding-top:18px">
@@ -250,7 +259,7 @@
           </div>
 
           <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
-          <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px">📨 Richiedi preventivo scritto</a>
+          <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px">📨 Richieda un preventivo scritto</a>
         </div>
       </div>
     </div>
@@ -272,57 +281,47 @@
 
 <script src="../assets/js/lanotte-preview.js"></script>
 <script>
-// Tabella sfratti: importi fissi indipendenti dal valore della causa
-// (Tab. 12 DM 55/2014 - sfratti aggiornata DM 147/2022)
-const PARAMETRI = {
-  finita_loc: { label: "Sfratto per finita locazione", scaglioni: [
-    { range: "Convalida senza opposizione", studio: 145, introduttiva: 145, istruttoria: 0, decisionale: 405 },
-    { range: "Con concessione termine al locatore", studio: 200, introduttiva: 200, istruttoria: 0, decisionale: 540 },
-    { range: "Differimento ex art. 56 L. 392/1978", studio: 270, introduttiva: 270, istruttoria: 145, decisionale: 700 }
-  ]},
-  morosita: { label: "Sfratto per morosità", scaglioni: [
-    { range: "Convalida senza opposizione", studio: 145, introduttiva: 145, istruttoria: 0, decisionale: 405 },
-    { range: "Con sanatoria della morosità", studio: 200, introduttiva: 200, istruttoria: 145, decisionale: 540 },
-    { range: "Con concessione termine di grazia", studio: 200, introduttiva: 200, istruttoria: 145, decisionale: 540 }
-  ]},
-  opposizione: { label: "Procedimento con opposizione", scaglioni: [
-    { range: "Mutamento del rito (giudizio ordinario)", studio: 540, introduttiva: 405, istruttoria: 945, decisionale: 1620 }
-  ]}
-};
-const FASE_LABELS = {studio:"Studio", introduttiva:"Introduttiva", istruttoria:"Istruttoria", decisionale:"Decisionale"};
+// D.M. 55/2014, tabella 5 «Procedimenti per convalida locatizia», come sostituita dal D.M. 147/2022
+// (G.U. n. 236 dell'8/10/2022): valori medi per scaglione di valore e fase.
+const SCAGLIONI = [
+  { max: 1100,   label: "fino a € 1.100",               studio: 179,  introduttiva: 179,  istruttoria: 42,  decisionale: 142 },
+  { max: 5200,   label: "da € 1.100,01 a € 5.200",      studio: 530,  introduttiva: 494,  istruttoria: 142, decisionale: 425 },
+  { max: 26000,  label: "da € 5.200,01 a € 26.000",     studio: 919,  introduttiva: 709,  istruttoria: 210, decisionale: 746 },
+  { max: 52000,  label: "da € 26.000,01 a € 52.000",    studio: 1701, introduttiva: 1061, istruttoria: 352, decisionale: 1344 },
+  { max: 260000, label: "da € 52.000,01 a € 260.000",   studio: 2478, introduttiva: 1418, istruttoria: 494, decisionale: 1911 },
+  { max: 520000, label: "da € 260.000,01 a € 520.000",  studio: 3544, introduttiva: 1559, istruttoria: 709, decisionale: 2835 }
+];
+const TIPI = { finita_loc: "Licenza o sfratto per finita locazione", morosita: "Sfratto per morosità" };
+const FASE_LABELS = {studio:"Studio", introduttiva:"Introduttiva", istruttoria:"Istruttoria / trattazione", decisionale:"Decisionale"};
 function fmt(n){ return '€ ' + n.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
 function testo(id){ return (document.getElementById(id)?.textContent || '').trim(); }
 function rigaSeVisibile(id, label, valueId){
   const el = document.getElementById(id);
   return el && el.style.display !== 'none' ? [[label, testo(valueId)]] : [];
 }
+function scaglionePer(valore){
+  for (const sc of SCAGLIONI) if (valore <= sc.max) return sc;
+  return null;
+}
 function apriAnteprimaReport(){
   calcola();
-  const scaglione = document.getElementById('calc-scaglione');
   LanottePreview.openSummary({
     title: 'Parcella sfratto',
     subtitle: testo('calc-titolo'),
     rows: [
       ['Procedimento', testo('calc-titolo')],
-      ['Ipotesi', scaglione.options[scaglione.selectedIndex]?.textContent || '—'],
+      ['Scaglione di valore', testo('calc-scaglione-label')],
       ['Variazione', testo('slider-value')],
       ['Compenso fasi', testo('calc-fasi-totale')],
       ...rigaSeVisibile('calc-spese-row', 'Spese generali 15%', 'calc-spese-val'),
       ...rigaSeVisibile('calc-cpa-row', 'CPA 4%', 'calc-cpa-val'),
       ...rigaSeVisibile('calc-iva-row', 'IVA 22%', 'calc-iva-val'),
-      ...(document.getElementById('mor-attiva').checked ? [['Morosita netta indicativa (separata dal compenso)', testo('mor-totale')]] : [])
+      ...(document.getElementById('mor-attiva').checked ? [['Morosità netta indicativa (separata dal compenso)', testo('mor-totale')]] : [])
     ],
     totalLabel: 'Totale stimato',
     total: testo('calc-totale'),
-    notes: 'Stima orientativa per procedimento di sfratto. Da verificare sul caso concreto e formalizzare in preventivo scritto.'
+    notes: 'Stima orientativa secondo la tabella 5 del D.M. 55/2014 (D.M. 147/2022). Da verificare sul caso concreto e formalizzare in preventivo scritto.'
   });
-}
-function aggiornaScaglioni(){
-  const tipo = document.getElementById('calc-tipo').value;
-  const params = PARAMETRI[tipo];
-  document.getElementById('calc-titolo').textContent = params.label;
-  document.getElementById('calc-scaglione').innerHTML = params.scaglioni.map((s, i) => '<option value="'+i+'">'+s.range+'</option>').join('');
-  calcola();
 }
 function aggiornaSliderLabel(){
   const v = parseInt(document.getElementById('calc-variazione').value);
@@ -332,23 +331,33 @@ function aggiornaSliderLabel(){
 }
 function calcola(){
   const tipo = document.getElementById('calc-tipo').value;
-  const idx = parseInt(document.getElementById('calc-scaglione').value) || 0;
+  const valore = Math.max(0, parseFloat(String(document.getElementById('calc-valore').value).replace(',', '.')) || 0);
   const variaz = parseInt(document.getElementById('calc-variazione').value) || 0;
   const cpa = document.getElementById('calc-cpa').checked;
   const iva = document.getElementById('calc-iva').checked;
   const spese = document.getElementById('calc-spese').checked;
-  const params = PARAMETRI[tipo];
-  const sc = params.scaglioni[idx];
-  if (!sc) return;
+  const fasi = Array.from(document.querySelectorAll('.calc-fase:checked')).map(el => el.value);
+  document.getElementById('calc-titolo').textContent = TIPI[tipo];
+  const sc = scaglionePer(valore);
+  const lab = document.getElementById('calc-scaglione-label');
+  if (!sc) {
+    lab.textContent = 'oltre € 520.000: art. 6 D.M. 55/2014, preventivo su misura';
+    document.getElementById('calc-fasi-bars').innerHTML = '';
+    ['calc-fasi-totale','calc-totale'].forEach(id => document.getElementById(id).textContent = '—');
+    calcolaMorosita();
+    return;
+  }
+  lab.textContent = sc.label;
   const mult = 1 + (variaz / 100);
   let totaleFasi = 0;
   const maxV = Math.max(sc.studio, sc.introduttiva, sc.istruttoria, sc.decisionale) * mult || 1;
   const barsHTML = ['studio','introduttiva','istruttoria','decisionale'].map(f => {
-    const valore = sc[f] * mult;
-    totaleFasi += valore;
-    const pct = valore > 0 ? (valore / maxV * 100) : 0;
-    return `<div class="fase-bar" style="opacity:${valore>0?1:0.4}">
-      <div class="fase-bar-label"><span>${FASE_LABELS[f]}${valore===0?' (n.a.)':''}</span><strong style="color:#fff">${fmt(valore)}</strong></div>
+    const attiva = fasi.includes(f);
+    const valoreFase = attiva ? sc[f] * mult : 0;
+    totaleFasi += valoreFase;
+    const pct = valoreFase > 0 ? (valoreFase / maxV * 100) : 0;
+    return `<div class="fase-bar" style="opacity:${attiva?1:0.4}">
+      <div class="fase-bar-label"><span>${FASE_LABELS[f]}${attiva?'':' (non svolta)'}</span><strong style="color:#fff">${fmt(valoreFase)}</strong></div>
       <div class="fase-bar-track"><div class="fase-bar-fill" style="width:${pct}%"></div></div></div>`;
   }).join('');
   document.getElementById('calc-fasi-bars').innerHTML = barsHTML;
@@ -369,8 +378,6 @@ function calcola(){
 function valMor(id){return Math.max(0,parseFloat(document.getElementById(id).value)||0)}
 function calcolaMorosita(){const attiva=document.getElementById('mor-attiva').checked;document.getElementById('mor-campi').style.display=attiva?'block':'none';const dovuto=valMor('mor-canone')*valMor('mor-mesi')+valMor('mor-oneri')+valMor('mor-interessi')-valMor('mor-deposito');document.getElementById('mor-totale').textContent=fmt(Math.max(0,dovuto))}
 document.addEventListener('DOMContentLoaded', function(){
-  aggiornaScaglioni();
-  document.getElementById('calc-scaglione').addEventListener('change', calcola);
   document.getElementById('calc-cpa').addEventListener('change', calcola);
   document.getElementById('calc-iva').addEventListener('change', calcola);
   document.getElementById('calc-spese').addEventListener('change', calcola);
@@ -385,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="../assets/img/logo-dark.png" alt="Lanotte &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
+        <img src="../assets/img/logo-dark.png" alt="LANOTTE &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
              onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
         <p>Avv. Giuseppe LANOTTE — Iscritto all'Ordine degli Avvocati di Trani.<br>C.F.: LNTGPP78B01L328P · P.IVA: 06731750722</p>
         <p style="margin-top:14px"><strong style="color:#fff">Sede:</strong> Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)</p>
@@ -429,7 +436,7 @@ document.addEventListener('DOMContentLoaded', function(){
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Studio Legale Lanotte &amp; Partners · Tutti i diritti riservati</div>
+      <div>© 2026 Studio Legale LANOTTE &amp; Partners · Tutti i diritti riservati</div>
       <div>
         <a href="https://studiolegalelanotte.it/privacy/">Privacy</a>
         <a href="https://studiolegalelanotte.it/cookie/">Cookie</a>

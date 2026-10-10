@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,follow">
-<title>Calcolo pignoramento stipendio e pensione — Studio Legale Lanotte &amp; Partners</title>
+<title>Calcolo pignoramento stipendio e pensione — Studio Legale LANOTTE &amp; Partners</title>
 <link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/pignoramento-stipendio-pensione/">
 <meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/pignoramento-stipendio-pensione/">
 <link rel="stylesheet" href="../assets/style.css">
@@ -23,7 +23,7 @@
   <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
     <div style="font-size:24px;flex-shrink:0">!</div>
     <div style="font-size:13.5px;color:#78350f;line-height:1.55">
-      <strong>Stima orientativa.</strong> Il risultato dipende da titolo esecutivo, natura del credito, eventuali pignoramenti gia in corso, ordinanza di assegnazione e regole speciali. Per i crediti alimentari la misura e stabilita dal giudice.
+      <strong>Stima orientativa.</strong> Il risultato dipende da titolo esecutivo, natura del credito, eventuali pignoramenti già in corso, ordinanza di assegnazione e regole speciali. Per i crediti alimentari la misura è stabilita dal giudice.
     </div>
   </div>
 </section>
@@ -44,7 +44,7 @@
           <select id="pig-reddito">
             <option value="stipendio">Stipendio / salario netto</option>
             <option value="pensione">Pensione netta</option>
-            <option value="conto">Somme gia accreditate su conto corrente</option>
+            <option value="conto">Somme già accreditate su conto corrente</option>
           </select>
         </div>
         <div class="form-field" id="pig-conto-box" style="display:none"><label>Origine prevalente delle somme</label><select id="pig-origine"><option value="stipendio">Stipendio o pensione accreditati prima del pignoramento</option><option value="altro">Altre somme sul conto</option></select><p class="lc-help">Per accrediti anteriori di stipendio o pensione e protetto un importo pari al triplo dell'assegno sociale; le altre somme seguono regole diverse.</p></div>
@@ -71,9 +71,9 @@
         </div>
 
         <div class="form-field">
-          <label>4 · Pignoramenti gia in corso</label>
+          <label>4 · Pignoramenti già in corso</label>
           <input type="number" id="pig-gia" value="0" min="0" step="0.01">
-          <p class="lc-help">Inserisci la trattenuta mensile gia applicata, se presente. Il calcolo la sottrae dal margine prudenziale.</p>
+          <p class="lc-help">Inserisca la trattenuta mensile già applicata, se presente. Il calcolo la sottrae dal margine prudenziale.</p>
         </div>
 
         <button type="button" class="btn btn-primary" onclick="calcolaPignoramento()">Calcola quota pignorabile</button>
@@ -94,7 +94,7 @@
         </div>
         <p id="pig-note" class="lc-note"></p>
         <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
-        <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Verifica con lo Studio</a>
+        <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Richieda una verifica allo Studio</a>
       </div>
     </div>
   </div>
@@ -161,7 +161,7 @@ function calcolaPignoramento(){
   if (tipoReddito === 'conto') {
     const protetta = document.getElementById('pig-origine').value === 'stipendio' ? assegno * 3 : 0;
     const quotaConto = Math.max(0, netto - protetta);
-    document.getElementById('pig-quota').textContent=euro(quotaConto); document.getElementById('pig-base').textContent=euro(netto); document.getElementById('pig-soglia').textContent=euro(protetta); document.getElementById('pig-aliquota').textContent='Eccedenza disponibile'; document.getElementById('pig-residuo').textContent=euro(protetta); document.getElementById('pig-note').textContent='Somme gia accreditate: simulazione della sola protezione collegata a stipendio o pensione. Saldo, provenienza e data degli accrediti vanno documentati.'; document.getElementById('pig-titolo').textContent='Conto corrente pignorabile'; return;
+    document.getElementById('pig-quota').textContent=euro(quotaConto); document.getElementById('pig-base').textContent=euro(netto); document.getElementById('pig-soglia').textContent=euro(protetta); document.getElementById('pig-aliquota').textContent='Eccedenza disponibile'; document.getElementById('pig-residuo').textContent=euro(protetta); document.getElementById('pig-note').textContent='Somme già accreditate: simulazione della sola protezione collegata a stipendio o pensione. Saldo, provenienza e data degli accrediti vanno documentati.'; document.getElementById('pig-titolo').textContent='Conto corrente pignorabile'; return;
   }
 
   const soglia = tipoReddito === 'pensione' ? Math.max(1000, assegno * 2) : 0;
@@ -217,7 +217,7 @@ function apriAnteprimaReport(){
       ['Soglia protetta', testo('pig-soglia')],
       ['Base pignorabile', testo('pig-base')],
       ['Aliquota applicata', testo('pig-aliquota')],
-      ['Pignoramenti gia in corso', euro(num('pig-gia'))],
+      ['Pignoramenti già in corso', euro(num('pig-gia'))],
       ['Residuo stimato', testo('pig-residuo')],
       ['Nota', testo('pig-note')]
     ],

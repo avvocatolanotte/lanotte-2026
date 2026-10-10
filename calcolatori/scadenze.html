@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,follow">
-<title>Calcolo Scadenze Processuali — Sospensione feriale L. 742/1969 — Studio Legale Lanotte &amp; Partners</title>
+<title>Calcolo Scadenze Processuali — Sospensione feriale L. 742/1969 — Studio Legale LANOTTE &amp; Partners</title>
 
 <link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/scadenze/">
 <meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/scadenze/">
@@ -42,8 +42,8 @@
 <!-- HEADER -->
 <header class="site-header">
   <div class="container header-inner">
-    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="Lanotte &amp; Partners — Studio Legale (home)">
-      <img src="../assets/img/logo.png" alt="Lanotte &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
+    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="LANOTTE &amp; Partners — Studio Legale (home)">
+      <img src="../assets/img/logo.png" alt="LANOTTE &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
            onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
     </a>
     <nav class="primary">
@@ -163,7 +163,7 @@
   <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
     <div style="font-size:24px;flex-shrink:0">⚠️</div>
     <div style="font-size:13.5px;color:#78350f;line-height:1.55">
-      <strong>Strumento illustrativo.</strong> Il calcolatore applica la sospensione feriale (1-31 agosto, L. 742/1969) e la proroga al primo giorno non festivo (art. 155 c.p.c.). <strong>NON applica</strong> la sospensione per i procedimenti che la legge esclude (es. cautelari, lavoro in alcuni casi, sfratti per finita locazione, riti possessori). <strong>Verificare SEMPRE</strong> il termine con il difensore in base al tipo specifico di procedimento e alla normativa vigente.
+      <strong>Strumento illustrativo.</strong> Il calcolatore applica, se selezionate, la sospensione feriale (1-31 agosto, L. 742/1969) e la proroga al primo giorno non festivo (art. 155 c.p.c.; nel penale art. 172 c.p.p.). Non riconosce da solo i procedimenti esclusi dalla sospensione feriale: in quei casi va tolta la spunta. <strong>Il termine va sempre verificato</strong> con il difensore in base al procedimento concreto, al rito applicabile e ai provvedimenti del giudice.
     </div>
   </div>
 </section>
@@ -178,32 +178,35 @@
         <div class="form-field">
           <label>1 · Tipo di termine</label>
           <select id="calc-tipo" onchange="aggiornaInfo()">
-            <optgroup label="Riforma Cartabia (D.Lgs. 149/2022)">
-              <option value="166_convenuto" data-giorni="70" data-direzione="ritroso">Art. 166 c.p.c. · Costituzione convenuto da citazione (–70 gg)</option>
-              <option value="171ter_prima" data-giorni="40" data-direzione="ritroso">Art. 171-ter c.p.c. · 1ª memoria preliminare (–40 gg)</option>
-              <option value="171ter_replica" data-giorni="20" data-direzione="ritroso">Art. 171-ter c.p.c. · Replica (–20 gg)</option>
-              <option value="171ter_dedotti" data-giorni="10" data-direzione="ritroso">Art. 171-ter c.p.c. · Deduzioni istruttorie (–10 gg)</option>
+            <optgroup label="Cause civili instaurate dopo il 28/2/2023 (D.Lgs. 149/2022)">
+              <option value="166_convenuto" data-giorni="70" data-direzione="ritroso">Art. 166 c.p.c. · Costituzione del convenuto (almeno 70 gg prima dell'udienza)</option>
+              <option value="171ter_prima" data-giorni="40" data-direzione="ritroso">Art. 171-ter n. 1 c.p.c. · Prima memoria integrativa (almeno 40 gg prima)</option>
+              <option value="171ter_seconda" data-giorni="20" data-direzione="ritroso">Art. 171-ter n. 2 c.p.c. · Seconda memoria: repliche, mezzi di prova e documenti (almeno 20 gg prima)</option>
+              <option value="171ter_terza" data-giorni="10" data-direzione="ritroso">Art. 171-ter n. 3 c.p.c. · Terza memoria: repliche alle eccezioni nuove e prova contraria (almeno 10 gg prima)</option>
+              <option value="189_conclusioni" data-giorni="60" data-direzione="ritroso">Art. 189 n. 1 c.p.c. · Note di precisazione delle conclusioni (fino a 60 gg prima)</option>
+              <option value="189_conclusionali" data-giorni="30" data-direzione="ritroso">Art. 189 n. 2 c.p.c. · Comparse conclusionali (fino a 30 gg prima)</option>
+              <option value="189_repliche" data-giorni="15" data-direzione="ritroso">Art. 189 n. 3 c.p.c. · Memorie di replica (fino a 15 gg prima)</option>
             </optgroup>
-            <optgroup label="Procedimento ordinario">
-              <option value="183_6_1" data-giorni="30" data-direzione="avanti">Art. 183 c.p.c. comma 6 n. 1 · memoria istruttoria (+30 gg)</option>
-              <option value="183_6_2" data-giorni="30" data-direzione="avanti">Art. 183 c.p.c. comma 6 n. 2 · richieste prova (+30 gg)</option>
-              <option value="183_6_3" data-giorni="20" data-direzione="avanti">Art. 183 c.p.c. comma 6 n. 3 · prova contraria (+20 gg)</option>
+            <optgroup label="Cause civili pendenti al 28/2/2023 (rito previgente)">
+              <option value="183_6_1" data-giorni="30" data-direzione="avanti">Art. 183, sesto comma, n. 1 c.p.c. (previgente) · Memoria di precisazione (30 gg)</option>
+              <option value="183_6_2" data-giorni="30" data-direzione="avanti">Art. 183, sesto comma, n. 2 c.p.c. (previgente) · Mezzi di prova (ulteriori 30 gg)</option>
+              <option value="183_6_3" data-giorni="20" data-direzione="avanti">Art. 183, sesto comma, n. 3 c.p.c. (previgente) · Prova contraria (ulteriori 20 gg)</option>
+              <option value="190_concl" data-giorni="60" data-direzione="avanti">Art. 190 c.p.c. (previgente) · Comparse conclusionali (60 gg)</option>
+              <option value="190_repl" data-giorni="20" data-direzione="avanti">Art. 190 c.p.c. (previgente) · Memorie di replica (20 gg dalla scadenza delle conclusionali)</option>
             </optgroup>
-            <optgroup label="Fase decisoria">
-              <option value="190_concl" data-giorni="60" data-direzione="avanti">Art. 190 c.p.c. · Comparse conclusionali (+60 gg)</option>
-              <option value="190_repl" data-giorni="20" data-direzione="avanti">Art. 190 c.p.c. · Memorie di replica (+20 gg dopo conclusionali)</option>
+            <optgroup label="Impugnazioni e opposizioni civili">
+              <option value="appello_breve" data-giorni="30" data-direzione="avanti">Appello, termine breve (30 gg dalla notifica)</option>
+              <option value="appello_lungo" data-mesi="6" data-giorni="0" data-direzione="avanti">Appello, termine lungo (6 mesi dalla pubblicazione)</option>
+              <option value="cassazione_breve" data-giorni="60" data-direzione="avanti">Ricorso per cassazione, termine breve (60 gg dalla notifica)</option>
+              <option value="cassazione_lungo" data-mesi="6" data-giorni="0" data-direzione="avanti">Ricorso per cassazione, termine lungo (6 mesi dalla pubblicazione)</option>
+              <option value="opp_di" data-giorni="40" data-direzione="avanti">Opposizione a decreto ingiuntivo (40 gg dalla notifica, salvo diverso termine nel decreto)</option>
+              <option value="opp_atti_esecutivi" data-giorni="20" data-direzione="avanti">Opposizione agli atti esecutivi, art. 617 c.p.c. (20 gg)</option>
             </optgroup>
-            <optgroup label="Impugnazioni">
-              <option value="appello_breve" data-giorni="30" data-direzione="avanti">Appello breve (30 gg da notifica)</option>
-              <option value="appello_lungo" data-giorni="180" data-direzione="avanti">Appello lungo (6 mesi da pubblicazione)</option>
-              <option value="cassazione_breve" data-giorni="60" data-direzione="avanti">Cassazione breve (60 gg da notifica)</option>
-              <option value="cassazione_lungo" data-giorni="180" data-direzione="avanti">Cassazione lungo (6 mesi da pubblicazione)</option>
-              <option value="opp_di" data-giorni="40" data-direzione="avanti">Opposizione decreto ingiuntivo (40 gg da notifica)</option>
-              <option value="opp_esecut" data-giorni="20" data-direzione="avanti">Opposizione esecuzione (20 gg)</option>
-              <option value="riesame_pen" data-giorni="10" data-direzione="avanti">Riesame misure cautelari penali (10 gg)</option>
+            <optgroup label="Penale">
+              <option value="riesame_pen" data-giorni="10" data-direzione="avanti" data-materia="penale">Richiesta di riesame delle misure coercitive, art. 309 c.p.p. (10 gg)</option>
             </optgroup>
-            <optgroup label="Custom">
-              <option value="custom" data-giorni="0" data-direzione="ritroso">Termine personalizzato</option>
+            <optgroup label="Altro">
+              <option value="custom" data-giorni="0" data-direzione="ritroso">Termine personalizzato (civile)</option>
             </optgroup>
           </select>
         </div>
@@ -231,8 +234,8 @@
               <span style="font-weight:500">Applica la sospensione feriale (L. 742/1969)</span>
             </label>
             <p style="font-size:12px;color:var(--text-muted);line-height:1.5">
-              ✅ <strong>Si applica</strong> al rito civile ordinario, volontaria giurisdizione, fallimentare.<br>
-              ❌ <strong>NON si applica</strong> a: cautelari, possessori, opposizioni esecutive, sfratti per finita locazione, controversie di lavoro con detenuti, alimenti, riesame cautelare penale, procedimenti d'urgenza ex art. 700 c.p.c.
+              ✅ <strong>Si applica</strong>, di regola, al processo civile di cognizione e alle relative impugnazioni.<br>
+              ❌ <strong>Non si applica</strong> alle cause indicate dall'art. 92 dell'ordinamento giudiziario (alimenti, procedimenti cautelari, amministrazione di sostegno, interdizione e inabilitazione, ordini di protezione, sfratto, opposizione all'esecuzione, cause dichiarate urgenti), alle controversie di lavoro e di previdenza (art. 3 L. 742/1969) e ai procedimenti del Codice della crisi (art. 9 d.lgs. 14/2019). Nel penale valgono regole proprie (art. 2 L. 742/1969): per il riesame il calcolatore non la applica.
             </p>
           </div>
         </div>
@@ -241,8 +244,9 @@
           <label>4 · Proroga al primo giorno non festivo</label>
           <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
             <input type="checkbox" id="calc-proroga" checked>
-            <span style="font-weight:500;font-size:14px">Proroga ex art. 155 c.p.c. (sabato/domenica/festivi)</span>
+            <span style="font-weight:500;font-size:14px">Proroga se la scadenza cade di sabato, domenica o festivo (art. 155 c.p.c.; nel penale solo festivi, art. 172 c.p.p.)</span>
           </label>
+          <p style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:6px">Sono considerati i festivi nazionali, compresi il Lunedì dell'Angelo e, dal 2026, il 4 ottobre (L. 151/2025); non le feste del santo patrono locale. Per i termini a ritroso la proroga al giorno successivo non è applicata.</p>
         </div>
       </div>
 
@@ -282,13 +286,13 @@
                 Apple / Outlook (.ics)
               </a>
             </div>
-            <p style="font-size:11px;color:#94a3b8;margin-top:8px;line-height:1.4;font-style:italic">L'evento viene creato con titolo, data e nota di riferimento normativo. Verifica l'orario di promemoria nel tuo calendario.</p>
+            <p style="font-size:11px;color:#94a3b8;margin-top:8px;line-height:1.4;font-style:italic">L'evento viene creato con titolo, data e nota di riferimento normativo. Verifichi l'orario del promemoria nel Suo calendario.</p>
           </div>
 
           <p style="font-size:11px;color:#cbd5e1;margin-top:18px;line-height:1.5;font-style:italic">📌 Verificare sempre il termine con il difensore. Il calcolatore non sostituisce la consultazione professionale e la verifica caso per caso.</p>
 
           <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
-          <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px">📨 Verifica con lo Studio</a>
+          <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:18px;background:#fff;color:var(--navy);font-weight:700;padding:14px">📨 Richieda una verifica allo Studio</a>
         </div>
       </div>
     </div>
@@ -305,28 +309,24 @@
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px">
       <div style="background:#fff;padding:24px;border-top:3px solid #dc2626">
-        <h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin-bottom:10px">❌ Procedimenti esclusi (art. 92 R.D. 12/1941 e L. 742/1969)</h4>
+        <h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin-bottom:10px">❌ Procedimenti esclusi</h4>
         <ul style="font-size:13.5px;color:var(--text);line-height:1.7;margin-left:18px">
-          <li><strong>Procedimenti cautelari</strong> (art. 669-bis e ss. c.p.c.)</li>
-          <li><strong>Riesame</strong> misure cautelari penali (10 gg perentori)</li>
-          <li><strong>Sfratti</strong> per finita locazione e per morosità</li>
-          <li><strong>Opposizioni esecutive</strong> e procedure esecutive</li>
-          <li>Riti <strong>possessori</strong></li>
-          <li><strong>Alimenti</strong> (urgenza)</li>
-          <li>Procedimenti d'urgenza ex <strong>art. 700</strong> c.p.c.</li>
-          <li><strong>Lavoro</strong> (parzialmente — dipende dal rito)</li>
-          <li>Procedimenti <strong>penali con detenuti</strong></li>
+          <li>Cause relative ad <strong>alimenti</strong> (art. 92 O.G.)</li>
+          <li><strong>Procedimenti cautelari</strong>, compresi quelli d'urgenza ex art. 700 c.p.c. (art. 92 O.G.)</li>
+          <li><strong>Amministrazione di sostegno</strong>, interdizione, inabilitazione e <strong>ordini di protezione</strong> contro gli abusi familiari (art. 92 O.G.)</li>
+          <li>Procedimenti di <strong>sfratto</strong> e di <strong>opposizione all'esecuzione</strong> (art. 92 O.G.)</li>
+          <li>Cause <strong>dichiarate urgenti</strong> dal giudice (art. 92, secondo comma, O.G.)</li>
+          <li>Controversie di <strong>lavoro e di previdenza</strong> (art. 3 L. 742/1969)</li>
+          <li>Procedimenti del <strong>Codice della crisi d'impresa</strong> (art. 9 d.lgs. 14/2019)</li>
+          <li><strong>Penale</strong>: la sospensione non opera, tra l'altro, nei procedimenti con imputati in custodia cautelare se essi o i difensori vi rinunciano, e negli altri casi dell'art. 2 L. 742/1969</li>
         </ul>
       </div>
       <div style="background:#fff;padding:24px;border-top:3px solid #16a34a">
         <h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin-bottom:10px">✅ Procedimenti per cui si applica</h4>
         <ul style="font-size:13.5px;color:var(--text);line-height:1.7;margin-left:18px">
-          <li><strong>Giudizio ordinario civile</strong> di cognizione</li>
-          <li><strong>Volontaria giurisdizione</strong></li>
-          <li>Procedure <strong>fallimentari</strong> (con eccezioni)</li>
-          <li>Maggior parte delle <strong>impugnazioni civili</strong> (appello e Cassazione)</li>
-          <li><strong>Opposizione</strong> a decreto ingiuntivo</li>
-          <li>Procedimenti tributari ordinari</li>
+          <li><strong>Giudizio civile ordinario</strong> di cognizione, fuori dalle materie escluse</li>
+          <li><strong>Impugnazioni civili</strong> (appello e ricorso per cassazione) nelle stesse materie</li>
+          <li><strong>Opposizione</strong> a decreto ingiuntivo, salvo che la materia sia tra quelle escluse</li>
         </ul>
         <p style="font-size:12px;color:var(--text-muted);margin-top:14px;font-style:italic">Periodo sospensione: dal <strong>1° al 31 agosto</strong> compresi (31 giorni).</p>
       </div>
@@ -357,10 +357,10 @@ function aggiornaInfo(){
   // Aggiorna label data
   if (direzione === 'ritroso') {
     document.getElementById('label-data').textContent = '2 · Data dell\'udienza';
-    document.getElementById('info-data').textContent = 'Calcoleremo la scadenza a ritroso dall\'udienza.';
+    document.getElementById('info-data').textContent = 'La scadenza è calcolata a ritroso dall\'udienza.';
   } else {
     document.getElementById('label-data').textContent = '2 · Data di notifica / pubblicazione';
-    document.getElementById('info-data').textContent = 'Calcoleremo la scadenza in avanti dalla data di partenza.';
+    document.getElementById('info-data').textContent = 'La scadenza è calcolata in avanti dalla data di partenza.';
   }
   calcola();
 }
@@ -371,13 +371,73 @@ function isSospensioneFeriale(date) {
   return m === 7;
 }
 
-function isFestivo(date) {
+function pasqua(anno) {
+  // Computo gregoriano (Meeus/Jones/Butcher)
+  const a = anno % 19, b = Math.floor(anno / 100), c = anno % 100;
+  const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const mese = Math.floor((h + l - 7 * m + 114) / 31), giorno = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(anno, mese - 1, giorno, 12);
+}
+
+// Festivi nazionali (art. 2 L. 260/1949 e successive modifiche). Il sabato conta
+// solo nel civile (art. 155, quinto comma, c.p.c.); nel penale no (art. 172 c.p.p.).
+function isFestivo(date, penale) {
   const d = date.getDay();
-  if (d === 0 || d === 6) return true; // domenica o sabato
+  if (d === 0) return true;
+  if (d === 6 && !penale) return true;
   const m = date.getMonth() + 1, day = date.getDate();
-  // Festività fisse: Capodanno, Epifania, Liberazione, Lavoro, Repubblica, Ferragosto, Ognissanti, Immacolata, Natale, S.Stefano
   const fisse = ['1-1','1-6','4-25','5-1','6-2','8-15','11-1','12-8','12-25','12-26'];
-  return fisse.includes(m+'-'+day);
+  if (fisse.includes(m + '-' + day)) return true;
+  if (m === 10 && day === 4 && date.getFullYear() >= 2026) return true; // L. 151/2025
+  const lunediAngelo = pasqua(date.getFullYear());
+  lunediAngelo.setDate(lunediAngelo.getDate() + 1);
+  return lunediAngelo.getMonth() === date.getMonth() && lunediAngelo.getDate() === day;
+}
+
+function aggiungiMesi(start, mesi) {
+  // Termini a mesi secondo il calendario comune (art. 155, secondo comma, c.p.c.):
+  // se il giorno corrispondente manca, scade l'ultimo giorno del mese.
+  const y = start.getFullYear(), mo = start.getMonth() + mesi, g = start.getDate();
+  const ultimo = new Date(y, mo + 1, 0, 12).getDate();
+  return new Date(y, mo, Math.min(g, ultimo), 12);
+}
+
+function giorniFerialiTra(da, a) {
+  // Giorni di agosto compresi nell'intervallo (da escluso, a incluso)
+  let n = 0;
+  const d = new Date(da);
+  while (d < a) {
+    d.setDate(d.getDate() + 1);
+    if (isSospensioneFeriale(d)) n++;
+  }
+  return n;
+}
+
+function calcolaDataMesi(start, mesi, applicaFeriale) {
+  let inizio = new Date(start);
+  let sospesi = 0;
+  if (applicaFeriale && isSospensioneFeriale(inizio)) {
+    const fine = new Date(inizio.getFullYear(), 7, 31, 12);
+    sospesi += Math.round((fine - inizio) / 864e5);
+    inizio = fine;
+  }
+  const target = aggiungiMesi(inizio, mesi);
+  if (applicaFeriale) {
+    let da = new Date(inizio);
+    let extra = giorniFerialiTra(da, target);
+    let safety = 0;
+    while (extra > 0 && safety < 10) {
+      da = new Date(target);
+      target.setDate(target.getDate() + extra);
+      sospesi += extra;
+      extra = giorniFerialiTra(da, target);
+      safety++;
+    }
+  }
+  return { target, sospesi };
 }
 
 function calcGiorniSospensione(start, end) {
@@ -449,6 +509,8 @@ function calcola(){
   const dataPartenza = new Date(dataStr + 'T12:00:00');
 
   let giorni, direzione;
+  const mesi = parseInt(opt.dataset.mesi || '0');
+  const penale = opt.dataset.materia === 'penale';
   if (tipo === 'custom') {
     giorni = parseInt(document.getElementById('custom-giorni').value) || 0;
     direzione = document.querySelector('input[name="custom-dir"]:checked').value;
@@ -457,28 +519,37 @@ function calcola(){
     direzione = opt.dataset.direzione;
   }
 
-  const applicaFeriale = document.getElementById('calc-feriale').checked;
+  // Nel riesame la sospensione feriale non viene applicata dal calcolatore (art. 2 L. 742/1969).
+  const applicaFeriale = document.getElementById('calc-feriale').checked && !penale;
   const applicaProroga = document.getElementById('calc-proroga').checked;
   const seg = direzione === 'avanti' ? 1 : -1;
 
   // Calcolo data: conta i giorni utili saltando la sospensione feriale quando richiesta.
-  const risultato = calcolaDataTermine(dataPartenza, giorni, seg, applicaFeriale);
+  const risultato = mesi > 0
+    ? calcolaDataMesi(dataPartenza, mesi, applicaFeriale)
+    : calcolaDataTermine(dataPartenza, giorni, seg, applicaFeriale);
   const target = risultato.target;
   let giorniSospensione = risultato.sospesi;
 
-  // Proroga al primo giorno non festivo (solo se in avanti; per termini a ritroso art. 155 c.p.c. comma 5 non si applica la proroga al successivo)
+  // Proroga al primo giorno non festivo, solo per i termini in avanti.
   let prorogaApplicata = false;
   if (applicaProroga && direzione === 'avanti') {
-    while (isFestivo(target)) {
+    while (isFestivo(target, penale)) {
       target.setDate(target.getDate() + 1);
       prorogaApplicata = true;
     }
+  }
+  // Termini a ritroso: nessuna proroga; se la data cade in un giorno non lavorativo lo si segnala.
+  let anticipoPrudente = null;
+  if (direzione === 'ritroso' && isFestivo(target, false)) {
+    anticipoPrudente = new Date(target);
+    while (isFestivo(anticipoPrudente, false)) anticipoPrudente.setDate(anticipoPrudente.getDate() - 1);
   }
 
   document.getElementById('calc-data-finale').textContent = target.getDate() + '/' + (target.getMonth()+1).toString().padStart(2,'0') + '/' + target.getFullYear();
   document.getElementById('calc-giorno-settimana').textContent = fmtData(target);
   document.getElementById('calc-data-start').textContent = dataPartenza.getDate() + '/' + (dataPartenza.getMonth()+1).toString().padStart(2,'0') + '/' + dataPartenza.getFullYear();
-  document.getElementById('calc-termine').textContent = (direzione === 'avanti' ? '+ ' : '– ') + giorni + ' gg';
+  document.getElementById('calc-termine').textContent = mesi > 0 ? '+ ' + mesi + ' mesi' : (direzione === 'avanti' ? '+ ' : '– ') + giorni + ' gg';
 
   if (giorniSospensione > 0) {
     document.getElementById('riga-feriale').style.display = 'flex';
@@ -489,18 +560,28 @@ function calcola(){
 
   document.getElementById('riga-proroga').style.display = prorogaApplicata ? 'flex' : 'none';
 
-  // Warning per termini perentori urgenti
+  // Avvertenze sul termine selezionato
   const w = document.getElementById('calc-warning');
   const wmsg = document.getElementById('warning-msg');
+  const avvisi = [];
   if (tipo === '166_convenuto') {
-    w.style.display = 'block';
-    wmsg.textContent = 'Costituzione del convenuto ex art. 166 c.p.c.: il termine ordinario e di almeno 70 giorni prima dell\'udienza di comparizione indicata nell\'atto di citazione. Verificare rito applicabile, eventuali rinvii e decadenze ex art. 167 c.p.c.';
-  } else if (['riesame_pen', 'opp_esecut', 'cassazione_breve', 'appello_breve'].includes(tipo)) {
-    w.style.display = 'block';
-    wmsg.textContent = 'Termine perentorio: la mancata osservanza comporta decadenza dall\'impugnazione. La sospensione feriale per i termini brevi va verificata caso per caso.';
+    avvisi.push('Costituzione del convenuto (art. 166 c.p.c.): almeno 70 giorni prima dell\'udienza di comparizione indicata nell\'atto di citazione. Verificare il rito applicabile, eventuali differimenti dell\'udienza e le decadenze dell\'art. 167 c.p.c.');
+  } else if (tipo.indexOf('189_') === 0) {
+    avvisi.push('I termini dell\'art. 189 c.p.c. sono assegnati dal giudice in misura non superiore a 60, 30 e 15 giorni prima dell\'udienza di rimessione in decisione: fa fede il termine indicato nel provvedimento.');
   } else if (tipo === 'riesame_pen') {
+    avvisi.push('Termine perentorio. Nel penale il sabato non proroga la scadenza (art. 172 c.p.p.) e il calcolatore non applica la sospensione feriale: per gli imputati in custodia cautelare la sospensione non opera se essi o i difensori vi rinunciano (art. 2 L. 742/1969). Verificare sempre il caso concreto.');
+  } else if (['opp_atti_esecutivi', 'cassazione_breve', 'appello_breve', 'opp_di'].includes(tipo)) {
+    avvisi.push('Termine perentorio: la mancata osservanza comporta la decadenza. Verificare se la materia rientra tra quelle escluse dalla sospensione feriale.');
+  }
+  if (mesi > 0 && isSospensioneFeriale(dataPartenza) && applicaFeriale) {
+    avvisi.push('La data di partenza cade nel periodo feriale: il computo fa decorrere il termine dal 1° settembre. Verificare il caso concreto.');
+  }
+  if (anticipoPrudente) {
+    avvisi.push('La data cade in un giorno non lavorativo. Per i termini a ritroso la proroga al giorno successivo non è applicata: per prudenza conviene provvedere entro ' + fmtData(anticipoPrudente).toLowerCase() + '.');
+  }
+  if (avvisi.length) {
     w.style.display = 'block';
-    wmsg.textContent = 'Il riesame penale NON beneficia di sospensione feriale (art. 309 c.p.p.).';
+    wmsg.textContent = avvisi.join(' ');
   } else {
     w.style.display = 'none';
   }
@@ -539,7 +620,7 @@ function aggiornaLinkCalendario(dataScadenza, terminTitle, giorni, direzione, gi
     'SCADENZA PROCESSUALE CALCOLATA',
     '',
     'Termine: ' + terminTitle,
-    'Tipo calcolo: ' + (direzione === 'avanti' ? '+ ' + giorni + ' giorni' : '- ' + giorni + ' giorni (a ritroso)'),
+    'Tipo calcolo: ' + (giorni === 0 && /mesi/.test(terminTitle) ? '+ 6 mesi' : (direzione === 'avanti' ? '+ ' + giorni + ' giorni' : '- ' + giorni + ' giorni (a ritroso)')),
   ];
   if (giorniSospensione > 0) {
     descLines.push('Sospensione feriale applicata: +' + giorniSospensione + ' giorni (L. 742/1969, art. 1 - 1/31 agosto)');
@@ -548,7 +629,7 @@ function aggiornaLinkCalendario(dataScadenza, terminTitle, giorni, direzione, gi
   descLines.push('⚠ Termine indicativo. Verificare sempre con il difensore.');
   descLines.push('');
   descLines.push('Calcolatore: studiolegalelanotte.it/calcolatori/scadenze');
-  descLines.push('Studio Legale Lanotte & Partners · Foro di Trani');
+  descLines.push('Studio Legale LANOTTE & Partners · Foro di Trani');
   const description = descLines.join('\n');
 
   // Date per Google Calendar (formato all-day)
@@ -563,7 +644,7 @@ function aggiornaLinkCalendario(dataScadenza, terminTitle, giorni, direzione, gi
     text: title,
     dates: startDate + '/' + endDate,
     details: description,
-    location: 'Studio Legale Lanotte & Partners — Barletta'
+    location: 'Studio Legale LANOTTE & Partners — Barletta'
   });
   document.getElementById('link-gcal').href = 'https://calendar.google.com/calendar/render?' + gcalParams.toString();
 
@@ -576,7 +657,7 @@ function aggiornaLinkCalendario(dataScadenza, terminTitle, giorni, direzione, gi
   const icsLines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Studio Legale Lanotte & Partners//Calcolatore Scadenze//IT',
+    'PRODID:-//Studio Legale LANOTTE & Partners//Calcolatore Scadenze//IT',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',
@@ -586,7 +667,7 @@ function aggiornaLinkCalendario(dataScadenza, terminTitle, giorni, direzione, gi
     'DTEND;VALUE=DATE:' + endDate,
     'SUMMARY:' + title.replace(/[\n,;]/g, ' '),
     'DESCRIPTION:' + description.replace(/\n/g, '\\n').replace(/[,;]/g, ' '),
-    'LOCATION:Studio Legale Lanotte & Partners — Barletta (BT)',
+    'LOCATION:Studio Legale LANOTTE & Partners — Barletta (BT)',
     'CATEGORIES:Scadenza processuale',
     'STATUS:CONFIRMED',
     'TRANSP:OPAQUE',
@@ -629,7 +710,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="../assets/img/logo-dark.png" alt="Lanotte &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
+        <img src="../assets/img/logo-dark.png" alt="LANOTTE &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
              onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
         <p>Avv. Giuseppe LANOTTE — Iscritto all'Ordine degli Avvocati di Trani.<br>C.F.: LNTGPP78B01L328P · P.IVA: 06731750722</p>
         <p style="margin-top:14px"><strong style="color:#fff">Sede:</strong> Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)</p>
@@ -673,7 +754,7 @@ document.addEventListener('DOMContentLoaded', function(){
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Studio Legale Lanotte &amp; Partners · Tutti i diritti riservati</div>
+      <div>© 2026 Studio Legale LANOTTE &amp; Partners · Tutti i diritti riservati</div>
       <div>
         <a href="https://studiolegalelanotte.it/privacy/">Privacy</a>
         <a href="https://studiolegalelanotte.it/cookie/">Cookie</a>

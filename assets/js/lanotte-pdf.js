@@ -30,8 +30,8 @@
     : '/wp-content/themes/lanotte-2026/assets/img/logo-report.png';
 
   const STUDIO = {
-    nome: 'Studio Legale Lanotte & Partners',
-    titolare: 'Avv. Giuseppe Lanotte',
+    nome: 'Studio Legale LANOTTE & Partners',
+    titolare: 'Avv. Giuseppe LANOTTE',
     indirizzo: 'Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)',
     telefono: '0883 1955533',
     cellulare: '392 970 3202 (Penale H24)',
@@ -76,8 +76,8 @@
       <article class="lpv-report">
         <header class="lpv-head">
           <div class="lpv-brand">
-            <img class="lpv-logo" src="${esc(reportLogoUrl)}" alt="Lanotte &amp; Partners - Studio Legale">
-            <small>Avv. Giuseppe Lanotte · Foro di Trani</small>
+            <img class="lpv-logo" src="${esc(reportLogoUrl)}" alt="LANOTTE &amp; Partners - Studio Legale">
+            <small>Avv. Giuseppe LANOTTE · Foro di Trani</small>
           </div>
           <div class="lpv-meta"><strong>Prospetto di calcolo</strong>${esc(nowIso())}<br>Viale Falcone e Borsellino, 75 · Barletta (BT)<br>0883 1955533 · info@studiolegalelanotte.it</div>
         </header>
@@ -272,7 +272,7 @@
       doc.setFont('times','bold');
       doc.setFontSize(18);
       doc.setTextColor(...COLORS.navy);
-      doc.text('Lanotte & Partners', M, y);
+      doc.text('LANOTTE & Partners', M, y);
       doc.setFont('helvetica','normal');
       doc.setFontSize(8);
       doc.setTextColor(...COLORS.gold);

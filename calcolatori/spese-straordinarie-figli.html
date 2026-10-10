@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,follow">
-<title>Calcolo spese straordinarie figli — Studio Legale Lanotte &amp; Partners</title>
+<title>Calcolo spese straordinarie figli — Studio Legale LANOTTE &amp; Partners</title>
 <link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/spese-straordinarie-figli/">
 <meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/spese-straordinarie-figli/">
 <link rel="stylesheet" href="../assets/style.css">
@@ -23,7 +23,7 @@
   <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
     <div style="font-size:24px;flex-shrink:0">!</div>
     <div style="font-size:13.5px;color:#78350f;line-height:1.55">
-      <strong>Conta il titolo.</strong> La ripartizione e le spese rimborsabili dipendono da sentenza, decreto, accordo o negoziazione assistita. Per alcune voci puo servire accordo preventivo.
+      <strong>Conta il titolo.</strong> La ripartizione e le spese rimborsabili dipendono da sentenza, decreto, accordo o negoziazione assistita. Per alcune voci può servire accordo preventivo.
     </div>
   </div>
 </section>
@@ -45,7 +45,7 @@
             <option value="medica_urgente" data-accordo="Di regola non richiede accordo preventivo se urgente e documentata.">Medica urgente / farmaci / pronto soccorso</option>
             <option value="medica_programmata" data-accordo="Spesa medica programmata: verificare accordo preventivo o prescrizione specialistica.">Medica programmata / specialistica</option>
             <option value="scolastica" data-accordo="Spesa scolastica: verificare se ordinaria o straordinaria nel provvedimento.">Scolastica / libri / iscrizione</option>
-            <option value="sportiva" data-accordo="Sport, corsi e attivita extrascolastiche richiedono spesso accordo preventivo.">Sportiva / corso / attivita extrascolastica</option>
+            <option value="sportiva" data-accordo="Sport, corsi e attivita extrascolastiche richiedono spesso accordo preventivo.">Sportiva / corso / attività extrascolastica</option>
             <option value="altro" data-accordo="Voce da verificare in base al provvedimento e ai protocolli locali.">Altro</option>
           </select>
         </div>
@@ -76,7 +76,7 @@
         </div>
 
         <div class="form-field">
-          <label>5 · Rimborso gia ricevuto</label>
+          <label>5 · Rimborso già ricevuto</label>
           <input type="number" id="sf-pagato" value="0" min="0" step="0.01">
         </div>
 
@@ -104,7 +104,7 @@
         </div>
         <p class="sf-note" id="sf-note"></p>
         <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
-        <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Verifica con lo Studio</a>
+        <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Richieda una verifica allo Studio</a>
       </div>
     </div>
   </div>
@@ -197,7 +197,7 @@ function apriAnteprimaReport(){
       ['Quota genitore A', txt('sf-quota-a')],
       ['Quota genitore B', txt('sf-quota-b')],
       ['Anticipo effettuato da', txt('sf-anticipante')],
-      ['Rimborso gia ricevuto', euro(num('sf-pagato'))],
+      ['Rimborso già ricevuto', euro(num('sf-pagato'))],
       ['Scadenza promemoria', txt('sf-scadenza')],
       ['Nota documentale', txt('sf-note')]
     ],

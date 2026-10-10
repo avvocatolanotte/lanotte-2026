@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,follow">
-<title>Calcolo interessi moratori — D.Lgs. 231/2002 — Studio Legale Lanotte &amp; Partners</title>
+<title>Calcolo interessi moratori — D.Lgs. 231/2002 — Studio Legale LANOTTE &amp; Partners</title>
 
 <link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/interessi-moratori/">
 <meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/interessi-moratori/">
@@ -42,8 +42,8 @@
 <!-- HEADER -->
 <header class="site-header">
   <div class="container header-inner">
-    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="Lanotte &amp; Partners — Studio Legale (home)">
-      <img src="../assets/img/logo.png" alt="Lanotte &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
+    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="LANOTTE &amp; Partners — Studio Legale (home)">
+      <img src="../assets/img/logo.png" alt="LANOTTE &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
            onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
     </a>
     <nav class="primary">
@@ -198,7 +198,7 @@
           <select id="tipo">
             <option value="b2b">Tra imprese (B2B)</option>
             <option value="b2pa">Impresa → PA</option>
-            <option value="alimentare">Settore agroalimentare (D.L. 51/2015)</option>
+            <option value="alimentare">Cessioni di prodotti agricoli e alimentari (d.lgs. 198/2021: +4 punti)</option>
           </select>
         </label>
       </div>
@@ -318,10 +318,11 @@
     const dataIniziale = document.getElementById('dataScadenza').value;
     const dataFinale = document.getElementById('dataFinale').value;
     const conSpese = document.getElementById('spese').value === 'si';
-    if (!importo || !dataIniziale || !dataFinale) { alert('Compila i campi obbligatori'); return; }
+    if (!importo || !dataIniziale || !dataFinale) { alert('Compili i campi obbligatori'); return; }
 
     let r;
-    try { r = LanotteInteressi.calcola({importo, dataIniziale, dataFinale, tipo: 'moratori'}); }
+    const agro = document.getElementById('tipo').value === 'alimentare';
+    try { r = LanotteInteressi.calcola({importo, dataIniziale, dataFinale, tipo: 'moratori', maggiorazione: agro ? 4 : 0}); }
     catch(e){ alert(e.message); return; }
 
     const spese = conSpese ? 40 : 0;
@@ -358,7 +359,7 @@
   document.getElementById('pdfBtn').addEventListener('click', () => {
     if (!datiCalc) return;
     const d = datiCalc;
-    const tipoL = {b2b:'B2B (imprese)', b2pa:'Impresa → Pubblica Amministrazione', alimentare:'Agroalimentare (D.L. 51/2015)'}[d.tipo];
+    const tipoL = {b2b:'B2B (imprese)', b2pa:'Impresa → Pubblica Amministrazione', alimentare:'Cessioni agroalimentari (art. 4, comma 2, d.lgs. 198/2021: saggio maggiorato di 4 punti)'}[d.tipo];
     const dati = [
       {label:'Capitale (fattura)', value: fmtEur(d.r.importo)},
       {label:'Tipologia', value: tipoL}
@@ -398,7 +399,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="../assets/img/logo-dark.png" alt="Lanotte &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
+        <img src="../assets/img/logo-dark.png" alt="LANOTTE &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
              onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
         <p>Avv. Giuseppe LANOTTE — Iscritto all'Ordine degli Avvocati di Trani.<br>C.F.: LNTGPP78B01L328P · P.IVA: 06731750722</p>
         <p style="margin-top:14px"><strong style="color:#fff">Sede:</strong> Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)</p>
@@ -442,7 +443,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Studio Legale Lanotte &amp; Partners · Tutti i diritti riservati</div>
+      <div>© 2026 Studio Legale LANOTTE &amp; Partners · Tutti i diritti riservati</div>
       <div>
         <a href="https://studiolegalelanotte.it/privacy/">Privacy</a>
         <a href="https://studiolegalelanotte.it/cookie/">Cookie</a>

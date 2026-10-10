@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,follow">
-<title>Adeguamento ISTAT mantenimento — artt. 156, 337-ter c.c. — Studio Legale Lanotte &amp; Partners</title>
+<title>Adeguamento ISTAT mantenimento — artt. 156, 337-ter c.c. — Studio Legale LANOTTE &amp; Partners</title>
 
 <link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/mantenimento-istat/">
 <meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/mantenimento-istat/">
@@ -42,8 +42,8 @@
 <!-- HEADER -->
 <header class="site-header">
   <div class="container header-inner">
-    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="Lanotte &amp; Partners — Studio Legale (home)">
-      <img src="../assets/img/logo.png" alt="Lanotte &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
+    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="LANOTTE &amp; Partners — Studio Legale (home)">
+      <img src="../assets/img/logo.png" alt="LANOTTE &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
            onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
     </a>
     <nav class="primary">
@@ -161,7 +161,7 @@
       <span style="color:#b89968">Adeguamento mantenimento</span>
     </nav>
     <h1 style="font-family:var(--serif);font-size:42px;font-weight:600;line-height:1.1;margin:0 0 14px">Adeguamento ISTAT assegno di mantenimento</h1>
-    <p style="font-size:16px;color:#cbd5e1;max-width:780px;margin:0;line-height:1.55">Adeguamento automatico annuale dell'assegno di mantenimento per coniuge e figli, ex <a href="https://www.gazzettaufficiale.it/dettaglio/codici/codiceCivile" target="_blank" rel="noopener" style="color:#d4b87f">artt. 156 c.c.</a> e <a href="https://www.gazzettaufficiale.it/dettaglio/codici/codiceCivile" target="_blank" rel="noopener" style="color:#d4b87f">337-ter c.c.</a> secondo l'indice ISTAT FOI senza tabacchi (variazione 100% — non 75%).</p>
+    <p style="font-size:16px;color:#cbd5e1;max-width:780px;margin:0;line-height:1.55">Adeguamento annuale dell'assegno di mantenimento per figli e coniuge secondo l'indice ISTAT FOI senza tabacchi (variazione al 100%, non al 75%): per i figli l'adeguamento è automatico per legge (<a href="https://www.gazzettaufficiale.it/dettaglio/codici/codiceCivile" target="_blank" rel="noopener" style="color:#d4b87f">art. 337-ter c.c.</a>); per il coniuge dipende dal provvedimento o dall'accordo.</p>
     <div id="istatStatus" class="data-status"></div>
   </div>
 </section>
@@ -170,7 +170,7 @@
   <div class="container" style="display:flex;align-items:flex-start;gap:14px">
     <svg width="22" height="22" fill="none" stroke="#92400e" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
     <div style="font-size:13.5px;color:#78350f;line-height:1.55">
-      <strong>Adeguamento automatico se previsto in sentenza/accordo.</strong> L'adeguamento ISTAT scatta automaticamente solo se previsto nel provvedimento del giudice o nell'accordo (separazione consensuale, negoziazione assistita). Diversamente serve un nuovo accordo o ricorso ex art. 337-quinquies c.c. (figli) o art. 156 ultimo comma c.c. (coniuge).
+      <strong>Quando l'adeguamento è automatico.</strong> Per i <strong>figli</strong> l'assegno è adeguato automaticamente agli indici ISTAT, salvo che le parti o il giudice abbiano indicato un altro parametro (art. 337-ter c.c.). Per l'<strong>assegno divorzile</strong> la sentenza deve stabilire un criterio di adeguamento automatico, almeno con riferimento agli indici di svalutazione monetaria, salvo esclusione motivata (art. 5, comma 7, L. 898/1970). Per il <strong>coniuge separato</strong> occorre verificare che cosa prevedono il provvedimento o l'accordo.
     </div>
   </div>
 </section>
@@ -195,7 +195,7 @@
       <div class="calc-row">
         <label>Beneficiario
           <select id="beneficiario">
-            <option value="coniuge">Coniuge separato/divorziato (art. 156 c.c.)</option>
+            <option value="coniuge">Coniuge separato (art. 156 c.c.) o divorziato (art. 5 L. 898/1970)</option>
             <option value="figlio">Figlio minore/maggiorenne non autosufficiente (art. 337-ter c.c.)</option>
             <option value="figli">Figli (più beneficiari)</option>
             <option value="ascendente">Ascendente/parente prossimo (art. 433 c.c.)</option>
@@ -357,7 +357,7 @@
     const meseInizio = document.getElementById('meseInizio').value;
     const meseFine = document.getElementById('meseFine').value;
     const perc = parseInt(document.getElementById('indice').value);
-    if (!assegno || !meseInizio || !meseFine) { alert('Compila i campi obbligatori'); return; }
+    if (!assegno || !meseInizio || !meseFine) { alert('Compili i campi obbligatori'); return; }
     if (meseFine < meseInizio) { alert('Il mese di calcolo deve essere uguale o successivo al mese di decorrenza/ultimo adeguamento.'); return; }
 
     const idxStart = LanotteISTAT.indice(meseInizio);
@@ -366,7 +366,7 @@
       const mesi = LanotteISTAT.mesiDisponibili();
       const primo = mesi[0] || 'non disponibile';
       const ultimo = mesi[mesi.length - 1] || 'non disponibile';
-      alert('Indice ISTAT non disponibile per uno dei mesi selezionati. Periodo presente in archivio: ' + primo + ' / ' + ultimo + '. Per un mese diverso apri il pannello "Mancano valori ISTAT recenti?" e inserisci il valore FOI manualmente.');
+      alert('Indice ISTAT non disponibile per uno dei mesi selezionati. Periodo presente in archivio: ' + primo + ' / ' + ultimo + '. Per un mese diverso apra il pannello "Mancano valori ISTAT recenti?" e inserisca il valore FOI manualmente.');
       return;
     }
 
@@ -419,7 +419,7 @@
   document.getElementById('pdfBtn').addEventListener('click', () => {
     if (!datiCalc) return;
     const d = datiCalc;
-    const benefLabel = {coniuge:'Coniuge (art. 156 c.c.)', figlio:'Figlio (art. 337-ter c.c.)', figli:'Figli (art. 337-ter c.c.)', ascendente:'Ascendente (art. 433 c.c.)'}[d.beneficiario];
+    const benefLabel = {coniuge:'Coniuge (art. 156 c.c. / art. 5 L. 898/1970)', figlio:'Figlio (art. 337-ter c.c.)', figli:'Figli (art. 337-ter c.c.)', ascendente:'Ascendente (art. 433 c.c.)'}[d.beneficiario];
     const dati = [
       {label:'Beneficiario', value: benefLabel},
       {label:'Tipo procedimento', value: d.tipoProc}
@@ -442,7 +442,7 @@
     );
     LanottePDF.preview({
       titolo: 'Adeguamento ISTAT Assegno di Mantenimento',
-      normativa: d.beneficiario === 'coniuge' ? 'art. 156 c.c.' : (d.beneficiario === 'ascendente' ? 'art. 433 c.c.' : 'art. 337-ter c.c.'),
+      normativa: d.beneficiario === 'coniuge' ? 'art. 156 c.c. / art. 5, comma 7, L. 898/1970' : (d.beneficiario === 'ascendente' ? 'art. 433 c.c.' : 'art. 337-ter c.c.'),
       cliente: d.cliente,
       dati,
       tabella: {
@@ -464,7 +464,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="../assets/img/logo-dark.png" alt="Lanotte &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
+        <img src="../assets/img/logo-dark.png" alt="LANOTTE &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
              onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
         <p>Avv. Giuseppe LANOTTE — Iscritto all'Ordine degli Avvocati di Trani.<br>C.F.: LNTGPP78B01L328P · P.IVA: 06731750722</p>
         <p style="margin-top:14px"><strong style="color:#fff">Sede:</strong> Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)</p>
@@ -508,7 +508,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Studio Legale Lanotte &amp; Partners · Tutti i diritti riservati</div>
+      <div>© 2026 Studio Legale LANOTTE &amp; Partners · Tutti i diritti riservati</div>
       <div>
         <a href="https://studiolegalelanotte.it/privacy/">Privacy</a>
         <a href="https://studiolegalelanotte.it/cookie/">Cookie</a>

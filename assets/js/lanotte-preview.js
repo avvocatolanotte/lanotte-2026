@@ -80,10 +80,10 @@
     const header = document.createElement('header');
     header.className = 'lph-brand-head';
     header.innerHTML = `
-      <img class="lph-brand-logo" src="${esc(reportLogoUrl)}" alt="Lanotte &amp; Partners - Studio Legale">
+      <img class="lph-brand-logo" src="${esc(reportLogoUrl)}" alt="LANOTTE &amp; Partners - Studio Legale">
       <div class="lph-brand-details">
         <strong>Prospetto di calcolo</strong>
-        Avv. Giuseppe Lanotte · Foro di Trani<br>
+        Avv. Giuseppe LANOTTE · Foro di Trani<br>
         Viale Falcone e Borsellino, 75 · Barletta (BT)<br>
         0883 1955533 · info@studiolegalelanotte.it
       </div>
@@ -296,12 +296,12 @@
       doc.setFont('times', 'bold');
       doc.setFontSize(14);
       setColor(navy);
-      doc.text('Studio Legale Lanotte & Partners', margin + 23, y + 7);
+      doc.text('Studio Legale LANOTTE & Partners', margin + 23, y + 7);
     }
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(6.8);
     setColor(slate);
-    doc.text('Avv. Giuseppe Lanotte - Ordine degli Avvocati di Trani', margin + 1, y + 24);
+    doc.text('Avv. Giuseppe LANOTTE - Ordine degli Avvocati di Trani', margin + 1, y + 24);
     doc.text('Viale Falcone e Borsellino, 75 - Barletta (BT) | Tel. 0883 1955533', margin + 1, y + 28);
     const meta = report.querySelector('.print-meta');
     const metaLines = meta ? cleanPdfText(meta.innerText).split(/(?=Documento n\.|Data calcolo:)/) : [];
@@ -472,12 +472,12 @@
         doc.setFont('times', 'bold');
         doc.setFontSize(18);
         doc.setTextColor(14, 26, 51);
-        doc.text('Lanotte & Partners', margin, y + 10);
+        doc.text('LANOTTE & Partners', margin, y + 10);
       }
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(7);
       doc.setTextColor(71, 85, 105);
-      doc.text('Avv. Giuseppe Lanotte - Foro di Trani', 210 - margin, y + 5, {align:'right'});
+      doc.text('Avv. Giuseppe LANOTTE - Foro di Trani', 210 - margin, y + 5, {align:'right'});
       doc.text('Viale Falcone e Borsellino, 75 - Barletta (BT)', 210 - margin, y + 9, {align:'right'});
       doc.text('Tel. 0883 1955533 - info@studiolegalelanotte.it', 210 - margin, y + 13, {align:'right'});
       y += 28;
@@ -568,10 +568,10 @@
     const rows = (opts.rows || []).filter(function(row){ return row && row.length >= 2 && row[1] !== ''; });
     article.innerHTML = `
       <header class="lph-brand-head">
-        <img class="lph-brand-logo" src="${esc(reportLogoUrl)}" alt="Lanotte &amp; Partners - Studio Legale">
+        <img class="lph-brand-logo" src="${esc(reportLogoUrl)}" alt="LANOTTE &amp; Partners - Studio Legale">
         <div class="lph-brand-details">
           <strong>Prospetto di calcolo</strong>
-          Avv. Giuseppe Lanotte · Foro di Trani<br>
+          Avv. Giuseppe LANOTTE · Foro di Trani<br>
           ${esc(new Date().toLocaleString('it-IT', {dateStyle:'long', timeStyle:'short'}))}
         </div>
       </header>

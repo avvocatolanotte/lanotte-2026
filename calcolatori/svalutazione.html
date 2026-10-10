@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,follow">
-<title>Svalutazione monetaria — art. 1224 c.c. + Cass. SU 1712/1995 — Studio Legale Lanotte &amp; Partners</title>
+<title>Svalutazione monetaria — art. 1224 c.c. + Cass. SU 1712/1995 — Studio Legale LANOTTE &amp; Partners</title>
 
 <link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/svalutazione/">
 <meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/svalutazione/">
@@ -42,8 +42,8 @@
 <!-- HEADER -->
 <header class="site-header">
   <div class="container header-inner">
-    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="Lanotte &amp; Partners — Studio Legale (home)">
-      <img src="../assets/img/logo.png" alt="Lanotte &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
+    <a href="https://studiolegalelanotte.it/" class="brand" aria-label="LANOTTE &amp; Partners — Studio Legale (home)">
+      <img src="../assets/img/logo.png" alt="LANOTTE &amp; Partners — Studio Legale" class="brand-logo" width="280" height="86"
            onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
     </a>
     <nav class="primary">
@@ -161,7 +161,7 @@
       <span style="color:#b89968">Svalutazione monetaria</span>
     </nav>
     <h1 style="font-family:var(--serif);font-size:42px;font-weight:600;line-height:1.1;margin:0 0 14px">Svalutazione monetaria</h1>
-    <p style="font-size:16px;color:#cbd5e1;max-width:780px;margin:0;line-height:1.55">Rivalutazione di crediti di valore ex <a href="https://www.gazzettaufficiale.it/dettaglio/codici/codiceCivile" target="_blank" rel="noopener" style="color:#d4b87f">art. 1224 c.c.</a> secondo l'indice ISTAT FOI senza tabacchi. <strong>Cumulo con interessi legali</strong> (Cass. SU 17/02/1995 n. 1712 e Cass. SU 27/11/2007 n. 24665) sul capitale via via rivalutato.</p>
+    <p style="font-size:16px;color:#cbd5e1;max-width:780px;margin:0;line-height:1.55">Rivalutazione monetaria dei crediti di valore (per esempio il risarcimento del danno) secondo l'indice ISTAT FOI senza tabacchi, con <strong>interessi compensativi</strong> calcolati sul capitale via via rivalutato e non sulla somma finale (Cass. SU 17/02/1995 n. 1712).</p>
     <div id="istatStatus" class="data-status"></div>
   </div>
 </section>
@@ -170,7 +170,7 @@
   <div class="container" style="display:flex;align-items:flex-start;gap:14px">
     <svg width="22" height="22" fill="none" stroke="#92400e" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
     <div style="font-size:13.5px;color:#78350f;line-height:1.55">
-      <strong>Solo crediti di valore.</strong> La svalutazione monetaria si applica alle obbligazioni risarcitorie e di indebito arricchimento. Per crediti di valuta (pecuniari da contratto) la prova del maggior danno ex art. 1224 c.c. comma 2 è onere del creditore (Cass. SU 16/07/2008 n. 19499).
+      <strong>A quali crediti si applica.</strong> La rivalutazione automatica riguarda i crediti di valore, come le obbligazioni risarcitorie. Per i <strong>crediti di lavoro</strong> l'art. 429, comma 3, c.p.c. prevede, oltre agli interessi legali, il maggior danno per la diminuzione di valore del credito dalla maturazione del diritto. Per gli altri crediti di valuta il maggior danno dell'art. 1224, secondo comma, c.c. si presume nella misura in cui il rendimento medio netto dei titoli di Stato a non più di dodici mesi abbia superato il saggio legale; un danno superiore va provato (Cass. SU 16/07/2008 n. 19499).
     </div>
   </div>
 </section>
@@ -324,7 +324,7 @@
     const meseFine = document.getElementById('meseFine').value;
     const conInteressi = document.getElementById('conInteressi').value;
     const tipologia = document.getElementById('tipologia').value;
-    if (!importo || !meseInizio || !meseFine) { alert('Compila tutti i campi'); return; }
+    if (!importo || !meseInizio || !meseFine) { alert('Compili tutti i campi'); return; }
 
     const idxStart = LanotteISTAT.indice(meseInizio);
     const idxEnd = LanotteISTAT.indice(meseFine);
@@ -392,7 +392,7 @@
     const tipLabel = {danni:'Risarcimento danni extracontrattuale',contrattuale:'Danni da inadempimento contrattuale',indebito:'Indebito arricchimento',lavoro:'Crediti di lavoro'}[d.tipologia];
     LanottePDF.preview({
       titolo: 'Rivalutazione Monetaria del Credito',
-      normativa: 'art. 1224 c.c. + Cass. SU n. 1712/1995 + Cass. SU n. 24665/2007',
+      normativa: d.tipologia === 'lavoro' ? 'art. 429, comma 3, c.p.c.' : 'Cass. SU n. 1712/1995 (interessi sul capitale via via rivalutato)',
       cliente: d.cliente,
       dati: [
         {label:'Tipologia', value: tipLabel},
@@ -425,7 +425,7 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="../assets/img/logo-dark.png" alt="Lanotte &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
+        <img src="../assets/img/logo-dark.png" alt="LANOTTE &amp; Partners — Studio Legale" class="footer-logo" width="240" height="74" style="margin-bottom:16px;display:block;max-width:240px;height:auto"
              onerror="this.onerror=null;this.src=this.src.replace('.svg','.png')">
         <p>Avv. Giuseppe LANOTTE — Iscritto all'Ordine degli Avvocati di Trani.<br>C.F.: LNTGPP78B01L328P · P.IVA: 06731750722</p>
         <p style="margin-top:14px"><strong style="color:#fff">Sede:</strong> Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)</p>
@@ -469,7 +469,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2026 Studio Legale Lanotte &amp; Partners · Tutti i diritti riservati</div>
+      <div>© 2026 Studio Legale LANOTTE &amp; Partners · Tutti i diritti riservati</div>
       <div>
         <a href="https://studiolegalelanotte.it/privacy/">Privacy</a>
         <a href="https://studiolegalelanotte.it/cookie/">Cookie</a>

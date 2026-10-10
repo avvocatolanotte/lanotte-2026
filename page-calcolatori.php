@@ -13,16 +13,16 @@ $calc_base = home_url('/calcolatori');
 <section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;padding:80px 0 70px">
   <div class="container">
     <nav style="font-size:13px;color:#cbd5e1;margin-bottom:14px"><a href="<?php echo esc_url(home_url('/')); ?>" style="color:#cbd5e1">Home</a> <span style="opacity:.5">›</span> <span style="color:#b89968">Calcolatori</span></nav>
-    <span style="display:inline-block;padding:6px 14px;background:rgba(184,153,104,.18);border:1px solid rgba(184,153,104,.4);border-radius:2px;font-size:11px;letter-spacing:.14em;color:#d4b87f;font-weight:600;text-transform:uppercase;margin-bottom:18px">23 strumenti professionali · Tutti con anteprima e PDF</span>
+    <span style="display:inline-block;padding:6px 14px;background:rgba(184,153,104,.18);border:1px solid rgba(184,153,104,.4);border-radius:2px;font-size:11px;letter-spacing:.14em;color:#d4b87f;font-weight:600;text-transform:uppercase;margin-bottom:18px">24 strumenti professionali · Tutti con anteprima e PDF</span>
     <h1 style="font-family:var(--serif);font-size:54px;font-weight:600;line-height:1.05;margin:0 0 22px;color:#fff">Calcolatori<br><em style="font-style:italic;color:#d4b87f">giuridici e patrimoniali</em></h1>
-    <p style="font-size:17px;line-height:1.65;color:#cbd5e1;max-width:780px;margin:0">Parcelle, scadenze, lesioni, ISTAT, interessi, prescrizione, pignoramenti e contestazioni bollette. Indici e tassi <strong style="color:#fff">aggiornati automaticamente</strong> dalle fonti ufficiali. Report con anteprima, stampa e PDF.</p>
+    <p style="font-size:17px;line-height:1.65;color:#cbd5e1;max-width:780px;margin:0">Parcelle, scadenze, lesioni, ISTAT, interessi, prescrizione, pignoramenti e contestazioni bollette. Indici e tassi <strong style="color:#fff">aggiornati periodicamente</strong> sulle fonti ufficiali, con la data di aggiornamento indicata. Report con anteprima, stampa e PDF.</p>
   </div>
 </section>
 
 <section style="background:#fef9e7;border-bottom:1px solid #f0e9dc;padding:18px 0">
   <div class="container" style="display:flex;align-items:flex-start;gap:14px">
     <svg width="22" height="22" fill="none" stroke="#92400e" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-    <div style="font-size:13.5px;color:#78350f;line-height:1.55"><strong>Valori indicativi.</strong> I calcolatori riproducono normativa e parametri ufficiali ma il risultato va verificato. Ex art. 14 c.d.f. non costituiscono parere legale.</div>
+    <div style="font-size:13.5px;color:#78350f;line-height:1.55"><strong>Valori indicativi.</strong> I calcolatori riproducono normativa e parametri ufficiali, ma il risultato va verificato sul caso concreto e non costituisce parere legale.</div>
   </div>
 </section>
 
@@ -36,9 +36,9 @@ $calc_base = home_url('/calcolatori');
     </div>
     <div class="calc-grid">
       <a href="<?php echo esc_url("$calc_base/parcella-civile/"); ?>" class="calc-card cat-1"><div class="calc-icon">⚖️</div><h3>Parcella Civile</h3><p>Tribunale, Corte d'Appello, Cassazione</p><span class="calc-tag">DM 55/2014</span></a>
-      <a href="<?php echo esc_url("$calc_base/parcella-penale/"); ?>" class="calc-card cat-1"><div class="calc-icon">🔨</div><h3>Parcella Penale</h3><p>Indagini, dibattimento, gravame</p><span class="calc-tag">DM 55/2014</span></a>
+      <a href="<?php echo esc_url("$calc_base/parcella-penale/"); ?>" class="calc-card cat-1"><div class="calc-icon">🔨</div><h3>Parcella Penale</h3><p>Tribunale, Appello, Cassazione, Sorveglianza</p><span class="calc-tag">D.M. 55/2014, tab. 15</span></a>
       <a href="<?php echo esc_url("$calc_base/stragiudiziale/"); ?>" class="calc-card cat-1"><div class="calc-icon">🤝</div><h3>Stragiudiziale</h3><p>Mediazione, negoziazione assistita</p><span class="calc-tag">DM 55/2014 + D.Lgs. 28/2010</span></a>
-      <a href="<?php echo esc_url("$calc_base/sfratti/"); ?>" class="calc-card cat-1"><div class="calc-icon">🏠</div><h3>Procedimento Sfratto</h3><p>Finita locazione / morosità / opposizione</p><span class="calc-tag">DM 55/2014 + L. 392/1978</span></a>
+      <a href="<?php echo esc_url("$calc_base/sfratti/"); ?>" class="calc-card cat-1"><div class="calc-icon">🏠</div><h3>Procedimento Sfratto</h3><p>Finita locazione / morosità · per scaglione di valore</p><span class="calc-tag">D.M. 55/2014, tab. 5</span></a>
     </div>
 
     <div class="cat-header" style="margin-top:64px">
@@ -47,10 +47,10 @@ $calc_base = home_url('/calcolatori');
       <p class="cat-subtitle">Tabelle Milano 2024 e TUN DPR 12/2025. Formula Balthazard per menomazioni preesistenti.</p>
     </div>
     <div class="calc-grid">
-      <a href="<?php echo esc_url("$calc_base/micropermanenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">🩺</div><h3>Micropermanenti</h3><p>1-9 punti IP · DM 18/7/2025</p><span class="calc-tag">Art. 139 CdA</span></a>
+      <a href="<?php echo esc_url("$calc_base/micropermanenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">🩺</div><h3>Micropermanenti</h3><p>1-9 punti IP · D.M. 20/7/2026</p><span class="calc-tag">Art. 139 CdA</span></a>
       <a href="<?php echo esc_url("$calc_base/inail/"); ?>" class="calc-card cat-2"><div class="calc-icon">⛑️</div><h3>Indennizzo INAIL</h3><p>Capitale 6-15% · rendita dal 16%</p><span class="calc-tag">D.Lgs. 38/2000</span></a>
-      <a href="<?php echo esc_url("$calc_base/macropermanenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">🦴</div><h3>Macropermanenti</h3><p>10-100 punti IP · TUN DPR 12/2025</p><span class="calc-tag">TUN + Milano</span></a>
-      <a href="<?php echo esc_url("$calc_base/danni-preesistenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">📊</div><h3>Coesistenti / Concorrenti</h3><p>Formula Balthazard · Sottrazione monetaria</p><span class="calc-tag">Cass. SU 28986/2019</span></a>
+      <a href="<?php echo esc_url("$calc_base/macropermanenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">🦴</div><h3>Macropermanenti</h3><p>10-100 punti IP · TUN DPR 12/2025</p><span class="calc-tag">TUN (Milano a confronto)</span></a>
+      <a href="<?php echo esc_url("$calc_base/danni-preesistenti/"); ?>" class="calc-card cat-2"><div class="calc-icon">📊</div><h3>Coesistenti / Concorrenti</h3><p>Formula Balthazard · Differenza monetaria</p><span class="calc-tag">Cass. 28986/2019</span></a>
     </div>
 
     <div class="cat-header" style="margin-top:64px">
@@ -59,10 +59,10 @@ $calc_base = home_url('/calcolatori');
       <p class="cat-subtitle">Indici ISTAT FOI e tassi MEF aggiornati dalle fonti ufficiali. Cache locale + fallback JSON.</p>
     </div>
     <div class="calc-grid">
-      <a href="<?php echo esc_url("$calc_base/istat-locazione/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">🏘️</div><h3>Aumento ISTAT Locazione</h3><p>Canone al 75% FOI · Bozza richiesta scritta</p><span class="calc-tag">Art. 32 L. 392/1978</span></a>
-      <a href="<?php echo esc_url("$calc_base/mantenimento-istat/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">👨‍👩‍👧</div><h3>Adeguamento Mantenimento</h3><p>Coniuge/figli al 100% FOI · Arretrati</p><span class="calc-tag">Artt. 156 + 337-ter c.c.</span></a>
+      <a href="<?php echo esc_url("$calc_base/istat-locazione/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">🏘️</div><h3>Aumento ISTAT Locazione</h3><p>Canone al 75% o 100% FOI · Bozza di richiesta</p><span class="calc-tag">Art. 32 L. 392/1978</span></a>
+      <a href="<?php echo esc_url("$calc_base/mantenimento-istat/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">👨‍👩‍👧</div><h3>Adeguamento Mantenimento</h3><p>Figli e coniuge al 100% FOI · Arretrati</p><span class="calc-tag">Art. 337-ter c.c. · L. 898/1970</span></a>
       <a href="<?php echo esc_url("$calc_base/mantenimento-orientativo/"); ?>" class="calc-card cat-3"><div class="calc-icon">👨‍👩‍👧‍👦</div><h3>Stima Mantenimento Figli</h3><p>Forchetta orientativa distinta dall'adeguamento ISTAT</p><span class="calc-tag">Art. 337-ter c.c.</span></a>
-      <a href="<?php echo esc_url("$calc_base/svalutazione/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT + MEF</span><div class="calc-icon">💰</div><h3>Svalutazione Monetaria</h3><p>FOI + interessi legali sul capitale rivalutato</p><span class="calc-tag">Art. 1224 c.c. + Cass. SU 1712/1995</span></a>
+      <a href="<?php echo esc_url("$calc_base/svalutazione/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT + MEF</span><div class="calc-icon">💰</div><h3>Svalutazione Monetaria</h3><p>FOI + interessi legali sul capitale rivalutato</p><span class="calc-tag">Cass. SU 1712/1995</span></a>
       <a href="<?php echo esc_url("$calc_base/interessi-legali/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ MEF</span><div class="calc-icon">📈</div><h3>Interessi Legali</h3><p>Tassi MEF dal 1942 ad oggi · Per scaglione</p><span class="calc-tag">Art. 1284 c.c.</span></a>
       <a href="<?php echo esc_url("$calc_base/interessi-moratori/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ MEF</span><div class="calc-icon">⏰</div><h3>Interessi Moratori B2B</h3><p>BCE + 8 punti · €40 spese recupero art. 6</p><span class="calc-tag">D.Lgs. 231/2002</span></a>
     </div>
@@ -79,15 +79,15 @@ $calc_base = home_url('/calcolatori');
       <a href="<?php echo esc_url("$calc_base/prescrizione-crediti/"); ?>" class="calc-card cat-4"><div class="calc-icon">⌛</div><h3>Prescrizione Crediti</h3><p>10, 5, 3 o 2 anni · atti interruttivi</p><span class="calc-tag">Artt. 2946 ss. c.c.</span></a>
       <a href="<?php echo esc_url("$calc_base/spese-straordinarie-figli/"); ?>" class="calc-card cat-4"><div class="calc-icon">👨‍👩‍👧‍👦</div><h3>Spese Straordinarie Figli</h3><p>Riparto percentuale e rimborso residuo</p><span class="calc-tag">Famiglia · accordi e provvedimenti</span></a>
       <a href="<?php echo esc_url("$calc_base/imposta-successione/"); ?>" class="calc-card cat-4"><div class="calc-icon">📜</div><h3>Imposta di Successione completa</h3><p>Attivo, passivita, quote, donazioni, franchigie e immobili</p><span class="calc-tag">D.Lgs. 346/1990 + D.Lgs. 139/2024</span></a>
-      <a href="<?php echo esc_url("$calc_base/aqp/"); ?>" class="calc-card cat-4"><div class="calc-icon">💧</div><h3>Bolletta AQP — Verifica + Reclamo</h3><p>Verifica calcolo, perdite occulte, reclamo ARERA</p><span class="calc-tag">Delibera ARERA 547/2019 + 655/2015</span></a>
+      <a href="<?php echo esc_url("$calc_base/aqp/"); ?>" class="calc-card cat-4"><div class="calc-icon">💧</div><h3>Bolletta AQP — Verifica + Reclamo</h3><p>Verifica calcolo, perdite occulte, reclamo scritto</p><span class="calc-tag">TIMSII art. 19 · RQSII</span></a>
       <a href="<?php echo esc_url("$calc_base/contributo-unificato/"); ?>" class="calc-card cat-4"><div class="calc-icon">🏛️</div><h3>Contributo Unificato</h3><p>Tasse giudiziarie per valore e tipo di causa</p><span class="calc-tag">DPR 115/2002 art. 13</span></a>
       <a href="<?php echo esc_url("$calc_base/costi-marchio/"); ?>" class="calc-card cat-4"><div class="calc-icon">®️</div><h3>Costi ufficiali del marchio</h3><p>Tasse UIBM, EUIPO e WIPO: deposito, rinnovo, opposizione</p><span class="calc-tag">Tariffe UIBM + EUIPO + WIPO</span></a>
       <a href="<?php echo esc_url("$calc_base/timeline-marchio/"); ?>" class="calc-card cat-4"><div class="calc-icon">™️</div><h3>Timeline Marchio UIBM/EUIPO</h3><p>Date stimate deposito → registrazione + opposizione</p><span class="calc-tag">Reg. UE 2017/1001 + CPI</span></a>
     </div>
 
     <div style="margin-top:60px;padding:40px;background:linear-gradient(135deg,var(--navy) 0%,#1a2a4a 100%);border-radius:8px;color:#fff;text-align:center">
-      <h3 style="font-family:var(--serif);font-size:26px;color:#fff;margin:0 0 12px">Vuoi un preventivo scritto sul tuo caso?</h3>
-      <p style="color:#cbd5e1;font-size:15px;max-width:580px;margin:0 auto 24px;line-height:1.6">I calcolatori forniscono valori indicativi. Per un preventivo personalizzato ex art. 13 L. 247/2012 contattaci.</p>
+      <h3 style="font-family:var(--serif);font-size:26px;color:#fff;margin:0 0 12px">Desidera un preventivo scritto sul Suo caso?</h3>
+      <p style="color:#cbd5e1;font-size:15px;max-width:580px;margin:0 auto 24px;line-height:1.6">I calcolatori forniscono valori indicativi. Per un preventivo personalizzato (art. 13 L. 247/2012) può contattare lo Studio.</p>
       <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary">Richiedi un preventivo →</a>
     </div>
 
