@@ -19,6 +19,10 @@ add_action('wp_footer', function() {
       s: 'Preventivo per il deposito di un marchio',
       m: 'Segno (nome ed eventuale logo):\nProdotti o servizi:\nTerritori (Italia, Unione europea, altri Paesi):\nIl marchio è già in uso? Da quando?\n'
     },
+    'marchio-internazionale': {
+      s: 'Preventivo per un marchio internazionale',
+      m: 'Marchio di base (numero e ufficio: UIBM o EUIPO):\nPaesi o organizzazioni da designare:\nProdotti o servizi e classi:\n'
+    },
     'marchi': {
       s: 'Marchi: richiesta di esame del caso',
       m: 'Marchio interessato:\nChe cosa è successo (opposizione, diffida, imitazione, altro):\nDate o scadenze note:\n'
