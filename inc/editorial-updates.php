@@ -905,9 +905,20 @@ function lanotte_editorial_once($option, callable $callback) {
     if (get_option($option) === 'done') return;
     global $wpdb;
     $lock = 'lanotte_ed_' . md5($option);
-    if ((int) $wpdb->get_var($wpdb->prepare('SELECT GET_LOCK(%s, 0)', $lock)) !== 1) return;
+    $preso = $wpdb->get_var($wpdb->prepare('SELECT GET_LOCK(%s, 0)', $lock));
+    if ($preso === null) {
+        // Errore, non contesa: va scritto nel log, altrimenti l'aggiornamento salta in silenzio.
+        error_log('lanotte_editorial_once: GET_LOCK non riuscito per ' . $option . ' (' . $wpdb->last_error . ')');
+        return;
+    }
+    if ((int) $preso !== 1) return; // un'altra richiesta sta già lavorando
     try {
         $stato = $wpdb->get_var($wpdb->prepare("SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $option));
+        if ($wpdb->last_error !== '') {
+            // Stato illeggibile: NULL qui non significa «mai fatto». Meglio rinviare che rifare.
+            error_log('lanotte_editorial_once: stato illeggibile per ' . $option . ' (' . $wpdb->last_error . ')');
+            return;
+        }
         if ($stato !== 'done') $callback();
     } finally {
         $wpdb->query($wpdb->prepare('SELECT RELEASE_LOCK(%s)', $lock));
@@ -1057,7 +1068,8 @@ add_action('init', function() {
     );
 }, 56);
 
-// Uscita programmata: lunedì 19 ottobre 2026 alle 9:00 italiane (07:00 UTC: il sito lavora in UTC).
+// Inizialmente programmata per il 19/10; pubblicata il 10/10 insieme alle guide sul contenzioso
+// che vi rimandano (revisione Codex 1, rilievo 5). Sul sito l'opzione risulta già «done».
 add_action('init', function() {
     lanotte_editorial_register_article(
         'lanotte_article_costo_marchio_20261010',
@@ -1066,9 +1078,7 @@ add_action('init', function() {
         'Tasse per registrare un marchio in Italia, nell’UE e all’estero: classi, rinnovi, onorario professionale e possibili costi successivi.',
         'quanto-costa-registrare-marchio.html',
         'proprieta-intellettuale',
-        'Proprietà intellettuale',
-        'future',
-        '2026-10-19 07:00:00'
+        'Proprietà intellettuale'
     );
 }, 57);
 
