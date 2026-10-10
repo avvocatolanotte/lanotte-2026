@@ -248,6 +248,7 @@ html,body{overflow-x:clip}
           <li><a href="<?php echo esc_url(home_url('/calcolatori/aqp/')); ?>">💧 Bolletta AQP</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/contributo-unificato/')); ?>">🏛️ Contributo Unificato</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/timeline-marchio/')); ?>">™ Timeline Marchio</a></li>
+          <li><a href="<?php echo esc_url(home_url('/calcolatori/costi-marchio/')); ?>">® Costi del marchio</a></li>
         </ul>
         <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-allbtn">Vedi tutti i 23 strumenti <span aria-hidden="true">→</span></a>
       </div>

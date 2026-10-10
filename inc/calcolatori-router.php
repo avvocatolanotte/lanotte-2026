@@ -33,6 +33,7 @@ function lanotte_calcolatori_map() {
         'stragiudiziale'       => 'stragiudiziale.html',
         'svalutazione'         => 'svalutazione.html',
         'timeline-marchio'     => 'timeline-marchio.html',
+        'costi-marchio'        => 'costi-marchio.html',
     ];
 }
 
@@ -442,6 +443,17 @@ function lanotte_calcolatori_pages_data() {
                 ['Serve una ricerca di anteriorita?', 'Si, e consigliabile prima del deposito per ridurre rischi di opposizione.'],
             ],
         ],
+        'costi-marchio' => [
+            'title' => 'Costi ufficiali del marchio 2026: tasse UIBM, EUIPO e WIPO (gratuito)',
+            'keyword' => 'costo registrazione marchio',
+            'service' => 'Marchi e proprieta intellettuale',
+            'intro' => 'Il calcolatore somma le tasse e i diritti degli uffici per deposito, rinnovo, opposizione, nullità e decadenza di un marchio italiano (UIBM), dell\'Unione europea (EUIPO) o internazionale (WIPO). Gli importi ufficiali sono stati verificati il 10 ottobre 2026; il compenso professionale si definisce con un preventivo personalizzato.',
+            'faq' => [
+                ['Quanto costano le tasse per un marchio italiano in una classe?', 'Per il deposito telematico: 101 euro di tassa e 48 euro di imposta di bollo, più 34 euro se il deposito è affidato a un professionista con lettera d\'incarico.'],
+                ['Il calcolatore comprende il compenso dello Studio?', 'No: calcola le sole tasse degli uffici. Il compenso si definisce dopo l\'esame del segno, con un preventivo personalizzato; per il caso semplice è indicato il compenso base.'],
+                ['Perché per il marchio internazionale il totale è una stima minima?', 'Molti Paesi applicano tasse individuali più alte del regime standard: l\'importo esatto si ottiene con il calcolatore ufficiale WIPO.'],
+            ],
+        ],
     ];
 }
 
@@ -586,6 +598,7 @@ function lanotte_area_calcolatori_links($slug) {
             'pignoramento-stipendio-pensione' => 'Pignoramento pensione',
         ],
         'proprieta-intellettuale' => [
+            'costi-marchio' => 'Costi ufficiali del marchio',
             'timeline-marchio' => 'Timeline deposito marchio',
             'scadenze' => 'Scadenze processuali',
         ],

@@ -81,6 +81,7 @@ $calc_base = home_url('/calcolatori');
       <a href="<?php echo esc_url("$calc_base/imposta-successione/"); ?>" class="calc-card cat-4"><div class="calc-icon">📜</div><h3>Imposta di Successione completa</h3><p>Attivo, passivita, quote, donazioni, franchigie e immobili</p><span class="calc-tag">D.Lgs. 346/1990 + D.Lgs. 139/2024</span></a>
       <a href="<?php echo esc_url("$calc_base/aqp/"); ?>" class="calc-card cat-4"><div class="calc-icon">💧</div><h3>Bolletta AQP — Verifica + Reclamo</h3><p>Verifica calcolo, perdite occulte, reclamo ARERA</p><span class="calc-tag">Delibera ARERA 547/2019 + 655/2015</span></a>
       <a href="<?php echo esc_url("$calc_base/contributo-unificato/"); ?>" class="calc-card cat-4"><div class="calc-icon">🏛️</div><h3>Contributo Unificato</h3><p>Tasse giudiziarie per valore e tipo di causa</p><span class="calc-tag">DPR 115/2002 art. 13</span></a>
+      <a href="<?php echo esc_url("$calc_base/costi-marchio/"); ?>" class="calc-card cat-4"><div class="calc-icon">®️</div><h3>Costi ufficiali del marchio</h3><p>Tasse UIBM, EUIPO e WIPO: deposito, rinnovo, opposizione</p><span class="calc-tag">Tariffe UIBM + EUIPO + WIPO</span></a>
       <a href="<?php echo esc_url("$calc_base/timeline-marchio/"); ?>" class="calc-card cat-4"><div class="calc-icon">™️</div><h3>Timeline Marchio UIBM/EUIPO</h3><p>Date stimate deposito → registrazione + opposizione</p><span class="calc-tag">Reg. UE 2017/1001 + CPI</span></a>
     </div>
 

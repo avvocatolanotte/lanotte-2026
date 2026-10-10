@@ -1121,3 +1121,27 @@ add_action('init', function() {
         'lanotte-marchio-copiato-cosa-fare-2026'
     );
 }, 64);
+
+// Pagina d'area «Proprietà intellettuale» riscritta come pagina del contenzioso marchi
+// (10/10/2026). Il seed aggiorna il contenuto di un'area solo se è vuoto o incompleto:
+// qui si sostituisce una volta sola. Il sottotitolo sta anche in inc/seed-data.php,
+// perché il seed riscrive il campo «tagline» a ogni cambio di versione.
+add_action('init', function() {
+    if (get_option('lanotte_area_proprieta_intellettuale_20261010') === 'done') return;
+    if (!function_exists('wp_update_post')) return;
+
+    $file = LANOTTE_THEME_DIR . '/content/editorials/area-proprieta-intellettuale.html';
+    $area = get_page_by_path('proprieta-intellettuale', OBJECT, 'area');
+    if (!is_readable($file) || !$area instanceof WP_Post) return;
+
+    $tagline = 'Assistenza nel contenzioso sui marchi e nel deposito, con studio del segno e valutazione del caso.';
+    $result = wp_update_post([
+        'ID'           => (int) $area->ID,
+        'post_content' => file_get_contents($file),
+        'post_excerpt' => $tagline,
+    ], true);
+    if (is_wp_error($result) || !$result) return;
+
+    if (function_exists('update_field')) update_field('tagline', $tagline, (int) $area->ID);
+    update_option('lanotte_area_proprieta_intellettuale_20261010', 'done', false);
+}, 65);

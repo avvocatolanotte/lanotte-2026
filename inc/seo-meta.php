@@ -127,7 +127,7 @@ function lanotte_seo_map() {
         ],
         'proprieta-intellettuale' => [
             't' => 'Avvocato Marchi e Brevetti UIBM/EUIPO | ' . $brand,
-            'd' => 'Registrazione e tutela di marchi, brevetti e design davanti a UIBM, EUIPO e OMPI. Opposizioni e contraffazione. Studio a Barletta (Foro di Trani).',
+            'd' => 'Opposizioni, nullità e decadenza, ricorsi e contraffazione dei marchi; deposito con studio del segno. Studio a Barletta (Foro di Trani), assistenza in tutta Italia.',
         ],
         'bancario' => [
             't' => 'Avvocato Diritto Bancario a Barletta | ' . $brand,

@@ -493,8 +493,8 @@ function lanotte_seed_aree_data() {
         ],
         [
             'slug' => 'proprieta-intellettuale', 'title' => 'Proprietà Intellettuale',
-            'tagline' => 'Marchi, brevetti, design davanti a UIBM, EUIPO e OMPI. Tutela contro contraffazione.',
-            'lead' => 'Lo Studio è specializzato in tutela e contenzioso della proprietà industriale, davanti a UIBM, EUIPO e OMPI.',
+            'tagline' => 'Assistenza nel contenzioso sui marchi e nel deposito, con studio del segno e valutazione del caso.',
+            'lead' => 'Lo Studio Legale LANOTTE & Partners assiste imprese, artigiani, professionisti e startup nelle controversie sui marchi e nella loro registrazione. Assiste quando una domanda o una registrazione viene contestata, quando occorre chiedere il riesame di una decisione o contrastare un uso lesivo del marchio. Lo Studio ha sede a Barletta, nel Foro di Trani, e assiste in tutta Italia, anche a distanza.',
             'sezioni' => [
                 ['h' => 'Servizi IP', 'body' => '<ul><li>Ricerche di anteriorità</li><li>Deposito marchio nazionale, UE e internazionale</li><li>Brevetti, modelli, disegni</li><li>Opposizione e cancellazione marchio</li><li>Contenzioso: contraffazione, concorrenza sleale</li><li>Tutela del know-how</li></ul>'],
             ],
