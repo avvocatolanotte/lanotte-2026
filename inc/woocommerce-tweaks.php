@@ -55,7 +55,7 @@ add_action('woocommerce_single_product_summary', function() {
 
     echo '<div class="lanotte-preventivo-cta">'
         . '<p>Ogni marchio ha la sua storia: il compenso si definisce dopo un primo esame del segno. Il deposito si paga solo se la ricerca di anteriorità è favorevole.</p>'
-        . '<p><a class="btn btn-primary" data-lanotte-event="preventivo_marchio" href="' . esc_url($contatti) . '">Richiedi un preventivo personalizzato</a> '
-        . '<a class="btn btn-ghost" data-lanotte-event="preventivo_marchio_whatsapp" href="' . esc_url($whatsapp) . '" target="_blank" rel="noopener">Scrivi su WhatsApp</a></p>'
+        . '<p><a class="btn btn-primary" data-lanotte-event="preventivo_marchio" href="' . esc_url($contatti) . '">Richieda un preventivo personalizzato</a> '
+        . '<a class="btn btn-ghost" data-lanotte-event="preventivo_marchio_whatsapp" href="' . esc_url($whatsapp) . '" target="_blank" rel="noopener">Scriva su WhatsApp</a></p>'
         . '</div>';
 }, 31);

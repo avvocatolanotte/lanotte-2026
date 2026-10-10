@@ -188,7 +188,7 @@
         </label>
       </div>
       <div class="cm-options">
-        <label class="check-line" id="cmIncaricoWrap"><input type="checkbox" id="cmIncarico" checked> Deposito affidato a un professionista (lettera d'incarico)</label>
+        <label class="check-line" id="cmIncaricoWrap"><input type="checkbox" id="cmIncarico" checked> Operazione affidata a un professionista (lettera d'incarico)</label>
         <label class="check-line" id="cmCartaceoWrap" style="display:none"><input type="checkbox" id="cmCartaceo"> Domanda cartacea invece che online</label>
         <label class="check-line" id="cmColoriWrap" style="display:none"><input type="checkbox" id="cmColori"> Marchio con rappresentazione a colori</label>
       </div>
@@ -198,7 +198,7 @@
       <h3 style="font-family:var(--serif);font-size:22px;color:var(--navy);margin:0 0 6px">Riepilogo delle tasse ufficiali</h3>
       <p id="cmSottotitolo" style="font-size:13px;color:#64748b;margin:0 0 16px"></p>
       <table class="cm-table"><tbody id="cmVoci"></tbody></table>
-      <p class="cm-totale">Totale tasse ufficiali: <strong id="cmTotale">—</strong></p>
+      <p class="cm-totale" role="status" aria-live="polite">Totale tasse ufficiali: <strong id="cmTotale">—</strong></p>
       <ul id="cmNote" class="cm-note"></ul>
     </div>
 
@@ -206,14 +206,14 @@
       <div>
         <p style="margin:0 0 10px" id="cmCtaTesto">Ogni marchio ha la sua storia: il compenso professionale si definisce dopo un primo esame del segno, dell'attività e dei mercati.</p>
         <p style="margin:0 0 14px;font-size:13.5px;color:#cbd5e1" id="cmBase"></p>
-        <a href="https://studiolegalelanotte.it/contatti/?argomento=deposito-marchio" id="cmCta" class="btn btn-primary">Richiedi un preventivo personalizzato</a>
+        <a href="https://studiolegalelanotte.it/contatti/?argomento=deposito-marchio" id="cmCta" class="btn btn-primary">Richieda un preventivo personalizzato</a>
       </div>
     </div>
 
     <div class="calc-block">
       <h4 style="font-family:var(--serif);font-size:16px;color:var(--navy);margin:0 0 10px">Fonti</h4>
       <p style="font-size:13px;color:#475569;line-height:1.6;margin:0">
-        <strong>UIBM</strong> — tabella «Tariffe Marchi» (uibm.mise.gov.it): deposito 101 € per la prima classe e 34 € per ogni classe aggiunta; rinnovo 67 € e 34 €; bollo del deposito online 48 €; lettera d'incarico 34 €; opposizione 250 € più bollo online 32 €; istanza di nullità o decadenza 500 €. Durata: art. 15 c. 4 e art. 16 c. 2 d.lgs. 30/2005; opposizione: art. 176; nullità e decadenza: artt. 184-bis e seguenti.<br>
+        <strong>UIBM</strong> — tabella «Tariffe Marchi» (uibm.mise.gov.it): deposito 101 € per la prima classe e 34 € per ogni classe aggiunta; rinnovo 67 € e 34 €; bollo del deposito online, anche di rinnovo, 48 €; lettera d'incarico 34 € per ogni operazione affidata a un mandatario; mora per pagamento tardivo 34 €; opposizione 250 € più bollo online 32 €; istanza di nullità o decadenza 500 €. Durata: art. 15 c. 4 e art. 16 c. 2 d.lgs. 30/2005; opposizione: art. 176; nullità e decadenza: artt. 184-bis e seguenti.<br>
         <strong>EUIPO</strong> — pagine «Fees and payments» e «Opposition», Linee guida 7.5.1: deposito online 850 €, 50 € la seconda classe, 150 € dalla terza; cartaceo 1.000 €; rinnovo online 850/50/150 €; opposizione 320 €.<br>
         <strong>WIPO</strong> — Schedule of Fees del sistema di Madrid, in vigore dal 1° febbraio 2023: tassa di base 653 CHF (903 CHF a colori), tassa supplementare 100 CHF per classe oltre la terza, tassa complementare 100 CHF per Paese designato.
       </p>
@@ -246,7 +246,7 @@
 .cm-note{margin:0;padding-left:18px;font-size:13px;color:#475569;line-height:1.55}
 .cta-box{display:flex;gap:18px;align-items:flex-start;background:var(--navy);color:#e2e8f0;border-radius:8px;padding:26px 28px;margin-bottom:20px;line-height:1.6;font-size:14.5px}
 .cta-box .btn-primary{background:var(--gold);border-color:var(--gold)}
-.disclaimer{font-size:12px;color:#94a3b8;line-height:1.55;text-align:center;max-width:760px;margin:0 auto;padding:0 8px}
+.disclaimer{font-size:12px;color:#5b6474;line-height:1.55;text-align:center;max-width:760px;margin:0 auto;padding:0 8px}
 @media (max-width:700px){.calc-row{grid-template-columns:1fr !important}.cta-box{flex-direction:column}}
 </style>
 
@@ -263,8 +263,9 @@
   var chf = function (n) { return n.toLocaleString('it-IT', { useGrouping: 'always' }) + ' CHF'; };
   var ufficio = function () { var r = document.querySelector('input[name="cmUfficio"]:checked'); return r ? r.value : 'UIBM'; };
   var interoTra = function (el, min, max) {
-    var n = parseInt(el.value, 10);
-    if (isNaN(n) || n < min) n = min;
+    var v = Number(String(el.value).replace(',', '.'));
+    var n = (String(el.value).trim() === '' || !isFinite(v)) ? min : Math.floor(v);
+    if (n < min) n = min;
     if (n > max) n = max;
     return n;
   };
@@ -291,7 +292,8 @@
     var voci = [], note = [], valuta = 'EUR', sotto = '';
     var conClassi = (op === 'deposito' || op === 'rinnovo');
     $('cmClassiWrap').style.display = conClassi ? '' : 'none';
-    $('cmIncaricoWrap').style.display = (u === 'UIBM' && op === 'deposito') ? '' : 'none';
+    $('cmIncaricoWrap').style.display = (u === 'UIBM') ? '' : 'none';
+    var incarico = (u === 'UIBM' && $('cmIncarico').checked);
     $('cmCartaceoWrap').style.display = (u === 'EUIPO' && conClassi) ? '' : 'none';
     $('cmColoriWrap').style.display = (u === 'WIPO') ? '' : 'none';
     $('cmPaesiWrap').style.display = (u === 'WIPO') ? '' : 'none';
@@ -301,13 +303,13 @@
       voci.push(['Tassa di deposito, prima classe', 101]);
       if (n > 1) voci.push(['Classi aggiuntive: ' + (n - 1) + ' × 34 €', (n - 1) * 34]);
       voci.push(['Imposta di bollo, deposito online', 48]);
-      if ($('cmIncarico').checked) voci.push(['Tassa per la lettera d\'incarico al professionista', 34]);
       note.push('La registrazione dura dieci anni dalla data di deposito ed è rinnovabile.');
     } else if (u === 'UIBM' && op === 'rinnovo') {
       sotto = 'Marchio italiano, rinnovo per dieci anni, ' + n + (n === 1 ? ' classe' : ' classi');
       voci.push(['Tassa di rinnovo, prima classe', 67]);
       if (n > 1) voci.push(['Classi aggiuntive: ' + (n - 1) + ' × 34 €', (n - 1) * 34]);
-      note.push('Oltre alle tasse è dovuta l\'imposta di bollo prevista per la domanda di rinnovo.');
+      voci.push(['Imposta di bollo, deposito online', 48]);
+      note.push('Se il pagamento avviene nei sei mesi successivi alla scadenza si aggiunge la mora di 34 € (art. 227 c. 4 d.lgs. 30/2005).');
       note.push('La domanda di rinnovo si deposita entro i dodici mesi che precedono l\'ultimo giorno del mese di scadenza del decennio (art. 227 c. 1-bis d.lgs. 30/2005).');
     } else if (u === 'UIBM' && op === 'opposizione') {
       sotto = 'Opposizione a una domanda di marchio italiano';
@@ -340,10 +342,11 @@
       voci.push(['Tassa di base' + (colori ? ' (a colori)' : ''), colori ? 903 : 653]);
       if (n > 3) voci.push(['Tassa supplementare: ' + (n - 3) + ' classi oltre la terza × 100 CHF', (n - 3) * 100]);
       voci.push(['Tassa complementare: ' + paesi + ' × 100 CHF', paesi * 100]);
-      note.push('Molti Paesi applicano tasse individuali più alte del regime standard: l\'importo esatto si ottiene con il calcolatore ufficiale WIPO.');
+      note.push('Molti Paesi applicano tasse individuali che sostituiscono quelle standard e possono dare importi più alti o più bassi: l\'importo esatto si ottiene con il calcolatore ufficiale WIPO.');
       note.push('Serve un marchio di base già depositato o registrato; possono aggiungersi gli oneri dell\'ufficio d\'origine.');
     }
 
+    if (incarico) voci.push(['Tassa per la lettera d\'incarico al professionista', 34]);
     var tot = voci.reduce(function (s, v) { return s + v[1]; }, 0);
     var fmt = valuta === 'CHF' ? chf : euro;
     $('cmSottotitolo').textContent = sotto;
@@ -352,13 +355,13 @@
       var tr = document.createElement('tr'), a = document.createElement('td'), b = document.createElement('td');
       a.textContent = v[0]; b.textContent = fmt(v[1]); tr.appendChild(a); tr.appendChild(b); $('cmVoci').appendChild(tr);
     });
-    $('cmTotale').textContent = fmt(tot) + (valuta === 'CHF' ? ' (stima minima)' : '');
+    $('cmTotale').textContent = fmt(tot) + (valuta === 'CHF' ? ' (simulazione in regime standard)' : '');
     $('cmNote').innerHTML = '';
     note.forEach(function (t) { var li = document.createElement('li'); li.textContent = t; $('cmNote').appendChild(li); });
 
     var contenzioso = (op === 'opposizione' || op === 'nullita');
     $('cmCta').href = 'https://studiolegalelanotte.it/contatti/?argomento=' + (contenzioso ? 'marchi' : 'deposito-marchio');
-    $('cmCta').textContent = contenzioso ? 'Richieda l\'esame del caso' : 'Richiedi un preventivo personalizzato';
+    $('cmCta').textContent = contenzioso ? 'Richieda l\'esame del caso' : 'Richieda un preventivo personalizzato';
     $('cmCtaTesto').textContent = contenzioso
       ? 'Opposizioni e procedimenti di nullità o decadenza richiedono lo studio dei marchi, dei documenti e delle prove d\'uso: il compenso si definisce con un preventivo personalizzato.'
       : 'Ogni marchio ha la sua storia: il compenso professionale si definisce dopo un primo esame del segno, dell\'attività e dei mercati.';
@@ -369,6 +372,9 @@
 
   document.querySelectorAll('input[name="cmUfficio"]').forEach(function (r) {
     r.addEventListener('change', function () { riempiOperazioni(); calcola(); });
+  });
+  [['cmClassi', 45], ['cmPaesi', 130]].forEach(function (c) {
+    $(c[0]).addEventListener('change', function () { this.value = interoTra(this, 1, c[1]); calcola(); });
   });
   ['cmOperazione', 'cmClassi', 'cmPaesi', 'cmIncarico', 'cmCartaceo', 'cmColori'].forEach(function (id) {
     $(id).addEventListener('input', calcola); $(id).addEventListener('change', calcola);

@@ -444,14 +444,14 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'costi-marchio' => [
-            'title' => 'Costi ufficiali del marchio 2026: tasse UIBM, EUIPO e WIPO (gratuito)',
+            'title' => 'Costi del marchio 2026: tasse UIBM, EUIPO e WIPO (gratuito)',
             'keyword' => 'costo registrazione marchio',
             'service' => 'Marchi e proprieta intellettuale',
             'intro' => 'Il calcolatore somma le tasse e i diritti degli uffici per deposito, rinnovo, opposizione, nullità e decadenza di un marchio italiano (UIBM), dell\'Unione europea (EUIPO) o internazionale (WIPO). Gli importi ufficiali sono stati verificati il 10 ottobre 2026; il compenso professionale si definisce con un preventivo personalizzato.',
             'faq' => [
-                ['Quanto costano le tasse per un marchio italiano in una classe?', 'Per il deposito telematico: 101 euro di tassa e 48 euro di imposta di bollo, più 34 euro se il deposito è affidato a un professionista con lettera d\'incarico.'],
+                ['Quanto costano le tasse per un marchio italiano in una classe?', 'Per il deposito telematico: 101 euro di tassa e 48 euro di imposta di bollo, più 34 euro se l\'operazione è affidata a un professionista con lettera d\'incarico.'],
                 ['Il calcolatore comprende il compenso dello Studio?', 'No: calcola le sole tasse degli uffici. Il compenso si definisce dopo l\'esame del segno, con un preventivo personalizzato; per il caso semplice è indicato il compenso base.'],
-                ['Perché per il marchio internazionale il totale è una stima minima?', 'Molti Paesi applicano tasse individuali più alte del regime standard: l\'importo esatto si ottiene con il calcolatore ufficiale WIPO.'],
+                ['Perché per il marchio internazionale il totale è una simulazione?', 'Il calcolatore applica il regime standard; molti Paesi prevedono tasse individuali che lo sostituiscono e possono dare importi più alti o più bassi. L\'importo esatto si ottiene con il calcolatore ufficiale WIPO.'],
             ],
         ],
     ];

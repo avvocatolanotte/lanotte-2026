@@ -896,7 +896,31 @@ add_action('init', function() {
  * Registra un articolo editoriale del tema (una sola volta).
  * $status 'future' con $date futura programma l'uscita; con data passata WordPress pubblica subito.
  */
+/**
+ * Esegue $callback una sola volta per $option, anche con richieste simultanee:
+ * GET_LOCK di MySQL è atomico (add_option non lo è), e dentro il blocco lo stato
+ * «done» si rilegge dal database. Il blocco si rilascia sempre, anche su errore.
+ */
+function lanotte_editorial_once($option, callable $callback) {
+    if (get_option($option) === 'done') return;
+    global $wpdb;
+    $lock = 'lanotte_ed_' . md5($option);
+    if ((int) $wpdb->get_var($wpdb->prepare('SELECT GET_LOCK(%s, 0)', $lock)) !== 1) return;
+    try {
+        $stato = $wpdb->get_var($wpdb->prepare("SELECT option_value FROM {$wpdb->options} WHERE option_name = %s", $option));
+        if ($stato !== 'done') $callback();
+    } finally {
+        $wpdb->query($wpdb->prepare('SELECT RELEASE_LOCK(%s)', $lock));
+    }
+}
+
 function lanotte_editorial_register_article($option, $slug, $title, $excerpt, $content_file, $category_slug, $category_name, $status = 'publish', $date = '') {
+    lanotte_editorial_once($option, function() use ($option, $slug, $title, $excerpt, $content_file, $category_slug, $category_name, $status, $date) {
+        lanotte_editorial_register_article_now($option, $slug, $title, $excerpt, $content_file, $category_slug, $category_name, $status, $date);
+    });
+}
+
+function lanotte_editorial_register_article_now($option, $slug, $title, $excerpt, $content_file, $category_slug, $category_name, $status = 'publish', $date = '') {
     if (get_option($option) === 'done') return;
     if (!function_exists('wp_insert_post')) return;
 
@@ -943,6 +967,12 @@ function lanotte_editorial_register_article($option, $slug, $title, $excerpt, $c
 }
 
 function lanotte_editorial_register_featured($option, $slug, $asset, $title, $alt, $source_key) {
+    lanotte_editorial_once($option, function() use ($option, $slug, $asset, $title, $alt, $source_key) {
+        lanotte_editorial_register_featured_now($option, $slug, $asset, $title, $alt, $source_key);
+    });
+}
+
+function lanotte_editorial_register_featured_now($option, $slug, $asset, $title, $alt, $source_key) {
     if (get_option($option) === 'done') return;
     if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
 
@@ -1127,7 +1157,10 @@ add_action('init', function() {
 // qui si sostituisce una volta sola. Il sottotitolo sta anche in inc/seed-data.php,
 // perché il seed riscrive il campo «tagline» a ogni cambio di versione.
 add_action('init', function() {
-    if (get_option('lanotte_area_proprieta_intellettuale_20261010') === 'done') return;
+    lanotte_editorial_once('lanotte_area_proprieta_intellettuale_20261010', 'lanotte_area_proprieta_intellettuale_aggiorna');
+}, 65);
+
+function lanotte_area_proprieta_intellettuale_aggiorna() {
     if (!function_exists('wp_update_post')) return;
 
     $file = LANOTTE_THEME_DIR . '/content/editorials/area-proprieta-intellettuale.html';
@@ -1144,4 +1177,4 @@ add_action('init', function() {
 
     if (function_exists('update_field')) update_field('tagline', $tagline, (int) $area->ID);
     update_option('lanotte_area_proprieta_intellettuale_20261010', 'done', false);
-}, 65);
+}
