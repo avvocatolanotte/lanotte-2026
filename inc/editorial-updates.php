@@ -943,8 +943,10 @@ function lanotte_editorial_register_article_now($option, $slug, $title, $excerpt
 
     $existing = get_page_by_path($slug, OBJECT, 'post');
     $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
-    // Un articolo con lo stesso slug si aggiorna solo se lo ha creato questa stessa registrazione (ripresa dopo
-    // un'interruzione): un articolo scritto o corretto a mano non si sovrascrive mai (revisione di Codex, 11/10/2026).
+    // Un articolo con lo stesso slug si aggiorna solo se porta il marcatore di questa registrazione (ripresa dopo
+    // un'interruzione); un articolo nato altrove non si tocca e la registrazione diventa «saltato» (revisione di
+    // Codex, 11/10/2026). Limite noto: se un articolo creato da qui viene corretto a mano prima che la registrazione
+    // arrivi a «done» (es. categoria non assegnata), la ripresa lo riscrive con il file del tema.
     if ($post_id && get_post_meta($post_id, '_lanotte_editoriale', true) !== $option) {
         error_log('lanotte_editorial: «' . $slug . '» esiste già e non è stato creato da ' . $option . ': non lo sovrascrivo.');
         update_option($option, 'saltato: articolo già esistente (' . $post_id . ')', false);
