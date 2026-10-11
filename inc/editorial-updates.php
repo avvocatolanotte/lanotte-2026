@@ -1073,12 +1073,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_verificare_marchio_featured_20261010_v3_20261011',
+        'lanotte_article_verificare_marchio_featured_20261010_v4_20261011',
         'come-verificare-marchio-gia-registrato',
-        'come-verificare-marchio-gia-registrato-editoriale-v3-2026.jpg',
+        'come-verificare-marchio-gia-registrato-fumetto-v4-2026.jpg',
         'Come verificare se un marchio è già registrato',
-        'Illustrazione di una mano in giacca blu che regge una lente d’ingrandimento davanti a una parete di marmo scuro con molti loghi di fantasia a forma di foglia, una mappa dell’Europa e linee dorate che collegano i segni',
-        'lanotte-come-verificare-marchio-gia-registrato-2026-editoriale-v3-2026'
+        'Fumetto in tre vignette: un creativo disegna il logo su un quaderno, due professionisti controllano con una lente d’ingrandimento una griglia di marchi su uno schermo, poi mostrano soddisfatti il logo libero da conflitti',
+        'lanotte-come-verificare-marchio-gia-registrato-2026-fumetto-v4-2026'
     );
 }, 56);
 
@@ -1098,12 +1098,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_costo_marchio_featured_20261010_v3_20261011',
+        'lanotte_article_costo_marchio_featured_20261010_v4_20261011',
         'quanto-costa-registrare-marchio',
-        'quanto-costa-registrare-marchio-editoriale-v3-2026.jpg',
+        'quanto-costa-registrare-marchio-fumetto-v4-2026.jpg',
         'Quanto costa registrare un marchio',
-        'Illustrazione di una scrivania in marmo con tre piattaforme che rappresentano Italia, Unione europea e mondo, ciascuna con una pila di monete d’oro, accanto a una calcolatrice e a un certificato di marchio con il simbolo ®',
-        'lanotte-quanto-costa-registrare-marchio-2026-editoriale-v3-2026'
+        'Fumetto in tre vignette: due professionisti valutano i costi di registrazione di un marchio sopra una mappa dell’Italia con una piccola pila di monete, poi dell’Unione europea con una pila più alta, infine del mondo con la pila più alta',
+        'lanotte-quanto-costa-registrare-marchio-2026-fumetto-v4-2026'
     );
 }, 58);
 
@@ -1121,12 +1121,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_opposizione_marchio_termini_costi_featured_20261010_v3_20261011',
+        'lanotte_article_opposizione_marchio_termini_costi_featured_20261010_v4_20261011',
         'opposizione-marchio-termini-costi',
-        'opposizione-marchio-termini-costi-editoriale-v3-2026.jpg',
+        'opposizione-marchio-termini-costi-fumetto-v4-2026.jpg',
         'Opposizione a un marchio: termini, costi e difese',
-        'Illustrazione di due confezioni con lo stesso segno di fantasia: a sinistra quella blu protetta da uno scudo dorato, a destra quella bianca dietro un cordone rosso e un quadrante di orologio, separate da una linea rossa',
-        'lanotte-opposizione-marchio-termini-costi-2026-editoriale-v3-2026'
+        'Fumetto in tre vignette: un imprenditore esamina preoccupato una confezione con un segno simile al proprio, una professionista lavora alle carte davanti a un calendario con il termine evidenziato in rosso, infine uno scudo dorato con il marchio respinge la confezione che va in frantumi',
+        'lanotte-opposizione-marchio-termini-costi-2026-fumetto-v4-2026'
     );
 }, 60);
 
@@ -1144,12 +1144,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_nullita_decadenza_marchio_uibm_featured_20261010_v3_20261011',
+        'lanotte_article_nullita_decadenza_marchio_uibm_featured_20261010_v4_20261011',
         'nullita-decadenza-marchio-uibm',
-        'nullita-decadenza-marchio-uibm-editoriale-v3-2026.jpg',
+        'nullita-decadenza-marchio-uibm-fumetto-v4-2026.jpg',
         'Nullità e decadenza del marchio davanti all’UIBM',
-        'Illustrazione di un marchio dorato protetto da una campana di vetro con il relativo attestato, accanto a un marchio identico che si sgretola su un attestato rovinato, con una clessidra al centro di una biblioteca',
-        'lanotte-nullita-decadenza-marchio-uibm-2026-editoriale-v3-2026'
+        'Fumetto in tre vignette: un titolare mostra con orgoglio l’attestato del proprio marchio, una clessidra e un marchio coperto di polvere e ragnatele indicano il non uso, infine in una discussione tra avvocati la tavola con il marchio si sgretola',
+        'lanotte-nullita-decadenza-marchio-uibm-2026-fumetto-v4-2026'
     );
 }, 62);
 
@@ -1167,12 +1167,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_marchio_copiato_cosa_fare_featured_20261010_v3_20261011',
+        'lanotte_article_marchio_copiato_cosa_fare_featured_20261010_v4_20261011',
         'marchio-copiato-cosa-fare',
-        'marchio-copiato-cosa-fare-editoriale-v3-2026.jpg',
+        'marchio-copiato-cosa-fare-fumetto-v4-2026.jpg',
         'Marchio copiato: cosa fare',
-        'Illustrazione di due confezioni di profumo quasi identiche evidenziate in oro e in rosso, fotografate da uno smartphone con mani guantate, accanto a lente d’ingrandimento, buste per reperti e quaderno di appunti',
-        'lanotte-marchio-copiato-cosa-fare-2026-editoriale-v3-2026'
+        'Fumetto in tre vignette: un imprenditore scopre in negozio confezioni di profumo che copiano il suo marchio, ne raccoglie le prove fotografandole con lo smartphone insieme a scontrini e pagine web, infine consegna il fascicolo a un’avvocata nel suo studio',
+        'lanotte-marchio-copiato-cosa-fare-2026-fumetto-v4-2026'
     );
 }, 64);
 
