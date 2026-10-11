@@ -70,8 +70,15 @@ function lanotte_gtag_caricatore() {
     var src = t && t.getAttribute('data-lanotte-src');
     if (!src) return;
     avviato = true;
-    // Lo stato concesso entra nella coda prima di gtag.js: senza, alla visita successiva la prima page_view
-    // può partire con analytics_storage negato se CookieYes ripristina la scelta dopo l'attesa di Site Kit.
+    // Lo stato concesso entra nella coda prima del comando config, che fa partire la page_view. Alla visita successiva
+    // il caricatore precede config e basta accodarlo; se il consenso arriva nella pagina, config è già in coda e
+    // dopo di lui c'è l'aggiornamento «negato» del caricamento: misurato l'11/10/2026, prima page_view con gcs=G100.
+    // gtag.js non è ancora caricato (lo carica solo avvia()): il dataLayer è un semplice array e si può riordinare.
+    var dl = window.dataLayer, cfg = -1;
+    if (dl.push === Array.prototype.push) {
+      for (var k = 0; k < dl.length; k++) { if (dl[k] && dl[k][0] === 'config') { cfg = k; break; } }
+    }
+    if (cfg >= 0) dl.splice(cfg, 0, (function () { return arguments; })('consent', 'update', { analytics_storage: 'granted' }));
     g('consent', 'update', { analytics_storage: 'granted' });
     var s = document.createElement('script');
     s.async = true;
