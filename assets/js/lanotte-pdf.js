@@ -201,7 +201,7 @@
   // se sembra decorativo: dentro i dati («12 ➖ 34», «AB 🔟 12») sarebbe un'alterazione silenziosa. Ogni altro
   // carattere blocca il PDF (caratteriNonStampabili e generate) e si indica la «Stampa» dall'anteprima.
   // I testi dei calcolatori non contengono simboli fuori codifica (prova: scansione_pdf_calcolatori.js).
-  const PDF_SOSTITUZIONI = {'→': '–', '←': '–', '−': '-', '≈': 'circa ', '≤': '<=', '≥': '>=', '●': '•', '⁄': '/', '∕': '/'};
+  const PDF_SOSTITUZIONI = {'→': '–', '←': '–', '−': '-', '≈': '~', '≤': '<=', '≥': '>=', '●': '•', '⁄': '/', '∕': '/'};
   const PDF_AMMESSI = /[\x00-\xFF€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/;
   const PDF_INVISIBILI = /[︎️​-‍⁠]/;
   function pdfCarattere(c){
@@ -223,7 +223,7 @@
       const r = pdfCarattere(ch);
       if (r === null) { bloccati.add(ch); out += ch; } else out += r;
     }
-    return { testo: out.replace(/ {2,}/g, ' '), bloccati };
+    return { testo: out, bloccati };   // gli spazi dei dati restano come sono (B36)
   }
   function pdfSafe(t){
     if (t === null || t === undefined) return t;

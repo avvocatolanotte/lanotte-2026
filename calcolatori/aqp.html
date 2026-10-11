@@ -448,7 +448,10 @@
     });
   });
 
-  const fmtEur = v => '€ ' + v.toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2});
+  // Un solo arrotondamento monetario per schermo, confronto e report: i centesimi si ricavano dallo stesso
+  // formattatore usato per mostrare gli importi (B35: toFixed arrotondava 100,925 a 100,92, lo schermo a 100,93).
+  const centesimi = v => Math.round(Number(v.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: false})) * 100);
+  const fmtEur = v => '€ ' + (centesimi(v) / 100).toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2});
   const fmtMc  = v => v.toLocaleString('it-IT', {maximumFractionDigits:3}) + ' m³'; // tre decimali: i volumi per fascia sono frazionari
 
   let datiCalc = null;
@@ -580,7 +583,6 @@
     if (importo === null) return null;
     // Confronto in centesimi interi, sul totale arrotondato come è mostrato: alle soglie esatte del 5% e del
     // 15% le percentuali in virgola mobile darebbero esiti sbagliati (B34, undicesima revisione di Codex).
-    const centesimi = v => Math.round(parseFloat(v.toFixed(2)) * 100);
     const attC = centesimi(totale) - centesimi(acconti);
     const deltaC = centesimi(importo) - attC;
     const atteso = attC / 100, delta = deltaC / 100;
