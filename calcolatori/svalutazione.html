@@ -330,7 +330,8 @@
     const idxEnd = LanotteISTAT.indice(meseFine);
     if (!idxStart || !idxEnd) { alert('Indice non disponibile'); return; }
 
-    const rivalutato = importo * (idxEnd / idxStart);
+    // Coefficiente di rivalutazione con il metodo ISTAT: rapporto in un solo passaggio, arrotondato a 3 decimali.
+    const rivalutato = LanotteISTAT.rivaluta(importo, meseInizio, meseFine);
     const diffRiv = rivalutato - importo;
 
     // Calcolo interessi anno per anno sul capitale via via rivalutato (Cass. SU 1712/1995)
@@ -343,7 +344,7 @@
       const dicembre = (y === yEnd) ? meseFine : (y + '-12');
       const idxAnno = LanotteISTAT.indice(dicembre);
       if (!idxAnno) continue;
-      const capRiv = importo * (idxAnno / idxStart);
+      const capRiv = LanotteISTAT.rivaluta(importo, meseInizio, dicembre);
       // Tasso vigente al primo gennaio
       const tasso = LanotteInteressi.tassoIn(y + '-06-15', 'legali');
       let interesseAnno = 0;
@@ -360,7 +361,7 @@
         interesseAnno = capRiv * (tasso.tasso / 100) * frazione;
         totaleInteressi += interesseAnno;
       }
-      righeTab.push([y, idxAnno.toFixed(2), fmtEur(capRiv), tasso ? tasso.tasso+'%' : '—', fmtEur(interesseAnno)]);
+      righeTab.push([y, LanotteISTAT.testoIndice(dicembre), fmtEur(capRiv), tasso ? String(tasso.tasso).replace('.', ',') + '%' : '—', fmtEur(interesseAnno)]);
     }
 
     const totale = rivalutato + totaleInteressi;
@@ -379,6 +380,7 @@
     datiCalc = {
       cliente: {nome: document.getElementById('clienteNome').value, codiceFiscale: document.getElementById('clienteCf').value},
       importo, rivalutato, diffRiv, totaleInteressi, totale,
+      coeff: LanotteISTAT.coefficiente(meseInizio, meseFine),
       meseInizio, meseFine, idxStart, idxEnd, tipologia, conInteressi, righeTab,
       ultimo: LanotteISTAT.ultimoMese()
     };
@@ -399,8 +401,9 @@
         {label:'Importo iniziale', value: fmtEur(d.importo)},
         {label:'Fatto/evento', value: fmtMese(d.meseInizio)},
         {label:'Calcolo al', value: fmtMese(d.meseFine)},
-        {label:'Indice FOI iniziale', value: d.idxStart.toFixed(2)},
-        {label:'Indice FOI finale', value: d.idxEnd.toFixed(2)},
+        {label:'Indice FOI iniziale', value: LanotteISTAT.testoIndice(d.meseInizio)},
+        {label:'Indice FOI finale', value: LanotteISTAT.testoIndice(d.meseFine)},
+        {label:'Coefficiente di rivalutazione (metodo ISTAT, 3 decimali)', value: d.coeff == null ? '—' : d.coeff.toFixed(3).replace('.', ',')},
         {label:'Importo rivalutato', value: fmtEur(d.rivalutato)},
         {label:'Differenza svalutazione', value: '+' + fmtEur(d.diffRiv)},
         {label:'Interessi legali (cumulo)', value: d.conInteressi==='cumulo' ? fmtEur(d.totaleInteressi) : '— non calcolati'},

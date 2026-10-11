@@ -194,18 +194,18 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Recupero crediti',
             'intro' => 'Il calcolatore degli interessi legali consente di stimare gli interessi maturati su un credito secondo il saggio legale previsto dall\'art. 1284 c.c., con suddivisione automatica per periodi e tassi annuali. È utile per recupero crediti, diffide, conteggi su somme dovute e verifiche preliminari prima di un atto giudiziale.',
             'faq' => [
-                ['Quando si applicano gli interessi legali?', 'Di regola quando una somma di denaro e dovuta e non e previsto un diverso tasso convenzionale o speciale.'],
+                ['Quando si applicano gli interessi legali?', 'Di regola quando una somma di denaro è dovuta e non è previsto un diverso tasso convenzionale o speciale.'],
                 ['Il calcolo prevede anatocismo?', 'No. Il calcolo e a capitalizzazione semplice, salvo diverse verifiche sul caso concreto.'],
-                ['Serve un avvocato?', 'Per importi contestati, prescrizione, decorrenza della mora o atti giudiziali e opportuno far verificare il conteggio.'],
+                ['Serve un avvocato?', 'Per importi contestati, prescrizione, decorrenza della mora o atti giudiziali è opportuno far verificare il conteggio.'],
             ],
         ],
         'imposta-successione' => [
             'title' => 'Calcolo imposta di successione 2026 (gratuito)',
             'keyword' => 'calcolo imposta di successione',
             'service' => 'Successioni ed eredità in tutta Italia',
-            'intro' => 'Il calcolatore completo stima l\'imposta di successione per singolo beneficiario partendo da attivo, passivita, quota, rapporto di parentela, immobili, donazioni pregresse e agevolazione prima casa. Applica in via informativa aliquote e franchigie vigenti e segnala i casi particolari che richiedono verifica professionale secondo il D.Lgs. 346/1990 e il D.Lgs. 139/2024.',
+            'intro' => 'Il calcolatore completo stima l\'imposta di successione per singolo beneficiario partendo da attivo, passività, quota, rapporto di parentela, immobili, donazioni pregresse e agevolazione prima casa. Applica in via informativa aliquote e franchigie vigenti e segnala i casi particolari che richiedono verifica professionale secondo il D.Lgs. 346/1990 e il D.Lgs. 139/2024.',
             'faq' => [
-                ['La franchigia vale per ogni erede?', 'Si. La franchigia si applica alla quota di ciascun beneficiario: 1.000.000 di euro per coniuge e linea retta, 100.000 per fratelli e sorelle, 1.500.000 per beneficiari con disabilita grave (L. 104/1992).'],
+                ['La franchigia vale per ogni erede?', 'Sì. La franchigia si applica alla quota di ciascun beneficiario: 1.000.000 di euro per coniuge e linea retta, 100.000 per fratelli e sorelle, 1.500.000 per beneficiari con disabilità grave (L. 104/1992).'],
                 ['Con i benefici prima casa cosa cambia?', 'Le imposte ipotecaria e catastale si pagano in misura fissa di 200 euro ciascuna, invece del 2% e dell\'1% sul valore catastale degli immobili.'],
                 ['Chi calcola e versa l\'imposta?', 'Dal 2025 l\'imposta e in autoliquidazione: si versa sulla base della dichiarazione, da presentare entro dodici mesi, salvo controlli dell\'Agenzia delle Entrate.'],
             ],
@@ -216,7 +216,7 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Famiglia e separazioni',
             'intro' => 'Rivalutazione, adeguamento e aggiornamento ISTAT dell\'assegno di mantenimento per coniuge e figli: il calcolatore gratuito applica gli indici FOI ufficiali e quantifica differenze mensili e arretrati maturati. Il calcolatore aggiorna l\'assegno di mantenimento secondo l\'indice ISTAT FOI, normalmente al 100% salvo diversa previsione nel provvedimento o nell\'accordo. Serve per verificare adeguamenti annuali, arretrati e differenze mensili dovute per coniuge o figli.',
             'faq' => [
-                ['L\'adeguamento ISTAT e automatico?', 'Solo se previsto da sentenza, decreto omologato, accordo o negoziazione assistita.'],
+                ['L\'adeguamento ISTAT è automatico?', 'Per i figli sì: l\'assegno è adeguato automaticamente agli indici ISTAT, salvo un diverso parametro indicato dalle parti o dal giudice (art. 337-ter c.c.). Per il coniuge divorziato la sentenza deve fissare un criterio di adeguamento (art. 5, comma 7, L. 898/1970); per il coniuge separato conta quanto previsto dal provvedimento o dall\'accordo.'],
                 ['Si usa il 100% o il 75%?', 'Per il mantenimento si usa di regola il 100%, salvo clausola diversa.'],
                 ['Posso chiedere arretrati?', 'Dipende dal titolo, dalla decorrenza e dalla prescrizione: il conteggio va verificato prima della richiesta.'],
             ],
@@ -227,7 +227,7 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Famiglia e separazioni',
             'intro' => 'Lo strumento elabora una forchetta puramente orientativa considerando redditi, fabbisogno indicato, tempi di permanenza e spese dirette. Non esiste una formula vincolante: l\'assegno e determinato dal giudice o concordato dalle parti secondo i criteri dell\'art. 337-ter c.c.',
             'faq' => [
-                ['Il risultato determina l\'assegno dovuto?', 'No. E una simulazione matematica informativa e non anticipa la decisione del giudice.'],
+                ['Il risultato determina l\'assegno dovuto?', 'No. È una simulazione matematica informativa e non anticipa la decisione del giudice.'],
                 ['Comprende le spese straordinarie?', 'No. Le spese straordinarie devono essere disciplinate e ripartite separatamente.'],
                 ['Quali elementi vanno verificati?', 'Redditi effettivi, patrimonio, esigenze dei figli, casa familiare, tempi di cura e circostanze concrete.'],
             ],
@@ -239,31 +239,31 @@ function lanotte_calcolatori_pages_data() {
             'intro' => 'Lo strumento calcola la rivalutazione monetaria secondo indice ISTAT FOI e, se richiesto, gli interessi legali sul capitale via via rivalutato. È utile per crediti di valore, risarcimenti, conguagli e conteggi preliminari in sede stragiudiziale o giudiziale.',
             'faq' => [
                 ['Che differenza c\'e tra interessi e rivalutazione?', 'Gli interessi remunerano il ritardo; la rivalutazione aggiorna il valore reale della somma nel tempo.'],
-                ['Quando si sommano interessi e rivalutazione?', 'Nei crediti di valore, secondo criteri giurisprudenziali da verificare sul caso concreto.'],
-                ['Il risultato e definitivo?', 'No, e un conteggio orientativo che va controllato con documenti, decorrenze e titolo del credito.'],
+                ['Quando si sommano interessi e rivalutazione?', 'Nei crediti di valore, con interessi sul capitale via via rivalutato (Cass. SU 1712/1995); nei crediti di lavoro l\'art. 429, comma 3, c.p.c. prevede interessi legali e rivalutazione dalla maturazione del diritto.'],
+                ['Il risultato è definitivo?', 'No, è un conteggio orientativo che va controllato con documenti, decorrenze e titolo del credito.'],
             ],
         ],
         'macropermanenti' => [
             'title' => 'Calcolo danno biologico macropermanenti 2026 – Tabelle Milano e TUN (gratuito)',
             'keyword' => 'calcolo danno biologico tabelle Milano',
             'service' => 'Infortunistica e risarcimento danni',
-            'intro' => 'Calcolatore gratuito del danno biologico per lesioni macropermanenti, da 10 a 100 punti, con Tabelle di Milano 2024 e Tabella Unica Nazionale 2025: inserisci età, punti di invalidità e giorni di inabilità e ottieni subito la stima. Calcola online una stima del risarcimento del danno biologico per lesioni macropermanenti da 10 a 100 punti. Lo strumento individua la tabella applicabile in base al tipo e alla data dell\'evento, confrontando Tabelle di Milano 2024 e Tabella Unica Nazionale prevista dal D.P.R. 12/2025. Inserendo punti di invalidita permanente, età e giorni di inabilità temporanea ottieni subito il dettaglio del danno permanente, temporaneo e della sofferenza soggettiva media. Le opzioni avanzate permettono inoltre di simulare personalizzazione, spese documentate e perdita di reddito. Il calcolo e gratuito, resta sul dispositivo e può essere controllato in anteprima prima di stampare o salvare il report. La quantificazione definitiva richiede sempre una perizia medico-legale e la verifica giuridica del caso concreto.',
+            'intro' => 'Calcolatore gratuito del danno biologico per lesioni macropermanenti, da 10 a 100 punti, secondo la Tabella Unica Nazionale, con le Tabelle di Milano 2024 a confronto: inserendo età, punti di invalidità e giorni di inabilità si ottiene subito la stima. Il calcolatore fornisce una stima online del risarcimento del danno biologico per lesioni macropermanenti da 10 a 100 punti. Lo strumento usa la Tabella Unica Nazionale prevista dal D.P.R. 12/2025, direttamente per i sinistri stradali e la responsabilità sanitaria successivi al 5 marzo 2025 e come parametro equitativo negli altri casi (Cass. civ., sez. III, 7 aprile 2026, n. 8630). Inserendo punti di invalidità permanente, età e giorni di inabilità temporanea si ottiene subito il dettaglio del danno permanente, temporaneo e della sofferenza soggettiva media. Le opzioni avanzate permettono inoltre di simulare personalizzazione, spese documentate e perdita di reddito. Il calcolo è gratuito, resta sul dispositivo e può essere controllato in anteprima prima di stampare o salvare il report. La quantificazione definitiva richiede sempre una perizia medico-legale e la verifica giuridica del caso concreto.',
             'faq' => [
-                ['Quando si usano le Tabelle di Milano?', 'Per gli eventi anteriori al 5 marzo 2025 e, di regola, per gli illeciti civili non coperti dalla TUN, come cadute e altre responsabilità diverse da circolazione e sanita.'],
+                ['Quando si usano le Tabelle di Milano?', 'Per gli eventi anteriori al 5 marzo 2025 e, di regola, per gli illeciti civili non coperti dalla TUN, come cadute e altre responsabilità diverse da circolazione e sanità.'],
                 ['Quando si usa la Tabella Unica Nazionale?', 'Per lesioni da 10 a 100 punti derivanti da circolazione di veicoli o responsabilità sanitaria, quando l\'evento rientra nell\'ambito temporale del D.P.R. 12/2025.'],
-                ['Dove trovo i punti di invalidita e i giorni di inabilità?', 'Sono normalmente indicati nella relazione medico-legale. Se non sono ancora stati valutati, il calcolo può essere soltanto una simulazione.'],
-                ['La personalizzazione aumenta sempre il risarcimento?', 'No. Deve dipendere da conseguenze specifiche del caso, essere allegata e provata; non e una maggiorazione automatica.'],
-                ['Serve una perizia medico-legale?', 'Si. I punti di invalidita, i giorni di inabilità e le ricadute concrete devono essere valutati da un medico-legale.'],
+                ['Dove trovo i punti di invalidità e i giorni di inabilità?', 'Sono normalmente indicati nella relazione medico-legale. Se non sono ancora stati valutati, il calcolo può essere soltanto una simulazione.'],
+                ['La personalizzazione aumenta sempre il risarcimento?', 'No. Deve dipendere da conseguenze specifiche del caso, essere allegata e provata; non è una maggiorazione automatica.'],
+                ['Serve una perizia medico-legale?', 'Sì. I punti di invalidità, i giorni di inabilità e le ricadute concrete devono essere valutati da un medico-legale.'],
             ],
         ],
         'micropermanenti' => [
             'title' => 'Calcolo danno biologico micropermanenti 2026 – lesioni da 1 a 9 punti (gratuito)',
             'keyword' => 'calcolo micropermanenti',
             'service' => 'Infortunistica stradale',
-            'intro' => 'Calcolatore gratuito del danno biologico per lesioni micropermanenti, da 1 a 9 punti di invalidita permanente, secondo l\'art. 139 del Codice delle Assicurazioni e i valori aggiornati: inserisci anni e punti e ottieni la stima del danno permanente, del danno temporaneo e delle voci patrimoniali indicate.',
+            'intro' => 'Calcolatore gratuito del danno biologico per lesioni micropermanenti, da 1 a 9 punti di invalidità permanente, secondo l\'art. 139 del Codice delle Assicurazioni e i valori aggiornati: inserisci anni e punti e ottieni la stima del danno permanente, del danno temporaneo e delle voci patrimoniali indicate.',
             'faq' => [
-                ['Cosa sono le micropermanenti?', 'Sono lesioni con invalidita permanente fino a 9 punti.'],
-                ['Il danno morale e incluso?', 'Lo strumento e orientativo: eventuali personalizzazioni o ulteriori voci vanno valutate caso per caso.'],
+                ['Cosa sono le micropermanenti?', 'Sono lesioni con invalidità permanente fino a 9 punti.'],
+                ['Il danno morale è incluso?', 'Sì, nella misura media: con la TUN il calcolo comprende la componente morale media; con le Tabelle di Milano la sofferenza soggettiva media. Eventuali aumenti per personalizzazione vanno allegati e provati.'],
                 ['Il calcolo vale per ogni sinistro?', 'E pensato soprattutto per sinistri da circolazione, secondo l\'ambito dell\'art. 139 CdA.'],
             ],
         ],
@@ -271,10 +271,10 @@ function lanotte_calcolatori_pages_data() {
             'title' => 'Calcolo indennizzo INAIL 2026: verifica orientativa (gratuito)',
             'keyword' => 'calcolo indennizzo INAIL',
             'service' => 'Infortuni sul lavoro e malattie professionali',
-            'intro' => 'Lo strumento identifica la prestazione INAIL potenzialmente applicabile: nessun indennizzo permanente sotto il 6%, capitale dal 6% al 15% e rendita dal 16%. Il regime INAIL e distinto dal risarcimento civilistico e la quantificazione definitiva compete all\'Istituto.',
+            'intro' => 'Lo strumento identifica la prestazione INAIL potenzialmente applicabile: nessun indennizzo permanente sotto il 6%, capitale dal 6% al 15% e rendita dal 16%. Il regime INAIL è distinto dal risarcimento civilistico e la quantificazione definitiva compete all\'Istituto.',
             'faq' => [
                 ['Quando spetta il capitale?', 'Per menomazioni riconosciute da INAIL comprese tra il 6% e il 15%.'],
-                ['Quando spetta la rendita?', 'Dal 16% al 100%, con quota biologica e possibile quota patrimoniale.'],
+                ['Quando spetta la rendita?', 'Dal 16% al 100%, con quota biologica ed eventuale quota patrimoniale.'],
                 ['E uguale al risarcimento civile?', 'No. Sono sistemi diversi e il danno differenziale richiede una valutazione separata.'],
             ],
         ],
@@ -282,18 +282,18 @@ function lanotte_calcolatori_pages_data() {
             'title' => 'Calcolo danni preesistenti e menomazioni concorrenti 2026 (gratuito)',
             'keyword' => 'calcolo danno biologico preesistenze',
             'service' => 'Risarcimento danni',
-            'intro' => 'Lo strumento aiuta a distinguere menomazioni coesistenti e concorrenti, applicando criteri di calcolo medico-legale e la sottrazione monetaria quando la preesistenza incide sul danno attuale. È utile nei casi di invalidita già presente prima del sinistro.',
+            'intro' => 'Lo strumento aiuta a distinguere menomazioni coesistenti e concorrenti, applicando criteri di calcolo medico-legale e la sottrazione monetaria quando la preesistenza incide sul danno attuale. È utile nei casi di invalidità già presente prima del sinistro.',
             'faq' => [
-                ['Che cosa sono le menomazioni concorrenti?', 'Sono preesistenze che incidono sullo stesso organo o funzione danneggiata dal nuovo fatto.'],
+                ['Che cosa sono le menomazioni concorrenti?', 'Sono menomazioni i cui effetti invalidanti risultano più gravi se associate ad altre, anche se riguardano organi diversi (Cass. civ., sez. III, 11 novembre 2019, n. 28986).'],
                 ['Basta sottrarre le percentuali?', 'No, spesso occorre sottrarre valori monetari e non semplici punti percentuali.'],
-                ['Serve consulenza tecnica?', 'Si, per classificare correttamente la preesistenza e quantificare il danno risarcibile.'],
+                ['Serve consulenza tecnica?', 'Sì, per classificare correttamente la preesistenza e quantificare il danno risarcibile.'],
             ],
         ],
         'interessi-moratori' => [
             'title' => 'Calcolo interessi moratori 2026 – interessi di mora D.Lgs. 231/2002 (gratuito)',
             'keyword' => 'calcolo interessi di mora',
             'service' => 'Recupero crediti commerciali',
-            'intro' => 'Calcolatore gratuito degli interessi moratori (interessi di mora) sulle fatture pagate in ritardo, ai sensi del D.Lgs. 231/2002: tasso BCE maggiorato di otto punti, aggiornato semestralmente dal MEF e applicato periodo per periodo. Vale per le transazioni commerciali tra imprese, verso la Pubblica Amministrazione e nel settore agroalimentare.',
+            'intro' => 'Calcolatore gratuito degli interessi moratori (interessi di mora) sulle fatture pagate in ritardo, ai sensi del D.Lgs. 231/2002: tasso BCE maggiorato di otto punti, aggiornato semestralmente dal MEF e applicato periodo per periodo. Vale per le transazioni commerciali tra imprese e verso la Pubblica Amministrazione; per le cessioni di prodotti agricoli e alimentari soggette al d.lgs. 198/2021 il saggio è maggiorato di ulteriori quattro punti.',
             'faq' => [
                 ['Vale per debiti tra privati?', 'No, per rapporti civili ordinari si usano di regola gli interessi legali.'],
                 ['Da quando decorrono gli interessi moratori?', 'Di regola dal giorno successivo alla scadenza del pagamento, salvo casi particolari.'],
@@ -306,7 +306,7 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Locazioni',
             'intro' => 'Lo strumento calcola l\'aggiornamento ISTAT del canone di locazione secondo indice FOI e percentuale prevista dal contratto. Aiuta locatore e conduttore a verificare aumenti, decorrenze e importi mensili aggiornati.',
             'faq' => [
-                ['L\'aumento ISTAT e sempre dovuto?', 'Serve una clausola contrattuale che lo preveda.'],
+                ['L\'aumento ISTAT è sempre dovuto?', 'Serve una clausola contrattuale che lo preveda.'],
                 ['Si applica il 75% o il 100%?', 'Dipende dal tipo di contratto e dalla clausola pattuita.'],
                 ['Si possono chiedere arretrati?', 'Dipende da contratto, richiesta, decorrenza e prescrizione.'],
             ],
@@ -315,10 +315,10 @@ function lanotte_calcolatori_pages_data() {
             'title' => 'Calcolo parcella avvocato civile 2026 (gratuito)',
             'keyword' => 'calcolo parcella avvocato civile',
             'service' => 'Onorari e preventivi',
-            'intro' => 'Calcolatore gratuito della parcella dell\'avvocato civile secondo i parametri forensi (DM 55/2014 e aggiornamenti): scaglione di valore, ufficio giudiziario e fasi dell\'attività, con il compenso tabellare di ogni fase. Il risultato e orientativo e va formalizzato in un preventivo scritto, come previsto dall\'art. 13 della legge 247/2012.',
+            'intro' => 'Calcolatore gratuito della parcella dell\'avvocato civile secondo i parametri forensi (DM 55/2014 e aggiornamenti): scaglione di valore, ufficio giudiziario e fasi dell\'attività, con il compenso tabellare di ogni fase. Il risultato è orientativo e va formalizzato in un preventivo scritto, come previsto dall\'art. 13 della legge 247/2012.',
             'faq' => [
-                ['Il calcolo coincide con il preventivo?', 'No, e una base orientativa da adattare a complessita, urgenza e attività effettiva.'],
-                ['Posso selezionare solo alcune fasi?', 'Si, lo strumento consente di includere o escludere le fasi svolte.'],
+                ['Il calcolo coincide con il preventivo?', 'No, è una base orientativa da adattare a complessità, urgenza e attività effettiva.'],
+                ['Posso selezionare solo alcune fasi?', 'Sì, lo strumento consente di includere o escludere le fasi svolte.'],
                 ['IVA e CPA sono incluse?', 'Sono opzioni selezionabili nel calcolatore.'],
             ],
         ],
@@ -339,9 +339,9 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Mediazione e trattative',
             'intro' => 'Lo strumento stima il compenso per attività stragiudiziale, pareri, trattative, transazioni, mediazione e negoziazione assistita secondo i parametri forensi aggiornati. Per le procedure ADR considera fasi e maggiorazioni previste in caso di accordo.',
             'faq' => [
-                ['Mediazione e negoziazione hanno parametri separati?', 'Si, le procedure ADR hanno una tabella specifica con fasi proprie.'],
+                ['Mediazione e negoziazione hanno parametri separati?', 'Sì, le procedure ADR hanno una tabella specifica con fasi proprie.'],
                 ['Cosa succede se si raggiunge un accordo?', 'Si considera la fase di conciliazione e la maggiorazione prevista sui compensi rilevanti.'],
-                ['Il valore e vincolante?', 'No, e una stima da formalizzare in preventivo scritto.'],
+                ['Il valore è vincolante?', 'No, è una stima da formalizzare in preventivo scritto.'],
             ],
         ],
         'sfratti' => [
@@ -350,7 +350,7 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Locazioni e sfratti',
             'intro' => 'Il calcolatore stima il compenso per procedimenti di sfratto per morosità o finita locazione, distinguendo convalida, sanatoria, termine di grazia e opposizione. Serve per una prima valutazione dei costi professionali.',
             'faq' => [
-                ['Lo sfratto ha parametri propri?', 'Si, i procedimenti speciali hanno criteri specifici nei parametri forensi.'],
+                ['Lo sfratto ha parametri propri?', 'Sì, i procedimenti speciali hanno criteri specifici nei parametri forensi.'],
                 ['Cosa cambia se c\'e opposizione?', 'Il giudizio può proseguire con attività ulteriore e compensi diversi.'],
                 ['Sono incluse tasse e contributo unificato?', 'No, il calcolo riguarda il compenso professionale salvo opzioni accessorie.'],
             ],
@@ -361,9 +361,9 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Costi giudiziari',
             'intro' => 'Lo strumento calcola il contributo unificato civile in base a valore, tipo di procedimento e competenza. È utile per stimare le spese vive iniziali di una causa, un decreto ingiuntivo, un appello o un\'esecuzione.',
             'faq' => [
-                ['Il contributo varia per valore?', 'Si, nel processo civile ordinario dipende dallo scaglione di valore della causa.'],
+                ['Il contributo varia per valore?', 'Sì, nel processo civile ordinario dipende dallo scaglione di valore della causa.'],
                 ['Appello e Cassazione costano di più?', 'Di regola sono previste maggiorazioni rispetto al primo grado.'],
-                ['Sono previste esenzioni?', 'Si, alcune materie o condizioni possono comportare esenzione o riduzione.'],
+                ['Sono previste esenzioni?', 'Sì, alcune materie o condizioni possono comportare esenzione o riduzione.'],
             ],
         ],
         'scadenze' => [
@@ -383,8 +383,8 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Recupero crediti e opposizioni',
             'intro' => 'Hai ricevuto un decreto ingiuntivo? Il calcolatore gratuito individua la scadenza per l\'opposizione (art. 641 c.p.c.): 40 giorni dalla notifica, termini ridotti o aumentati, sospensione feriale. Il calcolatore stima la scadenza per proporre opposizione a decreto ingiuntivo partendo dalla data di notifica, con termine ordinario di quaranta giorni e opzioni per termini ridotti, aumentati o notifiche all\'estero. Include sospensione feriale e proroga al primo giorno non festivo quando applicabili.',
             'faq' => [
-                ['Qual e il termine ordinario per opporsi?', 'Di regola il decreto ingiuntivo assegna quaranta giorni dalla notifica, salvo diversa indicazione del giudice.'],
-                ['Il termine può essere diverso?', 'Si, l\'art. 641 c.p.c. consente termini ridotti o aumentati e prevede regole specifiche per intimati residenti all\'estero.'],
+                ['Qual è il termine ordinario per opporsi?', 'Di regola il decreto ingiuntivo assegna quaranta giorni dalla notifica, salvo diversa indicazione del giudice.'],
+                ['Il termine può essere diverso?', 'Sì, l\'art. 641 c.p.c. consente termini ridotti o aumentati e prevede regole specifiche per intimati residenti all\'estero.'],
                 ['La sospensione feriale si applica sempre?', 'Va verificata in base alla materia e al rito: lo strumento consente di attivarla o disattivarla.'],
             ],
         ],
@@ -394,8 +394,8 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Esecuzioni e recupero crediti',
             'intro' => 'Lo strumento stima la quota mensile pignorabile su stipendio o pensione distinguendo crediti ordinari, riscossione esattoriale e crediti alimentari. Per le pensioni considera la soglia impignorabile prevista dall\'art. 545 c.p.c., pari al doppio dell\'assegno sociale con minimo di mille euro.',
             'faq' => [
-                ['Quanto si può pignorare sullo stipendio?', 'Per crediti ordinari la quota tipica e un quinto del netto, salvi concorsi, alimenti e discipline speciali.'],
-                ['La pensione ha una soglia protetta?', 'Si, resta impignorabile l\'importo pari al doppio dell\'assegno sociale, con minimo di 1.000 euro mensili.'],
+                ['Quanto si può pignorare sullo stipendio?', 'Per crediti ordinari la quota tipica è un quinto del netto, salvi concorsi, alimenti e discipline speciali.'],
+                ['La pensione ha una soglia protetta?', 'Sì, resta impignorabile l\'importo pari al doppio dell\'assegno sociale, con minimo di 1.000 euro mensili.'],
                 ['I debiti fiscali seguono gli stessi limiti?', 'Per la riscossione esattoriale si applicano soglie speciali: un decimo, un settimo o un quinto in base all\'importo.'],
             ],
         ],
@@ -405,7 +405,7 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Recupero crediti e contestazioni',
             'intro' => 'Il calcolatore stima la data di prescrizione di alcune categorie ricorrenti di credito, distinguendo termine ordinario decennale, prescrizioni quinquennali, triennali e biennali. Consente di indicare un eventuale ultimo atto interruttivo e di verificare se il termine risulta ancora pendente o già decorso.',
             'faq' => [
-                ['La prescrizione e sempre di dieci anni?', 'No, il termine ordinario decennale vale salvo prescrizioni brevi previste dalla legge.'],
+                ['La prescrizione è sempre di dieci anni?', 'No, il termine ordinario decennale vale salvo prescrizioni brevi previste dalla legge.'],
                 ['Una diffida interrompe la prescrizione?', 'Può interromperla se contiene una richiesta idonea e viene provata ricezione e contenuto.'],
                 ['Il calcolatore decide se il credito e prescritto?', 'No, serve una verifica su titolo, decorrenza, atti interruttivi, riconoscimenti di debito e giudizi pendenti.'],
             ],
@@ -416,7 +416,7 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Famiglia e separazioni',
             'intro' => 'Lo strumento ripartisce le spese straordinarie per i figli secondo la percentuale prevista da accordo, sentenza o decreto, calcolando quota di ciascun genitore, rimborso dovuto e promemoria documentale. È utile per spese mediche, scolastiche, sportive e altre voci non ordinarie.',
             'faq' => [
-                ['La percentuale e sempre 50 e 50?', 'No, conta il provvedimento o l\'accordo: il calcolatore consente anche riparti 70/30, 100/0 o personalizzati.'],
+                ['La percentuale è sempre 50 e 50?', 'No, conta il provvedimento o l\'accordo: il calcolatore consente anche riparti 70/30, 100/0 o personalizzati.'],
                 ['Serve autorizzazione preventiva?', 'Dipende dalla voce di spesa e dal provvedimento; molte spese non urgenti richiedono confronto preventivo.'],
                 ['Posso chiedere il rimborso senza documenti?', 'Di regola occorrono ricevute, fatture, prova del pagamento e comunicazione all\'altro genitore.'],
             ],
@@ -428,7 +428,7 @@ function lanotte_calcolatori_pages_data() {
             'intro' => 'Lo strumento aiuta a verificare importi anomali in bolletta AQP, consumi, perdite occulte e possibili profili di reclamo. Serve per preparare una prima contestazione documentata prima dell\'eventuale assistenza legale.',
             'faq' => [
                 ['Quando conviene contestare la bolletta?', 'Quando vi sono consumi anomali, errori di lettura, conguagli non chiari o perdite occulte.'],
-                ['Serve prima un reclamo?', 'Di regola e opportuno inviare reclamo scritto al gestore.'],
+                ['Serve prima un reclamo?', 'Di regola è opportuno inviare un reclamo scritto al gestore.'],
                 ['Il calcolatore decide la controversia?', 'No, aiuta a ordinare i dati e stimare le contestazioni.'],
             ],
         ],
@@ -491,10 +491,10 @@ function lanotte_calcolatore_page_content($slug, array $data) {
         . '<div><p class="lanotte-calc-conversion-kicker">Verifica professionale</p><h2>Desidera verificare il risultato?</h2>'
         . '<p>Può inviare il calcolo allo Studio: verifichiamo documenti, decorrenze e regole applicabili prima che il risultato venga utilizzato.</p></div>'
         . '<div class="lanotte-calc-conversion-actions">'
-        . '<a class="btn btn-primary" data-lanotte-event="calc_whatsapp" href="' . esc_url($whatsapp_url) . '" target="_blank" rel="noopener">Invia su WhatsApp</a>'
-        . '<a class="btn btn-ghost" data-lanotte-event="calc_contact" href="' . esc_url(add_query_arg(['argomento' => $slug], home_url('/contatti/'))) . '">Richiedi una verifica</a>'
+        . '<a class="btn btn-primary" data-lanotte-event="calc_whatsapp" href="' . esc_url($whatsapp_url) . '" target="_blank" rel="noopener">Invii su WhatsApp</a>'
+        . '<a class="btn btn-ghost" data-lanotte-event="calc_contact" href="' . esc_url(add_query_arg(['argomento' => $slug], home_url('/contatti/'))) . '">Richieda una verifica</a>'
         . '</div></section>'
-        . '<section class="lanotte-calc-seo-faq"><h2>Domande frequenti</h2>' . $faq . '<p><em>Strumento indicativo: non sostituisce la consulenza legale e va verificato sul caso concreto.</em></p><p><a class="btn btn-primary" href="' . esc_url(home_url('/contatti/')) . '">Richiedi una verifica dello Studio</a></p></section>';
+        . '<section class="lanotte-calc-seo-faq"><h2>Domande frequenti</h2>' . $faq . '<p><em>Strumento indicativo: non sostituisce la consulenza legale e va verificato sul caso concreto.</em></p><p><a class="btn btn-primary" href="' . esc_url(home_url('/contatti/')) . '">Richieda una verifica dello Studio</a></p></section>';
 }
 
 add_action('template_redirect', function() {

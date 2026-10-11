@@ -349,7 +349,8 @@
   let datiCalc = null;
   const fmtEur = v => '€ ' + v.toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2});
   const fmtSignedEur = v => (v >= 0 ? '+' : '-') + fmtEur(Math.abs(v));
-  const fmtPct = v => v.toFixed(3).replace('.', ',') + '%';
+  // Variazione ISTAT a 1 decimale (metodo ufficiale); la quota applicata può averne di più (es. 75% di 3,4 = 2,55).
+  const fmtPct = v => v.toLocaleString('it-IT', {minimumFractionDigits: 1, maximumFractionDigits: 3}) + '%';
   const fmtMese = m => { const mesi=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic']; const [y,mm]=m.split('-'); return mesi[+mm-1]+' '+y; };
 
   function calcola(){
@@ -370,7 +371,8 @@
       return;
     }
 
-    const variazione = ((idxEnd - idxStart) / idxStart) * 100;
+    // Variazione con il metodo ISTAT: rapporto in un solo passaggio, arrotondata a 1 decimale.
+    const variazione = LanotteISTAT.variazione(meseInizio, meseFine);
     const aumento = variazione * (perc / 100);
     const nuovo = assegno * (1 + aumento / 100);
     const diff = nuovo - assegno;
@@ -394,12 +396,12 @@
       const meseRif = (y === yf) ? meseFine : (y === yi ? meseInizio : (y + '-12'));
       const iA = LanotteISTAT.indice(meseRif);
       if (iA == null) continue;
-      const vA = ((iA - idxStart) / idxStart) * 100;
+      const vA = LanotteISTAT.variazione(meseInizio, meseRif);
       const aA = vA * (perc / 100);
       const nA = assegno * (1 + aA / 100);
       const dA = nA - assegno;
-      righeTab.push([y, iA.toFixed(2), fmtPct(vA), fmtEur(nA), fmtSignedEur(dA)]);
-      tb.innerHTML += '<tr><td><strong>' + y + '</strong></td><td>' + iA.toFixed(2) + '</td><td>' + fmtPct(vA) + '</td><td><strong>' + fmtEur(nA) + '</strong></td><td>' + fmtSignedEur(dA) + '</td></tr>';
+      righeTab.push([y, LanotteISTAT.testoIndice(meseRif), fmtPct(vA), fmtEur(nA), fmtSignedEur(dA)]);
+      tb.innerHTML += '<tr><td><strong>' + y + '</strong></td><td>' + LanotteISTAT.testoIndice(meseRif) + '</td><td>' + fmtPct(vA) + '</td><td><strong>' + fmtEur(nA) + '</strong></td><td>' + fmtSignedEur(dA) + '</td></tr>';
     }
 
     datiCalc = {
@@ -430,8 +432,8 @@
       {label:'Assegno iniziale', value: fmtEur(d.assegno) + ' / mese'},
       {label:'Decorrenza', value: fmtMese(d.meseInizio)},
       {label:'Adeguamento al', value: fmtMese(d.meseFine)},
-      {label:'Indice FOI iniziale', value: d.idxStart.toFixed(2)},
-      {label:'Indice FOI finale', value: d.idxEnd.toFixed(2)},
+      {label:'Indice FOI iniziale', value: LanotteISTAT.testoIndice(d.meseInizio)},
+      {label:'Indice FOI finale', value: LanotteISTAT.testoIndice(d.meseFine)},
       {label:'Variazione complessiva', value: fmtPct(d.variazione)},
       {label:'% di applicazione', value: d.perc + '%'},
       {label:'Aumento ' + d.perc + '%', value: fmtPct(d.aumento)},

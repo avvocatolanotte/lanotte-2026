@@ -200,7 +200,7 @@
               <option value="cassazione_breve" data-giorni="60" data-direzione="avanti">Ricorso per cassazione, termine breve (60 gg dalla notifica)</option>
               <option value="cassazione_lungo" data-mesi="6" data-giorni="0" data-direzione="avanti">Ricorso per cassazione, termine lungo (6 mesi dalla pubblicazione)</option>
               <option value="opp_di" data-giorni="40" data-direzione="avanti">Opposizione a decreto ingiuntivo (40 gg dalla notifica, salvo diverso termine nel decreto)</option>
-              <option value="opp_atti_esecutivi" data-giorni="20" data-direzione="avanti">Opposizione agli atti esecutivi, art. 617 c.p.c. (20 gg)</option>
+              <option value="opp_atti_esecutivi" data-giorni="20" data-direzione="avanti" data-feriale="no">Opposizione agli atti esecutivi, art. 617 c.p.c. (20 gg)</option>
             </optgroup>
             <optgroup label="Penale">
               <option value="riesame_pen" data-giorni="10" data-direzione="avanti" data-materia="penale">Richiesta di riesame delle misure coercitive, art. 309 c.p.p. (10 gg)</option>
@@ -235,7 +235,7 @@
             </label>
             <p style="font-size:12px;color:var(--text-muted);line-height:1.5">
               ✅ <strong>Si applica</strong>, di regola, al processo civile di cognizione e alle relative impugnazioni.<br>
-              ❌ <strong>Non si applica</strong> alle cause indicate dall'art. 92 dell'ordinamento giudiziario (alimenti, procedimenti cautelari, amministrazione di sostegno, interdizione e inabilitazione, ordini di protezione, sfratto, opposizione all'esecuzione, cause dichiarate urgenti), alle controversie di lavoro e di previdenza (art. 3 L. 742/1969) e ai procedimenti del Codice della crisi (art. 9 d.lgs. 14/2019). Nel penale valgono regole proprie (art. 2 L. 742/1969): per il riesame il calcolatore non la applica.
+              ❌ <strong>Non si applica</strong> alle cause indicate dall'art. 92 dell'ordinamento giudiziario (alimenti, procedimenti cautelari, amministrazione di sostegno, interdizione e inabilitazione, ordini di protezione, sfratto, opposizione all'esecuzione, cause dichiarate urgenti), alle controversie di lavoro e di previdenza (art. 3 L. 742/1969) e ai procedimenti del Codice della crisi (art. 9 d.lgs. 14/2019); secondo la giurisprudenza anche alle opposizioni agli atti esecutivi. Nel penale non opera, tra l'altro, se l'imputato in custodia cautelare o il difensore vi rinunciano (art. 2 L. 742/1969).
             </p>
           </div>
         </div>
@@ -246,7 +246,7 @@
             <input type="checkbox" id="calc-proroga" checked>
             <span style="font-weight:500;font-size:14px">Proroga se la scadenza cade di sabato, domenica o festivo (art. 155 c.p.c.; nel penale solo festivi, art. 172 c.p.p.)</span>
           </label>
-          <p style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:6px">Sono considerati i festivi nazionali, compresi il Lunedì dell'Angelo e, dal 2026, il 4 ottobre (L. 151/2025); non le feste del santo patrono locale. Per i termini a ritroso la proroga al giorno successivo non è applicata.</p>
+          <p style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:6px">Sono considerati i festivi nazionali, compresi il Lunedì dell'Angelo e, dal 2026, il 4 ottobre (L. 151/2025); non le feste del santo patrono locale. Per i termini a ritroso la scadenza che cade di sabato o in un festivo è anticipata al giorno lavorativo precedente.</p>
         </div>
       </div>
 
@@ -265,7 +265,7 @@
             <div class="riga-info"><span>Data di partenza</span><strong id="calc-data-start">—</strong></div>
             <div class="riga-info"><span>Termine</span><strong id="calc-termine">— gg</strong></div>
             <div class="riga-info" id="riga-feriale" style="display:none"><span>Sospensione feriale</span><strong id="calc-feriale-gg">+0 gg</strong></div>
-            <div class="riga-info" id="riga-proroga" style="display:none"><span>Proroga ex art. 155</span><strong style="color:var(--gold-light)">applicata</strong></div>
+            <div class="riga-info" id="riga-proroga" style="display:none"><span id="riga-proroga-label">Proroga</span><strong style="color:var(--gold-light)">applicata</strong></div>
           </div>
 
           <div id="calc-warning" style="display:none;background:rgba(220,38,38,.15);border-left:3px solid #dc2626;padding:14px;margin-top:18px">
@@ -314,7 +314,7 @@
           <li>Cause relative ad <strong>alimenti</strong> (art. 92 O.G.)</li>
           <li><strong>Procedimenti cautelari</strong>, compresi quelli d'urgenza ex art. 700 c.p.c. (art. 92 O.G.)</li>
           <li><strong>Amministrazione di sostegno</strong>, interdizione, inabilitazione e <strong>ordini di protezione</strong> contro gli abusi familiari (art. 92 O.G.)</li>
-          <li>Procedimenti di <strong>sfratto</strong> e di <strong>opposizione all'esecuzione</strong> (art. 92 O.G.)</li>
+          <li>Procedimenti di <strong>sfratto</strong> e di <strong>opposizione all'esecuzione</strong> (art. 92 O.G.); secondo la giurisprudenza anche le <strong>opposizioni agli atti esecutivi</strong> e di terzo all'esecuzione, non il processo esecutivo in sé</li>
           <li>Cause <strong>dichiarate urgenti</strong> dal giudice (art. 92, secondo comma, O.G.)</li>
           <li>Controversie di <strong>lavoro e di previdenza</strong> (art. 3 L. 742/1969)</li>
           <li>Procedimenti del <strong>Codice della crisi d'impresa</strong> (art. 9 d.lgs. 14/2019)</li>
@@ -350,6 +350,9 @@ function aggiornaInfo(){
   const giorni = parseInt(opt.dataset.giorni);
   const direzione = opt.dataset.direzione;
   document.getElementById('calc-titolo').textContent = opt.text;
+
+  // La sospensione feriale si imposta secondo il tipo di termine (si può cambiare a mano)
+  document.getElementById('calc-feriale').checked = opt.dataset.feriale !== 'no';
 
   // Custom field
   document.getElementById('campo-custom').style.display = (tipo === 'custom') ? 'block' : 'none';
@@ -420,9 +423,11 @@ function calcolaDataMesi(start, mesi, applicaFeriale) {
   let inizio = new Date(start);
   let sospesi = 0;
   if (applicaFeriale && isSospensioneFeriale(inizio)) {
-    const fine = new Date(inizio.getFullYear(), 7, 31, 12);
-    sospesi += Math.round((fine - inizio) / 864e5);
-    inizio = fine;
+    // Il termine decorre dal 1° settembre, che si computa, e scade il corrispondente
+    // giorno del mese finale (Cass. civ. ord. 8/7/2020 n. 14147: 1° settembre → 1° marzo).
+    const settembre = new Date(inizio.getFullYear(), 8, 1, 12);
+    sospesi += Math.round((settembre - inizio) / 864e5);
+    inizio = settembre;
   }
   const target = aggiungiMesi(inizio, mesi);
   if (applicaFeriale) {
@@ -490,7 +495,7 @@ function apriAnteprimaReport(){
       ['Data di partenza', testo('calc-data-start')],
       ['Termine applicato', testo('calc-termine')],
       ...rigaSeVisibile('riga-feriale', 'Sospensione feriale', 'calc-feriale-gg'),
-      ...(document.getElementById('riga-proroga').style.display !== 'none' ? [['Proroga ex art. 155 c.p.c.', 'Applicata']] : []),
+      ...(document.getElementById('riga-proroga').style.display !== 'none' ? [[testo('riga-proroga-label'), 'Applicata']] : []),
       ['Giorno della scadenza', testo('calc-giorno-settimana')],
       ...(warning.style.display !== 'none' ? [['Avvertenza', testo('warning-msg')]] : [])
     ],
@@ -519,8 +524,8 @@ function calcola(){
     direzione = opt.dataset.direzione;
   }
 
-  // Nel riesame la sospensione feriale non viene applicata dal calcolatore (art. 2 L. 742/1969).
-  const applicaFeriale = document.getElementById('calc-feriale').checked && !penale;
+  // La sospensione feriale segue la scelta dell'utente (nel riesame opera salvo rinuncia: art. 2 L. 742/1969).
+  const applicaFeriale = document.getElementById('calc-feriale').checked;
   const applicaProroga = document.getElementById('calc-proroga').checked;
   const seg = direzione === 'avanti' ? 1 : -1;
 
@@ -540,10 +545,12 @@ function calcola(){
     }
   }
   // Termini a ritroso: nessuna proroga; se la data cade in un giorno non lavorativo lo si segnala.
-  let anticipoPrudente = null;
-  if (direzione === 'ritroso' && isFestivo(target, false)) {
-    anticipoPrudente = new Date(target);
-    while (isFestivo(anticipoPrudente, false)) anticipoPrudente.setDate(anticipoPrudente.getDate() - 1);
+  // Termini a ritroso: se la scadenza cade di sabato o in un festivo, si anticipa al giorno
+  // lavorativo precedente (Cass. civ. III 24/3/2023 n. 8496 e precedenti ivi richiamati).
+  let anticipoApplicato = null;
+  if (direzione === 'ritroso' && applicaProroga && isFestivo(target, false)) {
+    anticipoApplicato = new Date(target);
+    while (isFestivo(target, false)) target.setDate(target.getDate() - 1);
   }
 
   document.getElementById('calc-data-finale').textContent = target.getDate() + '/' + (target.getMonth()+1).toString().padStart(2,'0') + '/' + target.getFullYear();
@@ -558,7 +565,11 @@ function calcola(){
     document.getElementById('riga-feriale').style.display = 'none';
   }
 
-  document.getElementById('riga-proroga').style.display = prorogaApplicata ? 'flex' : 'none';
+  let etichettaProroga = '';
+  if (prorogaApplicata) etichettaProroga = penale ? 'Proroga al primo giorno non festivo (art. 172 c.p.p.)' : 'Proroga al primo giorno non festivo (art. 155 c.p.c.)';
+  if (anticipoApplicato) etichettaProroga = 'Anticipo al giorno lavorativo precedente (termine a ritroso)';
+  document.getElementById('riga-proroga-label').textContent = etichettaProroga;
+  document.getElementById('riga-proroga').style.display = etichettaProroga ? 'flex' : 'none';
 
   // Avvertenze sul termine selezionato
   const w = document.getElementById('calc-warning');
@@ -569,15 +580,19 @@ function calcola(){
   } else if (tipo.indexOf('189_') === 0) {
     avvisi.push('I termini dell\'art. 189 c.p.c. sono assegnati dal giudice in misura non superiore a 60, 30 e 15 giorni prima dell\'udienza di rimessione in decisione: fa fede il termine indicato nel provvedimento.');
   } else if (tipo === 'riesame_pen') {
-    avvisi.push('Termine perentorio. Nel penale il sabato non proroga la scadenza (art. 172 c.p.p.) e il calcolatore non applica la sospensione feriale: per gli imputati in custodia cautelare la sospensione non opera se essi o i difensori vi rinunciano (art. 2 L. 742/1969). Verificare sempre il caso concreto.');
-  } else if (['opp_atti_esecutivi', 'cassazione_breve', 'appello_breve', 'opp_di'].includes(tipo)) {
+    avvisi.push('Termine perentorio. Nel penale il sabato non proroga la scadenza (art. 172 c.p.p.). La sospensione feriale si applica, salvo che l\'imputato in custodia cautelare o il difensore vi rinuncino (art. 2 L. 742/1969; Cass. pen., sez. III, 17 aprile 2023, n. 16138): in caso di rinuncia tolga la spunta.');
+  } else if (tipo === 'opp_atti_esecutivi') {
+    avvisi.push('Termine perentorio (art. 617 c.p.c.). Secondo la giurisprudenza le opposizioni esecutive, comprese quelle agli atti esecutivi, non beneficiano della sospensione feriale: la casella è stata tolta.');
+  } else if (['cassazione_breve', 'appello_breve', 'opp_di'].includes(tipo)) {
     avvisi.push('Termine perentorio: la mancata osservanza comporta la decadenza. Verificare se la materia rientra tra quelle escluse dalla sospensione feriale.');
   }
   if (mesi > 0 && isSospensioneFeriale(dataPartenza) && applicaFeriale) {
     avvisi.push('La data di partenza cade nel periodo feriale: il computo fa decorrere il termine dal 1° settembre. Verificare il caso concreto.');
   }
-  if (anticipoPrudente) {
-    avvisi.push('La data cade in un giorno non lavorativo. Per i termini a ritroso la proroga al giorno successivo non è applicata: per prudenza conviene provvedere entro ' + fmtData(anticipoPrudente).toLowerCase() + '.');
+  if (anticipoApplicato) {
+    avvisi.push('La scadenza calcolata cadeva ' + fmtData(anticipoApplicato).toLowerCase() + ', giorno non lavorativo: per i termini a ritroso è anticipata al giorno lavorativo precedente.');
+  } else if (direzione === 'ritroso' && !applicaProroga && isFestivo(target, false)) {
+    avvisi.push('La data cade in un giorno non lavorativo: con la casella della proroga attiva il calcolatore la anticipa al giorno lavorativo precedente.');
   }
   if (avvisi.length) {
     w.style.display = 'block';

@@ -233,7 +233,7 @@
           <ul style="list-style:none;padding:0;margin:0;font-size:13px;color:var(--text);line-height:1.6">
             <li style="padding:5px 0;border-bottom:1px solid var(--border)"><strong>DPR 30 maggio 2002, n. 115</strong> — Testo Unico delle disposizioni in materia di spese di giustizia</li>
             <li style="padding:5px 0;border-bottom:1px solid var(--border)"><strong>art. 13</strong> — Importi del contributo unificato (scaglioni e moltiplicatori)</li>
-            <li style="padding:5px 0;border-bottom:1px solid var(--border)"><strong>art. 30</strong> — Anticipazione forfettaria delle spese (marca di € 27)</li>
+            <li style="padding:5px 0;border-bottom:1px solid var(--border)"><strong>art. 30</strong> — Anticipazione forfettaria delle spese (marca di € 27; non dovuta in separazione e divorzio, art. 19 L. 74/1987)</li>
             <li style="padding:5px 0"><strong>art. 10</strong> — Processi esenti dal contributo unificato</li>
           </ul>
         </div>
@@ -343,8 +343,8 @@
     esec_mobiliare:    { titolo: "Esecuzione mobiliare",                       fisso: 139, nota: "Importo fisso di € 139 (metà di € 278); € 43 se il valore è inferiore a € 2.500 — art. 13, comma 2." },
     esec_altro:        { titolo: "Altri processi esecutivi",                   fisso: 139, nota: "Importo fisso di € 139 (metà di € 278) — art. 13, comma 2." },
     opp_atti:          { titolo: "Opposizione agli atti esecutivi",            fisso: 168, nota: "Importo fisso di € 168 — art. 13, comma 2." },
-    fam_congiunta:     { titolo: "Separazione o divorzio su domanda congiunta", fisso: 43, nota: "€ 43 per i procedimenti su domanda congiunta dell'art. 473-bis.51 c.p.c. — art. 13, comma 1, lett. a)." },
-    fam_contenziosa:   { titolo: "Separazione o divorzio contenzioso",         fisso: 98,  nota: "€ 98 per i procedimenti contenziosi dell'art. 473-bis.47 c.p.c. — art. 13, comma 1, lett. b)." }
+    fam_congiunta:     { titolo: "Separazione o divorzio su domanda congiunta", fisso: 43, forfait: 0, nota: "€ 43 per i procedimenti su domanda congiunta dell'art. 473-bis.51 c.p.c. — art. 13, comma 1, lett. a). Anticipazione forfettaria di € 27 non dovuta: il giudizio è esente «da ogni altra tassa» (art. 19 L. 74/1987)." },
+    fam_contenziosa:   { titolo: "Separazione o divorzio contenzioso",         fisso: 98,  forfait: 0, nota: "€ 98 per i procedimenti contenziosi dell'art. 473-bis.47 c.p.c. — art. 13, comma 1, lett. b). Anticipazione forfettaria di € 27 non dovuta: il giudizio è esente «da ogni altra tassa» (art. 19 L. 74/1987)." }
   };
 
   function fmt(n){ return '€ ' + Number(n).toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
@@ -411,7 +411,10 @@
       }
     }
 
-    var totale = cu + FORFAIT;
+    // Separazione e divorzio: esenti «da ogni altra tassa» (art. 19 L. 74/1987, ora art. 195 d.lgs. 123/2025),
+    // quindi senza anticipazione forfettaria.
+    var forfait = (tipo.forfait !== undefined) ? tipo.forfait : FORFAIT;
+    var totale = cu + forfait;
 
     // ----- Intestazione report (dati pratica) -----
     var cliente = (el('cu-cliente').value || '').trim();
@@ -427,7 +430,7 @@
     el('cu-scaglione').textContent = scaglioneLabel;
     el('cu-base').textContent = fmt(base);
     el('cu-cu').textContent = fmt(cu);
-    el('cu-forfait').textContent = fmt(FORFAIT);
+    el('cu-forfait').textContent = forfait ? fmt(forfait) : 'non dovuta';
     el('cu-totale').textContent = fmt(totale);
 
     var moltRow = el('cu-molt-row');

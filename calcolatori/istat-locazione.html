@@ -342,7 +342,7 @@
 
     <details class="faq-item">
       <summary>Perché solo il 75% e non il 100%?</summary>
-      <p>L'art. 32 L. 392/1978 limita l'aggiornamento al 75% della variazione FOI per i contratti commerciali. Per i contratti a canone libero (L. 431/1998, 4+4) si applica anche il 75%, salvo diversa pattuizione. Per i 3+2 concordati l'aumento è spesso limitato al 75% o azzerato a seconda dell'accordo territoriale.</p>
+      <p>L'art. 32 L. 392/1978 limita l'aggiornamento al 75% della variazione FOI per i contratti a cui si applica, in particolare quelli a uso diverso dall'abitazione. Nei contratti abitativi a canone libero (L. 431/1998) misura e meccanismo dell'aggiornamento dipendono dalla clausola contrattuale; in quelli a canone concordato dagli accordi territoriali. Per questo il calcolatore consente di scegliere il 75% o il 100%.</p>
     </details>
 
     <details class="faq-item">
@@ -482,7 +482,8 @@
   let datiCalcolo = null; // memorizzati per il PDF
 
   function fmtEur(v){return '€ ' + v.toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2});}
-  function fmtPct(v){return v.toFixed(3).replace('.', ',') + '%';}
+  // Variazione ISTAT a 1 decimale (metodo ufficiale); la quota applicata può averne di più (es. 75% di 3,4 = 2,55).
+  function fmtPct(v){return v.toLocaleString('it-IT', {minimumFractionDigits: 1, maximumFractionDigits: 3}) + '%';}
   function fmtMese(yyyymm){
     const [y, m] = yyyymm.split('-');
     const mesi = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
@@ -513,14 +514,15 @@
       return;
     }
 
-    const variazione = ((idxEnd - idxStart) / idxStart) * 100;
+    // Variazione con il metodo ISTAT: rapporto in un solo passaggio, arrotondata a 1 decimale.
+    const variazione = LanotteISTAT.variazione(meseInizio, meseFine);
     const aumentoPerc = variazione * (perc / 100);
     const canoneAggiornato = canone * (1 + aumentoPerc / 100);
     const differenza = canoneAggiornato - canone;
 
     // Aggiorna UI
-    document.getElementById('rIdxStart').textContent = idxStart.toFixed(2).replace('.', ',');
-    document.getElementById('rIdxEnd').textContent = idxEnd.toFixed(2).replace('.', ',');
+    document.getElementById('rIdxStart').textContent = LanotteISTAT.testoIndice(meseInizio);
+    document.getElementById('rIdxEnd').textContent = LanotteISTAT.testoIndice(meseFine);
     document.getElementById('rVar').textContent = fmtPct(variazione);
     document.getElementById('rAumento').textContent = fmtPct(aumentoPerc);
     document.getElementById('rCanone').textContent = fmtEur(canoneAggiornato);
@@ -547,12 +549,11 @@
 
     const righeTab = [];
     step.forEach(m => {
-      const i = LanotteISTAT.indice(m);
-      const v = ((i - idxStart) / idxStart) * 100;
+      const v = LanotteISTAT.variazione(meseInizio, m);
       const a = v * (perc / 100);
       const c = canone * (1 + a / 100);
-      righeTab.push([fmtMese(m), i.toFixed(2).replace('.', ','), fmtPct(v), fmtPct(a), fmtEur(c)]);
-      tbody.innerHTML += '<tr><td>' + fmtMese(m) + '</td><td>' + i.toFixed(2).replace('.', ',') + '</td><td>' + fmtPct(v) + '</td><td>' + fmtPct(a) + '</td><td><strong>' + fmtEur(c) + '</strong></td></tr>';
+      righeTab.push([fmtMese(m), LanotteISTAT.testoIndice(m), fmtPct(v), fmtPct(a), fmtEur(c)]);
+      tbody.innerHTML += '<tr><td>' + fmtMese(m) + '</td><td>' + LanotteISTAT.testoIndice(m) + '</td><td>' + fmtPct(v) + '</td><td>' + fmtPct(a) + '</td><td><strong>' + fmtEur(c) + '</strong></td></tr>';
     });
 
     // Bozza lettera
@@ -621,8 +622,8 @@ _________________________
         {label:'Tipologia contratto', value: tipologiaLabels[d.tipologia]},
         {label:'Decorrenza / anniversario', value: fmtMese(d.meseInizio)},
         {label:'Mese di calcolo', value: fmtMese(d.meseFine)},
-        {label:'Indice FOI iniziale', value: d.idxStart.toFixed(2).replace('.', ',')},
-        {label:'Indice FOI finale', value: d.idxEnd.toFixed(2).replace('.', ',')},
+        {label:'Indice FOI iniziale', value: LanotteISTAT.testoIndice(d.meseInizio)},
+        {label:'Indice FOI finale', value: LanotteISTAT.testoIndice(d.meseFine)},
         {label:'Variazione complessiva', value: fmtPct(d.variazione)},
         {label:'Percentuale applicata', value: d.perc + '%'},
         {label:'Aumento ' + d.perc + '%', value: fmtPct(d.aumentoPerc)},

@@ -565,8 +565,10 @@
   <section class="print-section print-sources">
     <h2><span>05</span>Riferimenti essenziali</h2>
     <ul>
-      <li>D.P.R. 13 gennaio 2025, n. 12, Tabella Unica Nazionale per le macrolesioni negli ambiti previsti.</li>
+      <li>D.P.R. 13 gennaio 2025, n. 12, Tabella Unica Nazionale per le macrolesioni negli ambiti previsti; demoltiplicatore per età (Tav. 1.B) aggiornato dal D.M. 10 dicembre 2025 (GU n. 299 del 27/12/2025).</li>
+      <li>Valore del primo punto € 988,45 e del giorno di inabilità temporanea assoluta € 57,64, da aprile 2026: artt. 2 e 3 D.P.R. 12/2025, che rinviano all'art. 139 D.Lgs. 209/2005, aggiornato dal D.M. 20 luglio 2026 (GU n. 173 del 28/7/2026).</li>
       <li>Art. 138 D.Lgs. 7 settembre 2005, n. 209, Codice delle assicurazioni private.</li>
+      <li>Cass. civ., sez. III, 7 aprile 2026, n. 8630 (TUN come parametro della liquidazione equitativa).</li>
       <li>Tabelle del Tribunale di Milano, Osservatorio sulla Giustizia Civile, edizione 2024.</li>
       <li>Cass. civ., sez. III, 7 giugno 2011, n. 12408; Cass. civ., Sez. Unite, 11 novembre 2008, n. 26972.</li>
     </ul>
@@ -690,7 +692,10 @@ function aggiornaReport(){
     + String(now.getHours()).padStart(2, '0')
     + String(now.getMinutes()).padStart(2, '0');
 
-  document.getElementById('print-fonte').textContent = tabella + ' · ' + fonte;
+  const valori = usaTun
+    ? ' · primo punto ' + fmt(TUN_BASE) + ' e giorno ' + fmt(ITT_TUN) + ' (D.M. 20 luglio 2026, da aprile 2026)'
+    : '';
+  document.getElementById('print-fonte').textContent = tabella + ' · ' + fonte + valori;
   document.getElementById('print-documento').textContent = 'Documento n. ' + docCode;
   document.getElementById('print-data-generazione').textContent = 'Data calcolo: ' + now.toLocaleDateString('it-IT', {day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit'});
   document.getElementById('print-giorni-pesati').textContent = giorniPesati.toLocaleString('it-IT', {maximumFractionDigits:2}) + ' giorni';
