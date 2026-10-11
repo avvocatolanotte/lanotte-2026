@@ -305,6 +305,8 @@ add_action('template_redirect', function() {
 // slug vale come segmento intero; si conservano il resto del percorso (/page/2/, /feed/) e la query (?feed=, ?paged=).
 // Gli slug nel database li cambia inc/rinomine-20261011.php al primo caricamento dopo il deploy.
 function lanotte_indirizzi_rinominati() {
+    // Solo a rinomina verificata (tre «ok» riletti dal database): prima, i vecchi indirizzi sono ancora quelli validi.
+    if (get_option('lanotte_rinomine_20261011') !== 'done') return [];
     return [
         'tag/sentenza-n-9388-del-2022'    => 'tag/ordinanza-n-9388-del-2023',
         'tag/sentenza-n-6532-del-2025'    => 'tag/cass-ord-n-1486-del-2025',

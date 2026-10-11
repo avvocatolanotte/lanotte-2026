@@ -1198,7 +1198,7 @@ return [
             'sostituisci' => 'a firma del senatore DE POLI'],
     ],
     // Lotto c (11/10/2026, pomeriggio): cookie policy in modalità di base e risorse dei Contatti; prezzo dei protesti
-    // (decisione dell'Avvocato: 300 euro oltre accessori). Voci confrontate con il testo grezzo letto dal database.
+    // (decisione dell'Avvocato: 300 euro oltre accessori); privacy: link alle informative, portafogli, trasferimenti. Voci confrontate con il testo grezzo letto dal database.
     'lanotte_correzioni_20261011c' => [
         'c01' => ['tipo' => 'page', 'slug' => 'cookie', 'campo' => 'post_content',
             'cerca' => 'modalità di consenso avanzata di Google (Consent Mode v2)',
@@ -1218,5 +1218,17 @@ return [
         'c06' => ['tipo' => 'post', 'slug' => 'assistenza-per-la-riabilitazione-da-protesti', 'campo' => 'post_content',
             'cerca' => 'è di €300, oltre accessori di legge e spese vive.',
             'sostituisci' => 'è di 300 euro, oltre contributo previdenziale forense (4%) e IVA (22%): 380,64 euro in totale, più le spese vive.'],
+        'c07' => ['tipo' => 'page', 'slug' => 'privacy', 'campo' => 'post_content',
+            'cerca' => 'sono elaborati da Stripe attraverso il servizio WooPayments di WooCommerce.',
+            'sostituisci' => 'sono elaborati da Stripe attraverso il servizio WooPayments di WooCommerce (<a href="https://stripe.com/it/privacy">informativa di Stripe</a>).'],
+        'c08' => ['tipo' => 'page', 'slug' => 'privacy', 'campo' => 'post_content',
+            'cerca' => 'Stoccolma, come titolare autonomo, secondo la propria informativa.',
+            'sostituisci' => 'Stoccolma, come titolare autonomo, secondo la propria <a href="https://www.klarna.com/it/privacy/">informativa</a>. Per i pagamenti con Apple Pay e Google Pay, Apple e Google trattano i dati dei rispettivi portafogli digitali secondo le proprie informative.'],
+        'c09' => ['tipo' => 'page', 'slug' => 'privacy', 'campo' => 'post_content',
+            'cerca' => 'clausole contrattuali tipo (artt. 45 e 46 del Regolamento).',
+            'sostituisci' => 'clausole contrattuali tipo (artt. 45 e 46 del Regolamento). Copia delle garanzie adottate può essere richiesta ai recapiti del Titolare indicati sopra.'],
+        'c10' => ['tipo' => 'page', 'slug' => 'privacy', 'campo' => 'post_content',
+            'cerca' => 'Il sito non adotta processi decisionali interamente automatizzati né effettua profilazione.',
+            'sostituisci' => 'Lo Studio non adotta processi decisionali interamente automatizzati né effettua profilazione. Le verifiche svolte da Klarna, se scelta per il pagamento, sono descritte nella sua informativa.'],
     ],
 ];

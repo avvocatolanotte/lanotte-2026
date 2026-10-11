@@ -32,21 +32,31 @@ function lanotte_rinomine_20261011_esegui() {
         $esiti["tag $id"] = ($t instanceof WP_Term && $t->slug === $a) ? 'ok' : 'slug inatteso: ' . ($t instanceof WP_Term ? $t->slug : '?');
     }
 
+    // L'autore si identifica per ID (1: l'Avvocato, autore degli articoli; verificato l'11/10/2026 dallo schema
+    // pubblico degli articoli con author=1), anche quando lo slug risulta già cambiato: così un altro utente con lo
+    // slug nuovo non può far risultare «ok» una rinomina mai avvenuta (rilievo di Codex, tornata 9).
+    $id_autore = 1;
     $da = 'avvocatolanottegmail-com';
     $a  = 'giuseppe-lanotte';
-    $u  = get_user_by('slug', $da);
-    $occupato = get_user_by('slug', $a);
+    $u  = get_user_by('id', $id_autore);
     if (!$u) {
-        $esiti['autore'] = $occupato ? 'ok' : 'utente non trovato';
-    } elseif ($occupato && (int) $occupato->ID !== (int) $u->ID) {
-        $esiti['autore'] = 'slug nuovo già usato dall\'utente ' . (int) $occupato->ID;
+        $esiti['autore'] = 'utente ' . $id_autore . ' non trovato';
+    } elseif ($u->user_nicename === $a) {
+        $esiti['autore'] = 'ok';
+    } elseif ($u->user_nicename !== $da) {
+        $esiti['autore'] = 'slug inatteso: ' . $u->user_nicename;
     } else {
-        // Solo lo slug pubblico: nome utente, email e password non si toccano.
-        $r = wp_update_user(['ID' => (int) $u->ID, 'user_nicename' => $a]);
-        clean_user_cache((int) $u->ID);
-        $v = get_user_by('id', (int) $u->ID);
-        $esiti['autore'] = (!is_wp_error($r) && $v && $v->user_nicename === $a)
-            ? 'ok' : 'non riuscito' . (is_wp_error($r) ? ': ' . $r->get_error_message() : '');
+        $occupato = get_user_by('slug', $a);
+        if ($occupato && (int) $occupato->ID !== $id_autore) {
+            $esiti['autore'] = 'slug nuovo già usato dall\'utente ' . (int) $occupato->ID;
+        } else {
+            // Solo lo slug pubblico: nome utente, email e password non si toccano.
+            $r = wp_update_user(['ID' => $id_autore, 'user_nicename' => $a]);
+            clean_user_cache($id_autore);
+            $v = get_user_by('id', $id_autore);
+            $esiti['autore'] = (!is_wp_error($r) && $v && $v->user_nicename === $a)
+                ? 'ok' : 'non riuscito' . (is_wp_error($r) ? ': ' . $r->get_error_message() : '');
+        }
     }
 
     update_option($opt . '_esito', $esiti, false);
