@@ -1061,12 +1061,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_verificare_marchio_featured_20261010',
+        'lanotte_article_verificare_marchio_featured_20261010_v2_20261011',
         'come-verificare-marchio-gia-registrato',
-        'come-verificare-marchio-gia-registrato.jpg',
+        'come-verificare-marchio-gia-registrato-editoriale-2026.jpg',
         'Come verificare se un marchio è già registrato',
-        'Schema in tre punti: banche dati UIBM EUIPO TMview WIPO, somiglianza tra marchi e ricerca di anteriorità',
-        'lanotte-come-verificare-marchio-gia-registrato-2026'
+        'Fotografia di una scrivania di studio legale: una lente d’ingrandimento su cartoncini con loghi di fantasia, un portatile con un elenco di marchi, una mappa dell’Italia e dell’Unione europea e una bilancia sul davanzale',
+        'lanotte-come-verificare-marchio-gia-registrato-2026-editoriale-2026'
     );
 }, 56);
 
@@ -1086,12 +1086,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_costo_marchio_featured_20261010',
+        'lanotte_article_costo_marchio_featured_20261010_v2_20261011',
         'quanto-costa-registrare-marchio',
-        'quanto-costa-registrare-marchio.jpg',
+        'quanto-costa-registrare-marchio-editoriale-2026.jpg',
         'Quanto costa registrare un marchio',
-        'Schema delle tasse per registrare un marchio in Italia, nell’Unione europea e con il sistema di Madrid',
-        'lanotte-quanto-costa-registrare-marchio-2026'
+        'Fotografia di tre raccoglitori con l’Italia, l’Europa e un mappamondo sul dorso, accanto a una calcolatrice, pile di monete in euro e una domanda di marchio con il simbolo ® e una penna',
+        'lanotte-quanto-costa-registrare-marchio-2026-editoriale-2026'
     );
 }, 58);
 
@@ -1109,12 +1109,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_opposizione_marchio_termini_costi_featured_20261010',
+        'lanotte_article_opposizione_marchio_termini_costi_featured_20261010_v2_20261011',
         'opposizione-marchio-termini-costi',
-        'opposizione-marchio-termini-costi.jpg',
+        'opposizione-marchio-termini-costi-editoriale-2026.jpg',
         'Opposizione a un marchio: termini, costi e difese',
-        'Schema in tre punti: opposizione a un marchio: termini, costi e difese',
-        'lanotte-opposizione-marchio-termini-costi-2026'
+        'Fotografia di due cartoncini con loghi di fantasia, uno blu e uno rosso, separati da una linea rossa su un tavolo di marmo, davanti a un fascicolo con la bilancia della giustizia e a un calendario da tavolo',
+        'lanotte-opposizione-marchio-termini-costi-2026-editoriale-2026'
     );
 }, 60);
 
@@ -1132,12 +1132,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_nullita_decadenza_marchio_uibm_featured_20261010',
+        'lanotte_article_nullita_decadenza_marchio_uibm_featured_20261010_v2_20261011',
         'nullita-decadenza-marchio-uibm',
-        'nullita-decadenza-marchio-uibm.jpg',
+        'nullita-decadenza-marchio-uibm-editoriale-2026.jpg',
         'Nullità e decadenza del marchio davanti all’UIBM',
-        'Schema in tre punti: nullità e decadenza del marchio davanti all’UIBM',
-        'lanotte-nullita-decadenza-marchio-uibm-2026'
+        'Fotografia di un attestato con corona d’alloro che sbiadisce nell’ombra, una clessidra con la sabbia quasi esaurita e un disco con un logo di fantasia che si sgretola, su una scrivania di marmo scuro',
+        'lanotte-nullita-decadenza-marchio-uibm-2026-editoriale-2026'
     );
 }, 62);
 
@@ -1155,12 +1155,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_marchio_copiato_cosa_fare_featured_20261010',
+        'lanotte_article_marchio_copiato_cosa_fare_featured_20261010_v2_20261011',
         'marchio-copiato-cosa-fare',
-        'marchio-copiato-cosa-fare.jpg',
+        'marchio-copiato-cosa-fare-editoriale-2026.jpg',
         'Marchio copiato: cosa fare',
-        'Schema in tre punti: marchio copiato: cosa fare',
-        'lanotte-marchio-copiato-cosa-fare-2026'
+        'Fotografia di due confezioni neutre quasi identiche su una scrivania, riprese da uno smartphone per documentarle, con un righello, una busta di carta kraft e una bilancia della giustizia sullo sfondo',
+        'lanotte-marchio-copiato-cosa-fare-2026-editoriale-2026'
     );
 }, 64);
 
