@@ -301,6 +301,19 @@ add_action('template_redirect', function() {
     exit;
 }, 0);
 
+// Tag rinominati l'11/10/2026 (revisione del sito, decisione dell'Avvocato): il nome citava una sentenza sbagliata
+// e lo slug va allineato. I vecchi indirizzi portano ai nuovi; lo slug nel database si cambia subito dopo il deploy.
+add_action('template_redirect', function() {
+    $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
+    $tag_rinominati = [
+        'tag/sentenza-n-9388-del-2022' => 'tag/ordinanza-n-9388-del-2023',
+        'tag/sentenza-n-6532-del-2025' => 'tag/cass-ord-n-1486-del-2025',
+    ];
+    if (!isset($tag_rinominati[$path])) return;
+    wp_safe_redirect(home_url('/' . $tag_rinominati[$path] . '/'), 301);
+    exit;
+}, 0);
+
 add_action('init', function() {
     if (get_option('lanotte_blog_cleanup_20260616') === 'done') return;
     if (!function_exists('wp_update_post')) return;

@@ -53,6 +53,14 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
 <!-- MAPPA in primo piano, full width banner -->
 <section style="background:#fff;padding:0">
   <div class="map-wrap">
+    <?php /* La mappa di Google si carica solo su richiesta (decisione dell'Avvocato, 11/10/2026): prima del clic
+             nessuna richiesta a Google Maps, che riceverebbe l'indirizzo IP e potrebbe impostare propri cookie.
+             Il contenuto di <template> non viene caricato dal browser finché non lo si inserisce nella pagina. */ ?>
+    <div class="map-consenso" id="map-consenso">
+      <p>La mappa è fornita da Google Maps: se la apre, Google riceve il Suo indirizzo IP e può impostare propri cookie.</p>
+      <button type="button" class="map-consenso-btn" id="map-consenso-btn">Mostra la mappa</button>
+    </div>
+    <template id="map-sede">
     <?php if ($map_embed_acf): ?>
       <?php echo $map_embed_acf; ?>
     <?php else: ?>
@@ -66,6 +74,19 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
         title="Sede Studio Legale LANOTTE &amp; Partners — Barletta"
         allowfullscreen></iframe>
     <?php endif; ?>
+    </template>
+    <script>
+    (function () {
+      var b = document.getElementById('map-consenso-btn');
+      if (!b) return;
+      b.addEventListener('click', function () {
+        var t = document.getElementById('map-sede'), c = document.getElementById('map-consenso');
+        if (!t || !c || !t.content) return;
+        c.parentNode.insertBefore(t.content.cloneNode(true), c);
+        c.parentNode.removeChild(c);
+      });
+    })();
+    </script>
     <a href="https://www.google.com/maps?q=<?php echo esc_attr($indirizzo_query); ?>" target="_blank" rel="noopener" class="map-cta">
       <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a7 7 0 0114 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
       Apri in Google Maps →
@@ -213,6 +234,10 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
 /* ===== MAPPA ===== */
 .map-wrap{position:relative;width:100%}
 .map-wrap iframe{display:block;width:100%}
+.map-consenso{min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px 16px 80px;background:#eef1f5;text-align:center}
+.map-consenso p{max-width:520px;margin:0;font-size:14.5px;line-height:1.6;color:#475569}
+.map-consenso-btn{background:var(--navy,#0f172a);color:#fff;border:0;border-radius:6px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer}
+.map-consenso-btn:hover,.map-consenso-btn:focus-visible{background:var(--gold,#b89968)}
 .map-cta{position:absolute;bottom:16px;right:16px;background:#fff;color:var(--navy,#0f172a);padding:10px 16px;border-radius:6px;font-size:13.5px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 20px -8px rgba(0,0,0,.3);transition:all .2s}
 .map-cta:hover{transform:translateY(-2px);background:var(--gold,#b89968);color:#fff}
 
