@@ -7,8 +7,9 @@
  *  3. Valori inseriti a mano dall'utente (localStorage `lanotte_istat_override_v1`):
  *     solo per i mesi che l'archivio ufficiale non ha ancora
  *
- * Variazioni e coefficienti seguono la nota metodologica ISTAT 2026: rapporto in un solo
- * passaggio, variazione arrotondata a 1 decimale, coefficiente di rivalutazione a 3 decimali.
+ * Variazioni e coefficienti come li calcola ISTAT Rivaluta (verificato l'11/10/2026 su 31 coppie
+ * di mesi, 1998-2026): rapporto degli indici pubblicati arrotondato a 8 decimali, moltiplicato per
+ * i raccordi tra basi (1,373 · 1,071 · 1,214); variazione arrotondata a 1 decimale, coefficiente a 3.
  *
  * USO:
  *   await LanotteISTAT.load('/assets/data/istat-foi.json');
@@ -37,9 +38,12 @@
     return v;
   }
 
-  // Raccordi ufficiali ISTAT tra basi contigue, come frazioni intere: 1,3731 · 1,071 · 1,214.
+  // Raccordi tra basi contigue, come frazioni intere: 1,373 (1995→2010), 1,071, 1,214. Per il primo la
+  // nota ISTAT scrive 1,3731 nel testo ma 1,373 negli esempi; Rivaluta usa 1,373 (gennaio 1998 →
+  // gennaio 2014: 1,379; con 1,3731 sarebbe 1,380).
   const ORDINE_BASI = ['1995', '2010', '2015', '2025'];
-  const RACCORDI = { '1995': [13731n, 10000n], '2010': [1071n, 1000n], '2015': [1214n, 1000n] };
+  const RACCORDI = { '1995': [1373n, 1000n], '2010': [1071n, 1000n], '2015': [1214n, 1000n] };
+  const SCALA_RAPPORTO = 100000000n; // il rapporto degli indici si arrotonda a 8 decimali, come in Rivaluta
 
   // Valore come pubblicato e sua base: dall'archivio ufficiale, dal valore inserito a mano o,
   // in mancanza, dal valore interno in base 2015.
@@ -50,14 +54,15 @@
     return (typeof v === 'number') ? { valore: v, base: '2015' } : null;
   }
 
-  // Rapporto fra due mesi come frazione intera num/den, raccordi compresi (un solo passaggio, nessun
-  // arrotondamento intermedio). I valori sono portati a interi con 4 decimali.
+  // Rapporto fra due mesi come frazione intera num/den: rapporto degli indici pubblicati arrotondato a
+  // 8 decimali, poi moltiplicato per i raccordi. I valori sono portati a interi con 4 decimali.
   function rapporto(da, a){
     const p1 = pubblicatoDi(da), p2 = pubblicatoDi(a);
     if (!p1 || !p2) return null;
     const i1 = ORDINE_BASI.indexOf(p1.base), i2 = ORDINE_BASI.indexOf(p2.base);
     if (i1 < 0 || i2 < 0 || !(p1.valore > 0) || !(p2.valore > 0)) return null;
-    let num = BigInt(Math.round(p2.valore * 10000)), den = BigInt(Math.round(p1.valore * 10000));
+    const v1 = BigInt(Math.round(p1.valore * 10000)), v2 = BigInt(Math.round(p2.valore * 10000));
+    let num = arrotondaFrazione(v2 * SCALA_RAPPORTO, v1), den = SCALA_RAPPORTO;
     for (let i = i1; i < i2; i++) { const r = RACCORDI[ORDINE_BASI[i]]; num *= r[0]; den *= r[1]; }
     for (let i = i2; i < i1; i++) { const r = RACCORDI[ORDINE_BASI[i]]; num *= r[1]; den *= r[0]; }
     return { num, den };
