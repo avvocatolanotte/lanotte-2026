@@ -266,6 +266,21 @@ function lanotte_autore_maiuscolo($nome) {
 }
 add_filter('the_author', 'lanotte_autore_maiuscolo');
 
+/**
+ * Domande e risposte visibili in un contenuto delle aree (<div class="faq-q"> seguito da <div class="faq-a">),
+ * come testo semplice; le coppie con domanda o risposta vuota si scartano.
+ */
+function lanotte_faq_dal_contenuto($html) {
+    $faq = [];
+    if (!preg_match_all('~<div class="faq-q">(.*?)</div>\s*<div class="faq-a">(.*?)</div>~s', (string) $html, $mm, PREG_SET_ORDER)) return $faq;
+    foreach ($mm as $m) {
+        $q = trim(preg_replace('/\s+/u', ' ', html_entity_decode(wp_strip_all_tags($m[1]), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+        $a = trim(preg_replace('/\s+/u', ' ', html_entity_decode(wp_strip_all_tags($m[2]), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+        if ($q !== '' && $a !== '') $faq[] = ['q' => $q, 'a' => $a];
+    }
+    return $faq;
+}
+
 /** «Giuseppe Lanotte» → «Giuseppe LANOTTE», «Cristina De Lillo» → «Cristina DE LILLO»: il primo nome resta, il resto è il cognome. */
 function lanotte_cognome_maiuscolo($nome) {
     $parti = preg_split('/\s+/u', trim((string) $nome), 2);

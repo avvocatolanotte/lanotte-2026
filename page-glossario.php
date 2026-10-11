@@ -270,7 +270,7 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
     </div>
 
     <div class="glossario-cta-box">
-      <h3>Non trovi il termine che cerchi?</h3>
+      <h3>Non trova il termine che cerca?</h3>
       <p>Stiamo arricchendo il glossario settimanalmente. Ci scriva se un termine non è chiaro: lo aggiungeremo al prossimo aggiornamento.</p>
       <a href="<?php echo esc_url($contatti_url); ?>" class="btn btn-outline">Suggerisca un termine</a>
     </div>

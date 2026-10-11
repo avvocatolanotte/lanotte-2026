@@ -144,17 +144,18 @@ function lanotte_output_jsonld() {
         echo wp_json_encode($service, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         echo "\n</script>\n";
 
-        // FAQ Page schema se ci sono FAQ
-        if (function_exists('have_rows') && have_rows('faq')) {
+        // FAQ Page: dalle domande VISIBILI nel contenuto (div.faq-q / div.faq-a), che sono quelle corrette dal
+        // lotto. Non dai campi ACF «faq»: in produzione restituivano righe vuote (schema con 6 domande «null»,
+        // misurato l'11/10/2026) e il seed vi scrive testi che non compaiono nella pagina.
+        if (function_exists('lanotte_faq_dal_contenuto')) {
             $main_entity = [];
-            while (have_rows('faq')) {
-                the_row();
+            foreach (lanotte_faq_dal_contenuto((string) get_post_field('post_content', get_the_ID())) as $f) {
                 $main_entity[] = [
                     '@type'          => 'Question',
-                    'name'           => get_sub_field('domanda'),
+                    'name'           => $f['q'],
                     'acceptedAnswer' => [
                         '@type' => 'Answer',
-                        'text'  => wp_strip_all_tags(get_sub_field('risposta')),
+                        'text'  => $f['a'],
                     ],
                 ];
             }
