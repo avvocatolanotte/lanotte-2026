@@ -143,10 +143,13 @@ function lanotte_output_jsonld() {
         echo "\n<script type=\"application/ld+json\" id=\"lanotte-service\">\n";
         echo wp_json_encode($service, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         echo "\n</script>\n";
+    }
 
-        // FAQ Page: dalle domande VISIBILI nel contenuto (div.faq-q / div.faq-a), che sono quelle corrette dal
-        // lotto. Non dai campi ACF «faq»: in produzione restituivano righe vuote (schema con 6 domande «null»,
-        // misurato l'11/10/2026) e il seed vi scrive testi che non compaiono nella pagina.
+    // FAQ Page: dalle domande VISIBILI nel contenuto (div.faq-q / div.faq-a), che sono quelle corrette dal
+    // lotto. Non dai campi ACF «faq»: in produzione restituivano righe vuote (schema con 6 domande «null»,
+    // misurato l'11/10/2026) e il seed vi scrive testi che non compaiono nella pagina.
+    // Dall'11/10/2026 vale anche per gli articoli che usano lo stesso markup; quelli con FAQ in h3/p non lo emettono.
+    if (is_singular(['area', 'post'])) {
         if (function_exists('lanotte_faq_dal_contenuto')) {
             $main_entity = [];
             foreach (lanotte_faq_dal_contenuto((string) get_post_field('post_content', get_the_ID())) as $f) {

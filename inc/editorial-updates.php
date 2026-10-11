@@ -23,8 +23,10 @@ function lanotte_editorial_import_image($post_id, $asset, $title, $alt, $source_
         $upload = wp_upload_bits($asset, null, file_get_contents($source));
         if (!empty($upload['error'])) return false;
 
+        // Il tipo si legge dal file: le immagini del blog non sono più solo JPEG (PNG dall'11/10/2026).
+        $filetype = wp_check_filetype($upload['file']);
         $attachment_id = wp_insert_attachment([
-            'post_mime_type' => 'image/jpeg',
+            'post_mime_type' => $filetype['type'] ?: 'image/jpeg',
             'post_title'     => $title,
             'post_content'   => '',
             'post_status'    => 'inherit',
@@ -1188,3 +1190,30 @@ function lanotte_area_proprieta_intellettuale_aggiorna() {
     if (function_exists('update_field')) update_field('tagline', $tagline, (int) $area->ID);
     update_option('lanotte_area_proprieta_intellettuale_20261010', 'done', false);
 }
+
+// Data editoriale fissa all'11/10/2026, 07:00 UTC (9:00 italiane), già trascorsa: con una data
+// futura WordPress trasformerebbe «publish» in «future» e programmerebbe l'uscita.
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_registro_morosi_ddl_1896_20261011',
+        'registro-inquilini-morosi-riforma-sfratti-ddl-1896',
+        'Tempi più difficili per gli inquilini morosi? Registro nazionale e riforma degli sfratti',
+        'Il registro degli inquilini morosi è solo un emendamento al DDL S.1896, non votato: stato dell’iter, regole vigenti sullo sfratto e garanzie privacy.',
+        'registro-inquilini-morosi-riforma-sfratti-ddl-1896.html',
+        'locazioni',
+        'Locazioni',
+        'publish',
+        '2026-10-11 07:00:00'
+    );
+}, 66);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_registro_morosi_ddl_1896_featured_20261011',
+        'registro-inquilini-morosi-riforma-sfratti-ddl-1896',
+        'registro-inquilini-morosi-riforma-sfratti-2026.png',
+        'Registro degli inquilini morosi e riforma degli sfratti',
+        'Illustrazione di un registro chiuso da un lucchetto davanti a un palazzo di giustizia, con un uomo che legge un documento sulla casa e due donne che parlano sulla soglia di uno studio',
+        'lanotte-registro-inquilini-morosi-riforma-sfratti-2026'
+    );
+}, 67);

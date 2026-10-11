@@ -336,6 +336,7 @@ function lanotte_seo_map_articoli() {
         'opposizione-marchio-termini-costi' => ['t' => 'Opposizione marchio: termini e costi | LANOTTE & Partners', 'd' => 'Opposizione UIBM ed EUIPO: termini, costi, conciliazione e difese per chi contesta una domanda di marchio o riceve un’opposizione.'],
         'nullita-decadenza-marchio-uibm' => ['t' => 'Nullità e decadenza marchio UIBM | LANOTTE & Partners', 'd' => 'Nullità e decadenza del marchio davanti all’UIBM: chi può agire, costi, non uso, conciliazione, difese e ricorso alla Commissione.'],
         'marchio-copiato-cosa-fare' => ['t' => 'Marchio copiato: cosa fare | LANOTTE & Partners', 'd' => 'Marchio copiato o diffida ricevuta: raccolta delle prove, misure urgenti e causa. Come valutare i diritti e la competenza del Tribunale di Bari.'],
+        'registro-inquilini-morosi-riforma-sfratti-ddl-1896' => ['t' => 'Inquilini morosi: registro e riforma sfratti | LANOTTE', 'd' => 'Più incisività contro i morosi? Il registro è solo un emendamento al DDL S.1896, non votato e non legge: stato dell’iter, sfratto oggi, garanzie privacy.'],
     ];
 }
 

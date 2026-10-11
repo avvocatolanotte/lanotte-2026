@@ -267,7 +267,7 @@ function lanotte_autore_maiuscolo($nome) {
 add_filter('the_author', 'lanotte_autore_maiuscolo');
 
 /**
- * Domande e risposte visibili in un contenuto delle aree (<div class="faq-q"> seguito da <div class="faq-a">),
+ * Domande e risposte visibili in un contenuto delle aree o degli articoli (<div class="faq-q"> seguito da <div class="faq-a">),
  * come testo semplice; le coppie con domanda o risposta vuota si scartano.
  */
 function lanotte_faq_dal_contenuto($html) {
