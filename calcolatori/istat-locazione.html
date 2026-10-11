@@ -413,7 +413,7 @@
                       flagUlt === 'manuale' ? '<span style="color:#b89968">●</span> manuale' :
                       '<span style="color:#eab308">●</span> stima da verificare';
 
-    statusEl.innerHTML = '✓ Indici ISTAT caricati ' + badgeFonte +
+    statusEl.innerHTML = 'Indici ISTAT caricati ' + badgeFonte +
       '<br><span style="opacity:.85">Ultimo mese disponibile: <strong style="color:#d4b87f">' + ultimo + '</strong> (' + flagBadge + ') · ' +
       'Ultimo UFFICIALE: <strong>' + ultimoUff + '</strong></span>';
 
@@ -435,21 +435,21 @@
   }
 
   try { await reloadData(); }
-  catch(e) { statusEl.innerHTML = '⚠️ Errore: ' + e.message; }
+  catch(e) { statusEl.innerHTML = 'Errore: ' + e.message; }
 
   // PANNELLO AGGIORNA MANUALMENTE
   document.getElementById('manuSave').addEventListener('click', async () => {
     const m = document.getElementById('manuMese').value;
     const v = document.getElementById('manuValore').value;
     const msg = document.getElementById('manuMsg');
-    if (!m || !v) { msg.innerHTML = '<span style="color:#dc2626">⚠️ Compili entrambi i campi</span>'; return; }
+    if (!m || !v) { msg.innerHTML = '<span style="color:#dc2626">Compili entrambi i campi</span>'; return; }
     try {
       LanotteISTAT.aggiungiManuale(m, v);
-      msg.innerHTML = '<span style="color:#16a34a">✓ Salvato. Indice FOI ' + m + ' = ' + v + ' ora disponibile in tutti i calcolatori ISTAT del sito.</span>';
+      msg.innerHTML = '<span style="color:#16a34a">Salvato. Indice FOI ' + m + ' = ' + v + ' ora disponibile in tutti i calcolatori ISTAT del sito.</span>';
       await reloadData();
       mostraLista();
       document.getElementById('manuValore').value = '';
-    } catch(err) { msg.innerHTML = '<span style="color:#dc2626">⚠️ ' + err.message + '</span>'; }
+    } catch(err) { msg.innerHTML = '<span style="color:#dc2626">' + err.message + '</span>'; }
   });
   document.getElementById('manuShowList').addEventListener('click', mostraLista);
 
@@ -476,7 +476,7 @@
   document.getElementById('copyBtn')?.addEventListener('click', () => {
     navigator.clipboard.writeText(document.getElementById('bozzaLettera').textContent);
     const b = document.getElementById('copyBtn');
-    const t = b.textContent; b.textContent = '✓ Copiato'; setTimeout(()=>b.textContent=t, 1500);
+    const t = b.textContent; b.textContent = 'Copiato'; setTimeout(()=>b.textContent=t, 1500);
   });
 
   let datiCalcolo = null; // memorizzati per il PDF

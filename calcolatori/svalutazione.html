@@ -282,14 +282,14 @@
 <script>
 (async function(){
   const status = document.getElementById('istatStatus');
-  status.textContent = '⏳ Caricamento indici ISTAT FOI...';
+  status.textContent = 'Caricamento indici ISTAT FOI...';
   try {
     await LanotteISTAT.load('../assets/data/istat-foi.json');
     await LanotteInteressi.load('legali', '../assets/data/interessi-legali.json');
     const ultimo = LanotteISTAT.ultimoMese();
     const primo = LanotteISTAT.mesiDisponibili()[0];
     status.className = 'data-status ok';
-    status.innerHTML = '✓ Indici ISTAT FOI caricati - periodo disponibile: <strong>' + primo + ' / ' + ultimo + '</strong> · Tassi legali MEF caricati';
+    status.innerHTML = 'Indici ISTAT FOI caricati - periodo disponibile: <strong>' + primo + ' / ' + ultimo + '</strong> · Tassi legali MEF caricati';
     document.getElementById('meseInizio').min = primo;
     document.getElementById('meseInizio').max = ultimo;
     document.getElementById('meseFine').min = primo;
@@ -304,11 +304,11 @@
         document.getElementById('meseInizio').max = u;
         document.getElementById('meseFine').min = p;
         document.getElementById('meseFine').max = u;
-        status.innerHTML = '✓ Indici aggiornati - periodo disponibile: <strong>' + p + ' / ' + u + '</strong>';
+        status.innerHTML = 'Indici aggiornati - periodo disponibile: <strong>' + p + ' / ' + u + '</strong>';
       }
     });
   } catch(e) {
-    status.textContent = '⚠️ Errore: ' + e.message;
+    status.textContent = 'Errore: ' + e.message;
   }
 
   document.getElementById('calcBtn').addEventListener('click', calcola);

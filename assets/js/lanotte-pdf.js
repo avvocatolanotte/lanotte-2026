@@ -197,13 +197,12 @@
 
   // I caratteri standard di jsPDF coprono solo la codifica WinAnsi. Un carattere fuori codifica si scrive
   // solo con un equivalente fedele (forma di compatibilità Unicode, es. «／» → «/», o una sostituzione
-  // esplicita). Un simbolo grafico (emoji, spunta, avviso) si toglie solo se sta da solo, separato da spazi
-  // o a inizio/fine testo («✓ Fatto», «⚠️ Scostamento»): dentro una parola o un codice («12➖34») è un dato.
-  // Ogni altro carattere — lettere, cifre, punteggiatura, simboli dentro i dati — NON si tocca: se compare,
-  // il PDF non si genera (caratteriNonStampabili e generate) e si indica la «Stampa» dall'anteprima.
+  // esplicita: frecce, segno meno, «≈», «●», barre di frazione e divisione). Nessun simbolo si toglie, nemmeno
+  // se sembra decorativo: dentro i dati («12 ➖ 34», «AB 🔟 12») sarebbe un'alterazione silenziosa. Ogni altro
+  // carattere blocca il PDF (caratteriNonStampabili e generate) e si indica la «Stampa» dall'anteprima.
+  // I testi dei calcolatori non contengono simboli fuori codifica (prova: scansione_pdf_calcolatori.js).
   const PDF_SOSTITUZIONI = {'→': '–', '←': '–', '−': '-', '≈': 'circa ', '≤': '<=', '≥': '>=', '●': '•', '⁄': '/', '∕': '/'};
   const PDF_AMMESSI = /[\x00-\xFF€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/;
-  const PDF_ORNAMENTO = /\p{Extended_Pictographic}|\p{Emoji_Modifier}|[✓✗✘︎️‍⃣]/u;
   const PDF_INVISIBILI = /[︎️​-‍⁠]/;
   function pdfCarattere(c){
     if (PDF_AMMESSI.test(c)) return c;
@@ -218,24 +217,13 @@
   // Testo per jsPDF e caratteri che impediscono il PDF.
   function pdfAnalizza(t){
     const cs = Array.from(String(t).normalize('NFC'));
-    const ornamento = c => PDF_ORNAMENTO.test(c) && !PDF_AMMESSI.test(c);
     const bloccati = new Set();
     let out = '';
-    for (let i = 0; i < cs.length; ) {
-      if (ornamento(cs[i])) {
-        let j = i; while (j < cs.length && ornamento(cs[j])) j++;
-        const solo = (i === 0 || /\s/.test(cs[i - 1])) && (j === cs.length || /\s/.test(cs[j]));
-        if (!solo) for (let k = i; k < j; k++) if (!PDF_INVISIBILI.test(cs[k])) bloccati.add(cs[k]);
-        i = j; continue;
-      }
-      const r = pdfCarattere(cs[i]);
-      if (r === null) { bloccati.add(cs[i]); out += cs[i]; } else out += r;
-      i++;
+    for (const ch of cs) {
+      const r = pdfCarattere(ch);
+      if (r === null) { bloccati.add(ch); out += ch; } else out += r;
     }
-    out = out.replace(/ {2,}/g, ' ');
-    if (out.startsWith(' ') && cs[0] !== ' ') out = out.trimStart();   // simbolo iniziale tolto: niente spazio in testa
-    if (out.endsWith(' ') && cs[cs.length - 1] !== ' ') out = out.trimEnd();     // e niente spazio in coda
-    return { testo: out, bloccati };
+    return { testo: out.replace(/ {2,}/g, ' '), bloccati };
   }
   function pdfSafe(t){
     if (t === null || t === undefined) return t;

@@ -578,22 +578,26 @@
   // Confronto con la bolletta: solo voci omogenee, al netto degli acconti dello stesso periodo.
   function confronto(totale, importo, acconti){
     if (importo === null) return null;
-    const atteso = totale - acconti;
-    const delta = importo - atteso;
-    const pct = atteso > 0 ? delta / atteso * 100 : null;
-    const coincide = Math.abs(delta) < 0.005;          // scarto sotto il mezzo centesimo: arrotondamento
+    // Confronto in centesimi interi, sul totale arrotondato come è mostrato: alle soglie esatte del 5% e del
+    // 15% le percentuali in virgola mobile darebbero esiti sbagliati (B34, undicesima revisione di Codex).
+    const centesimi = v => Math.round(parseFloat(v.toFixed(2)) * 100);
+    const attC = centesimi(totale) - centesimi(acconti);
+    const deltaC = centesimi(importo) - attC;
+    const atteso = attC / 100, delta = deltaC / 100;
+    const pct = attC > 0 ? deltaC / attC * 100 : null;     // solo per la visualizzazione
     let livello;
-    if (pct === null) livello = coincide ? 'nc-coincide' : 'nc';
-    else if (coincide || Math.abs(pct) <= 5) livello = 'ok';
-    else livello = Math.abs(pct) > 15 ? 'bad' : 'warn';
+    if (attC <= 0) livello = deltaC === 0 ? 'nc-coincide' : 'nc';
+    else if (Math.abs(deltaC) * 100 <= 5 * attC) livello = 'ok';
+    else livello = Math.abs(deltaC) * 100 <= 15 * attC ? 'warn' : 'bad';
     return {importo, acconti, atteso, delta, pct, livello};
   }
+
   const ESITO_SCHERMO = {
-    ok:   ['score-ok',   '✓ Importo coerente con il ricalcolo (scostamento entro il 5%)'],
-    warn: ['score-warn', '⚠️ Scostamento oltre il 5%: verificare tariffe, componenti, moduli e periodo inseriti'],
-    bad:  ['score-bad',  '✗ Scostamento oltre il 15%: verificati i dati inseriti, può essere utile chiedere ad AQP il dettaglio del calcolo o presentare un reclamo scritto'],
-    nc:   ['score-warn', '⚠️ Scostamento percentuale non calcolabile: l\'importo atteso è nullo o negativo; verificare le voci inserite'],
-    'nc-coincide': ['score-ok', '✓ Importo coincidente con quello atteso (scostamento percentuale non calcolabile: l\'importo atteso è nullo o negativo)']
+    ok:   ['score-ok',   'Importo coerente con il ricalcolo (scostamento entro il 5%)'],
+    warn: ['score-warn', 'Scostamento oltre il 5%: verificare tariffe, componenti, moduli e periodo inseriti'],
+    bad:  ['score-bad',  'Scostamento oltre il 15%: verificati i dati inseriti, può essere utile chiedere ad AQP il dettaglio del calcolo o presentare un reclamo scritto'],
+    nc:   ['score-warn', 'Scostamento percentuale non calcolabile: l\'importo atteso è nullo o negativo; verificare le voci inserite'],
+    'nc-coincide': ['score-ok', 'Importo coincidente con quello atteso (scostamento percentuale non calcolabile: l\'importo atteso è nullo o negativo)']
   };
   const ESITO_REPORT = {
     ok:   'Lo scostamento rientra nel 5%.',
@@ -747,7 +751,7 @@
     ripristinaTariffe();
     datiModificati();
     const msg = document.createElement('div');
-    msg.textContent = '✓ Tariffe AQP 2026 ripristinate';
+    msg.textContent = 'Tariffe AQP 2026 ripristinate';
     msg.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#16a34a;color:#fff;padding:12px 20px;border-radius:4px;z-index:9999;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.15)';
     document.body.appendChild(msg);
     setTimeout(() => msg.remove(), 2500);
@@ -935,7 +939,7 @@ Allegati:
     const impronta = improntaReclamo();
     $('copiaReclamo').addEventListener('click', function () {
       if (improntaReclamo() !== impronta) { ritiraReclamo(); alert('I dati sono stati modificati: generi di nuovo il reclamo.'); return; }
-      if (typeof navigator !== 'undefined' && navigator.clipboard) navigator.clipboard.writeText(testo).then(() => { this.textContent = '✓ Copiato'; });
+      if (typeof navigator !== 'undefined' && navigator.clipboard) navigator.clipboard.writeText(testo).then(() => { this.textContent = 'Copiato'; });
     });
   });
 })();

@@ -288,13 +288,13 @@
 <script>
 (async function(){
   const status = document.getElementById('dataStatus');
-  status.textContent = '⏳ Caricamento tassi moratori MEF...';
+  status.textContent = 'Caricamento tassi moratori MEF...';
   try {
     await LanotteInteressi.load('moratori', '../assets/data/interessi-moratori.json');
     const meta = LanotteInteressi.meta('moratori');
     const tassoOggi = LanotteInteressi.tassoIn(new Date().toISOString().slice(0,10), 'moratori');
     status.className = 'data-status ok';
-    status.innerHTML = '✓ Tassi MEF caricati · Vigente: <strong>' + tassoOggi.tasso + '%</strong> (BCE ' + tassoOggi.bce + '% + 8pp) · ' + tassoOggi.norma;
+    status.innerHTML = 'Tassi MEF caricati · Vigente: <strong>' + tassoOggi.tasso + '%</strong> (BCE ' + tassoOggi.bce + '% + 8pp) · ' + tassoOggi.norma;
     // Storico
     const tStor = document.querySelector('#tabellaStorico tbody');
     LanotteInteressi.elencoTassi('moratori').forEach(t => {
@@ -303,7 +303,7 @@
       tStor.innerHTML += '<tr><td>' + dal + ' → ' + al + '</td><td>' + t.saggio_bce + '%</td><td><strong>' + t.moratorio + '%</strong></td><td style="font-size:12px;color:#64748b">' + t.norma + '</td></tr>';
     });
   } catch(e) {
-    status.textContent = '⚠️ Errore: ' + e.message;
+    status.textContent = 'Errore: ' + e.message;
   }
 
   document.getElementById('calcBtn').addEventListener('click', calcola);

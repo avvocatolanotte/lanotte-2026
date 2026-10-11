@@ -289,13 +289,13 @@
 (async function(){
   const status = document.getElementById('dataStatus');
   try {
-    status.textContent = '⏳ Caricamento tassi MEF in corso...';
+    status.textContent = 'Caricamento tassi MEF in corso...';
     await LanotteInteressi.load('legali', '../assets/data/interessi-legali.json');
     const meta = LanotteInteressi.meta('legali');
     const elenco = LanotteInteressi.elencoTassi('legali');
     const tassoOggi = LanotteInteressi.tassoIn(new Date().toISOString().slice(0,10), 'legali');
     status.className = 'data-status ok';
-    status.innerHTML = '✓ Tassi MEF caricati · Tasso vigente: <strong>' + tassoOggi.tasso + '%</strong> (' + tassoOggi.norma + ') · Aggiornati al: ' + meta.ultimo_aggiornamento_manuale;
+    status.innerHTML = 'Tassi MEF caricati · Tasso vigente: <strong>' + tassoOggi.tasso + '%</strong> (' + tassoOggi.norma + ') · Aggiornati al: ' + meta.ultimo_aggiornamento_manuale;
 
     // Popola storico
     const tStor = document.querySelector('#tabellaStorico tbody');
@@ -304,7 +304,7 @@
     });
   } catch(e) {
     status.className = 'data-status warn';
-    status.textContent = '⚠️ Errore caricamento tassi: ' + e.message;
+    status.textContent = 'Errore caricamento tassi: ' + e.message;
   }
 
   document.getElementById('calcBtn').addEventListener('click', calcola);

@@ -311,7 +311,7 @@
 <script>
 (async function(){
   const status = document.getElementById('istatStatus');
-  status.textContent = '⏳ Caricamento indici ISTAT...';
+  status.textContent = 'Caricamento indici ISTAT...';
   try {
     await LanotteISTAT.load('../assets/data/istat-foi.json');
     const mesi = LanotteISTAT.mesiDisponibili();
@@ -320,7 +320,7 @@
     const meseInizioEl = document.getElementById('meseInizio');
     const meseFineEl = document.getElementById('meseFine');
     status.className = 'data-status ok';
-    status.innerHTML = '✓ Indici ISTAT FOI caricati - periodo disponibile: <strong>' + primo + ' / ' + ultimo + '</strong>';
+    status.innerHTML = 'Indici ISTAT FOI caricati - periodo disponibile: <strong>' + primo + ' / ' + ultimo + '</strong>';
     meseInizioEl.min = primo;
     meseInizioEl.max = ultimo;
     meseFineEl.min = primo;
@@ -336,11 +336,11 @@
         meseInizioEl.max = u;
         meseFineEl.min = p;
         meseFineEl.max = u;
-        status.innerHTML = '✓ Indici aggiornati - periodo disponibile: <strong>' + p + ' / ' + u + '</strong>';
+        status.innerHTML = 'Indici aggiornati - periodo disponibile: <strong>' + p + ' / ' + u + '</strong>';
       }
     });
   } catch(e) {
-    status.textContent = '⚠️ Errore: ' + e.message;
+    status.textContent = 'Errore: ' + e.message;
   }
 
   document.getElementById('calcBtn').addEventListener('click', calcola);
