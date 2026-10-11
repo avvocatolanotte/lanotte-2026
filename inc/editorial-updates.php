@@ -1077,7 +1077,7 @@ add_action('init', function() {
         'come-verificare-marchio-gia-registrato',
         'come-verificare-marchio-gia-registrato-fumetto-v4-2026.jpg',
         'Come verificare se un marchio è già registrato',
-        'Fumetto in tre vignette: un creativo disegna il logo su un quaderno, due professionisti controllano con una lente d’ingrandimento una griglia di marchi su uno schermo, poi mostrano soddisfatti il logo libero da conflitti',
+        'Fumetto in tre vignette: un creativo disegna il logo su un quaderno, due professionisti controllano con una lente d’ingrandimento una griglia di marchi su uno schermo, poi mostrano il logo al termine della verifica',
         'lanotte-come-verificare-marchio-gia-registrato-2026-fumetto-v4-2026'
     );
 }, 56);
@@ -1125,7 +1125,7 @@ add_action('init', function() {
         'opposizione-marchio-termini-costi',
         'opposizione-marchio-termini-costi-fumetto-v4-2026.jpg',
         'Opposizione a un marchio: termini, costi e difese',
-        'Fumetto in tre vignette: un imprenditore esamina preoccupato una confezione con un segno simile al proprio, una professionista lavora alle carte davanti a un calendario con il termine evidenziato in rosso, infine uno scudo dorato con il marchio respinge la confezione che va in frantumi',
+        'Fumetto in tre vignette: un imprenditore esamina preoccupato una confezione con un segno simile al proprio, una professionista lavora alle carte davanti a un calendario con il termine evidenziato in rosso, infine uno scudo dorato con il marchio davanti alla confezione simile, raffigurata in frantumi',
         'lanotte-opposizione-marchio-termini-costi-2026-fumetto-v4-2026'
     );
 }, 60);

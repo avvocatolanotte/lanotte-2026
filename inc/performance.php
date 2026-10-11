@@ -69,8 +69,9 @@ function lanotte_dequeue_nonessential_wc_assets() {
     foreach (['wc-blocks-style', 'woocommerce-general', 'woocommerce-layout', 'woocommerce-smallscreen'] as $handle) {
         wp_dequeue_style($handle);
     }
-    // wp-consent-api-integration (WooCommerce) dipende da wc-order-attribution: se resta in coda la ristampa con
-    // sourcebuster-js, e la pulizia non ha effetto (misurato l'11/10/2026 su home, Lo Studio, Contatti, Onorari).
+    // wp-consent-api-integration (WooCommerce) dipende da wc-order-attribution, che dipende da sourcebuster-js: se resta
+    // in coda li ristampa e la pulizia non ha effetto. Misurata l'11/10/2026 la presenza dei due script su home, Lo Studio
+    // e Contatti; la causa è nel sorgente di WooCommerce 11.2.1 (WPConsentAPI.php), confermata da Codex.
     foreach (['woocommerce', 'wc-cart-fragments', 'wc-add-to-cart', 'sourcebuster-js', 'wc-order-attribution', 'wc-order-attribution-js', 'wp-consent-api-integration', 'googlesitekit-events-provider-woocommerce'] as $handle) {
         wp_dequeue_script($handle);
     }
