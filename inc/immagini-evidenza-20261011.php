@@ -79,6 +79,28 @@ function lanotte_evidenza_20261011_url_tagliato($url) {
 }
 
 /**
+ * Completa e verifica un allegato dell'articolo: testo alternativo (scritto solo se vuoto) e metadati con larghezza e
+ * altezza (generati se mancano). Vale sia per l'allegato appena creato sia per quello ritrovato in una ripresa: una
+ * richiesta interrotta dopo la creazione, o una scrittura fallita, non deve lasciare un allegato incompleto che poi
+ * risulti «ok» (rilievo di Codex, tornata 13).
+ */
+function lanotte_evidenza_20261011_completa($id, $file, array $v, &$errore) {
+    if (trim((string) get_post_meta($id, '_wp_attachment_image_alt', true)) === '') {
+        update_post_meta($id, '_wp_attachment_image_alt', $v['alt']);
+        if (trim((string) get_post_meta($id, '_wp_attachment_image_alt', true)) === '') { $errore = 'testo alternativo non scritto'; return false; }
+    }
+    $meta = wp_get_attachment_metadata($id);
+    if (!is_array($meta) || empty($meta['width']) || empty($meta['height'])) {
+        if (!function_exists('wp_generate_attachment_metadata')) require_once ABSPATH . 'wp-admin/includes/image.php';
+        $nuovi = wp_generate_attachment_metadata($id, $file);
+        if (is_array($nuovi) && $nuovi) wp_update_attachment_metadata($id, $nuovi);
+        $meta = wp_get_attachment_metadata($id);
+        if (!is_array($meta) || empty($meta['width']) || empty($meta['height'])) { $errore = 'metadati dell\'immagine non generati'; return false; }
+    }
+    return true;
+}
+
+/**
  * Restituisce l'ID dell'allegato dell'articolo: quello già importato con la stessa chiave oppure uno nuovo.
  * 0 in caso di errore, con il motivo in $errore. Non tocca allegati di altri articoli.
  */
@@ -97,7 +119,7 @@ function lanotte_evidenza_20261011_allegato($post_id, $slug, array $v, &$errore)
         $id = (int) $trovati[0];
         $file = get_attached_file($id);
         if (!$file || !file_exists($file)) { $errore = 'allegato ' . $id . ' senza file'; return 0; }
-        return $id;
+        return lanotte_evidenza_20261011_completa($id, $file, $v, $errore) ? $id : 0;
     }
 
     if (trim($v['alt']) === '') { $errore = 'testo alternativo non definito'; return 0; }
@@ -125,11 +147,7 @@ function lanotte_evidenza_20261011_allegato($post_id, $slug, array $v, &$errore)
     // Chiave e testo alternativo subito: una ripresa ritrova questo allegato invece di caricarne un altro.
     update_post_meta($id, '_lanotte_source_asset', $chiave);
     update_post_meta($id, '_wp_attachment_image_alt', $v['alt']);
-
-    if (!function_exists('wp_generate_attachment_metadata')) require_once ABSPATH . 'wp-admin/includes/image.php';
-    $metadata = wp_generate_attachment_metadata($id, $upload['file']);
-    if ($metadata) wp_update_attachment_metadata($id, $metadata);
-    return $id;
+    return lanotte_evidenza_20261011_completa($id, $upload['file'], $v, $errore) ? $id : 0;
 }
 
 /** Immagini registrate da AIOSEO per l'articolo, come testo JSON; null se AIOSEO non è disponibile. */
