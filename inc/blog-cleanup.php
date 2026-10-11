@@ -301,16 +301,31 @@ add_action('template_redirect', function() {
     exit;
 }, 0);
 
-// Tag rinominati l'11/10/2026 (revisione del sito, decisione dell'Avvocato): il nome citava una sentenza sbagliata
-// e lo slug va allineato. I vecchi indirizzi portano ai nuovi; lo slug nel database si cambia subito dopo il deploy.
-add_action('template_redirect', function() {
-    $path = trim((string) parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH), '/');
-    $tag_rinominati = [
-        'tag/sentenza-n-9388-del-2022' => 'tag/ordinanza-n-9388-del-2023',
-        'tag/sentenza-n-6532-del-2025' => 'tag/cass-ord-n-1486-del-2025',
+// Tag e autore rinominati l'11/10/2026 (decisioni dell'Avvocato): i vecchi indirizzi portano ai nuovi. Il vecchio
+// slug vale come segmento intero; si conservano il resto del percorso (/page/2/, /feed/) e la query (?feed=, ?paged=).
+// Gli slug nel database li cambia inc/rinomine-20261011.php al primo caricamento dopo il deploy.
+function lanotte_indirizzi_rinominati() {
+    return [
+        'tag/sentenza-n-9388-del-2022'    => 'tag/ordinanza-n-9388-del-2023',
+        'tag/sentenza-n-6532-del-2025'    => 'tag/cass-ord-n-1486-del-2025',
+        'author/avvocatolanottegmail-com' => 'author/giuseppe-lanotte',
     ];
-    if (!isset($tag_rinominati[$path])) return;
-    wp_safe_redirect(home_url('/' . $tag_rinominati[$path] . '/'), 301);
+}
+
+function lanotte_indirizzo_rinominato($uri) {
+    $path  = trim((string) parse_url($uri, PHP_URL_PATH), '/');
+    $query = (string) parse_url($uri, PHP_URL_QUERY);
+    foreach (lanotte_indirizzi_rinominati() as $da => $a) {
+        if ($path !== $da && strpos($path, $da . '/') !== 0) continue;
+        return home_url('/' . $a . substr($path, strlen($da)) . '/') . ($query !== '' ? '?' . $query : '');
+    }
+    return null;
+}
+
+add_action('template_redirect', function() {
+    $nuovo = lanotte_indirizzo_rinominato((string) ($_SERVER['REQUEST_URI'] ?? ''));
+    if ($nuovo === null) return;
+    wp_safe_redirect($nuovo, 301);
     exit;
 }, 0);
 

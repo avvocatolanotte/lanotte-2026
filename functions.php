@@ -139,6 +139,7 @@ require_once LANOTTE_THEME_DIR . '/inc/woocommerce-tweaks.php';
 require_once LANOTTE_THEME_DIR . '/inc/contatti-prefill.php';
 require_once LANOTTE_THEME_DIR . '/inc/correzioni-contenuti.php';
 require_once LANOTTE_THEME_DIR . '/inc/analytics-consenso.php';
+require_once LANOTTE_THEME_DIR . '/inc/rinomine-20261011.php';
 
 /* ========================================================================
    WIDGET AREAS

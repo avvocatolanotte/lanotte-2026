@@ -1197,4 +1197,26 @@ return [
             'cerca' => 'a firma del senatore De Poli',
             'sostituisci' => 'a firma del senatore DE POLI'],
     ],
+    // Lotto c (11/10/2026, pomeriggio): cookie policy in modalità di base e risorse dei Contatti; prezzo dei protesti
+    // (decisione dell'Avvocato: 300 euro oltre accessori). Voci confrontate con il testo grezzo letto dal database.
+    'lanotte_correzioni_20261011c' => [
+        'c01' => ['tipo' => 'page', 'slug' => 'cookie', 'campo' => 'post_content',
+            'cerca' => 'modalità di consenso avanzata di Google (Consent Mode v2)',
+            'sostituisci' => 'modalità di base del consenso di Google (Consent Mode v2)'],
+        'c02' => ['tipo' => 'page', 'slug' => 'cookie', 'campo' => 'post_content',
+            'cerca' => ', configurata con impostazione predefinita di',
+            'sostituisci' => ': i tag di Google Analytics non vengono caricati finché Lei non presta il consenso ai cookie statistici; lo stato predefinito è di'],
+        'c03' => ['tipo' => 'page', 'slug' => 'cookie', 'campo' => 'post_content',
+            'cerca' => 'In pratica: prima del Suo consenso non vengono scritti cookie di misurazione né trasmessi identificatori.',
+            'sostituisci' => 'In pratica: prima del Suo consenso non vengono scritti cookie di misurazione e i tag di Google Analytics non inviano dati di navigazione.'],
+        'c04' => ['tipo' => 'page', 'slug' => 'cookie', 'campo' => 'post_content',
+            'cerca' => 'Ultimo aggiornamento: 24 agosto 2026',
+            'sostituisci' => 'Ultimo aggiornamento: ottobre 2026'],
+        'c05' => ['tipo' => 'page', 'slug' => 'cookie', 'campo' => 'post_content',
+            'cerca' => 'che ottimizza i tempi di caricamento e protegge il sito da attacchi;',
+            'sostituisci' => 'che ottimizza i tempi di caricamento e protegge il sito da attacchi;</li><li><strong>mappa della sede</strong> fornita da Google Maps, caricata soltanto se Lei la richiede nella pagina Contatti, e <strong>protezione del modulo di contatto dallo spam</strong> fornita da Google reCAPTCHA, soltanto nella pagina Contatti;'],
+        'c06' => ['tipo' => 'post', 'slug' => 'assistenza-per-la-riabilitazione-da-protesti', 'campo' => 'post_content',
+            'cerca' => 'è di €300, oltre accessori di legge e spese vive.',
+            'sostituisci' => 'è di 300 euro, oltre contributo previdenziale forense (4%) e IVA (22%): 380,64 euro in totale, più le spese vive.'],
+    ],
 ];
