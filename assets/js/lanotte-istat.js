@@ -7,9 +7,11 @@
  *  3. Valori inseriti a mano dall'utente (localStorage `lanotte_istat_override_v1`):
  *     solo per i mesi che l'archivio ufficiale non ha ancora
  *
- * Variazioni e coefficienti come li calcola ISTAT Rivaluta (verificato l'11/10/2026 su 31 coppie
- * di mesi, 1998-2026): rapporto degli indici pubblicati arrotondato a 8 decimali, moltiplicato per
- * i raccordi tra basi (1,373 · 1,071 · 1,214); variazione arrotondata a 1 decimale, coefficiente a 3.
+ * Variazioni e coefficienti compatibili con ISTAT Rivaluta: il metodo è ricostruito e coincide con
+ * le 31 risposte di Rivaluta raccolte l'11/10/2026 (coppie di mesi 1998-2026). Rapporto degli indici
+ * pubblicati arrotondato a 8 decimali (8, 9, 10 o 11 decimali danno risultati identici su tutte le
+ * coppie dell'archivio; il rapporto esatto ne sbaglia una), moltiplicato per i raccordi tra basi
+ * (1,373 · 1,071 · 1,214); variazione arrotondata a 1 decimale, coefficiente a 3.
  *
  * USO:
  *   await LanotteISTAT.load('/assets/data/istat-foi.json');
@@ -43,7 +45,7 @@
   // gennaio 2014: 1,379; con 1,3731 sarebbe 1,380).
   const ORDINE_BASI = ['1995', '2010', '2015', '2025'];
   const RACCORDI = { '1995': [1373n, 1000n], '2010': [1071n, 1000n], '2015': [1214n, 1000n] };
-  const SCALA_RAPPORTO = 100000000n; // il rapporto degli indici si arrotonda a 8 decimali, come in Rivaluta
+  const SCALA_RAPPORTO = 100000000n; // rapporto arrotondato a 8 decimali: compatibile con Rivaluta sui casi osservati
 
   // Valore come pubblicato e sua base: dall'archivio ufficiale, dal valore inserito a mano o,
   // in mancanza, dal valore interno in base 2015.

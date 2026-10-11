@@ -349,15 +349,13 @@
       const tasso = LanotteInteressi.tassoIn(y + '-06-15', 'legali');
       let interesseAnno = 0;
       if (conInteressi === 'cumulo' && tasso) {
-        // Periodo (frazione di anno se primo/ultimo)
-        let frazione = 1;
-        if (y === yStart) {
-          const [, m] = meseInizio.split('-').map(Number);
-          frazione = (13 - m) / 12;
-        } else if (y === yEnd) {
-          const [, m] = meseFine.split('-').map(Number);
-          frazione = m / 12;
-        }
+        // Mesi del periodo che cadono in quest'anno: il periodo va dall'inizio del mese del fatto
+        // all'inizio del mese di calcolo (gennaio → febbraio = 1 mese; stesso mese = 0).
+        const [ys, ms] = meseInizio.split('-').map(Number);
+        const [ye, me] = meseFine.split('-').map(Number);
+        const t0 = ys * 12 + (ms - 1), t1 = ye * 12 + (me - 1);
+        const mesiAnno = Math.max(0, Math.min(t1, (y + 1) * 12) - Math.max(t0, y * 12));
+        const frazione = mesiAnno / 12;
         interesseAnno = capRiv * (tasso.tasso / 100) * frazione;
         totaleInteressi += interesseAnno;
       }

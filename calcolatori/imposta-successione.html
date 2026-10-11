@@ -23,7 +23,7 @@
   <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
     <div style="font-size:24px;flex-shrink:0">!</div>
     <div style="font-size:13.5px;color:#78350f;line-height:1.55">
-      <strong>Strumento esclusivamente informativo.</strong> Il risultato e una simulazione orientativa e non costituisce dichiarazione di successione, liquidazione fiscale, preventivo o consulenza legale. Franchigie e aliquote si applicano alla quota di ciascun beneficiario. Per una valutazione professionale è necessario contattare direttamente lo Studio.
+      <strong>Strumento esclusivamente informativo.</strong> Il risultato è una simulazione orientativa e non costituisce dichiarazione di successione, liquidazione fiscale, preventivo o consulenza legale. Franchigie e aliquote si applicano alla quota di ciascun beneficiario. Per una valutazione professionale è necessario contattare direttamente lo Studio.
     </div>
   </div>
 </section>
@@ -114,7 +114,7 @@
           <div><span>Imposta catastale</span><strong id="imps-catastale">-</strong></div>
         </div>
         <p class="imps-note" id="imps-note"></p>
-        <div class="imps-disclaimer"><strong>Attenzione</strong><span>Risultato assolutamente informativo. Per predisporre o verificare una successione e necessario contattare lo Studio e sottoporre la documentazione.</span></div>
+        <div class="imps-disclaimer"><strong>Attenzione</strong><span>Risultato assolutamente informativo. Per predisporre o verificare una successione è necessario contattare lo Studio e sottoporre la documentazione.</span></div>
         <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
         <a href="https://studiolegalelanotte.it/avvocato-successioni-eredita/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:var(--gold);color:#fff;font-weight:700;padding:14px">Assistenza successioni in tutta Italia</a>
         <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Richieda una verifica allo Studio</a>
@@ -133,7 +133,7 @@
     <div class="imps-docs">
       <div><strong>Aliquote e franchigie</strong><span>4% oltre 1.000.000 € per coniuge e linea retta; 6% oltre 100.000 € per fratelli e sorelle; 6% e 8% senza franchigia per gli altri; 1.500.000 € per la persona con disabilità grave (art. 7 d.lgs. 346/1990, nel testo modificato dal d.lgs. 139/2024).</span></div>
       <div><strong>Immobili</strong><span>Ipotecaria 2% e catastale 1% sul valore catastale, minimo 200 € ciascuna; con benefici prima casa sono fisse: 200 € + 200 €.</span></div>
-      <div><strong>Dichiarazione</strong><span>Entro 12 mesi dall'apertura della successione. Dal 2025 l'imposta e in autoliquidazione (D.Lgs. 139/2024), salvo controlli dell'Agenzia delle Entrate.</span></div>
+      <div><strong>Dichiarazione</strong><span>Entro 12 mesi dall'apertura della successione. Dal 2025 l'imposta è in autoliquidazione (D.Lgs. 139/2024), salvo controlli dell'Agenzia delle Entrate.</span></div>
     </div>
   </div>
 </section>
@@ -228,7 +228,7 @@ function calcolaImposta(){
     nota += 'Stima al netto di imposta di bollo, tassa ipotecaria e tributi speciali. Passività, donazioni e agevolazioni vanno verificate sul caso concreto.';
   }
   if (donazioni > 0) nota += ' Le donazioni pregresse non riducono la franchigia per le successioni aperte dal 2025 (d.lgs. 139/2024); restano da valutare sul piano civilistico (collazione, riduzione, divisione).';
-  if (speciali) nota += ' Sono presenti situazioni particolari non comprese nel calcolo automatico: e indispensabile una consulenza professionale.';
+  if (speciali) nota += ' Sono presenti situazioni particolari non comprese nel calcolo automatico: è indispensabile una consulenza professionale.';
   document.getElementById('imps-note').textContent = nota;
 }
 function txt(id){ return (document.getElementById(id).textContent || '').trim(); }

@@ -316,9 +316,14 @@
         <h3 style="font-family:var(--serif);font-size:20px;color:var(--navy);margin:0 0 18px">Tutele per perdite occulte</h3>
         <p style="font-size:13.5px;color:#475569;line-height:1.6;margin:0 0 18px">Art. 19 TIMSII (allegato A alla delibera ARERA 218/2016/R/idr, come modificato dalla delibera 609/2021/R/idr). Per le perdite a valle del contatore, non affioranti e non rintracciabili con la normale diligenza, se il consumo è almeno il <strong>doppio</strong> del consumo medio giornaliero di riferimento (quello degli ultimi due anni nello stesso periodo della fattura) l'utente può chiedere per iscritto, allegando la fattura di riparazione: esonero da <strong>fognatura e depurazione</strong> sul volume eccedente, se la perdita si è dispersa nell'ambiente, e tariffa <strong>acquedotto non superiore alla metà della tariffa base</strong> sullo stesso volume, fatta salva una franchigia non superiore al 30%; inoltre la rateizzazione. Le tutele valgono anche per le fatture dei 3 mesi successivi; per riaccedervi devono trascorrere almeno 3 anni.</p>
         <div class="calc-row">
-          <label>Consumo medio di riferimento dello stesso periodo (m³) *<input type="number" id="pMedia" placeholder="Es. 40"></label>
           <label>Consumo della fattura contestata (m³) *<input type="number" id="pAttuale" placeholder="Es. 180"></label>
+          <label>Giorni del periodo fatturato<input type="number" id="pGiorniF" min="1" placeholder="Es. 60"></label>
         </div>
+        <div class="calc-row">
+          <label>Consumo medio di riferimento: media degli ultimi due anni per lo stesso periodo (m³) *<input type="number" id="pMedia" placeholder="Es. 40"></label>
+          <label>Giorni di quel periodo di riferimento<input type="number" id="pGiorniR" min="1" placeholder="Es. 59"></label>
+        </div>
+        <p style="font-size:12.5px;color:#64748b;margin:-6px 0 14px">Il requisito si misura sul consumo medio <strong>giornaliero</strong>. Se i due periodi hanno durata diversa (per esempio per un anno bisestile), indichi i giorni: il confronto si fa per giorno.</p>
         <div class="calc-row">
           <label>Tariffa base acquedotto (€/m³, dalla fattura)<input type="number" id="pTariffa" step="0.0001" placeholder="Es. 0,9"></label>
           <label>Fognatura + depurazione (€/m³, dalla fattura)<input type="number" id="pFognDep" step="0.0001" placeholder="Es. 0,8"></label>
@@ -564,6 +569,7 @@
     });
   });
 
+  function fmtNum(x){ return Number(x).toLocaleString('it-IT', {maximumFractionDigits: 3}); }
   // TAB PERDITA
   document.getElementById('calcPerdita').addEventListener('click', () => {
     const media = +document.getElementById('pMedia').value;
@@ -572,19 +578,30 @@
     const fognDep = +document.getElementById('pFognDep').value;
     const importo = +document.getElementById('pImporto').value;
     if (!media || !attuale) { alert('Compili il consumo di riferimento e quello della fattura'); return; }
-    const requisito = attuale >= 2 * media;
-    const eccedenza = Math.max(0, attuale - media);
+    const giorniF = +document.getElementById('pGiorniF').value;
+    const giorniR = +document.getElementById('pGiorniR').value;
+    if ((giorniF > 0) !== (giorniR > 0)) { alert('Indichi i giorni di entrambi i periodi, oppure di nessuno dei due.'); return; }
+    // Art. 19 TIMSII e pagina AQP: il confronto è tra consumi medi GIORNALIERI. Senza i giorni si presume
+    // la stessa durata dei due periodi.
+    const conGiorni = giorniF > 0 && giorniR > 0;
+    const mediaGiorno = conGiorni ? media / giorniR : null;
+    const riferimentoSulPeriodo = conGiorni ? mediaGiorno * giorniF : media;
+    const requisito = conGiorni ? (attuale / giorniF) >= 2 * mediaGiorno : attuale >= 2 * media;
+    const eccedenza = Math.max(0, Math.round((attuale - riferimentoSulPeriodo) * 100) / 100);
     const out = document.getElementById('risPerdita');
     out.style.display = 'block';
     let html = '<h4 style="margin:0 0 10px;color:var(--navy);font-family:var(--serif)">Risultato indicativo</h4>' +
-      '<p style="margin:0 0 6px"><strong>Requisito del doppio del consumo medio:</strong> ' + (requisito ? '<span style="color:#16a34a">soddisfatto</span>' : '<span style="color:#dc2626">non soddisfatto</span>') + ' (' + attuale + ' m³ contro ' + media + ' m³ di riferimento)</p>';
+      '<p style="margin:0 0 6px"><strong>Requisito del doppio del consumo medio giornaliero:</strong> ' + (requisito ? '<span style="color:#16a34a">soddisfatto</span>' : '<span style="color:#dc2626">non soddisfatto</span>') +
+      (conGiorni
+        ? ' (' + fmtNum(attuale / giorniF) + ' m³ al giorno contro ' + fmtNum(mediaGiorno) + ' m³ al giorno di riferimento)</p>'
+        : ' (' + attuale + ' m³ contro ' + media + ' m³ di riferimento, presumendo periodi di uguale durata)</p>');
     if (!requisito) {
       // Senza il doppio del consumo medio le tutele dell'art. 19 TIMSII non si attivano: nessuna stima.
       html += '<p style="margin:0 0 6px">Con questi consumi le tutele per perdite occulte <strong>non si applicano</strong>: il consumo della fattura deve essere almeno il doppio del consumo medio giornaliero di riferimento. Restano possibili un reclamo per altri motivi (per esempio una lettura errata) e la rateizzazione alle condizioni ordinarie.</p>';
     } else {
       const maxAcq = tariffa ? eccedenza * tariffa * 0.5 : null;
       const esonero = fognDep ? eccedenza * fognDep : null;
-      html += '<p style="margin:0 0 6px"><strong>Volume eccedente il consumo di riferimento:</strong> ' + eccedenza + ' m³</p>' +
+      html += '<p style="margin:0 0 6px"><strong>Volume eccedente il consumo di riferimento:</strong> ' + fmtNum(eccedenza) + ' m³</p>' +
         (maxAcq !== null ? '<p style="margin:0 0 6px"><strong>Acquedotto sul volume eccedente a metà della tariffa base:</strong> ' + fmtEur(maxAcq) + ' (IVA esclusa; simulazione senza franchigia)</p>' : '') +
         (esonero !== null ? '<p style="margin:0 0 6px"><strong>Fognatura e depurazione sul volume eccedente:</strong> non dovute se è dimostrata la dispersione della perdita nell\'ambiente (esonero stimato di ' + fmtEur(esonero) + ', IVA esclusa)</p>' : '') +
         (importo && maxAcq !== null ? '<p style="margin:0 0 6px"><strong>Differenza rispetto all\'importo fatturato per l\'eccedenza:</strong> ≈ ' + fmtEur(Math.max(0, importo - maxAcq)) + ' (IVA esclusa; simulazione senza franchigia)</p>' : '') +

@@ -195,7 +195,7 @@ function lanotte_calcolatori_pages_data() {
             'intro' => 'Il calcolatore degli interessi legali consente di stimare gli interessi maturati su un credito secondo il saggio legale previsto dall\'art. 1284 c.c., con suddivisione automatica per periodi e tassi annuali. È utile per recupero crediti, diffide, conteggi su somme dovute e verifiche preliminari prima di un atto giudiziale.',
             'faq' => [
                 ['Quando si applicano gli interessi legali?', 'Di regola quando una somma di denaro è dovuta e non è previsto un diverso tasso convenzionale o speciale.'],
-                ['Il calcolo prevede anatocismo?', 'No. Il calcolo e a capitalizzazione semplice, salvo diverse verifiche sul caso concreto.'],
+                ['Il calcolo prevede anatocismo?', 'No. Il calcolo è a capitalizzazione semplice, salvo diverse verifiche sul caso concreto.'],
                 ['Serve un avvocato?', 'Per importi contestati, prescrizione, decorrenza della mora o atti giudiziali è opportuno far verificare il conteggio.'],
             ],
         ],
@@ -207,7 +207,7 @@ function lanotte_calcolatori_pages_data() {
             'faq' => [
                 ['La franchigia vale per ogni erede?', 'Sì. La franchigia si applica alla quota di ciascun beneficiario: 1.000.000 di euro per coniuge e linea retta, 100.000 per fratelli e sorelle, 1.500.000 per beneficiari con disabilità grave (L. 104/1992).'],
                 ['Con i benefici prima casa cosa cambia?', 'Le imposte ipotecaria e catastale si pagano in misura fissa di 200 euro ciascuna, invece del 2% e dell\'1% sul valore catastale degli immobili.'],
-                ['Chi calcola e versa l\'imposta?', 'Dal 2025 l\'imposta e in autoliquidazione: si versa sulla base della dichiarazione, da presentare entro dodici mesi, salvo controlli dell\'Agenzia delle Entrate.'],
+                ['Chi calcola e versa l\'imposta?', 'Dal 2025 l\'imposta è in autoliquidazione: si versa sulla base della dichiarazione, da presentare entro dodici mesi, salvo controlli dell\'Agenzia delle Entrate.'],
             ],
         ],
         'mantenimento-istat' => [
@@ -249,8 +249,8 @@ function lanotte_calcolatori_pages_data() {
             'service' => 'Infortunistica e risarcimento danni',
             'intro' => 'Calcolatore gratuito del danno biologico per lesioni macropermanenti, da 10 a 100 punti, secondo la Tabella Unica Nazionale, con le Tabelle di Milano 2024 a confronto: inserendo età, punti di invalidità e giorni di inabilità si ottiene subito la stima. Il calcolatore fornisce una stima online del risarcimento del danno biologico per lesioni macropermanenti da 10 a 100 punti. Lo strumento usa la Tabella Unica Nazionale prevista dal D.P.R. 12/2025, direttamente per i sinistri stradali e la responsabilità sanitaria successivi al 5 marzo 2025 e come parametro equitativo negli altri casi (Cass. civ., sez. III, 7 aprile 2026, n. 8630). Inserendo punti di invalidità permanente, età e giorni di inabilità temporanea si ottiene subito il dettaglio del danno permanente, temporaneo e della sofferenza soggettiva media. Le opzioni avanzate permettono inoltre di simulare personalizzazione, spese documentate e perdita di reddito. Il calcolo è gratuito, resta sul dispositivo e può essere controllato in anteprima prima di stampare o salvare il report. La quantificazione definitiva richiede sempre una perizia medico-legale e la verifica giuridica del caso concreto.',
             'faq' => [
-                ['Quando si usano le Tabelle di Milano?', 'Per gli eventi anteriori al 5 marzo 2025 e, di regola, per gli illeciti civili non coperti dalla TUN, come cadute e altre responsabilità diverse da circolazione e sanità.'],
-                ['Quando si usa la Tabella Unica Nazionale?', 'Per lesioni da 10 a 100 punti derivanti da circolazione di veicoli o responsabilità sanitaria, quando l\'evento rientra nell\'ambito temporale del D.P.R. 12/2025.'],
+                ['Quando si usa la Tabella Unica Nazionale?', 'Si applica direttamente alle lesioni da 10 a 100 punti derivanti da circolazione di veicoli o responsabilità sanitaria, per i sinistri successivi al 5 marzo 2025 (D.P.R. 12/2025). Negli altri casi, compresi i sinistri anteriori e gli altri illeciti, la Cassazione la indica come parametro della liquidazione equitativa, da cui il giudice può discostarsi solo motivando su circostanze peculiari (Cass. civ., sez. III, 7 aprile 2026, n. 8630).'],
+                ['A che cosa servono le Tabelle di Milano?', 'Nel calcolatore sono un termine di confronto. Dopo la sentenza n. 8630/2026 il riferimento per le macropermanenti è la TUN anche fuori dal suo ambito diretto; le Tabelle di Milano possono restare utili per voci che la TUN non disciplina.'],
                 ['Dove trovo i punti di invalidità e i giorni di inabilità?', 'Sono normalmente indicati nella relazione medico-legale. Se non sono ancora stati valutati, il calcolo può essere soltanto una simulazione.'],
                 ['La personalizzazione aumenta sempre il risarcimento?', 'No. Deve dipendere da conseguenze specifiche del caso, essere allegata e provata; non è una maggiorazione automatica.'],
                 ['Serve una perizia medico-legale?', 'Sì. I punti di invalidità, i giorni di inabilità e le ricadute concrete devono essere valutati da un medico-legale.'],
@@ -260,11 +260,11 @@ function lanotte_calcolatori_pages_data() {
             'title' => 'Calcolo danno biologico micropermanenti 2026 – lesioni da 1 a 9 punti (gratuito)',
             'keyword' => 'calcolo micropermanenti',
             'service' => 'Infortunistica stradale',
-            'intro' => 'Calcolatore gratuito del danno biologico per lesioni micropermanenti, da 1 a 9 punti di invalidità permanente, secondo l\'art. 139 del Codice delle Assicurazioni e i valori aggiornati: inserisci anni e punti e ottieni la stima del danno permanente, del danno temporaneo e delle voci patrimoniali indicate.',
+            'intro' => 'Calcolatore gratuito del danno biologico per lesioni micropermanenti, da 1 a 9 punti di invalidità permanente, secondo l\'art. 139 del Codice delle Assicurazioni e i valori aggiornati: inserendo età e punti si ottiene la stima del danno permanente, del danno temporaneo e delle voci patrimoniali indicate.',
             'faq' => [
                 ['Cosa sono le micropermanenti?', 'Sono lesioni con invalidità permanente fino a 9 punti.'],
-                ['Il danno morale è incluso?', 'Sì, nella misura media: con la TUN il calcolo comprende la componente morale media; con le Tabelle di Milano la sofferenza soggettiva media. Eventuali aumenti per personalizzazione vanno allegati e provati.'],
-                ['Il calcolo vale per ogni sinistro?', 'E pensato soprattutto per sinistri da circolazione, secondo l\'ambito dell\'art. 139 CdA.'],
+                ['Il danno morale è incluso?', 'L\'art. 139 del Codice delle assicurazioni non prevede una voce separata per il danno morale: l\'importo è esaustivo del danno non patrimoniale conseguente alle lesioni (art. 139, comma 3). Se la menomazione incide in modo rilevante su specifici aspetti dinamico-relazionali documentati, o causa una sofferenza psico-fisica di particolare intensità, il giudice può aumentarlo fino al 20%, con motivazione; l\'aumento va allegato e provato.'],
+                ['Il calcolo vale per ogni sinistro?', 'È pensato per i sinistri da circolazione di veicoli e natanti (art. 139 CdA) e per la responsabilità sanitaria, che rinvia agli stessi valori (art. 7, comma 4, L. 24/2017).'],
             ],
         ],
         'inail' => [
@@ -381,7 +381,7 @@ function lanotte_calcolatori_pages_data() {
             'title' => 'Calcolo termini opposizione decreto ingiuntivo: 40 giorni dalla notifica (gratuito)',
             'keyword' => 'calcolo opposizione decreto ingiuntivo 40 giorni',
             'service' => 'Recupero crediti e opposizioni',
-            'intro' => 'Hai ricevuto un decreto ingiuntivo? Il calcolatore gratuito individua la scadenza per l\'opposizione (art. 641 c.p.c.): 40 giorni dalla notifica, termini ridotti o aumentati, sospensione feriale. Il calcolatore stima la scadenza per proporre opposizione a decreto ingiuntivo partendo dalla data di notifica, con termine ordinario di quaranta giorni e opzioni per termini ridotti, aumentati o notifiche all\'estero. Include sospensione feriale e proroga al primo giorno non festivo quando applicabili.',
+            'intro' => 'Ha ricevuto un decreto ingiuntivo? Il calcolatore gratuito individua la scadenza per l\'opposizione (art. 641 c.p.c.): 40 giorni dalla notifica, termini ridotti o aumentati, sospensione feriale. Il calcolatore stima la scadenza per proporre opposizione a decreto ingiuntivo partendo dalla data di notifica, con termine ordinario di quaranta giorni e opzioni per termini ridotti, aumentati o notifiche all\'estero. Include sospensione feriale e proroga al primo giorno non festivo quando applicabili.',
             'faq' => [
                 ['Qual è il termine ordinario per opporsi?', 'Di regola il decreto ingiuntivo assegna quaranta giorni dalla notifica, salvo diversa indicazione del giudice.'],
                 ['Il termine può essere diverso?', 'Sì, l\'art. 641 c.p.c. consente termini ridotti o aumentati e prevede regole specifiche per intimati residenti all\'estero.'],
@@ -407,7 +407,7 @@ function lanotte_calcolatori_pages_data() {
             'faq' => [
                 ['La prescrizione è sempre di dieci anni?', 'No, il termine ordinario decennale vale salvo prescrizioni brevi previste dalla legge.'],
                 ['Una diffida interrompe la prescrizione?', 'Può interromperla se contiene una richiesta idonea e viene provata ricezione e contenuto.'],
-                ['Il calcolatore decide se il credito e prescritto?', 'No, serve una verifica su titolo, decorrenza, atti interruttivi, riconoscimenti di debito e giudizi pendenti.'],
+                ['Il calcolatore decide se il credito è prescritto?', 'No, serve una verifica su titolo, decorrenza, atti interruttivi, riconoscimenti di debito e giudizi pendenti.'],
             ],
         ],
         'spese-straordinarie-figli' => [
@@ -645,7 +645,8 @@ function lanotte_post_is_about_succession() {
     }, $terms));
     $haystack = remove_accents($post->post_title . ' ' . $post->post_name . ' ' . $category_text);
 
-    return (bool) preg_match('/succession|eredita|ereditari|testament|legittim|donazion|coerede/i', $haystack);
+    // «legittima difesa» non riguarda le successioni (il caso ROGGERO mostrava il riquadro per errore).
+    return (bool) preg_match('/succession|eredita|ereditari|testament|legittimari|legittima(?![\s-]+difesa)|donazion|coerede/i', $haystack);
 }
 
 add_filter('the_content', function($content) {
