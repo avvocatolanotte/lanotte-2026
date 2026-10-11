@@ -569,6 +569,23 @@
     if (Math.abs(v) > max) throw nome + ': valore fuori scala (massimo ' + max.toLocaleString('it-IT') + ').';
     return v;
   }
+  // Aritmetica esatta per volumi e importi (B37, tredicesima revisione di Codex): frazioni di interi BigInt,
+  // arrotondate al centesimo una sola volta, dal valore esatto (in virgola mobile 100 × 0,8005 × 1,10 dava
+  // 88,0549999… e quindi € 88,05 invece di € 88,06). I valori decimali si leggono dal testo dei campi.
+  const Qr = (() => {
+    const abs = x => x < 0n ? -x : x;
+    const mcd = (a, b) => { a = abs(a); b = abs(b); while (b) [a, b] = [b, a % b]; return a; };
+    const of = (n, d = 1) => { n = BigInt(n); d = BigInt(d); if (d < 0n) { n = -n; d = -d; } const g = mcd(n, d) || 1n; return {n: n / g, d: d / g}; };
+    const dec = t => { const m = /^(-?)(\d+)(?:[.,](\d+))?$/.exec(String(t).trim()); if (!m) throw new Error('valore non decimale: ' + t); const f = m[3] || ''; return of(BigInt(m[1] + m[2] + f), 10n ** BigInt(f.length)); };
+    const add = (a, b) => of(a.n * b.d + b.n * a.d, a.d * b.d);
+    const sub = (a, b) => of(a.n * b.d - b.n * a.d, a.d * b.d);
+    const mul = (a, b) => of(a.n * b.n, a.d * b.d);
+    const cmp = (a, b) => { const x = a.n * b.d - b.n * a.d; return x > 0n ? 1 : x < 0n ? -1 : 0; };
+    // centesimi arrotondati a metà verso l'esterno, come la cifra mostrata
+    const cents = a => { const num = a.n * 100n; let q = num / a.d; if (2n * abs(num % a.d) >= a.d) q += num < 0n ? -1n : 1n; return q; };
+    return {of, dec, add, sub, mul, cmp, zero: of(0), num: a => Number(a.n) / Number(a.d), euro: a => Number(cents(a)) / 100};
+  })();
+  const qDi = id => Qr.dec($(id).value);
   const fmtData = s => s.split('-').reverse().join('/');
   // Il testo inserito dall'utente si mostra come testo, mai come HTML.
   const esc = t => String(t).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
@@ -652,55 +669,62 @@
     }
 
     const consumo = le - ls;
-    const quota = giorni / 365;                        // frazione d'anno del periodo fatturato
+    const R = Qr;
+    const qCons = R.of(consumo), qQuota = R.of(giorni, 365);   // frazione d'anno del periodo fatturato
+    const qMod = qDi('moduli');
     // Fasce: pro-capite (per componente) per residente e condominiale; per modulo negli altri usi.
-    const moltFasce = (t.proCapite ? componenti : moduli) * quota;
+    const qMolt = R.mul(t.proCapite ? R.of(componenti) : qMod, qQuota);
+    const qPrezzi = t.fasce.map((f, i) => qDi('t' + (i + 1)));
+    const qFogT = qDi('fognatura'), qDepT = qDi('depurazione');
+    const qQf = ['qfAcq', 'qfFog', 'qfDep'].map(qDi);
 
     // Acquedotto: consumo ripartito sulle fasce annue rapportate al periodo (e ai componenti, se pro-capite).
-    let resto = consumo, da = 0, acquedotto = 0;
+    let qResto = qCons, da = 0, qAcq = R.zero;
     const dettaglio = [];
     t.fasce.forEach((f, i) => {
-      if (resto <= 0) return;
-      const ampiezza = f[0] === Infinity ? Infinity : (f[0] - da) * moltFasce;
-      const q = Math.min(resto, ampiezza);
-      const importo = q * prezzi[i];
-      acquedotto += importo;
-      dettaglio.push(['Acquedotto — ' + f[2], Math.round(q * 1000) / 1000, fmtTariffa(prezzi[i], 6), importo]);
-      resto -= q;
+      if (R.cmp(qResto, R.zero) <= 0) return;
+      const qAmp = f[0] === Infinity ? null : R.mul(R.of(f[0] - da), qMolt);
+      const qq = (qAmp === null || R.cmp(qResto, qAmp) <= 0) ? qResto : qAmp;
+      const qImp = R.mul(qq, qPrezzi[i]);
+      qAcq = R.add(qAcq, qImp);
+      dettaglio.push(['Acquedotto — ' + f[2], Math.round(R.num(qq) * 1000) / 1000, fmtTariffa(prezzi[i]), R.euro(qImp)]);
+      qResto = R.sub(qResto, qq);
       da = f[0];
     });
 
-    const fognatura = consumo * fog;
-    const depurazione = consumo * dep;
+    const qFogn = R.mul(qCons, qFogT), qDepu = R.mul(qCons, qDepT);
     // Quote fisse annue: per modulo contrattuale, rapportate al periodo.
-    const qfA = qfAnnue[0] * moduli * quota, qfFog = qfAnnue[1] * moduli * quota, qfDep = qfAnnue[2] * moduli * quota;
-    const qfF = qfFog + qfDep;
+    const qQfA = R.mul(R.mul(qQf[0], qMod), qQuota), qQfFog = R.mul(R.mul(qQf[1], qMod), qQuota), qQfDep = R.mul(R.mul(qQf[2], qMod), qQuota);
     // Componenti perequative: per m³ su ciascun servizio fatturato; UI1 e UI2 cambiano dal 1/1/2027, quindi il
     // consumo è ripartito tra i due tratti in proporzione ai giorni (consumo giornaliero costante).
     const servizi = 1 + (fog > 0 ? 1 : 0) + (dep > 0 ? 1 : 0);
     const bonus = cfg.bonus && !!$('bonusDiretto').checked;
-    const ui3Applicata = bonus ? 0 : ui3;
+    const qUi3 = bonus ? R.zero : qDi('ui3');
     if (bonus) avvisi.push('Componente UI3 non applicata: intestatario beneficiario diretto del bonus sociale idrico.');
     const giorniPre = Math.max(0, Math.min(giorni, Math.round((new Date(INIZIO_2027 + 'T12:00:00') - new Date(ds + 'T12:00:00')) / 864e5)));
     const giorniPost = giorni - giorniPre;
-    const consumoPre = consumo * giorniPre / giorni, consumoPost = consumo - consumoPre;
+    const qVolPre = R.mul(qCons, R.of(giorniPre, giorni)), qVolPost = R.sub(qCons, qVolPre);
     const tratti = [];
-    if (giorniPre > 0) tratti.push({nome: giorniPost > 0 ? ' fino al 31/12/2026 (' + giorniPre + ' giorni)' : '', volume: consumoPre, ui: ui12 + ui3Applicata});
-    if (giorniPost > 0) tratti.push({nome: giorniPre > 0 ? ' dal 1/1/2027 (' + giorniPost + ' giorni)' : '', volume: consumoPost, ui: ui12b + ui3Applicata});
-    let perequative = 0;
-    const righeUI = tratti.map(tr => { const imp = tr.volume * servizi * tr.ui; perequative += imp; return ['Componenti perequative UI' + tr.nome + ' (' + servizi + (servizi === 1 ? ' servizio' : ' servizi') + ')', Math.round(tr.volume * servizi * 1000) / 1000, fmtTariffa(tr.ui, 4), imp]; });
-    dettaglio.push(['Fognatura', consumo, fmtTariffa(fog, 6), fognatura]);
-    dettaglio.push(['Depurazione', consumo, fmtTariffa(dep, 6), depurazione]);
-    dettaglio.push(['Quota fissa acquedotto (' + giorni + ' giorni)', '—', '—', qfA]);
-    dettaglio.push(['Quota fissa fognatura (' + giorni + ' giorni)', '—', '—', qfFog]);
-    dettaglio.push(['Quota fissa depurazione (' + giorni + ' giorni)', '—', '—', qfDep]);
+    if (giorniPre > 0) tratti.push({nome: giorniPost > 0 ? ' fino al 31/12/2026 (' + giorniPre + ' giorni)' : '', qVol: qVolPre, qUi: R.add(qDi('ui12'), qUi3)});
+    if (giorniPost > 0) tratti.push({nome: giorniPre > 0 ? ' dal 1/1/2027 (' + giorniPost + ' giorni)' : '', qVol: qVolPost, qUi: R.add(qDi('ui12b'), qUi3)});
+    let qPereq = R.zero;
+    const righeUI = tratti.map(tr => { const qImp = R.mul(R.mul(tr.qVol, R.of(servizi)), tr.qUi); qPereq = R.add(qPereq, qImp); return ['Componenti perequative UI' + tr.nome + ' (' + servizi + (servizi === 1 ? ' servizio' : ' servizi') + ')', Math.round(R.num(tr.qVol) * servizi * 1000) / 1000, fmtTariffa(R.num(tr.qUi)), R.euro(qImp)]; });
+    dettaglio.push(['Fognatura', consumo, fmtTariffa(fog), R.euro(qFogn)]);
+    dettaglio.push(['Depurazione', consumo, fmtTariffa(dep), R.euro(qDepu)]);
+    dettaglio.push(['Quota fissa acquedotto (' + giorni + ' giorni)', '—', '—', R.euro(qQfA)]);
+    dettaglio.push(['Quota fissa fognatura (' + giorni + ' giorni)', '—', '—', R.euro(qQfFog)]);
+    dettaglio.push(['Quota fissa depurazione (' + giorni + ' giorni)', '—', '—', R.euro(qQfDep)]);
     righeUI.forEach(r => dettaglio.push(r));
 
     if (ds < '2026-01-01' || de > INIZIO_2027) avvisi.push('Il periodo comprende giorni fuori dal 2026: le tariffe precompilate sono quelle AQP per il 2026 e sono applicate a tutto il periodo (le sole componenti UI sono ripartite al 1° gennaio 2027). Se per gli altri giorni valgono prezzi diversi, il risultato è soltanto una stima.');
 
-    const imponibile = acquedotto + fognatura + depurazione + qfA + qfF + perequative;
-    const ivaCalc = imponibile * iva;
-    const totale = imponibile + ivaCalc;
+    const qImpon = [qAcq, qFogn, qDepu, qQfA, qQfFog, qQfDep, qPereq].reduce(R.add);
+    const qIvaC = R.mul(qImpon, R.mul(qDi('iva'), R.of(1, 100)));
+    const qTot = R.add(qImpon, qIvaC);
+    // Importi mostrati e confrontati: ciascuno arrotondato al centesimo dal proprio valore esatto.
+    const acquedotto = R.euro(qAcq), fognatura = R.euro(qFogn), depurazione = R.euro(qDepu);
+    const qfA = R.euro(qQfA), qfFog = R.euro(qQfFog), qfDep = R.euro(qQfDep), qfF = R.euro(R.add(qQfFog, qQfDep));
+    const perequative = R.euro(qPereq), imponibile = R.euro(qImpon), ivaCalc = R.euro(qIvaC), totale = R.euro(qTot);
     if (![acquedotto, fognatura, depurazione, qfA, qfF, perequative, imponibile, ivaCalc, totale].every(Number.isFinite)) {
       alert('Con i valori inseriti il risultato non è calcolabile: controlli tariffe, quote e consumi.');
       return;
@@ -843,32 +867,34 @@
     // Art. 19 TIMSII e pagina AQP: il confronto è tra consumi medi GIORNALIERI. Senza i giorni si presume
     // la stessa durata dei due periodi.
     const conGiorni = giorniF !== null;
-    const mediaGiorno = conGiorni ? media / giorniR : null;
-    const riferimentoSulPeriodo = conGiorni ? mediaGiorno * giorniF : media;
-    // Confronto esatto in millesimi di m³ (i consumi hanno al più 3 decimali): alla soglia esatta del doppio le
-    // divisioni in virgola mobile darebbero «non soddisfatto» (B33, decima revisione di Codex).
-    const milA = Math.round(attuale * 1000), milM = Math.round(media * 1000);
-    const requisito = conGiorni ? milA * giorniR >= 2 * milM * giorniF : milA >= 2 * milM;
-    // Nessun arrotondamento intermedio: si arrotondano solo gli importi finali (B11, terza revisione di Codex).
-    const eccedenza = Math.max(0, attuale - riferimentoSulPeriodo);
-    if (![riferimentoSulPeriodo, eccedenza].every(Number.isFinite)) { alert('Con i valori inseriti la stima non è calcolabile: controlli consumi e giorni.'); return; }
+    const R = Qr;
+    const qAtt = qDi('pAttuale'), qMed = qDi('pMedia');
+    const qRif = conGiorni ? R.mul(qMed, R.of(giorniF, giorniR)) : qMed;   // riferimento riportato ai giorni della fattura
+    // Requisito e importi in aritmetica esatta: alla soglia esatta del doppio (B33) e negli importi (B37) la
+    // virgola mobile darebbe esiti o centesimi sbagliati. Nessun arrotondamento intermedio (B11).
+    const requisito = conGiorni
+      ? R.cmp(R.mul(qAtt, R.of(giorniR)), R.mul(R.of(2 * giorniF), qMed)) >= 0
+      : R.cmp(qAtt, R.mul(R.of(2), qMed)) >= 0;
+    const qEcc = R.cmp(qAtt, qRif) > 0 ? R.sub(qAtt, qRif) : R.zero;
+    const mediaGiorno = conGiorni ? media / giorniR : null;               // solo per la visualizzazione
+    const eccedenza = R.num(qEcc);
     const out = $('risPerdita');
     out.style.display = 'block';
     let html = '<h4 style="margin:0 0 10px;color:var(--navy);font-family:var(--serif)">Risultato indicativo</h4>' +
       '<p style="margin:0 0 6px"><strong>Requisito del doppio del consumo medio giornaliero:</strong> ' + (requisito ? '<span style="color:#16a34a">soddisfatto</span>' : '<span style="color:#dc2626">non soddisfatto</span>') +
       (conGiorni
         ? ' (' + fmtNum(attuale / giorniF) + ' m³ al giorno contro ' + fmtNum(mediaGiorno) + ' m³ al giorno di riferimento)</p>'
-        : ' (' + attuale + ' m³ contro ' + media + ' m³ di riferimento, presumendo periodi di uguale durata)</p>');
+        : ' (' + fmtNum(attuale) + ' m³ contro ' + fmtNum(media) + ' m³ di riferimento, presumendo periodi di uguale durata)</p>');
     if (!requisito) {
       // Senza il doppio del consumo medio le tutele dell'art. 19 TIMSII non si attivano: nessuna stima.
       html += '<p style="margin:0 0 6px">Con questi consumi le tutele per perdite occulte <strong>non si applicano</strong>: il consumo della fattura deve essere almeno il doppio del consumo medio giornaliero di riferimento. Restano possibili un reclamo per altri motivi (per esempio una lettura errata) e la rateizzazione alle condizioni ordinarie.</p>';
     } else {
-      const maxAcq = tariffa !== null ? eccedenza * tariffa * 0.5 : null;
-      const esonero = fognDep !== null ? eccedenza * fognDep : null;
+      const maxAcq = tariffa !== null ? R.euro(R.mul(R.mul(qEcc, qDi('pTariffa')), R.of(1, 2))) : null;
+      const esonero = fognDep !== null ? R.euro(R.mul(qEcc, qDi('pFognDep'))) : null;
       html += '<p style="margin:0 0 6px"><strong>Volume eccedente il consumo di riferimento:</strong> ' + fmtNum(eccedenza) + ' m³</p>' +
         (maxAcq !== null ? '<p style="margin:0 0 6px"><strong>Acquedotto sul volume eccedente a metà della tariffa base:</strong> ' + fmtEur(maxAcq) + ' (IVA esclusa; simulazione senza franchigia)</p>' : '') +
         (esonero !== null ? '<p style="margin:0 0 6px"><strong>Fognatura e depurazione sul volume eccedente:</strong> non dovute se è dimostrata la dispersione della perdita nell\'ambiente (esonero stimato di ' + fmtEur(esonero) + ', IVA esclusa)</p>' : '') +
-        (importo !== null && maxAcq !== null ? '<p style="margin:0 0 6px"><strong>Differenza rispetto all\'importo fatturato per l\'eccedenza:</strong> ≈ ' + fmtEur(Math.max(0, importo - maxAcq)) + ' (IVA esclusa; simulazione senza franchigia)</p>' : '') +
+        (importo !== null && maxAcq !== null ? '<p style="margin:0 0 6px"><strong>Differenza rispetto all\'importo fatturato per l\'eccedenza:</strong> ≈ ' + fmtEur(Math.max(0, centesimi(importo) - centesimi(maxAcq)) / 100) + ' (IVA esclusa; simulazione senza franchigia)</p>' : '') +
         '<p style="margin:12px 0 0;font-size:13px;color:#64748b">Le tutele presuppongono una perdita a valle del contatore, non affiorante e non rintracciabile con la normale diligenza, e una riparazione documentata dalla fattura del tecnico; l\'esonero da fognatura e depurazione richiede inoltre che la perdita si sia dispersa nell\'ambiente. La simulazione non calcola la franchigia, fino al 30% dei volumi fatturabili, che il gestore può applicare: l\'importo dovuto può quindi essere più alto. Il consumo medio di riferimento lo determina AQP sugli ultimi due anni, per lo stesso periodo della fattura. La richiesta si presenta per iscritto ad AQP, anche via PEC a clienti@pec.aqp.it, allegando la fattura di riparazione e un documento d\'identità (art. 19 TIMSII; pagina «Tutele in caso di perdite occulte» di AQP). Documentazione indicata: ' + esc($('pDoc').value) + '.</p>';
     }
     out.innerHTML = html;
