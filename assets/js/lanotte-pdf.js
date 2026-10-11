@@ -195,6 +195,25 @@
     modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   }
 
+  // I caratteri standard di jsPDF coprono solo la codifica WinAnsi: frecce, simboli e emoji uscirebbero
+  // come caratteri spuri e spaziati. Si sostituiscono con un equivalente o si tolgono se decorativi.
+  const PDF_SOSTITUZIONI = {'\u2192': '\u2013', '\u2190': '\u2013', '\u2212': '-', '\u2248': 'circa ', '\u2264': '<=', '\u2265': '>=', '\u25CF': '\u2022'};
+  const PDF_AMMESSI = /[\x00-\xFF\u20AC\u201A\u0192\u201E\u2026\u2020\u2021\u02C6\u2030\u0160\u2039\u0152\u017D\u2018\u2019\u201C\u201D\u2022\u2013\u2014\u02DC\u2122\u0161\u203A\u0153\u017E\u0178]/;
+  function pdfSafe(t){
+    if (t === null || t === undefined) return t;
+    const orig = String(t);
+    const out = Array.from(orig).map(c => PDF_AMMESSI.test(c) ? c : (PDF_SOSTITUZIONI[c] ?? '')).join('').replace(/ {2,}/g, ' ');
+    return (out.startsWith(' ') && !orig.startsWith(' ')) ? out.trimStart() : out;
+  }
+  // Ogni testo scritto, misurato o spezzato passa da pdfSafe.
+  function proteggiTesti(doc){
+    const testo = doc.text.bind(doc), spezza = doc.splitTextToSize.bind(doc), larghezza = doc.getTextWidth.bind(doc);
+    doc.text = (t, ...r) => testo(Array.isArray(t) ? t.map(pdfSafe) : pdfSafe(t), ...r);
+    doc.splitTextToSize = (t, ...r) => spezza(pdfSafe(t), ...r);
+    doc.getTextWidth = t => larghezza(pdfSafe(t));
+    return doc;
+  }
+
   function splitLines(doc, value, width){
     return doc.splitTextToSize(String(value ?? ''), Math.max(8, width));
   }
@@ -206,10 +225,14 @@
   }
 
   function drawJustifiedParagraph(doc, text, x, y, width, lineHeight){
-    const lines = splitLines(doc, text, width);
+    return drawJustifiedLines(doc, splitLines(doc, text, width), x, y, width, lineHeight, true);
+  }
+
+  // Righe già spezzate; l'ultima si giustifica solo se il paragrafo prosegue nella pagina seguente.
+  function drawJustifiedLines(doc, lines, x, y, width, lineHeight, lastIsEnd){
     lines.forEach((line, index) => {
       const words = String(line).trim().split(/\s+/).filter(Boolean);
-      const isLast = index === lines.length - 1;
+      const isLast = lastIsEnd && index === lines.length - 1;
       const lineWidth = doc.getTextWidth(line);
       if (isLast || words.length < 3 || lineWidth < width * 0.72) {
         doc.text(line, x, y);
@@ -243,7 +266,7 @@
       return;
     }
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({orientation:'portrait', unit:'mm', format:'a4'});
+    const doc = proteggiTesti(new jsPDF({orientation:'portrait', unit:'mm', format:'a4'}));
 
     const W = 210, H = 297;
     const M = 18; // margine
@@ -310,8 +333,10 @@
       doc.setFont('helvetica','italic');
       doc.setFontSize(9.5);
       doc.setTextColor(...COLORS.muted);
-      doc.text('Riferimento normativo: ' + opts.normativa, M, y);
-      y += 6;
+      // Riferimento lungo: va a capo entro i margini invece di uscire dalla pagina.
+      const righeNorma = splitLines(doc, 'Riferimento normativo: ' + opts.normativa, W - 2*M);
+      doc.text(righeNorma, M, y);
+      y += 6 + (righeNorma.length - 1) * 4;
     }
 
     // ===== DATI CLIENTE (se presenti) =====
@@ -433,24 +458,37 @@
     }
 
     // ===== CONCLUSIONI =====
+    // Le righe si misurano con il carattere con cui si scrivono; se non entrano, il riquadro prosegue
+    // nella pagina seguente invece di sovrapporsi al piè di pagina.
     if (opts.conclusioni) {
       if (y > H - 40) { doc.addPage(); y = M; }
-      doc.setFillColor(...COLORS.lightBg);
-      doc.setDrawColor(...COLORS.gold);
-      doc.setLineWidth(0.3);
-      const lines = splitLines(doc, opts.conclusioni, W - 2*M - 8);
-      const blockH = 6 + lines.length * 4.5 + 4;
-      y = ensurePage(doc, y, blockH, M, H);
-      doc.roundedRect(M, y, W - 2*M, blockH, 1.5, 1.5, 'FD');
-      doc.setFont('helvetica','bold');
-      doc.setFontSize(8.5);
-      doc.setTextColor(...COLORS.gold);
-      doc.text('CONCLUSIONI', M + 4, y + 5);
       doc.setFont('helvetica','normal');
       doc.setFontSize(10);
-      doc.setTextColor(...COLORS.text);
-      drawJustifiedParagraph(doc, opts.conclusioni, M + 4, y + 10, W - 2*M - 8, 4.5);
-      y += blockH + 4;
+      const largh = W - 2*M - 8;
+      let righe = splitLines(doc, opts.conclusioni, largh);
+      let primo = true;
+      while (righe.length) {
+        const entrano = Math.floor((H - 28 - y - 10) / 4.5);
+        if (entrano < 2) { doc.addPage(); y = M; continue; }
+        const parte = righe.slice(0, entrano);
+        righe = righe.slice(entrano);
+        const blockH = 6 + parte.length * 4.5 + 4;
+        doc.setFillColor(...COLORS.lightBg);
+        doc.setDrawColor(...COLORS.gold);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(M, y, W - 2*M, blockH, 1.5, 1.5, 'FD');
+        doc.setFont('helvetica','bold');
+        doc.setFontSize(8.5);
+        doc.setTextColor(...COLORS.gold);
+        doc.text(primo ? 'CONCLUSIONI' : 'CONCLUSIONI (SEGUE)', M + 4, y + 5);
+        doc.setFont('helvetica','normal');
+        doc.setFontSize(10);
+        doc.setTextColor(...COLORS.text);
+        drawJustifiedLines(doc, parte, M + 4, y + 10, largh, 4.5, righe.length === 0);
+        y += blockH + 4;
+        primo = false;
+        if (righe.length) { doc.addPage(); y = M; }
+      }
     }
 
     // ===== FOOTER (su tutte le pagine) =====

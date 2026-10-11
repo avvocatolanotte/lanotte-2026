@@ -170,7 +170,7 @@
   <div class="container" style="display:flex;align-items:flex-start;gap:14px">
     <svg width="22" height="22" fill="none" stroke="#92400e" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
     <div style="font-size:13.5px;color:#78350f;line-height:1.55">
-      <strong>Tariffe variabili annualmente.</strong> Le tariffe AQP sono deliberate annualmente da ARERA su proposta dell'AIP (Autorità Idrica Pugliese). Inserire i valori dalla bolletta del cliente per il calcolo. Per le fatture interessate il diritto al corrispettivo si prescrive in due anni (L. 205/2017, art. 1, commi 4 e seguenti): la prescrizione va eccepita per gli importi a cui si applica, verificando periodo fatturato e decorrenze.
+      <strong>Tariffe variabili annualmente.</strong> Le tariffe AQP sono adottate ogni anno dall'AIP (Autorità Idrica Pugliese) e approvate dall'ARERA. Il calcolo propone le tariffe 2026, che si possono sostituire con quelle riportate in bolletta. Per le fatture interessate il diritto al corrispettivo si prescrive in due anni (L. 205/2017, art. 1, commi 4 e seguenti): la prescrizione va eccepita per gli importi a cui si applica, verificando periodo fatturato e decorrenze.
     </div>
   </div>
 </section>
@@ -230,7 +230,7 @@
 
       <div class="calc-block">
         <h3 style="font-family:var(--serif);font-size:20px;color:var(--navy);margin:0 0 18px">Tariffe da bolletta</h3>
-        <p style="font-size:12.5px;color:#64748b;margin:0 0 16px"><strong>Tariffe AQP 2026 per l'ATO Puglia precompilate</strong> (dettaglio dell'articolazione tariffaria pubblicato da AQP, aggiornato all'1/10/2026; importi al netto di IVA). AQP le applica dal 1° gennaio 2026, salvo conguaglio dopo l'approvazione definitiva dell'ARERA (delibera AIP n. 69 del 31/7/2026). Si possono modificare con i valori della bolletta. Le fasce di consumo e le quote fisse sono <strong>annue</strong>: il calcolo le rapporta ai giorni del periodo fatturato e, per l'uso domestico residente e condominiale, moltiplica le fasce per i componenti (criterio pro-capite). <strong>Prezzi, componenti e moduli sono applicati a tutto il periodo</strong>: se nel periodo sono cambiati, il calcolo va ripetuto per ciascun tratto, ripartendo il consumo in proporzione ai giorni.</p>
+        <p style="font-size:12.5px;color:#64748b;margin:0 0 16px"><strong>Tariffe AQP 2026 per l'ATO Puglia precompilate</strong> (dettaglio dell'articolazione tariffaria pubblicato da AQP, aggiornato all'1/10/2026; importi al netto di IVA). AQP le applica dal 1° gennaio 2026, salvo conguaglio dopo l'approvazione definitiva dell'ARERA (delibera AIP n. 69 del 31/7/2026). Si possono modificare con i valori della bolletta. Le fasce di consumo e le quote fisse sono <strong>annue</strong>: il calcolo le rapporta ai giorni del periodo fatturato e, per l'uso domestico residente e condominiale, moltiplica le fasce per i componenti (criterio pro-capite). <strong>Prezzi, componenti e moduli sono applicati a tutto il periodo</strong> (le sole componenti UI sono ripartite automaticamente al 1° gennaio 2027): se nel periodo sono cambiati, il risultato è soltanto una stima e non va confrontato con la bolletta come ricalcolo esatto.</p>
         <div class="calc-row">
           <label><span id="lt1">Fascia 1</span> (€/m³)<input type="number" id="t1" step="0.000001"></label>
           <label><span id="lt2">Fascia 2</span> (€/m³)<input type="number" id="t2" step="0.000001"></label>
@@ -379,7 +379,7 @@
         <p style="font-size:13.5px;color:#475569;line-height:1.6;margin:0 0 18px">Reclamo da inviare ad AQP via PEC (clienti@pec.aqp.it) o raccomandata A/R. Il gestore deve fornire una risposta motivata entro <strong>30 giorni lavorativi</strong> (artt. 46 e 67 RQSII, allegato A alla delibera ARERA 655/2015/R/idr).</p>
         <div class="calc-row">
           <label>Nome intestatario<input type="text" id="rcNome" placeholder="Es. Mario ROSSI"></label>
-          <label>Codice utente AQP<input type="text" id="rcCodice" placeholder="12345678"></label>
+          <label>Codice cliente AQP<input type="text" id="rcCodice" placeholder="12345678"></label>
         </div>
         <div class="calc-row">
           <label>Indirizzo fornitura<input type="text" id="rcIndirizzo"></label>
@@ -560,6 +560,8 @@
     return v;
   }
   const fmtData = s => s.split('-').reverse().join('/');
+  // Il testo inserito dall'utente si mostra come testo, mai come HTML.
+  const esc = t => String(t).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
   const fmtPct = p => p.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '%';
   const fmtTariffa = (v, dec) => v.toLocaleString('it-IT', {minimumFractionDigits: dec, maximumFractionDigits: 6});
 
@@ -569,27 +571,28 @@
     const atteso = totale - acconti;
     const delta = importo - atteso;
     const pct = atteso > 0 ? delta / atteso * 100 : null;
-    let livello = 'ok';
-    if (Math.abs(delta) >= 0.005) {
-      if (pct === null) livello = 'nc';
-      else if (Math.abs(pct) > 15) livello = 'bad';
-      else if (Math.abs(pct) > 5) livello = 'warn';
-    }
+    const coincide = Math.abs(delta) < 0.005;          // scarto sotto il mezzo centesimo: arrotondamento
+    let livello;
+    if (pct === null) livello = coincide ? 'nc-coincide' : 'nc';
+    else if (coincide || Math.abs(pct) <= 5) livello = 'ok';
+    else livello = Math.abs(pct) > 15 ? 'bad' : 'warn';
     return {importo, acconti, atteso, delta, pct, livello};
   }
   const ESITO_SCHERMO = {
     ok:   ['score-ok',   '✓ Importo coerente con il ricalcolo (scostamento entro il 5%)'],
     warn: ['score-warn', '⚠️ Scostamento oltre il 5%: verificare tariffe, componenti, moduli e periodo inseriti'],
     bad:  ['score-bad',  '✗ Scostamento oltre il 15%: verificati i dati inseriti, può essere utile chiedere ad AQP il dettaglio del calcolo o presentare un reclamo scritto'],
-    nc:   ['score-warn', '⚠️ Scostamento percentuale non calcolabile: l\'importo atteso è nullo o negativo; verificare le voci inserite']
+    nc:   ['score-warn', '⚠️ Scostamento percentuale non calcolabile: l\'importo atteso è nullo o negativo; verificare le voci inserite'],
+    'nc-coincide': ['score-ok', '✓ Importo coincidente con quello atteso (scostamento percentuale non calcolabile: l\'importo atteso è nullo o negativo)']
   };
   const ESITO_REPORT = {
     ok:   'Lo scostamento rientra nel 5%.',
     warn: 'Lo scostamento supera il 5%: è opportuno verificare tariffe, componenti, moduli e periodo applicati.',
     bad:  'Lo scostamento supera il 15%: verificati i dati inseriti, può essere utile chiedere ad AQP il dettaglio del calcolo o presentare un reclamo scritto (RQSII, allegato A alla delibera ARERA 655/2015/R/idr).',
-    nc:   'Lo scostamento percentuale non è calcolabile perché l\'importo atteso è nullo o negativo.'
+    nc:   'Lo scostamento percentuale non è calcolabile perché l\'importo atteso è nullo o negativo.',
+    'nc-coincide': 'L\'importo coincide con quello atteso; lo scostamento percentuale non è calcolabile perché l\'importo atteso è nullo o negativo.'
   };
-  const DELIMITAZIONE = 'Il confronto riguarda solo le voci ricostruite dal calcolo (acquedotto, fognatura, depurazione, quote fisse, componenti UI e IVA) per lo stesso periodo di lettura; prezzi, componenti e moduli sono applicati a tutto il periodo.';
+  const DELIMITAZIONE = 'Il confronto riguarda solo le voci ricostruite dal calcolo (acquedotto, fognatura, depurazione, quote fisse, componenti UI e IVA) per lo stesso periodo di lettura; prezzi, componenti e moduli sono applicati a tutto il periodo: se nel periodo sono cambiati, il risultato è soltanto una stima.';
 
   $('calcBtn').addEventListener('click', () => {
     ritiraRisultato();
@@ -602,7 +605,7 @@
       const lsGrezza = numero('lettStart', 'Lettura iniziale'), leGrezza = numero('lettEnd', 'Lettura finale');
       ls = Math.floor(lsGrezza); le = Math.floor(leGrezza);
       if (le < ls) throw 'La lettura finale non può essere inferiore a quella iniziale. Se il contatore è stato sostituito, calcoli separatamente i due tratti.';
-      if (ls !== lsGrezza || le !== leGrezza) avvisi.push('Letture con frazioni di m³: considerati i soli metri cubi interi (' + ls + ' → ' + le + '), come prevede l\'art. 41, comma 4, del Regolamento AQP.');
+      if (ls !== lsGrezza || le !== leGrezza) avvisi.push('Letture con frazioni di m³: considerati i soli metri cubi interi (da ' + ls + ' a ' + le + '), come prevede l\'art. 41, comma 4, del Regolamento AQP.');
       ds = $('dataStart').value; de = $('dataEnd').value;
       giorni = (ds && de) ? Math.round((new Date(de + 'T12:00:00') - new Date(ds + 'T12:00:00')) / 864e5) : NaN;
       // Fasce e quote fisse sono annue: senza un periodo valido il calcolo non si può fare.
@@ -677,7 +680,7 @@
     dettaglio.push(['Quota fissa depurazione (' + giorni + ' giorni)', '—', '—', qfDep]);
     righeUI.forEach(r => dettaglio.push(r));
 
-    if (ds < '2026-01-01' || de > INIZIO_2027) avvisi.push('Il periodo comprende giorni fuori dal 2026: le tariffe precompilate sono quelle AQP per il 2026 (le componenti UI sono già ripartite al 1° gennaio 2027). Se i prezzi degli altri giorni sono diversi, il calcolo va ripetuto per ciascun anno con i prezzi di quell\'anno, ripartendo il consumo in proporzione ai giorni.');
+    if (ds < '2026-01-01' || de > INIZIO_2027) avvisi.push('Il periodo comprende giorni fuori dal 2026: le tariffe precompilate sono quelle AQP per il 2026 e sono applicate a tutto il periodo (le sole componenti UI sono ripartite al 1° gennaio 2027). Se per gli altri giorni valgono prezzi diversi, il risultato è soltanto una stima.');
 
     const imponibile = acquedotto + fognatura + depurazione + qfA + qfF + perequative;
     const ivaCalc = imponibile * iva;
@@ -748,14 +751,14 @@
     if (matricola) dati.push({label:'Matricola del contatore', value: matricola});
     dati.push(
       {label:'Tipologia di utenza', value: d.nomeTipo},
-      {label:'Periodo', value: fmtData(d.ds) + ' → ' + fmtData(d.de) + ' (' + d.giorni + ' giorni)'},
-      {label:'Letture (m³ interi)', value: d.ls + ' → ' + d.le},
+      {label:'Periodo', value: 'dal ' + fmtData(d.ds) + ' al ' + fmtData(d.de) + ' (' + d.giorni + ' giorni)'},
+      {label:'Letture (m³ interi)', value: 'da ' + d.ls + ' a ' + d.le},
       {label:'Consumo del periodo', value: fmtMc(d.consumo)},
       {label:'Consumo medio ogni 30 giorni', value: d.media}
     );
     if (d.proCapite) dati.push({label:'Componenti considerati', value: String(d.componenti)});
     dati.push(
-      {label:'Moduli contrattuali', value: d.moduli.toLocaleString('it-IT', {maximumFractionDigits: 2})},
+      {label:'Moduli contrattuali', value: d.moduli.toLocaleString('it-IT', {maximumFractionDigits: 6})},
       {label:'— Acquedotto (fasce)', value: fmtEur(d.acquedotto)},
       {label:'— Fognatura', value: fmtEur(d.fognatura)},
       {label:'— Depurazione', value: fmtEur(d.depurazione)},
@@ -796,25 +799,36 @@
 
   function fmtNum(x){ return Number(x).toLocaleString('it-IT', {maximumFractionDigits: 3}); }
   // TAB PERDITA
-  document.getElementById('calcPerdita').addEventListener('click', () => {
-    const media = +document.getElementById('pMedia').value;
-    const attuale = +document.getElementById('pAttuale').value;
-    const tariffa = +document.getElementById('pTariffa').value;
-    const fognDep = +document.getElementById('pFognDep').value;
-    const importo = +document.getElementById('pImporto').value;
-    if (!media || !attuale) { alert('Compili il consumo di riferimento e quello della fattura'); return; }
-    const giorniF = +document.getElementById('pGiorniF').value;
-    const giorniR = +document.getElementById('pGiorniR').value;
-    if ((giorniF > 0) !== (giorniR > 0)) { alert('Indichi i giorni di entrambi i periodi, oppure di nessuno dei due.'); return; }
+  // Ogni modifica dei dati ritira la stima precedente; un calcolo rifiutato non lascia la stima vecchia.
+  function ritiraPerdita(){ const o = $('risPerdita'); o.style.display = 'none'; o.innerHTML = ''; }
+  ['pAttuale','pGiorniF','pMedia','pGiorniR','pTariffa','pFognDep','pDoc','pImporto'].forEach(id => { $(id).addEventListener('input', ritiraPerdita); $(id).addEventListener('change', ritiraPerdita); });
+  $('calcPerdita').addEventListener('click', () => {
+    ritiraPerdita();
+    let media, attuale, tariffa, fognDep, importo, giorniF, giorniR;
+    try {
+      // Campo vuoto = non indicato; zero esplicito = zero; negativo o non numerico = errore.
+      attuale = numero('pAttuale', 'Consumo della fattura contestata');
+      media = numero('pMedia', 'Consumo medio di riferimento', {positivo: true});
+      giorniF = numero('pGiorniF', 'Giorni del periodo fatturato', {vuoto: null, intero: true, positivo: true});
+      giorniR = numero('pGiorniR', 'Giorni del periodo di riferimento', {vuoto: null, intero: true, positivo: true});
+      if ((giorniF === null) !== (giorniR === null)) throw 'Indichi i giorni di entrambi i periodi, oppure di nessuno dei due.';
+      tariffa = numero('pTariffa', 'Tariffa base acquedotto', {vuoto: null});
+      fognDep = numero('pFognDep', 'Fognatura + depurazione', {vuoto: null});
+      importo = numero('pImporto', 'Importo fatturato per il volume eccedente', {vuoto: null});
+    } catch (msg) {
+      if (typeof msg !== 'string') throw msg;
+      alert(msg);
+      return;
+    }
     // Art. 19 TIMSII e pagina AQP: il confronto è tra consumi medi GIORNALIERI. Senza i giorni si presume
     // la stessa durata dei due periodi.
-    const conGiorni = giorniF > 0 && giorniR > 0;
+    const conGiorni = giorniF !== null;
     const mediaGiorno = conGiorni ? media / giorniR : null;
     const riferimentoSulPeriodo = conGiorni ? mediaGiorno * giorniF : media;
     const requisito = conGiorni ? (attuale / giorniF) >= 2 * mediaGiorno : attuale >= 2 * media;
     // Nessun arrotondamento intermedio: si arrotondano solo gli importi finali (B11, terza revisione di Codex).
     const eccedenza = Math.max(0, attuale - riferimentoSulPeriodo);
-    const out = document.getElementById('risPerdita');
+    const out = $('risPerdita');
     out.style.display = 'block';
     let html = '<h4 style="margin:0 0 10px;color:var(--navy);font-family:var(--serif)">Risultato indicativo</h4>' +
       '<p style="margin:0 0 6px"><strong>Requisito del doppio del consumo medio giornaliero:</strong> ' + (requisito ? '<span style="color:#16a34a">soddisfatto</span>' : '<span style="color:#dc2626">non soddisfatto</span>') +
@@ -825,21 +839,25 @@
       // Senza il doppio del consumo medio le tutele dell'art. 19 TIMSII non si attivano: nessuna stima.
       html += '<p style="margin:0 0 6px">Con questi consumi le tutele per perdite occulte <strong>non si applicano</strong>: il consumo della fattura deve essere almeno il doppio del consumo medio giornaliero di riferimento. Restano possibili un reclamo per altri motivi (per esempio una lettura errata) e la rateizzazione alle condizioni ordinarie.</p>';
     } else {
-      const maxAcq = tariffa ? eccedenza * tariffa * 0.5 : null;
-      const esonero = fognDep ? eccedenza * fognDep : null;
+      const maxAcq = tariffa !== null ? eccedenza * tariffa * 0.5 : null;
+      const esonero = fognDep !== null ? eccedenza * fognDep : null;
       html += '<p style="margin:0 0 6px"><strong>Volume eccedente il consumo di riferimento:</strong> ' + fmtNum(eccedenza) + ' m³</p>' +
         (maxAcq !== null ? '<p style="margin:0 0 6px"><strong>Acquedotto sul volume eccedente a metà della tariffa base:</strong> ' + fmtEur(maxAcq) + ' (IVA esclusa; simulazione senza franchigia)</p>' : '') +
         (esonero !== null ? '<p style="margin:0 0 6px"><strong>Fognatura e depurazione sul volume eccedente:</strong> non dovute se è dimostrata la dispersione della perdita nell\'ambiente (esonero stimato di ' + fmtEur(esonero) + ', IVA esclusa)</p>' : '') +
-        (importo && maxAcq !== null ? '<p style="margin:0 0 6px"><strong>Differenza rispetto all\'importo fatturato per l\'eccedenza:</strong> ≈ ' + fmtEur(Math.max(0, importo - maxAcq)) + ' (IVA esclusa; simulazione senza franchigia)</p>' : '') +
-        '<p style="margin:12px 0 0;font-size:13px;color:#64748b">Le tutele presuppongono una perdita a valle del contatore, non affiorante e non rintracciabile con la normale diligenza, e una riparazione documentata dalla fattura del tecnico; l\'esonero da fognatura e depurazione richiede inoltre che la perdita si sia dispersa nell\'ambiente. La simulazione non calcola la franchigia, fino al 30% dei volumi fatturabili, che il gestore può applicare: l\'importo dovuto può quindi essere più alto. Il consumo medio di riferimento lo determina AQP sugli ultimi due anni, per lo stesso periodo della fattura. La richiesta si presenta per iscritto ad AQP, anche via PEC a clienti@pec.aqp.it, allegando la fattura di riparazione e un documento d\'identità (art. 19 TIMSII; pagina «Tutele in caso di perdite occulte» di AQP).</p>';
+        (importo !== null && maxAcq !== null ? '<p style="margin:0 0 6px"><strong>Differenza rispetto all\'importo fatturato per l\'eccedenza:</strong> ≈ ' + fmtEur(Math.max(0, importo - maxAcq)) + ' (IVA esclusa; simulazione senza franchigia)</p>' : '') +
+        '<p style="margin:12px 0 0;font-size:13px;color:#64748b">Le tutele presuppongono una perdita a valle del contatore, non affiorante e non rintracciabile con la normale diligenza, e una riparazione documentata dalla fattura del tecnico; l\'esonero da fognatura e depurazione richiede inoltre che la perdita si sia dispersa nell\'ambiente. La simulazione non calcola la franchigia, fino al 30% dei volumi fatturabili, che il gestore può applicare: l\'importo dovuto può quindi essere più alto. Il consumo medio di riferimento lo determina AQP sugli ultimi due anni, per lo stesso periodo della fattura. La richiesta si presenta per iscritto ad AQP, anche via PEC a clienti@pec.aqp.it, allegando la fattura di riparazione e un documento d\'identità (art. 19 TIMSII; pagina «Tutele in caso di perdite occulte» di AQP). Documentazione indicata: ' + esc($('pDoc').value) + '.</p>';
     }
     out.innerHTML = html;
   });
 
   // TAB RECLAMO
+  const CAMPI_RECLAMO = ['rcNome','rcCodice','rcIndirizzo','rcBolletta','rcImporto','rcMotivo'];
+  const improntaReclamo = () => CAMPI_RECLAMO.map(id => String($(id).value ?? '')).join('|');
+  function ritiraReclamo(){ const o = $('testoReclamo'); o.style.display = 'none'; o.innerHTML = ''; }
+  CAMPI_RECLAMO.forEach(id => { $(id).addEventListener('input', ritiraReclamo); $(id).addEventListener('change', ritiraReclamo); });
   document.getElementById('genReclamo').addEventListener('click', () => {
     const nome = document.getElementById('rcNome').value || '[NOME INTESTATARIO]';
-    const codice = document.getElementById('rcCodice').value || '[CODICE UTENTE]';
+    const codice = document.getElementById('rcCodice').value || '[CODICE CLIENTE]';
     const indir = document.getElementById('rcIndirizzo').value || '[INDIRIZZO]';
     const bolletta = document.getElementById('rcBolletta').value || '[N. BOLLETTA]';
     const importo = document.getElementById('rcImporto').value || '[IMPORTO]';
@@ -857,10 +875,10 @@
 Servizio Clienti - Reclami
 PEC: clienti@pec.aqp.it
 
-Barletta, ${oggi}
+[LUOGO], ${oggi}
 
 OGGETTO: RECLAMO scritto ai sensi della RQSII (allegato A alla delibera ARERA 655/2015/R/idr)
-Codice utente: ${codice}
+Codice cliente: ${codice}
 Bolletta n. ${bolletta} dell'importo di € ${importo}
 
 Il/la sottoscritto/a ${nome}, intestatario/a della fornitura idrica all'indirizzo
@@ -893,8 +911,14 @@ Allegati:
 - ${motivo === 'perdita' ? 'Fattura di riparazione del tecnico' : motivo === 'qualita' ? 'Analisi laboratoriali' : 'Documentazione probatoria'}`;
     const out = document.getElementById('testoReclamo');
     out.style.display = 'block';
-    out.innerHTML = '<pre style="background:#fff;border:1px solid #e5e7eb;border-radius:4px;padding:18px;font-family:Georgia,serif;font-size:13px;line-height:1.6;white-space:pre-wrap;color:#334155">' + testo + '</pre>' +
-      '<button class="btn btn-ghost" style="margin-top:10px" onclick="navigator.clipboard.writeText(document.querySelector(\'#testoReclamo pre\').textContent);this.textContent=\'✓ Copiato\'">Copia testo</button>';
+    out.innerHTML = '<pre style="background:#fff;border:1px solid #e5e7eb;border-radius:4px;padding:18px;font-family:Georgia,serif;font-size:13px;line-height:1.6;white-space:pre-wrap;color:#334155">' + esc(testo) + '</pre>' +
+      '<button id="copiaReclamo" class="btn btn-ghost" type="button" style="margin-top:10px">Copia testo</button>';
+    // Si copia il testo generato, solo se i dati sono ancora quelli da cui è stato generato.
+    const impronta = improntaReclamo();
+    $('copiaReclamo').addEventListener('click', function () {
+      if (improntaReclamo() !== impronta) { ritiraReclamo(); alert('I dati sono stati modificati: generi di nuovo il reclamo.'); return; }
+      if (typeof navigator !== 'undefined' && navigator.clipboard) navigator.clipboard.writeText(testo).then(() => { this.textContent = '✓ Copiato'; });
+    });
   });
 })();
 </script>
