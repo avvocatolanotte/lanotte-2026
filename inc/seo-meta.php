@@ -314,7 +314,7 @@ function lanotte_seo_map_articoli() {
         'valore-della-testimonianza-della-vittima-anche-nel-giudizio-abbreviato' => ['t' => 'La testimonianza della vittima nel giudizio abbreviato'],
         'imposta-di-successione-2026-aliquote-franchigie-esempi' => ['t' => 'Imposta di successione 2026: aliquote, franchigie, esempi'],
         'conto-corrente-svuotato-prima-della-morte-rimedi-eredi' => ['t' => 'Conto svuotato prima del decesso: i rimedi degli eredi'],
-        'condominio-niente-risarcimento-la-caduta-frutto-disattenzione' => ['t' => 'Caduta in condominio per disattenzione: niente risarcimento'],
+        'condominio-niente-risarcimento-la-caduta-frutto-disattenzione' => ['t' => 'Caduta in condominio e disattenzione: chi risponde'],
         'successione-con-immobili-imposte-volture-documenti' => ['t' => 'Successione con immobili: imposte, volture e documenti'],
         'trattenere-tuo-figlio-puo-essere-reato' => ['t' => 'Trattenere il figlio contro gli accordi può essere reato'],
         'divisione-ereditaria-eredi-non-trovano-accordo' => ['t' => 'Divisione ereditaria senza accordo tra gli eredi'],
