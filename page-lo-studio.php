@@ -43,7 +43,7 @@ if ($has_custom_content):
 
     <p style="font-size:16.5px;line-height:1.75;color:#334155;margin:0 0 18px">L'Avv. <strong>Giuseppe LANOTTE</strong>, titolare dello Studio, esercita la professione con un approccio interdisciplinare: la formazione civilistica si integra con un'immutata pratica penalistica e con la consulenza alle imprese, alle associazioni del terzo settore e alle società sportive dilettantistiche.</p>
 
-    <p style="font-size:16.5px;line-height:1.75;color:#334155;margin:0">Lo Studio assiste persone fisiche, famiglie, professionisti, imprese ed enti, garantendo continuità del rapporto e seguito personale del titolare o del professionista incaricato. Le questioni complesse sono trattate con il supporto di colleghi consulenti, ciascuno specializzato nella materia di competenza, secondo un modello collaborativo orientato alla tutela effettiva dell'assistito.</p>
+    <p style="font-size:16.5px;line-height:1.75;color:#334155;margin:0">Lo Studio assiste persone fisiche, famiglie, professionisti, imprese ed enti, garantendo continuità del rapporto e seguito personale del titolare o del professionista incaricato. Le questioni complesse sono trattate con il supporto di colleghi e consulenti che seguono abitualmente la materia, secondo un modello collaborativo orientato alla tutela effettiva dell'assistito.</p>
   </div>
 </section>
 
@@ -54,7 +54,7 @@ if ($has_custom_content):
     <p style="font-size:16px;line-height:1.7;color:#334155;margin:0 0 18px">Una parte significativa dell'attività dello Studio ha vocazione internazionale.</p>
     <ul class="lo-studio-list">
       <li>Nel campo della <strong>proprietà intellettuale</strong>, lo Studio opera direttamente innanzi all'<strong>EUIPO</strong> di Alicante per il deposito e la difesa dei marchi dell'Unione europea (Reg. UE 2017/1001) e per il contenzioso sulla proprietà industriale UE.</li>
-      <li>Nel campo del <strong>diritto sportivo internazionale</strong>, lo Studio assiste, tra gli altri, la <em>International Taekwon-Do Federation di Vienna (ITF)</em> e il Comitato Nazionale Taekwon-Do della Repubblica Popolare Democratica di Corea.</li>
+      <li>Nel campo del <strong>diritto sportivo internazionale</strong>, lo Studio assiste federazioni e comitati nazionali, anche nelle controversie sovranazionali.</li>
       <li>La <strong>pratica extra-europea</strong> si svolge per il tramite di reti di corrispondenti locali. Tra le esperienze più recenti rientra la consulenza giuridica resa per un ricorso civile in Argentina.</li>
     </ul>
   </div>
@@ -119,8 +119,8 @@ if ($has_custom_content):
     <div class="ls-collab-grid">
       <article class="ls-collab-card">
         <div class="ls-collab-tag">Patrocinio innanzi a giurisdizioni superiori</div>
-        <h5>Avvocati cassazionisti specializzati</h5>
-        <p>Per i gradi di legittimità innanzi alla Corte di Cassazione, anche per le controversie tributarie, e al Consiglio di Stato, lo Studio si avvale di colleghi cassazionisti specializzati, distintamente per il ramo civile, penale, amministrativo e tributario.</p>
+        <h5>Avvocati cassazionisti</h5>
+        <p>Per i gradi di legittimità innanzi alla Corte di Cassazione, anche per le controversie tributarie, e al Consiglio di Stato, lo Studio si avvale di colleghi abilitati al patrocinio davanti alle giurisdizioni superiori, distintamente per il ramo civile, penale, amministrativo e tributario.</p>
       </article>
 
       <article class="ls-collab-card">
@@ -240,7 +240,7 @@ if ($has_custom_content):
       <div class="valore">
         <div class="valore-num">IV</div>
         <h4>Continuità del rapporto</h4>
-        <p>Le pratiche sono seguite personalmente dal titolare in ogni fase del mandato, con il supporto di colleghi consulenti specializzati per materia.</p>
+        <p>Le pratiche sono seguite personalmente dal titolare in ogni fase del mandato, con il supporto di colleghi e consulenti di fiducia nelle diverse materie.</p>
         <small>&nbsp;</small>
       </div>
     </div>

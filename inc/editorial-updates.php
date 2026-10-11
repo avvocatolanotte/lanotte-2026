@@ -779,7 +779,7 @@ add_action('init', function() {
     $post_data = [
         'post_title'    => 'Opposizione a decreto ingiuntivo: 40 giorni per decidere e cosa verificare prima',
         'post_name'     => $slug,
-        'post_excerpt'  => 'Da quando si contano i 40 giorni, che cosa succede se scadono, quando il decreto e\' gia\' esecutivo e le cinque verifiche da fare prima di opporsi, pagare o trattare.',
+        'post_excerpt'  => 'Da quando si contano i 40 giorni, che cosa succede se scadono, quando il decreto è già esecutivo e le cinque verifiche da fare prima di opporsi, pagare o trattare.',
         'post_content'  => file_get_contents($content_file),
         'post_status'   => 'publish',
         'post_type'     => 'post',

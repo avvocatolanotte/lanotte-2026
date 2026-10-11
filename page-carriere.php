@@ -60,7 +60,7 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
             <li>✓ Tutor dedicato per ciascuna area</li>
             <li>✓ Esposizione a procedure complete</li>
             <li>✓ Formazione interna sui sistemi</li>
-            <li>✓ Possibilità di assunzione post-esame</li>
+            <li>✓ Possibilità di collaborazione professionale dopo l'abilitazione</li>
           </ul>
         </div>
       </div>

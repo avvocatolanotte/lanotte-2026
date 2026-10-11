@@ -13,8 +13,11 @@
  */
 if (!defined('ABSPATH')) exit;
 
-/* === CLIENTI === */
-function lanotte_clienti_data() {
+/* === CLIENTI ===
+ * Decisione dell'Avvocato (11/10/2026): nessun nome o logo di clienti nel sito (art. 35 c. 8 CDF).
+ * Il seed non crea più clienti; l'elenco resta qui solo come memoria di ciò che era stato inserito.
+ */
+function lanotte_clienti_data_storico() {
     $base = LANOTTE_THEME_URI . '/assets/img/clienti/';
     return [
         ['title' => 'ITF — International Taekwon-Do Federation', 'logo' => $base . 'itf-mondiale.svg', 'url' => 'https://itf-tkd.org/', 'desc' => 'ITF — International Taekwon-Do Federation (Vienna)'],
@@ -28,12 +31,13 @@ function lanotte_clienti_data() {
 }
 
 function lanotte_seed_clienti() {
+    return 0; // disattivato l'11/10/2026: vedi sopra
     if (!post_type_exists('cliente')) return 0;
     // Seed solo se il CPT è completamente vuoto (non sovrascrive scelte dell'utente)
     $existing = get_posts(['post_type' => 'cliente', 'numberposts' => 1, 'post_status' => 'any', 'fields' => 'ids']);
     if (!empty($existing)) return 0;
     $count = 0;
-    foreach (lanotte_clienti_data() as $i => $c) {
+    foreach (lanotte_clienti_data_storico() as $i => $c) {
         $id = wp_insert_post([
             'post_type'   => 'cliente',
             'post_status' => 'publish',

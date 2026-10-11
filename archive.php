@@ -31,7 +31,7 @@ get_header();
             <span>· <?php echo esc_html(get_the_date('j F Y')); ?> · <?php echo esc_html(lanotte_reading_time()); ?></span>
           </div>
           <h4><?php the_title(); ?></h4>
-          <p><?php echo esc_html(wp_trim_words(get_the_excerpt() ?: get_the_content(), 32, '…')); ?></p>
+          <p><?php echo esc_html(lanotte_estratto(null, 32)); ?></p>
           <span class="post-link">Articolo completo →</span>
         </div>
       </a>

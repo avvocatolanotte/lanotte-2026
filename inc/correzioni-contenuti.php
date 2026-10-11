@@ -1,6 +1,7 @@
 <?php
 /**
  * Correzioni puntuali dei contenuti salvati nel database (revisione completa del sito, ottobre 2026).
+ * Il testo originale di ogni campo modificato resta nell'opzione "<lotto>_originali" (ID|campo => testo).
  *
  * Ogni lotto è un elenco di voci: tipo di contenuto, slug, campo, testo da cercare, testo nuovo,
  * occorrenze attese (di regola 1). Il lotto gira una sola volta (lanotte_editorial_once).
@@ -89,6 +90,15 @@ function lanotte_corr_applica_testo($raw, array $voci) {
     $esiti = [];
     foreach ($voci as $k => $v) {
         $attese = isset($v['attese']) ? (int) $v['attese'] : 1;
+        // Voce che conserva il testo cercato e vi aggiunge qualcosa (es. una nota in coda): se il testo
+        // nuovo è già presente, la voce è già stata applicata e non va ripetuta (ripresa dopo un'interruzione).
+        $ago = lanotte_corr_normalizza($v['cerca']);
+        $nuovo_norm = lanotte_corr_normalizza($v['sostituisci']);
+        if ($ago !== '' && $nuovo_norm !== '' && strpos($nuovo_norm, $ago) !== false
+            && count(lanotte_corr_trova($raw, $v['sostituisci'])) >= $attese) {
+            $esiti[$k] = ['esito' => 'già presente', 'trovate' => count(lanotte_corr_trova($raw, $v['sostituisci']))];
+            continue;
+        }
         $trovate = lanotte_corr_trova($raw, $v['cerca']);
         if (count($trovate) !== $attese) {
             $esiti[$k] = ['esito' => count($trovate) === 0 ? 'non trovata' : 'occorrenze diverse', 'trovate' => count($trovate), 'attese' => $attese];
@@ -108,42 +118,63 @@ function lanotte_corr_applica_testo($raw, array $voci) {
     return [$raw, $esiti];
 }
 
-/** Esegue un lotto sul database. */
-function lanotte_corr_esegui_lotto($lotto, array $voci) {
+/**
+ * Esegue un lotto sul database, un contenuto alla volta, in modo riprendibile.
+ * Dopo ogni contenuto salva esiti, originali e contenuti già lavorati: se la richiesta si interrompe,
+ * la successiva riprende da dove era arrivata. Si ferma da sé dopo $limite_s secondi e prosegue alla
+ * richiesta seguente. Il lotto è marcato «done» solo quando tutti i contenuti sono stati lavorati.
+ */
+function lanotte_corr_esegui_lotto($lotto, array $voci, $limite_s = 20) {
     if (!function_exists('wp_update_post')) return;
-    $esiti = [];
+    $inizio = microtime(true);
+    $esiti     = get_option($lotto . '_esito', []);         if (!is_array($esiti)) $esiti = [];
+    $originali = get_option($lotto . '_originali', []);     if (!is_array($originali)) $originali = [];
+    $fatti     = get_option($lotto . '_gruppi_fatti', []);  if (!is_array($fatti)) $fatti = [];
     $gruppi = [];
     foreach ($voci as $k => $v) {
         $chiave = $v['tipo'] . '|' . $v['slug'] . '|' . $v['campo'];
         $gruppi[$chiave][$k] = $v;
     }
+    $finito = true;
     kses_remove_filters(); // il contenuto esistente non deve essere filtrato dal salvataggio
     foreach ($gruppi as $chiave => $gruppo) {
+        if (isset($fatti[$chiave])) continue;
+        if (microtime(true) - $inizio > $limite_s) { $finito = false; break; }
         list($tipo, $slug, $campo) = explode('|', $chiave);
         $post = get_page_by_path($slug, OBJECT, $tipo);
         if (!$post instanceof WP_Post || !in_array($campo, ['post_content', 'post_excerpt', 'post_title'], true)) {
             foreach ($gruppo as $k => $v) $esiti[$k] = ['esito' => 'contenuto non trovato', 'slug' => $slug, 'tipo' => $tipo];
-            continue;
-        }
-        list($nuovo, $parziali) = lanotte_corr_applica_testo((string) $post->$campo, $gruppo);
-        $applicate = array_filter($parziali, function ($e) { return $e['esito'] === 'applicata'; });
-        if ($applicate && $nuovo !== $post->$campo) {
-            $r = wp_update_post(['ID' => $post->ID, $campo => $nuovo], true);
-            if (is_wp_error($r)) {
-                foreach ($applicate as $k => $e) $parziali[$k] = ['esito' => 'errore di salvataggio', 'errore' => $r->get_error_message()];
-            } else {
-                $verifica = get_post($post->ID);
-                if (!$verifica || $verifica->$campo !== $nuovo) {
-                    foreach ($applicate as $k => $e) $parziali[$k] = ['esito' => 'salvato ma diverso dall\'atteso'];
+        } else {
+            list($nuovo, $parziali) = lanotte_corr_applica_testo((string) $post->$campo, $gruppo);
+            $applicate = array_filter($parziali, function ($e) { return $e['esito'] === 'applicata'; });
+            if ($applicate && $nuovo !== $post->$campo) {
+                // L'originale si salva PRIMA della modifica e non si sovrascrive mai.
+                $id_campo = $post->ID . '|' . $campo;
+                if (!isset($originali[$id_campo])) {
+                    $originali[$id_campo] = (string) $post->$campo;
+                    update_option($lotto . '_originali', $originali, false);
+                }
+                $r = wp_update_post(['ID' => $post->ID, $campo => $nuovo], true);
+                if (is_wp_error($r)) {
+                    foreach ($applicate as $k => $e) $parziali[$k] = ['esito' => 'errore di salvataggio', 'errore' => $r->get_error_message()];
+                } else {
+                    clean_post_cache($post->ID);
+                    $verifica = get_post($post->ID);
+                    if (!$verifica || $verifica->$campo !== $nuovo) {
+                        foreach ($applicate as $k => $e) $parziali[$k] = ['esito' => 'salvato ma diverso dall\'atteso'];
+                    }
                 }
             }
+            foreach ($parziali as $k => $e) $esiti[$k] = $e + ['slug' => $slug, 'tipo' => $tipo, 'campo' => $campo, 'post_id' => $post->ID];
         }
-        foreach ($parziali as $k => $e) $esiti[$k] = $e + ['slug' => $slug, 'tipo' => $tipo, 'campo' => $campo, 'post_id' => $post->ID];
+        $fatti[$chiave] = true;
+        update_option($lotto . '_esito', $esiti, false);
+        update_option($lotto . '_gruppi_fatti', $fatti, false);
     }
     kses_init();
+    if (!$finito) return; // si riprende alla prossima richiesta
     ksort($esiti);
     $conteggio = array_count_values(array_map(function ($e) { return $e['esito']; }, $esiti));
-    update_option($lotto . '_esito', $esiti, false);
     update_option($lotto . '_riepilogo', ['voci' => count($voci), 'esiti' => $conteggio, 'quando' => current_time('mysql')], false);
     update_option($lotto, 'done', false);
 }

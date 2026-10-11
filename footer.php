@@ -65,7 +65,7 @@ if (!defined('ABSPATH')) exit;
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('newsletter'))); ?>">Newsletter</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('glossario'))); ?>">Glossario giuridico</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori'))); ?>">Calcolatori</a></li>
-          <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('penale-urgenza'))); ?>" style="color:#ef4444;font-weight:600">Penale d'urgenza H24</a></li>
+          <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('penale-urgenza'))); ?>" style="color:#ef4444;font-weight:600">Penale d'urgenza</a></li>
         </ul>
         <?php endif; ?>
       </div>

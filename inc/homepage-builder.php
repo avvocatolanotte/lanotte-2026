@@ -49,8 +49,8 @@ function lanotte_home_sections_registry() {
             'default_enabled' => true,
         ],
         'clienti' => [
-            'label' => 'Clienti istituzionali',
-            'desc'  => 'Logo wall con i 7 clienti principali (ITF, Federico II, Condominiocasa, ecc.).',
+            'label' => 'Chi assistiamo',
+            'desc'  => 'Settori di attività, senza nomi né loghi di clienti (decisione dell\'11/10/2026, art. 35 c. 8 CDF).',
             'callback' => 'lanotte_render_section_clienti',
             'default_enabled' => true,
         ],

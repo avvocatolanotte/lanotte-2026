@@ -324,7 +324,7 @@ html,body{overflow-x:clip}
     <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('glossario'))); ?>">📖 Glossario giuridico</a></li>
     <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('newsletter'))); ?>">✉️ Newsletter</a></li>
     <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('carriere'))); ?>">💼 Carriere</a></li>
-    <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('penale-urgenza'))); ?>" style="color:#dc2626">🚨 Penale d'Urgenza H24</a></li>
+    <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('penale-urgenza'))); ?>" style="color:#dc2626">Penale d'urgenza</a></li>
   </ul>
   <div class="md-section">Calcolatori più richiesti</div>
   <ul>

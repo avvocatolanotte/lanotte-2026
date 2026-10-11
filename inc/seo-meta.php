@@ -61,8 +61,8 @@ function lanotte_seo_map() {
             'd' => 'Scenari illustrativi che mostrano il metodo dello Studio nelle varie materie del diritto. Esempi a fini divulgativi. Avvocato a Barletta e Trani.',
         ],
         'penale-urgenza' => [
-            't' => 'Penale d\'Urgenza H24 a Barletta | ' . $brand,
-            'd' => 'Assistenza penale d\'urgenza per arresti, fermi e perquisizioni a Barletta e nel Foro di Trani. Reperibilità telefonica anche notturna e festiva.',
+            't' => 'Penale d\'urgenza a Barletta | ' . $brand,
+            'd' => 'Arresto, fermo, perquisizione o sequestro: come contattare lo Studio per un\'urgenza penale a Barletta e nel Foro di Trani e che cosa fare nelle prime ore.',
         ],
         'carriere' => [
             't' => 'Carriere · Cerchiamo Avvocati a Barletta | ' . $brand,
@@ -95,7 +95,7 @@ function lanotte_seo_map() {
         // === AREE (per slug) — focus Barletta + Foro di Trani ===
         'diritto-penale' => [
             't' => 'Avvocato Penalista a Barletta e Trani | ' . $brand,
-            'd' => 'Difesa penale a Barletta in ogni grado: indagini, misure cautelari, dibattimento, parte civile. Reperibilità per urgenze. Preventivo scritto.',
+            'd' => 'Difesa penale a Barletta in ogni grado: indagini, misure cautelari, dibattimento, parte civile. Contatto diretto per le urgenze. Preventivo scritto.',
         ],
         'diritto-civile' => [
             't' => 'Avvocato Civilista a Barletta e Trani | ' . $brand,

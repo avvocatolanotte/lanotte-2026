@@ -324,7 +324,7 @@ function lanotte_seed_run() {
         ['title' => 'Cookie',           'slug' => 'cookie',        'template' => ''],
         ['title' => 'Rassegna Giuridica','slug' => 'rassegna',     'template' => '', 'set_blog' => true],
         ['title' => 'Calcolatori',      'slug' => 'calcolatori',   'template' => 'page-calcolatori.php'],
-        ['title' => 'Penale d\'Urgenza H24', 'slug' => 'penale-urgenza',  'template' => 'page-penale-urgenza.php'],
+        ['title' => 'Penale d\'urgenza', 'slug' => 'penale-urgenza',  'template' => 'page-penale-urgenza.php'],
         ['title' => 'Carriere',         'slug' => 'carriere',      'template' => 'page-carriere.php'],
         ['title' => 'Glossario Giuridico','slug' => 'glossario',   'template' => 'page-glossario.php'],
         ['title' => 'Newsletter',       'slug' => 'newsletter',    'template' => 'page-newsletter.php'],
@@ -437,7 +437,7 @@ function lanotte_seed_aree_data() {
         [
             'slug' => 'condominio', 'title' => 'Diritto Condominiale',
             'tagline' => 'Assistenza ad amministratori e condòmini, contenzioso, mediazione obbligatoria.',
-            'lead' => 'Siamo partner di www.condominiocasa.it per l\'amministrazione condominiale professionale. Lo Studio assiste tanto gli amministratori quanto i singoli condòmini.',
+            'lead' => 'Lo Studio assiste tanto gli amministratori quanto i singoli condòmini.',
             'sezioni' => [
                 ['h' => 'Cosa facciamo', 'body' => '<ul><li>Impugnazione di delibere assembleari</li><li>Recupero crediti condominiali (decreto ingiuntivo ex art. 63)</li><li>Lavori straordinari: contratti, contenzioso</li><li>Liti tra condòmini</li><li>Mediazione obbligatoria ex D.Lgs. 28/2010</li></ul>'],
             ],

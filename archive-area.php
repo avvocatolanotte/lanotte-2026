@@ -11,7 +11,7 @@ get_header();
   <div class="container">
     <?php lanotte_breadcrumbs(); ?>
     <h1>Tredici aree di competenza,<br>un solo interlocutore.</h1>
-    <p class="subtitle">Materia civile, penale, commerciale, tributaria e del lavoro, integrate dalla collaborazione di colleghi specializzati per la giurisdizione di legittimità e per il diritto internazionale.</p>
+    <p class="subtitle">Materia civile, penale, commerciale, tributaria e del lavoro, integrate dalla collaborazione di colleghi abilitati al patrocinio davanti alle giurisdizioni superiori e di corrispondenti per il diritto internazionale.</p>
   </div>
 </section>
 

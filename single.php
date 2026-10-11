@@ -72,7 +72,7 @@ $content_starts_with_img = (bool) preg_match('/^\s*<(figure|img|p[^>]*>\s*<img)/
         <h4>📅 Pubblicato</h4>
         <p><?php echo esc_html(get_the_date('j F Y')); ?></p>
         <?php $modif = get_the_modified_date('U'); $pub = get_the_date('U'); if ($modif - $pub > 86400): ?>
-        <p style="font-size:12.5px;color:#94a3b8;margin-top:6px">Aggiornato il <?php echo esc_html(get_the_modified_date('j F Y')); ?></p>
+        <p style="font-size:12.5px;color:#94a3b8;margin-top:6px">Ultima modifica il <?php echo esc_html(get_the_modified_date('j F Y')); ?></p>
         <?php endif; ?>
       </div>
 

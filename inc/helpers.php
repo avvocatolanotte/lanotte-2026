@@ -266,3 +266,19 @@ function lanotte_autore_maiuscolo($nome) {
 }
 add_filter('the_author', 'lanotte_autore_maiuscolo');
 add_filter('get_the_author_display_name', 'lanotte_autore_maiuscolo');
+
+/**
+ * Estratto per le schede degli elenchi. Se l'articolo non ha un estratto scritto, lo ricava dal testo
+ * mettendo uno spazio al posto dei confini di blocco prima di togliere i tag: altrimenti un titolo e il
+ * paragrafo che lo segue si saldano («SALTUARICos'è», revisione del sito, ottobre 2026).
+ */
+function lanotte_estratto($post = null, $parole = 22) {
+    $post = get_post($post);
+    if (!$post) return '';
+    if (has_excerpt($post)) return wp_trim_words(get_the_excerpt($post), $parole, '…');
+    $testo = strip_shortcodes((string) $post->post_content);
+    $testo = preg_replace('#<(br|/p|/h[1-6]|/li|/div|/blockquote|/td|/th|/tr|/figcaption)\b[^>]*>#i', ' $0', $testo);
+    $testo = wp_strip_all_tags($testo);
+    return wp_trim_words($testo, $parole, '…');
+}
+

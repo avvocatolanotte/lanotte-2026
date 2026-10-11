@@ -130,8 +130,8 @@ return [
                 'body' => '<ul><li>Impugnazione delle delibere assembleari (art. 1137 c.c.)</li><li>Recupero quote condominiali con decreto ingiuntivo ex art. 63 disp. att.</li><li>Controversie sulle parti comuni (lastrici, facciate, scale, ascensori)</li><li>Opere innovative, sopraelevazioni, modifiche d\'uso</li><li>Distacco dall\'impianto centralizzato di riscaldamento</li><li>Regolamento di condominio: predisposizione, modifica, interpretazione</li><li>Nomina, revoca e responsabilità dell\'amministratore</li><li>Mediazione obbligatoria in materia condominiale</li><li>Rapporti di vicinato, immissioni, distanze, servitù</li></ul>',
             ],
             [
-                'h' => 'Collaborazione con Condominiocasa',
-                'body' => '<p>L\'attività in materia condominiale beneficia della collaborazione con lo Studio di Amministrazione Condominiale «Condominiocasa», curato dalla Dott.ssa Cristina DE LILLO, che consente di affiancare alla difesa legale una gestione tecnico-amministrativa professionale del fabbricato.</p>',
+                'h' => 'Collaborazioni',
+                'body' => '<p>L\'attività in materia condominiale si avvale della collaborazione di professionisti dell\'amministrazione condominiale, che consente di affiancare alla difesa legale l\'esame tecnico-amministrativo della gestione del fabbricato.</p>',
             ],
             [
                 'h' => 'Mediazione obbligatoria',
@@ -345,7 +345,7 @@ return [
         'sezioni' => [
             [
                 'h' => 'L\'attività dello Studio',
-                'body' => '<p>Lo Studio assiste il correntista, l\'imprenditore e il consumatore nella verifica della corretta applicazione delle condizioni economiche del rapporto bancario, con particolare riferimento ai profili dell\'anatocismo (art. 120 TUB) e dell\'usura sopravvenuta. L\'analisi tecnica del rapporto è svolta in collaborazione con il Dott. Ruggiero LANOTTE, commercialista, specializzato nella perizia econometrica sui rapporti bancari.</p>',
+                'body' => '<p>Lo Studio assiste il correntista, l\'imprenditore e il consumatore nella verifica della corretta applicazione delle condizioni economiche del rapporto bancario, con particolare riferimento ai profili dell\'anatocismo (art. 120 TUB) e dell\'usura sopravvenuta. L\'analisi tecnica del rapporto è svolta in collaborazione con il Dott. Ruggiero LANOTTE, commercialista, che si occupa di perizie econometriche sui rapporti bancari.</p>',
             ],
             [
                 'h' => 'Materie trattate',
@@ -461,7 +461,7 @@ return [
             ],
             [
                 'h' => 'Diritto sportivo internazionale',
-                'body' => '<p>Lo Studio assiste federazioni e comitati nazionali nelle controversie sovranazionali: tra i mandati seguiti rientrano la International Taekwon-Do Federation di Vienna (ITF) e il Comitato Nazionale Taekwon-Do della Repubblica Popolare Democratica di Corea.</p>',
+                'body' => '<p>Lo Studio assiste federazioni, comitati nazionali e associazioni sportive, anche nelle controversie sovranazionali.</p>',
             ],
             [
                 'h' => 'Adeguamento RUNTS',

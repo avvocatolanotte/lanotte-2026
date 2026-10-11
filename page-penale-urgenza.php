@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Penale d'Urgenza H24
+ * Template Name: Penale d'urgenza
  *
  * @package lanotte-2026
  */
@@ -12,7 +12,7 @@ $phone_studio_raw = lanotte_phone(true);
 $phone_studio     = lanotte_phone();
 $email_studio     = lanotte_email();
 $wa_url           = lanotte_whatsapp_url();
-// Numero cellulare urgenze 24/7 (cellulare dell'Avv. LANOTTE, solo chiamate: lanotte_cellulare())
+// Cellulare per le urgenze penali (cellulare dell'Avv. LANOTTE, solo chiamate: lanotte_cellulare())
 $phone_urgenza_raw = lanotte_cellulare(true);
 $phone_urgenza     = lanotte_cellulare();
 ?>

@@ -32,7 +32,7 @@ get_footer();
 function lanotte_render_section_hero() {
     $hero_eyebrow = lanotte_acf_option('hero_eyebrow', 'Studio Legale · Barletta · Foro di Trani');
     $hero_title   = lanotte_acf_option('hero_title',   'Un presidio legale<br><em>al Vostro fianco,</em> ogni giorno.');
-    $hero_lead    = lanotte_acf_option('hero_lead',    'Assistiamo imprese e privati con un approccio multidisciplinare: civile, penale, commerciale, lavoro, tributario, internazionale e proprietà industriale. Un solo interlocutore, una rete di specialisti.');
+    $hero_lead    = lanotte_acf_option('hero_lead',    'Assistiamo imprese e privati con un approccio multidisciplinare: civile, penale, commerciale, lavoro, tributario, internazionale e proprietà industriale. Un solo interlocutore, una rete di colleghi e consulenti di fiducia.');
     $hero_bg      = lanotte_acf_option('hero_bg',      LANOTTE_THEME_URI . '/assets/img/trani/cattedrale-trani.jpg');
     $hero_cf7     = lanotte_acf_option('hero_cf7_shortcode', '');
     $cf_url       = lanotte_acf_option('cta_principale_url', get_permalink(get_page_by_path('contatti'))) ?: '#';
@@ -182,7 +182,7 @@ function lanotte_render_section_trustbar() {
         ['titolo' => 'Iscritti Ordine Avvocati Trani', 'sottotitolo' => 'Codice deontologico forense', 'icona' => '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>'],
         ['titolo' => 'Preventivo scritto', 'sottotitolo' => 'L. 247/2012 · No quota lite', 'icona' => '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>'],
         ['titolo' => 'Segreto professionale', 'sottotitolo' => 'Comunicazioni cifrate e tracciate', 'icona' => '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4M5 9v8a2 2 0 002 2h10a2 2 0 002-2V9"/></svg>'],
-        ['titolo' => 'Penale d\'urgenza', 'sottotitolo' => 'Reperibilità H24', 'icona' => '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'],
+        ['titolo' => 'Penale d\'urgenza', 'sottotitolo' => 'Arresti, fermi, perquisizioni', 'icona' => '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'],
     ];
     if (!$trust_items) return;
     ?>
@@ -200,75 +200,43 @@ function lanotte_render_section_trustbar() {
 }
 
 function lanotte_render_section_clienti() {
-    $clienti_q = new WP_Query([
-        'post_type'      => 'cliente',
-        'posts_per_page' => 12,
-        'orderby'        => 'menu_order',
-        'order'          => 'ASC',
-    ]);
-
-    $clienti_fallback = [
-        ['title' => 'ITF — International Taekwon-Do Federation', 'logo' => LANOTTE_THEME_URI . '/assets/img/clienti/itf-mondiale.svg', 'url' => 'https://itf-tkd.org/', 'desc' => 'ITF — International Taekwon-Do Federation (itf-tkd.org)'],
-        ['title' => 'Taekwondo ITF Italia — Fitsport', 'logo' => LANOTTE_THEME_URI . '/assets/img/clienti/taekwondo-itf.jpg', 'url' => '', 'desc' => 'Taekwondo ITF Italia · Fitsport'],
-        ['title' => 'FQ Quinto', 'logo' => LANOTTE_THEME_URI . '/assets/img/clienti/fq-quinto.png', 'url' => '', 'desc' => 'FQ Quinto'],
-        ['title' => 'S.S.D. Federico II di Svevia — Centro Sportivo', 'logo' => LANOTTE_THEME_URI . '/assets/img/clienti/federico-gym.svg', 'url' => '', 'desc' => 'S.S.D. Federico II di Svevia — Centro Sportivo'],
-        ['title' => 'Condominiocasa.it', 'logo' => LANOTTE_THEME_URI . '/assets/img/clienti/condominiocasa.jpg', 'url' => 'https://www.condominiocasa.it/', 'desc' => 'Condominiocasa.it · Amministrazione Condomini e Immobili'],
-        ['title' => 'Puglia Fideiussioni', 'logo' => LANOTTE_THEME_URI . '/assets/img/clienti/puglia-fideiussioni.jpg', 'url' => '', 'desc' => 'Puglia Fideiussioni'],
-        ['title' => 'Prenota in Puglia', 'logo' => LANOTTE_THEME_URI . '/assets/img/clienti/prenota-in-puglia.png', 'url' => '', 'desc' => 'Prenota in Puglia'],
+    // Decisione dell'Avvocato (11/10/2026): nessun nome o logo di clienti (art. 35 c. 8 CDF).
+    // Al posto del muro di loghi, i settori di attività, senza riferimenti identificativi.
+    $settori = [
+        ['titolo' => 'Persone e famiglie', 'testo' => 'Separazioni, successioni, risarcimenti, difesa penale.'],
+        ['titolo' => 'Professionisti', 'testo' => 'Contratti, recupero dei compensi, responsabilità professionale.'],
+        ['titolo' => 'Imprese', 'testo' => 'Contratti, crediti, lavoro, marchi e brevetti.'],
+        ['titolo' => 'Condomini e amministratori', 'testo' => 'Delibere, riparto delle spese, recupero delle quote.'],
+        ['titolo' => 'Enti e associazioni', 'testo' => 'Terzo settore, società e associazioni sportive dilettantistiche.'],
+        ['titolo' => 'Federazioni e organismi sportivi', 'testo' => 'Giustizia sportiva, anche nelle controversie sovranazionali.'],
     ];
-
-    $use_cpt = $clienti_q->have_posts();
     ?>
     <section class="block clienti-section" style="background:#fff;padding:60px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
       <div class="container">
         <div style="text-align:center;margin-bottom:32px">
           <div class="divider-dot"></div>
-          <div class="section-eyebrow">Hanno scelto lo Studio</div>
-          <h2 style="font-family:var(--serif);font-size:clamp(24px,2.5vw,32px);color:var(--navy);font-weight:600;margin-top:6px">I nostri clienti istituzionali</h2>
+          <div class="section-eyebrow">Chi assistiamo</div>
+          <h2 style="font-family:var(--serif);font-size:clamp(24px,2.5vw,32px);color:var(--navy);font-weight:600;margin-top:6px">Persone, professionisti, imprese ed enti</h2>
         </div>
-        <div class="clienti-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:28px;align-items:center;justify-items:center;max-width:1180px;margin:0 auto">
-          <?php if ($use_cpt): ?>
-            <?php while ($clienti_q->have_posts()): $clienti_q->the_post();
-              $title   = get_the_title();
-              $img_src = function_exists('lanotte_cliente_logo') ? lanotte_cliente_logo(get_the_ID()) : '';
-              $url     = function_exists('lanotte_cliente_url') ? lanotte_cliente_url(get_the_ID()) : '';
-              $desc    = get_the_excerpt() ?: $title;
-              if (!$img_src) continue;
-            ?>
-            <div class="cliente-logo">
-              <?php if ($url): ?>
-              <a href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr($title); ?>">
-                <img src="<?php echo esc_url($img_src); ?>" alt="<?php echo esc_attr($desc ?: $title); ?>" title="<?php echo esc_attr($title); ?>" loading="lazy">
-              </a>
-              <?php else: ?>
-              <img src="<?php echo esc_url($img_src); ?>" alt="<?php echo esc_attr($desc ?: $title); ?>" title="<?php echo esc_attr($title); ?>" loading="lazy">
-              <?php endif; ?>
-            </div>
-            <?php endwhile; wp_reset_postdata(); ?>
-          <?php else: foreach ($clienti_fallback as $c): ?>
-            <div class="cliente-logo">
-              <?php if ($c['url']): ?>
-              <a href="<?php echo esc_url($c['url']); ?>" target="_blank" rel="noopener" aria-label="<?php echo esc_attr($c['title']); ?>">
-                <img src="<?php echo esc_url($c['logo']); ?>" alt="<?php echo esc_attr($c['desc']); ?>" title="<?php echo esc_attr($c['title']); ?>" loading="lazy">
-              </a>
-              <?php else: ?>
-              <img src="<?php echo esc_url($c['logo']); ?>" alt="<?php echo esc_attr($c['desc']); ?>" title="<?php echo esc_attr($c['title']); ?>" loading="lazy">
-              <?php endif; ?>
-            </div>
-          <?php endforeach; endif; ?>
+        <div class="settori-grid">
+          <?php foreach ($settori as $st): ?>
+          <div class="settore-card">
+            <h3><?php echo esc_html($st['titolo']); ?></h3>
+            <p><?php echo esc_html($st['testo']); ?></p>
+          </div>
+          <?php endforeach; ?>
         </div>
-        <p style="text-align:center;font-size:12.5px;color:var(--text-muted);margin-top:24px;font-style:italic">Loghi pubblicati con il consenso dei rispettivi proprietari. Selezione fra i clienti istituzionali dello Studio.</p>
       </div>
     </section>
     <style>
-    .cliente-logo{filter:grayscale(1);opacity:.6;transition:all .35s;width:100%;display:flex;align-items:center;justify-content:center}
-    .cliente-logo:hover{filter:grayscale(0);opacity:1}
-    .cliente-logo img{max-width:130px;max-height:80px;width:auto;height:auto;object-fit:contain}
-    @media (max-width:1100px){.clienti-grid{grid-template-columns:repeat(4,1fr) !important;gap:24px !important}}
-    @media (max-width:700px){.clienti-grid{grid-template-columns:repeat(3,1fr) !important;gap:20px !important}}
-    @media (max-width:480px){.clienti-grid{grid-template-columns:repeat(2,1fr) !important}}
+    .settori-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1080px;margin:0 auto}
+    .settore-card{border:1px solid var(--border);border-top:3px solid var(--gold);padding:18px 20px;background:#fff}
+    .settore-card h3{font-family:var(--serif);font-size:18px;color:var(--navy);margin:0 0 6px;font-weight:600}
+    .settore-card p{font-size:14px;color:var(--text-muted);margin:0;line-height:1.55}
+    @media (max-width:860px){.settori-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:520px){.settori-grid{grid-template-columns:1fr}}
     </style>
-    <?php
+<?php
 }
 
 function lanotte_render_section_aree() {
@@ -279,7 +247,7 @@ function lanotte_render_section_aree() {
           <div class="divider-dot"></div>
           <div class="section-eyebrow">Cosa facciamo</div>
           <h2>Tredici aree, un solo interlocutore</h2>
-          <p>Materia civile, penale, commerciale, tributaria e del lavoro, integrate dalla collaborazione di specialisti per la giurisdizione di legittimità.</p>
+          <p>Materia civile, penale, commerciale, tributaria e del lavoro, integrate dalla collaborazione di colleghi abilitati al patrocinio davanti alle giurisdizioni superiori.</p>
         </div>
         <div class="areas-grid">
           <?php

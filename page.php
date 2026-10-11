@@ -59,17 +59,17 @@ $is_legal = is_page(['privacy', 'cookie', 'privacy-policy', 'cookie-policy', 'cr
     } elseif (is_page(['cookie', 'cookie-policy'])) {
         ?>
         <h2>Cookie Policy</h2>
-        <p>Questa pagina e in fase di aggiornamento. Il banner cookie e le preferenze di consenso restano gestite dal sistema installato sul sito.</p>
+        <p>Questa pagina è in fase di aggiornamento. Il banner cookie e le preferenze di consenso restano gestite dal sistema installato sul sito.</p>
         <?php echo do_shortcode('[cky_cookie_declaration]'); ?>
-        <p>Per informazioni sui cookie o per richieste relative al trattamento dei dati puo scrivere a <a href="mailto:<?php echo esc_attr(lanotte_email()); ?>"><?php echo esc_html(lanotte_email()); ?></a>.</p>
+        <p>Per informazioni sui cookie o per richieste relative al trattamento dei dati può scrivere a <a href="mailto:<?php echo esc_attr(lanotte_email()); ?>"><?php echo esc_html(lanotte_email()); ?></a>.</p>
         <?php
     } elseif (is_page(['privacy', 'privacy-policy'])) {
         ?>
         <h2>Informativa privacy</h2>
-        <p>Questa informativa e in fase di aggiornamento. Per esercitare i diritti previsti dal GDPR o per richieste relative al trattamento dei dati personali puo contattare lo Studio ai recapiti indicati di seguito.</p>
+        <p>Questa informativa è in fase di aggiornamento. Per esercitare i diritti previsti dal GDPR o per richieste relative al trattamento dei dati personali può contattare lo Studio ai recapiti indicati di seguito.</p>
         <p><strong>Titolare del trattamento:</strong> Studio Legale LANOTTE &amp; Partners.</p>
         <p><strong>Email:</strong> <a href="mailto:<?php echo esc_attr(lanotte_email()); ?>"><?php echo esc_html(lanotte_email()); ?></a><br><strong>PEC:</strong> <a href="mailto:<?php echo esc_attr(lanotte_pec()); ?>"><?php echo esc_html(lanotte_pec()); ?></a></p>
-        <p>La versione completa dell'informativa sara pubblicata in questa pagina.</p>
+        <p>La versione completa dell'informativa sarà pubblicata in questa pagina.</p>
         <?php
     } else {
         the_content();
