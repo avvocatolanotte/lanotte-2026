@@ -218,7 +218,11 @@
               <option value="commerciale">Commerciale</option>
             </select>
           </label>
-          <label>Componenti del nucleo familiare (uso condominiale: persone servite)<input type="number" id="componenti" min="1" max="500" value="3"></label>
+          <label>Componenti del nucleo familiare (uso condominiale: componenti dei nuclei riconosciuti da AQP)<input type="number" id="componenti" min="1" max="500" value="3"></label>
+        </div>
+        <div class="calc-row">
+          <label>Unità immobiliari servite (moduli contrattuali)<input type="number" id="moduli" min="1" max="500" value="1"></label>
+          <span></span>
         </div>
       </div>
 
@@ -245,6 +249,11 @@
           <label>Quota fissa annua fognatura (€)<input type="number" id="qfFog" step="0.01"></label>
           <label>Quota fissa annua depurazione (€)<input type="number" id="qfDep" step="0.01"></label>
         </div>
+        <div class="calc-row">
+          <label>Componenti perequative UI1 + UI2 + UI3 (€/m³ per ciascun servizio)<input type="number" id="perequative" step="0.0001"></label>
+          <span></span>
+        </div>
+        <p style="font-size:12px;color:#64748b;margin:-6px 0 14px">Valori indicati da AQP (aggiornamento del 5/12/2025): UI1 0,006, UI2 0,009, UI3 0,0179 €/m³, applicati ad acquedotto, fognatura e depurazione; UI4 è pari a zero dal 1° luglio 2023. UI1 e UI2 sono azzerate dal 1° gennaio 2027 (delibera ARERA 346/2026/R/com); UI3 non è dovuta da chi fruisce del bonus sociale idrico. Le quote fisse si moltiplicano per le unità immobiliari; per l'uso non residente e commerciale anche le fasce. Non sono comprese altre voci eventualmente presenti in bolletta (interessi, depositi cauzionali, conguagli di anni precedenti, bonus).</p>
         <div class="calc-row">
           <label>IVA (%)
             <select id="iva">
@@ -281,6 +290,7 @@
             <div class="risultato-item"><span>Depurazione</span><strong id="rDepu">—</strong></div>
             <div class="risultato-item"><span>Quota fissa acquedotto (periodo)</span><strong id="rQfA">—</strong></div>
             <div class="risultato-item"><span>Quote fisse fognatura e depurazione (periodo)</span><strong id="rQfF">—</strong></div>
+            <div class="risultato-item"><span>Componenti perequative UI</span><strong id="rPereq">—</strong></div>
             <div class="risultato-item"><span>Imponibile (somma)</span><strong id="rImponibile">—</strong></div>
           </div>
 
@@ -423,7 +433,7 @@
   });
 
   const fmtEur = v => '€ ' + v.toLocaleString('it-IT', {minimumFractionDigits:2, maximumFractionDigits:2});
-  const fmtMc  = v => v.toLocaleString('it-IT', {maximumFractionDigits:0}) + ' m³';
+  const fmtMc  = v => v.toLocaleString('it-IT', {maximumFractionDigits:3}) + ' m³'; // tre decimali: i volumi per fascia sono frazionari
 
   let datiCalc = null;
 
@@ -431,6 +441,8 @@
   // all'1/10/2026, letta l'11/10/2026): fasce di consumo ANNUE (per componente del nucleo per l'uso domestico
   // residente e condominiale), tariffe al netto di IVA, quote fisse annue.
   const FOGNATURA_2026 = 0.235307, DEPURAZIONE_2026 = 0.679267;
+  // UI1 0,006 + UI2 0,009 + UI3 0,0179 €/m³ per servizio (pagina AQP «Componenti tariffarie di perequazione», 5/12/2025).
+  const PEREQUATIVE_2026 = 0.0329;
   const TARIFFE_2026 = {
     'dom-res':     { proCapite: true,  qf: [28.89, 5.46, 15.73], fasce: [[20, 0.827780, 'Agevolata'], [30, 1.034724, 'Base'], [40, 1.805596, 'I eccedenza'], [70, 2.547936, 'II eccedenza'], [Infinity, 3.352696, 'III eccedenza']] },
     'condom':      { proCapite: true,  qf: [28.89, 5.46, 15.73], fasce: [[20, 0.827780, 'Agevolata'], [30, 1.034724, 'Base'], [40, 1.805596, 'I eccedenza'], [70, 2.547936, 'II eccedenza'], [Infinity, 3.352696, 'III eccedenza']] },
@@ -460,6 +472,7 @@
     document.getElementById('qfAcq').value = t.qf[0];
     document.getElementById('qfFog').value = t.qf[1];
     document.getElementById('qfDep').value = t.qf[2];
+    document.getElementById('perequative').value = PEREQUATIVE_2026;
     etichetteFasce();
   }
   ripristinaTariffe();
@@ -477,12 +490,15 @@
     const consumo = le - ls;
     const t = tariffaCorrente();
     const componenti = Math.max(1, Math.round(+document.getElementById('componenti').value || 3));
+    const moduli = Math.max(1, Math.round(+document.getElementById('moduli').value || 1));
     const quota = giorni / 365;                        // frazione d'anno del periodo fatturato
-    const moltFasce = (t.proCapite ? componenti : 1) * quota;
+    // Fasce: pro-capite (per componente) per residente e condominiale; per modulo negli altri usi.
+    const moltFasce = (t.proCapite ? componenti : moduli) * quota;
     const prezzi = [1, 2, 3, 4, 5].map(n => +document.getElementById('t' + n).value || 0);
     const fog = +document.getElementById('fognatura').value || 0;
     const dep = +document.getElementById('depurazione').value || 0;
     const qfAnnue = [+document.getElementById('qfAcq').value || 0, +document.getElementById('qfFog').value || 0, +document.getElementById('qfDep').value || 0];
+    const ui = +document.getElementById('perequative').value || 0;
     const iva = +document.getElementById('iva').value / 100;
     const importoBol = +document.getElementById('importoBolletta').value || 0;
 
@@ -502,15 +518,20 @@
 
     const fognatura = consumo * fog;
     const depurazione = consumo * dep;
-    const qfA = qfAnnue[0] * quota, qfFog = qfAnnue[1] * quota, qfDep = qfAnnue[2] * quota;
+    // Quote fisse annue: per unità immobiliare (modulo), rapportate al periodo.
+    const qfA = qfAnnue[0] * moduli * quota, qfFog = qfAnnue[1] * moduli * quota, qfDep = qfAnnue[2] * moduli * quota;
     const qfF = qfFog + qfDep;
+    // Componenti perequative: maggiorazione per m³ su ciascun servizio fatturato.
+    const servizi = 1 + (fog > 0 ? 1 : 0) + (dep > 0 ? 1 : 0);
+    const perequative = consumo * ui * servizi;
     dettaglio.push(['Fognatura', consumo, fog.toLocaleString('it-IT', {minimumFractionDigits: 6}), fognatura]);
     dettaglio.push(['Depurazione', consumo, dep.toLocaleString('it-IT', {minimumFractionDigits: 6}), depurazione]);
     dettaglio.push(['Quota fissa acquedotto (' + giorni + ' giorni)', '—', '—', qfA]);
     dettaglio.push(['Quota fissa fognatura (' + giorni + ' giorni)', '—', '—', qfFog]);
     dettaglio.push(['Quota fissa depurazione (' + giorni + ' giorni)', '—', '—', qfDep]);
+    dettaglio.push(['Componenti perequative UI (' + servizi + (servizi === 1 ? ' servizio' : ' servizi') + ')', consumo * servizi, ui.toLocaleString('it-IT', {minimumFractionDigits: 4}), perequative]);
 
-    const imponibile = acquedotto + fognatura + depurazione + qfA + qfF;
+    const imponibile = acquedotto + fognatura + depurazione + qfA + qfF + perequative;
     const ivaCalc = imponibile * iva;
     const totale = imponibile + ivaCalc;
     const media = (consumo / giorni * 30).toLocaleString('it-IT', {maximumFractionDigits: 1}) + ' m³/mese';
@@ -523,6 +544,7 @@
     document.getElementById('rDepu').textContent = fmtEur(depurazione);
     document.getElementById('rQfA').textContent = fmtEur(qfA);
     document.getElementById('rQfF').textContent = fmtEur(qfF);
+    document.getElementById('rPereq').textContent = fmtEur(perequative);
     document.getElementById('rImponibile').textContent = fmtEur(imponibile);
     document.getElementById('rIva').textContent = fmtEur(ivaCalc) + ' (' + (iva*100).toFixed(0) + '%)';
     document.getElementById('rTotale').textContent = fmtEur(totale);
@@ -552,7 +574,7 @@
       cliente: {nome: document.getElementById('clienteNome').value, codiceFiscale: document.getElementById('codiceUtente').value},
       indirizzo: document.getElementById('indirizzo').value,
       consumo, totale, importoBol, dettaglio, giorni, media, componenti, tipo: document.getElementById('tipoUtenza').value,
-      acquedotto, fognatura, depurazione, qfA, qfF, qfFog, qfDep, imponibile, ivaCalc, ivaPerc: iva*100
+      acquedotto, fognatura, depurazione, qfA, qfF, qfFog, qfDep, perequative, moduli, imponibile, ivaCalc, ivaPerc: iva*100
     };
 
     document.getElementById('risultati').style.display = 'block';
@@ -585,6 +607,7 @@
       {label:'— Quota fissa acquedotto (periodo)', value: fmtEur(d.qfA)},
       {label:'— Quota fissa fognatura (periodo)', value: fmtEur(d.qfFog)},
       {label:'— Quota fissa depurazione (periodo)', value: fmtEur(d.qfDep)},
+      {label:'— Componenti perequative UI', value: fmtEur(d.perequative)},
       {label:'Imponibile', value: fmtEur(d.imponibile)},
       {label:'IVA (' + d.ivaPerc.toFixed(0) + '%)', value: fmtEur(d.ivaCalc)},
       {label:'TOTALE calcolato (IVA inclusa)', value: fmtEur(d.totale)}
