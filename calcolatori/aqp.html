@@ -587,7 +587,8 @@
     const mediaGiorno = conGiorni ? media / giorniR : null;
     const riferimentoSulPeriodo = conGiorni ? mediaGiorno * giorniF : media;
     const requisito = conGiorni ? (attuale / giorniF) >= 2 * mediaGiorno : attuale >= 2 * media;
-    const eccedenza = Math.max(0, Math.round((attuale - riferimentoSulPeriodo) * 100) / 100);
+    // Nessun arrotondamento intermedio: si arrotondano solo gli importi finali (B11, terza revisione di Codex).
+    const eccedenza = Math.max(0, attuale - riferimentoSulPeriodo);
     const out = document.getElementById('risPerdita');
     out.style.display = 'block';
     let html = '<h4 style="margin:0 0 10px;color:var(--navy);font-family:var(--serif)">Risultato indicativo</h4>' +
