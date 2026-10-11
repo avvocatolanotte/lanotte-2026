@@ -550,7 +550,7 @@
 
   // Lettura di un campo numerico: vuoto, negativo, non intero o non finito → errore esplicito, mai un valore sostitutivo.
   function numero(id, nome, o = {}){
-    const raw = String($(id).value ?? '').trim();
+    const raw = String($(id).value ?? '');            // nessun trim: un dato non si altera mai in silenzio (B40)
     if (raw === '') {
       if ('vuoto' in o) return o.vuoto;
       throw nome + ': campo obbligatorio' + (o.aiuto ? ' (' + o.aiuto + ')' : '') + '.';
@@ -576,7 +576,7 @@
     const abs = x => x < 0n ? -x : x;
     const mcd = (a, b) => { a = abs(a); b = abs(b); while (b) [a, b] = [b, a % b]; return a; };
     const of = (n, d = 1) => { n = BigInt(n); d = BigInt(d); if (d < 0n) { n = -n; d = -d; } const g = mcd(n, d) || 1n; return {n: n / g, d: d / g}; };
-    const dec = t => { const m = /^(-?)(\d+)(?:[.,](\d+))?$/.exec(String(t).trim()); if (!m) throw new Error('valore non decimale: ' + t); const f = m[3] || ''; return of(BigInt(m[1] + m[2] + f), 10n ** BigInt(f.length)); };
+    const dec = t => { const m = /^(-?)(\d+)(?:[.,](\d+))?$/.exec(String(t)); if (!m) throw new Error('valore non decimale: ' + t); const f = m[3] || ''; return of(BigInt(m[1] + m[2] + f), 10n ** BigInt(f.length)); };
     const add = (a, b) => of(a.n * b.d + b.n * a.d, a.d * b.d);
     const sub = (a, b) => of(a.n * b.d - b.n * a.d, a.d * b.d);
     const mul = (a, b) => of(a.n * b.n, a.d * b.d);
@@ -645,7 +645,7 @@
       if (!(giorni > 0)) throw 'Inserisca le date delle due letture: la data finale deve essere successiva a quella iniziale.';
       moduli = numero('moduli', cfg.moduli.replace(' *', ''), cfg.decimali ? {positivo: true, dec: 2, max: 2000} : {positivo: true, intero: true, max: 2000});
       if (t.proCapite) {
-        const vuoto = String($('componenti').value ?? '').trim() === '';
+        const vuoto = String($('componenti').value ?? '') === '';
         if (vuoto && tipo === 'condom') throw 'Componenti: per l\'uso condominiale indichi il totale delle persone dichiarato ad AQP (se nessuno ha dichiarato: 3 per ogni abitazione).';
         if (vuoto && moduli > 1) throw 'Componenti: indichi il totale dei componenti delle ' + moduli + ' unità abitative.';
         componenti = numero('componenti', 'Componenti', {positivo: true, intero: true, vuoto: 3, max: 10000});
@@ -787,9 +787,10 @@
     if (!datiCalc) { alert('Prima compili i dati e prema «Verifica bolletta».'); return; }
     if (datiCalc.impronta !== impronta()) { ritiraRisultato(); $('avvisoRicalcolo').style.display = 'block'; alert('I dati sono stati modificati dopo il calcolo: prema di nuovo «Verifica bolletta».'); return; }
     const d = datiCalc, cf = d.cf;
-    const codice = $('codiceUtente').value.trim(), matricola = $('matricola').value.trim();
+    // I dati del cliente passano al report come sono stati inseriti (B40: trim() toglieva anche U+FEFF ai bordi).
+    const codice = $('codiceUtente').value, matricola = $('matricola').value;
     const dati = [
-      {label:'Indirizzo fornitura', value: $('indirizzo').value.trim() || '—'}
+      {label:'Indirizzo fornitura', value: $('indirizzo').value || '—'}
     ];
     if (codice) dati.push({label:'Codice cliente AQP', value: codice});
     if (matricola) dati.push({label:'Matricola del contatore', value: matricola});
@@ -825,7 +826,7 @@
       ? 'Il ricalcolo dei corrispettivi del periodo produce ' + fmtEur(d.totale) + ' IVA inclusa' + (cf.acconti ? '; detratti gli acconti dello stesso periodo (' + fmtEur(cf.acconti) + '), l\'importo atteso è ' + fmtEur(cf.atteso) : '') + '. In bolletta, per le stesse voci, è indicato ' + fmtEur(cf.importo) + ' (differenza ' + (cf.delta >= 0 ? '+' : '') + fmtEur(cf.delta) + (cf.pct === null ? '' : ', ' + fmtPct(cf.pct)) + '). ' + ESITO_REPORT[cf.livello]
       : 'Il ricalcolo dei corrispettivi del periodo secondo le tariffe inserite produce un importo totale di ' + fmtEur(d.totale) + ' IVA inclusa.')
       + ' ' + DELIMITAZIONE + (d.avvisi.length ? ' ' + d.avvisi.join(' ') : '');
-    const nome = $('clienteNome').value.trim();
+    const nome = $('clienteNome').value;
     LanottePDF.preview({
       titolo: 'Verifica Bolletta AQP',
       normativa: 'Articolazione tariffaria AQP, ATO Puglia, 2026; Regolamento del servizio idrico integrato AQP in vigore dal 1/6/2026; delibere ARERA 665/2017/R/idr (TICSI), 218/2016/R/idr (TIMSII), 655/2015/R/idr (RQSII) e 346/2026/R/com',
