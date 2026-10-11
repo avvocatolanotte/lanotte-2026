@@ -195,19 +195,23 @@
     modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   }
 
-  // I caratteri standard di jsPDF coprono solo la codifica WinAnsi. Simboli e segni grafici fuori codifica
-  // (frecce, spunte, emoji, spazi e trattini speciali) si sostituiscono con un equivalente o si tolgono;
-  // lettere e cifre fuori codifica NON si toccano mai: se ci sono, il PDF non si genera (vedi
-  // caratteriNonStampabili e generate) e si indica la «Stampa» dall'anteprima, che li conserva.
-  const PDF_SOSTITUZIONI = {'→': '–', '←': '–', '−': '-', '≈': 'circa ', '≤': '<=', '≥': '>=', '●': '•'};
+  // I caratteri standard di jsPDF coprono solo la codifica WinAnsi. Un carattere fuori codifica si scrive
+  // solo con un equivalente fedele (forma di compatibilità Unicode, es. «／» → «/», o una sostituzione
+  // esplicita); si tolgono soltanto i simboli decorativi (emoji, spunte, selettori di variante). Tutto il
+  // resto — lettere, cifre, punteggiatura e simboli che possono far parte di un dato — NON si tocca: se
+  // compare, il PDF non si genera (caratteriNonStampabili e generate) e si indica la «Stampa»
+  // dall'anteprima, che lo conserva.
+  const PDF_SOSTITUZIONI = {'→': '–', '←': '–', '−': '-', '≈': 'circa ', '≤': '<=', '≥': '>=', '●': '•', '⁄': '/', '∕': '/', '✓': '', '✗': '', '✘': ''};
   const PDF_AMMESSI = /[\x00-\xFF€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/;
   function pdfCarattere(c){
     if (PDF_AMMESSI.test(c)) return c;
     if (c in PDF_SOSTITUZIONI) return PDF_SOSTITUZIONI[c];
+    const compat = c.normalize('NFKC');                                         // es. «／» → «/», «１» → «1»
+    if (compat !== c && Array.from(compat).every(x => PDF_AMMESSI.test(x))) return compat;
     if (/\p{Zs}/u.test(c)) return ' ';
     if (/\p{Pd}/u.test(c)) return '-';
-    if (/[︎️​-‍⁠]|\p{S}|\p{P}|\p{Cf}/u.test(c)) return '';   // simboli, emoji, punteggiatura grafica
-    return null;                                                                // lettera, cifra o segno: non rappresentabile
+    if (/\p{Extended_Pictographic}|[︎️​-‍⁠⃣]/u.test(c)) return '';   // decorativi
+    return null;                                                                // non rappresentabile: si blocca
   }
   function pdfSafe(t){
     if (t === null || t === undefined) return t;

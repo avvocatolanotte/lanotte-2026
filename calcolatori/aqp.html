@@ -552,11 +552,18 @@
       if ('vuoto' in o) return o.vuoto;
       throw nome + ': campo obbligatorio' + (o.aiuto ? ' (' + o.aiuto + ')' : '') + '.';
     }
+    // Solo notazione decimale (niente «1e-21»), con un numero massimo di decimali e un valore massimo
+    // realistico: così ogni valore accettato è conservato esattamente nel report e i conti restano finiti.
+    const m = /^-?(\d+)(?:[.,](\d+))?$/.exec(raw);
+    if (!m) throw nome + ': indichi un numero in notazione decimale (es. 12,5).';
+    const dec = o.intero ? 0 : (o.dec ?? 6);
+    if ((m[2] || '').length > dec) throw nome + (dec ? ': al massimo ' + dec + (dec === 1 ? ' decimale.' : ' decimali.') : ': indichi un numero intero.');
     const v = Number(raw.replace(',', '.'));
     if (!Number.isFinite(v)) throw nome + ': valore non valido.';
     if (!o.negativo && v < 0) throw nome + ': il valore non può essere negativo.';
-    if (o.intero && !Number.isInteger(v)) throw nome + ': indichi un numero intero.';
     if (o.positivo && !(v > 0)) throw nome + ': il valore deve essere maggiore di zero.';
+    const max = o.max ?? 1e9;
+    if (Math.abs(v) > max) throw nome + ': valore fuori scala (massimo ' + max.toLocaleString('it-IT') + ').';
     return v;
   }
   const fmtData = s => s.split('-').reverse().join('/');
@@ -605,7 +612,7 @@
     let ls, le, ds, de, giorni, componenti, moduli, prezzi, fog, dep, qfAnnue, ui12, ui12b, ui3, iva, importoBol, acconti;
     try {
       // Letture: solo i metri cubi interi (Regolamento AQP, art. 41, comma 4).
-      const lsGrezza = numero('lettStart', 'Lettura iniziale'), leGrezza = numero('lettEnd', 'Lettura finale');
+      const lsGrezza = numero('lettStart', 'Lettura iniziale', {dec: 3}), leGrezza = numero('lettEnd', 'Lettura finale', {dec: 3});
       ls = Math.floor(lsGrezza); le = Math.floor(leGrezza);
       if (le < ls) throw 'La lettura finale non può essere inferiore a quella iniziale. Se il contatore è stato sostituito, calcoli separatamente i due tratti.';
       if (ls !== lsGrezza || le !== leGrezza) avvisi.push('Letture con frazioni di m³: considerati i soli metri cubi interi (da ' + ls + ' a ' + le + '), come prevede l\'art. 41, comma 4, del Regolamento AQP.');
@@ -613,24 +620,24 @@
       giorni = (ds && de) ? Math.round((new Date(de + 'T12:00:00') - new Date(ds + 'T12:00:00')) / 864e5) : NaN;
       // Fasce e quote fisse sono annue: senza un periodo valido il calcolo non si può fare.
       if (!(giorni > 0)) throw 'Inserisca le date delle due letture: la data finale deve essere successiva a quella iniziale.';
-      moduli = numero('moduli', cfg.moduli.replace(' *', ''), cfg.decimali ? {positivo: true} : {positivo: true, intero: true});
+      moduli = numero('moduli', cfg.moduli.replace(' *', ''), cfg.decimali ? {positivo: true, dec: 2, max: 2000} : {positivo: true, intero: true, max: 2000});
       if (t.proCapite) {
         const vuoto = String($('componenti').value ?? '').trim() === '';
         if (vuoto && tipo === 'condom') throw 'Componenti: per l\'uso condominiale indichi il totale delle persone dichiarato ad AQP (se nessuno ha dichiarato: 3 per ogni abitazione).';
         if (vuoto && moduli > 1) throw 'Componenti: indichi il totale dei componenti delle ' + moduli + ' unità abitative.';
-        componenti = numero('componenti', 'Componenti', {positivo: true, intero: true, vuoto: 3});
+        componenti = numero('componenti', 'Componenti', {positivo: true, intero: true, vuoto: 3, max: 10000});
         if (vuoto) avvisi.push('Componenti non indicati: applicato il criterio standard di 3 componenti (TICSI, art. 3.4).');
       }
-      prezzi = t.fasce.map((f, i) => numero('t' + (i + 1), 'Tariffa ' + f[2].toLowerCase()));
-      fog = numero('fognatura', 'Tariffa fognatura', {aiuto: '0 se il servizio non è fornito'});
-      dep = numero('depurazione', 'Tariffa depurazione', {aiuto: '0 se il servizio non è fornito'});
-      qfAnnue = [numero('qfAcq', 'Quota fissa acquedotto'), numero('qfFog', 'Quota fissa fognatura', {aiuto: '0 se il servizio non è fornito'}), numero('qfDep', 'Quota fissa depurazione', {aiuto: '0 se il servizio non è fornito'})];
-      ui12 = numero('ui12', 'Componenti UI1 + UI2 fino al 31/12/2026');
-      ui12b = numero('ui12b', 'Componenti UI1 + UI2 dal 1/1/2027');
-      ui3 = numero('ui3', 'Componente UI3');
-      iva = numero('iva', 'IVA') / 100;
-      acconti = numero('acconti', 'Acconti', {vuoto: 0});
-      importoBol = numero('importoBolletta', 'Importo in bolletta', {vuoto: null, negativo: acconti > 0});
+      prezzi = t.fasce.map((f, i) => numero('t' + (i + 1), 'Tariffa ' + f[2].toLowerCase(), {max: 100}));
+      fog = numero('fognatura', 'Tariffa fognatura', {aiuto: '0 se il servizio non è fornito', max: 100});
+      dep = numero('depurazione', 'Tariffa depurazione', {aiuto: '0 se il servizio non è fornito', max: 100});
+      qfAnnue = [numero('qfAcq', 'Quota fissa acquedotto', {dec: 2, max: 100000}), numero('qfFog', 'Quota fissa fognatura', {aiuto: '0 se il servizio non è fornito', dec: 2, max: 100000}), numero('qfDep', 'Quota fissa depurazione', {aiuto: '0 se il servizio non è fornito', dec: 2, max: 100000})];
+      ui12 = numero('ui12', 'Componenti UI1 + UI2 fino al 31/12/2026', {max: 1});
+      ui12b = numero('ui12b', 'Componenti UI1 + UI2 dal 1/1/2027', {max: 1});
+      ui3 = numero('ui3', 'Componente UI3', {max: 1});
+      iva = numero('iva', 'IVA', {max: 100}) / 100;
+      acconti = numero('acconti', 'Acconti', {vuoto: 0, dec: 2, max: 10000000});
+      importoBol = numero('importoBolletta', 'Importo in bolletta', {vuoto: null, negativo: acconti > 0, dec: 2, max: 10000000});
       if (importoBol === null && acconti > 0) throw 'Importo in bolletta: indichi anche l\'importo per i consumi del periodo, oppure lasci vuoti entrambi i campi.';
     } catch (msg) {
       if (typeof msg !== 'string') throw msg;
@@ -688,6 +695,10 @@
     const imponibile = acquedotto + fognatura + depurazione + qfA + qfF + perequative;
     const ivaCalc = imponibile * iva;
     const totale = imponibile + ivaCalc;
+    if (![acquedotto, fognatura, depurazione, qfA, qfF, perequative, imponibile, ivaCalc, totale].every(Number.isFinite)) {
+      alert('Con i valori inseriti il risultato non è calcolabile: controlli tariffe, quote e consumi.');
+      return;
+    }
     const media = (consumo / giorni * 30).toLocaleString('it-IT', {maximumFractionDigits: 1}) + ' m³';
 
     $('rConsumo').textContent = fmtMc(consumo);
@@ -810,14 +821,14 @@
     let media, attuale, tariffa, fognDep, importo, giorniF, giorniR;
     try {
       // Campo vuoto = non indicato; zero esplicito = zero; negativo o non numerico = errore.
-      attuale = numero('pAttuale', 'Consumo della fattura contestata');
-      media = numero('pMedia', 'Consumo medio di riferimento', {positivo: true});
-      giorniF = numero('pGiorniF', 'Giorni del periodo fatturato', {vuoto: null, intero: true, positivo: true});
-      giorniR = numero('pGiorniR', 'Giorni del periodo di riferimento', {vuoto: null, intero: true, positivo: true});
+      attuale = numero('pAttuale', 'Consumo della fattura contestata', {dec: 3, max: 10000000});
+      media = numero('pMedia', 'Consumo medio di riferimento', {positivo: true, dec: 3, max: 10000000});
+      giorniF = numero('pGiorniF', 'Giorni del periodo fatturato', {vuoto: null, intero: true, positivo: true, max: 3660});
+      giorniR = numero('pGiorniR', 'Giorni del periodo di riferimento', {vuoto: null, intero: true, positivo: true, max: 3660});
       if ((giorniF === null) !== (giorniR === null)) throw 'Indichi i giorni di entrambi i periodi, oppure di nessuno dei due.';
-      tariffa = numero('pTariffa', 'Tariffa base acquedotto', {vuoto: null});
-      fognDep = numero('pFognDep', 'Fognatura + depurazione', {vuoto: null});
-      importo = numero('pImporto', 'Importo fatturato per il volume eccedente', {vuoto: null});
+      tariffa = numero('pTariffa', 'Tariffa base acquedotto', {vuoto: null, max: 100});
+      fognDep = numero('pFognDep', 'Fognatura + depurazione', {vuoto: null, max: 100});
+      importo = numero('pImporto', 'Importo fatturato per il volume eccedente', {vuoto: null, dec: 2, max: 10000000});
     } catch (msg) {
       if (typeof msg !== 'string') throw msg;
       alert(msg);
@@ -831,6 +842,7 @@
     const requisito = conGiorni ? (attuale / giorniF) >= 2 * mediaGiorno : attuale >= 2 * media;
     // Nessun arrotondamento intermedio: si arrotondano solo gli importi finali (B11, terza revisione di Codex).
     const eccedenza = Math.max(0, attuale - riferimentoSulPeriodo);
+    if (![riferimentoSulPeriodo, eccedenza].every(Number.isFinite)) { alert('Con i valori inseriti la stima non è calcolabile: controlli consumi e giorni.'); return; }
     const out = $('risPerdita');
     out.style.display = 'block';
     let html = '<h4 style="margin:0 0 10px;color:var(--navy);font-family:var(--serif)">Risultato indicativo</h4>' +
