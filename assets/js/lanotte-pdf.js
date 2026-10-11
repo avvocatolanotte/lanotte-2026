@@ -34,7 +34,7 @@
     titolare: 'Avv. Giuseppe LANOTTE',
     indirizzo: 'Viale Falcone e Borsellino, 75 — 76121 Barletta (BT)',
     telefono: '0883 1955533',
-    cellulare: '392 970 3202 (Penale H24)',
+    cellulare: '392 970 3202',
     email: 'info@studiolegalelanotte.it',
     pec: 'studiolegalelanotte@legalmail.it',
     cf: 'LNTGPP78B01L328P',

@@ -191,11 +191,11 @@
         <h3 style="font-family:var(--serif);font-size:20px;color:var(--navy);margin:0 0 18px">Dati cliente</h3>
         <div class="calc-row">
           <label>Nome intestatario<input type="text" id="clienteNome" placeholder="Es. Mario Rossi"></label>
-          <label>Codice utente AQP<input type="text" id="codiceUtente" placeholder="Es. 12345678"></label>
+          <label>Codice cliente AQP<input type="text" id="codiceUtente" placeholder="Es. 12345678"></label>
         </div>
         <div class="calc-row">
           <label>Indirizzo fornitura<input type="text" id="indirizzo" placeholder="Via..., Barletta"></label>
-          <label>POD/PDR / Matricola<input type="text" id="matricola" placeholder="Numero contatore"></label>
+          <label>Matricola del contatore<input type="text" id="matricola" placeholder="Numero del contatore"></label>
         </div>
       </div>
 
@@ -203,12 +203,13 @@
         <h3 style="font-family:var(--serif);font-size:20px;color:var(--navy);margin:0 0 18px">Dati letture</h3>
         <div class="calc-row">
           <label>Lettura iniziale (m³) *<input type="number" id="lettStart" step="1" min="0" placeholder="1234"></label>
-          <label>Data lettura iniziale<input type="date" id="dataStart"></label>
+          <label>Data lettura iniziale *<input type="date" id="dataStart"></label>
         </div>
         <div class="calc-row">
           <label>Lettura finale (m³) *<input type="number" id="lettEnd" step="1" min="0" placeholder="1450"></label>
-          <label>Data lettura finale<input type="date" id="dataEnd"></label>
+          <label>Data lettura finale *<input type="date" id="dataEnd"></label>
         </div>
+        <p style="font-size:12px;color:#64748b;margin:-6px 0 14px">Si considera solo il metro cubo intero letto sul contatore: le frazioni si trascurano (art. 41, comma 4, Regolamento del servizio idrico integrato AQP). Se nel periodo il contatore è stato sostituito, calcoli separatamente i due tratti.</p>
         <div class="calc-row">
           <label>Tipologia utenza
             <select id="tipoUtenza">
@@ -218,17 +219,18 @@
               <option value="commerciale">Commerciale</option>
             </select>
           </label>
-          <label>Componenti del nucleo familiare (uso condominiale: componenti dei nuclei riconosciuti da AQP)<input type="number" id="componenti" min="1" max="500" value="3"></label>
+          <label id="wrapComponenti"><span id="lblComponenti">Componenti del nucleo familiare</span><input type="number" id="componenti" min="1" max="2000" step="1" value="3"></label>
         </div>
         <div class="calc-row">
-          <label>Unità immobiliari servite (moduli contrattuali)<input type="number" id="moduli" min="1" max="500" value="1"></label>
-          <span></span>
+          <label><span id="lblModuli">Unità abitative del contratto (moduli contrattuali)</span><input type="number" id="moduli" min="1" max="2000" step="1" value="1"></label>
+          <label id="wrapBonus" style="display:flex;flex-direction:row;align-items:flex-start;gap:8px"><input type="checkbox" id="bonusDiretto" style="width:auto;margin-top:3px"><span>Intestatario beneficiario diretto del bonus sociale idrico (la componente UI3 non è dovuta)</span></label>
         </div>
+        <p id="notaTipo" style="font-size:12px;color:#64748b;margin:-6px 0 0"></p>
       </div>
 
       <div class="calc-block">
         <h3 style="font-family:var(--serif);font-size:20px;color:var(--navy);margin:0 0 18px">Tariffe da bolletta</h3>
-        <p style="font-size:12.5px;color:#64748b;margin:0 0 16px"><strong>Tariffe AQP 2026 per l'ATO Puglia precompilate</strong> (dettaglio dell'articolazione tariffaria pubblicato da AQP, aggiornato all'1/10/2026; importi al netto di IVA). Si possono modificare con i valori della bolletta. Le fasce di consumo e le quote fisse sono <strong>annue</strong>: il calcolo le rapporta ai giorni del periodo fatturato e, per l'uso domestico residente e condominiale, moltiplica le fasce per i componenti (criterio pro-capite). Se il numero dei componenti non è stato dichiarato, AQP applica 3 componenti.</p>
+        <p style="font-size:12.5px;color:#64748b;margin:0 0 16px"><strong>Tariffe AQP 2026 per l'ATO Puglia precompilate</strong> (dettaglio dell'articolazione tariffaria pubblicato da AQP, aggiornato all'1/10/2026; importi al netto di IVA). AQP le applica dal 1° gennaio 2026, salvo conguaglio dopo l'approvazione definitiva dell'ARERA (delibera AIP n. 69 del 31/7/2026). Si possono modificare con i valori della bolletta. Le fasce di consumo e le quote fisse sono <strong>annue</strong>: il calcolo le rapporta ai giorni del periodo fatturato e, per l'uso domestico residente e condominiale, moltiplica le fasce per i componenti (criterio pro-capite). <strong>Prezzi, componenti e moduli sono applicati a tutto il periodo</strong>: se nel periodo sono cambiati, il calcolo va ripetuto per ciascun tratto, ripartendo il consumo in proporzione ai giorni.</p>
         <div class="calc-row">
           <label><span id="lt1">Fascia 1</span> (€/m³)<input type="number" id="t1" step="0.000001"></label>
           <label><span id="lt2">Fascia 2</span> (€/m³)<input type="number" id="t2" step="0.000001"></label>
@@ -250,24 +252,38 @@
           <label>Quota fissa annua depurazione (€)<input type="number" id="qfDep" step="0.01"></label>
         </div>
         <div class="calc-row">
-          <label>Componenti perequative UI1 + UI2 + UI3 (€/m³ per ciascun servizio)<input type="number" id="perequative" step="0.0001"></label>
+          <label>Componenti perequative UI1 + UI2 per i giorni fino al 31/12/2026 (€/m³ per servizio)<input type="number" id="ui12" step="0.0001" min="0"></label>
+          <label>Componenti perequative UI1 + UI2 per i giorni dal 1/1/2027 (€/m³ per servizio)<input type="number" id="ui12b" step="0.0001" min="0"></label>
+        </div>
+        <div class="calc-row">
+          <label>Componente perequativa UI3 (€/m³ per servizio)<input type="number" id="ui3" step="0.0001" min="0"></label>
           <span></span>
         </div>
-        <p style="font-size:12px;color:#64748b;margin:-6px 0 14px">Valori indicati da AQP (aggiornamento del 5/12/2025): UI1 0,006, UI2 0,009, UI3 0,0179 €/m³, applicati ad acquedotto, fognatura e depurazione; UI4 è pari a zero dal 1° luglio 2023. UI1 e UI2 sono azzerate dal 1° gennaio 2027 (delibera ARERA 346/2026/R/com); UI3 non è dovuta da chi fruisce del bonus sociale idrico. Le quote fisse si moltiplicano per le unità immobiliari; per l'uso non residente e commerciale anche le fasce. Non sono comprese altre voci eventualmente presenti in bolletta (interessi, depositi cauzionali, conguagli di anni precedenti, bonus).</p>
+        <p style="font-size:12px;color:#64748b;margin:-6px 0 14px">Valori indicati da AQP (pagina «Componenti tariffarie di perequazione»): UI1 0,006, UI2 0,009, UI3 0,0179 €/m³, applicati ad acquedotto, fognatura e depurazione; UI4 è pari a zero dal 1° luglio 2023. UI1 e UI2 sono pari a zero dal 1° gennaio 2027 (delibera ARERA 346/2026/R/com, punti 1 e 2): se il periodo comprende giorni del 2027, il calcolo ripartisce il consumo in proporzione ai giorni e applica a ciascun tratto il valore corrispondente. UI3 non è dovuta solo dagli <strong>utenti diretti</strong> beneficiari del bonus sociale idrico nazionale intestatari di un contratto domestico residente: resta dovuta nelle forniture condominiali, anche se servono beneficiari indiretti. La «quota da recupero efficienza» per l'ATO Puglia è pari a zero per il 2024 e il 2025 (delibera AIP n. 89 del 2/10/2024); se in bolletta compare per il 2026, il calcolo non la comprende. Le quote fisse si moltiplicano per i moduli contrattuali; per l'uso non residente e commerciale anche le fasce.</p>
         <div class="calc-row">
           <label>IVA (%)
             <select id="iva">
               <option value="10" selected>10% (somministrazione di acqua: D.P.R. 633/1972, tab. A, parte III, n. 81)</option>
             </select>
           </label>
-          <label>Importo fatturato bolletta (€) — opzionale
-            <input type="number" id="importoBolletta" step="0.01" placeholder="Es. 245.80 (per verifica scostamento)">
+          <span></span>
+        </div>
+        <h4 style="font-family:var(--serif);font-size:16px;color:var(--navy);margin:8px 0 8px">Confronto con la bolletta (facoltativo)</h4>
+        <p style="font-size:12px;color:#64748b;margin:0 0 12px">Il calcolo ricostruisce solo acquedotto, fognatura, depurazione, quote fisse e componenti UI del periodo di lettura, con l'IVA al 10%. Indichi quindi <strong>solo queste voci</strong> della bolletta, IVA compresa, riferite allo stesso periodo; escluda depositi cauzionali, interessi di mora, bonus, rate, conguagli di periodi diversi e ogni altra voce. Se la bolletta è di conguaglio e detrae gli acconti già fatturati per lo stesso periodo, indichi a parte gli acconti (art. 41, comma 3, del Regolamento AQP).</p>
+        <div class="calc-row">
+          <label>Importo in bolletta per i consumi del periodo (€, IVA inclusa)
+            <input type="number" id="importoBolletta" step="0.01" placeholder="Es. 245.80">
+          </label>
+          <label>Acconti dello stesso periodo detratti in bolletta (€, IVA inclusa)
+            <input type="number" id="acconti" step="0.01" min="0" placeholder="Es. 100.00">
           </label>
         </div>
         <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
           <button id="calcBtn" class="btn btn-primary" type="button">Verifica bolletta</button>
+          <button id="resetTariffeBtn" class="btn btn-ghost" type="button">↺ Ripristina tariffe AQP 2026</button>
           <button id="resetBtn" class="btn btn-ghost" type="button">Azzera</button>
         </div>
+        <p id="avvisoRicalcolo" style="display:none;margin:14px 0 0;font-size:13px;color:#854d0e">I dati sono stati modificati dopo l'ultimo calcolo: prema di nuovo «Verifica bolletta».</p>
       </div>
 
       <div id="risultati" style="display:none">
@@ -279,7 +295,7 @@
           <div class="risultato-grid" style="margin-bottom:24px">
             <div class="risultato-item"><span>Consumo totale</span><strong id="rConsumo">—</strong></div>
             <div class="risultato-item"><span>Giorni periodo</span><strong id="rGiorni">—</strong></div>
-            <div class="risultato-item"><span>Consumo medio mensile</span><strong id="rMedia">—</strong></div>
+            <div class="risultato-item"><span>Consumo medio ogni 30 giorni</span><strong id="rMedia">—</strong></div>
           </div>
 
           <!-- DETTAGLIO COSTI -->
@@ -302,12 +318,12 @@
           </div>
 
           <div id="scostamento" style="margin-top:20px;padding:14px;border-radius:4px;display:none"></div>
+          <div id="avvisiCalc" style="margin-top:16px;font-size:13px;color:#475569;line-height:1.55"></div>
           <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
             <button id="pdfBtn" class="btn btn-primary" type="button">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:4px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
               Vedi anteprima report
             </button>
-            <button id="resetTariffeBtn" class="btn btn-ghost" type="button">↺ Ripristina tariffe AQP 2026</button>
           </div>
         </div>
 
@@ -438,25 +454,42 @@
   let datiCalc = null;
 
   // Articolazione tariffaria AQP, ATO Puglia, 2026 (pagina «Dettaglio articolazione tariffaria», aggiornata
-  // all'1/10/2026, letta l'11/10/2026): fasce di consumo ANNUE (per componente del nucleo per l'uso domestico
-  // residente e condominiale), tariffe al netto di IVA, quote fisse annue.
+  // all'1/10/2026, letta l'11/10/2026; in vigore dal 1/1/2026 salvo conguaglio, delibera AIP n. 69/2026):
+  // fasce di consumo ANNUE (per componente del nucleo per l'uso domestico residente e condominiale),
+  // tariffe al netto di IVA, quote fisse annue.
   const FOGNATURA_2026 = 0.235307, DEPURAZIONE_2026 = 0.679267;
-  // UI1 0,006 + UI2 0,009 + UI3 0,0179 €/m³ per servizio (pagina AQP «Componenti tariffarie di perequazione», 5/12/2025).
-  const PEREQUATIVE_2026 = 0.0329;
+  // Componenti perequative per servizio (pagina AQP «Componenti tariffarie di perequazione», letta l'11/10/2026):
+  // UI1 0,006 + UI2 0,009 fino al 31/12/2026, zero dal 1/1/2027 (ARERA 346/2026/R/com, punti 1 e 2); UI3 0,0179,
+  // non dovuta dagli utenti diretti beneficiari del bonus sociale idrico con contratto domestico residente.
+  const UI12_2026 = 0.015, UI12_2027 = 0, UI3_2026 = 0.0179;
+  const INIZIO_2027 = '2027-01-01';
   const TARIFFE_2026 = {
     'dom-res':     { proCapite: true,  qf: [28.89, 5.46, 15.73], fasce: [[20, 0.827780, 'Agevolata'], [30, 1.034724, 'Base'], [40, 1.805596, 'I eccedenza'], [70, 2.547936, 'II eccedenza'], [Infinity, 3.352696, 'III eccedenza']] },
     'condom':      { proCapite: true,  qf: [28.89, 5.46, 15.73], fasce: [[20, 0.827780, 'Agevolata'], [30, 1.034724, 'Base'], [40, 1.805596, 'I eccedenza'], [70, 2.547936, 'II eccedenza'], [Infinity, 3.352696, 'III eccedenza']] },
     'dom-nores':   { proCapite: false, qf: [34.66, 6.56, 18.88], fasce: [[30, 0.978745, 'Base'], [60, 1.957489, 'I eccedenza'], [90, 2.691547, 'II eccedenza'], [Infinity, 3.939446, 'III eccedenza']] },
     'commerciale': { proCapite: false, qf: [28.89, 5.46, 15.73], fasce: [[73, 1.577941, 'Base'], [Infinity, 2.095855, 'I eccedenza']] }
   };
-  function tariffaCorrente(){ return TARIFFE_2026[document.getElementById('tipoUtenza').value] || TARIFFE_2026['dom-res']; }
+  // Campi che cambiano significato con la tipologia (Regolamento AQP in vigore dal 1/6/2026, artt. 36 e 38; TICSI, art. 3.4).
+  const CAMPI_TIPO = {
+    'dom-res':     { nome: 'Domestica residente', componenti: 'Componenti del nucleo familiare (se non dichiarati ad AQP: 3)', moduli: 'Unità abitative del contratto (moduli contrattuali)', valComp: '3', valMod: '1', decimali: false, bonus: true,
+                     nota: 'Uso domestico residente: le fasce si moltiplicano per i componenti del nucleo; se il numero non è stato dichiarato ad AQP si applica il criterio standard di 3 componenti (TICSI, art. 3.4; Regolamento AQP, art. 36, comma 2).' },
+    'condom':      { nome: 'Condominiale', componenti: 'Persone con dimora abituale nel condominio dichiarate ad AQP *', moduli: 'Unità immobiliari servite (moduli contrattuali) *', valComp: '', valMod: '', decimali: false, bonus: false,
+                     nota: 'Uso condominiale: indichi il totale delle persone dichiarato ad AQP dall\'amministratore (modulo CNF condominiale). Per ogni abitazione con residenti senza dichiarazione AQP applica 3 componenti: se nessuno ha dichiarato, il totale è 3 per il numero delle abitazioni.' },
+    'dom-nores':   { nome: 'Domestica non residente', componenti: null, moduli: 'Unità abitative del contratto (moduli contrattuali)', valComp: '', valMod: '1', decimali: false, bonus: false,
+                     nota: 'Uso domestico non residente: a ciascun modulo corrisponde un componente; fasce e quote fisse si moltiplicano per i moduli (Regolamento AQP, art. 38, comma 3).' },
+    'commerciale': { nome: 'Commerciale', componenti: null, moduli: 'Moduli contrattuali indicati in contratto o in bolletta *', valComp: '', valMod: '', decimali: true, bonus: false,
+                     nota: 'Uso commerciale: i moduli contrattuali sono le presenze stabili (posti a sedere, dipendenti e simili) divise per cinque (Regolamento AQP, art. 36, comma 3), non il numero dei locali. Indichi il valore del contratto o della bolletta, anche con decimali.' }
+  };
+  const $ = id => document.getElementById(id);
+  function tipoCorrente(){ return TARIFFE_2026[$('tipoUtenza').value] ? $('tipoUtenza').value : 'dom-res'; }
+  function tariffaCorrente(){ return TARIFFE_2026[tipoCorrente()]; }
   function etichetteFasce(){
     const t = tariffaCorrente();
     let da = 0;
     for (let n = 1; n <= 5; n++) {
       const f = t.fasce[n - 1];
-      const lab = document.getElementById('lt' + n);
-      const inp = document.getElementById('t' + n);
+      const lab = $('lt' + n);
+      const inp = $('t' + n);
       const wrap = (inp && inp.closest) ? inp.closest('label') : null;
       if (!f) { if (wrap) wrap.style.display = 'none'; continue; }
       if (wrap) wrap.style.display = '';
@@ -466,41 +499,143 @@
   }
   function ripristinaTariffe(){
     const t = tariffaCorrente();
-    for (let n = 1; n <= 5; n++) { const f = t.fasce[n - 1]; document.getElementById('t' + n).value = f ? f[1] : ''; }
-    document.getElementById('fognatura').value = FOGNATURA_2026;
-    document.getElementById('depurazione').value = DEPURAZIONE_2026;
-    document.getElementById('qfAcq').value = t.qf[0];
-    document.getElementById('qfFog').value = t.qf[1];
-    document.getElementById('qfDep').value = t.qf[2];
-    document.getElementById('perequative').value = PEREQUATIVE_2026;
+    for (let n = 1; n <= 5; n++) { const f = t.fasce[n - 1]; $('t' + n).value = f ? f[1] : ''; }
+    $('fognatura').value = FOGNATURA_2026;
+    $('depurazione').value = DEPURAZIONE_2026;
+    $('qfAcq').value = t.qf[0];
+    $('qfFog').value = t.qf[1];
+    $('qfDep').value = t.qf[2];
+    $('ui12').value = UI12_2026;
+    $('ui12b').value = UI12_2027;
+    $('ui3').value = UI3_2026;
     etichetteFasce();
   }
-  ripristinaTariffe();
-  document.getElementById('tipoUtenza').addEventListener('change', ripristinaTariffe);
+  // Etichette, valori iniziali e campi visibili della tipologia scelta.
+  function aggiornaCampiTipo(){
+    const c = CAMPI_TIPO[tipoCorrente()];
+    $('lblComponenti').textContent = c.componenti || '';
+    $('wrapComponenti').style.display = c.componenti ? '' : 'none';
+    $('componenti').value = c.valComp;
+    $('lblModuli').textContent = c.moduli;
+    $('moduli').value = c.valMod;
+    $('moduli').step = c.decimali ? '0.01' : '1';
+    $('wrapBonus').style.display = c.bonus ? 'flex' : 'none';
+    if (!c.bonus) $('bonusDiretto').checked = false;
+    $('notaTipo').textContent = c.nota;
+  }
 
-  document.getElementById('calcBtn').addEventListener('click', () => {
-    const ls = +document.getElementById('lettStart').value;
-    const le = +document.getElementById('lettEnd').value;
-    if (!le || le <= ls) { alert('Inserisca letture corrette: la lettura finale deve essere maggiore di quella iniziale.'); return; }
-    const ds = document.getElementById('dataStart').value;
-    const de = document.getElementById('dataEnd').value;
-    const giorni = (ds && de) ? Math.round((new Date(de + 'T12:00:00') - new Date(ds + 'T12:00:00')) / 864e5) : NaN;
-    // Fasce e quote fisse sono annue: senza un periodo valido il calcolo non si può fare.
-    if (!(giorni > 0)) { alert('Inserisca le date delle due letture: la data finale deve essere successiva a quella iniziale.'); return; }
+  // Il risultato vale solo per i dati con cui è stato calcolato: ogni modifica lo ritira (anche il report).
+  const CAMPI_CALCOLO = ['lettStart','lettEnd','dataStart','dataEnd','tipoUtenza','componenti','moduli','bonusDiretto','t1','t2','t3','t4','t5','fognatura','depurazione','qfAcq','qfFog','qfDep','ui12','ui12b','ui3','iva','importoBolletta','acconti'];
+  const impronta = () => CAMPI_CALCOLO.map(id => id === 'bonusDiretto' ? String(!!$(id).checked) : String($(id).value ?? '')).join('|');
+  const CAMPI_RISULTATO = ['rConsumo','rGiorni','rMedia','rAcqua','rFogn','rDepu','rQfA','rQfF','rPereq','rImponibile','rIva','rTotale'];
+  function ritiraRisultato(){
+    datiCalc = null;
+    $('risultati').style.display = 'none';
+    CAMPI_RISULTATO.forEach(id => { $(id).textContent = '—'; });
+    $('scostamento').style.display = 'none'; $('scostamento').innerHTML = '';
+    $('avvisiCalc').innerHTML = '';
+  }
+  function datiModificati(){
+    if (datiCalc) $('avvisoRicalcolo').style.display = 'block';
+    ritiraRisultato();
+  }
+
+  ripristinaTariffe();
+  aggiornaCampiTipo();
+  $('tipoUtenza').addEventListener('change', () => { ripristinaTariffe(); aggiornaCampiTipo(); datiModificati(); });
+  CAMPI_CALCOLO.filter(id => id !== 'tipoUtenza').forEach(id => { $(id).addEventListener('input', datiModificati); $(id).addEventListener('change', datiModificati); });
+
+  // Lettura di un campo numerico: vuoto, negativo, non intero o non finito → errore esplicito, mai un valore sostitutivo.
+  function numero(id, nome, o = {}){
+    const raw = String($(id).value ?? '').trim();
+    if (raw === '') {
+      if ('vuoto' in o) return o.vuoto;
+      throw nome + ': campo obbligatorio' + (o.aiuto ? ' (' + o.aiuto + ')' : '') + '.';
+    }
+    const v = Number(raw.replace(',', '.'));
+    if (!Number.isFinite(v)) throw nome + ': valore non valido.';
+    if (!o.negativo && v < 0) throw nome + ': il valore non può essere negativo.';
+    if (o.intero && !Number.isInteger(v)) throw nome + ': indichi un numero intero.';
+    if (o.positivo && !(v > 0)) throw nome + ': il valore deve essere maggiore di zero.';
+    return v;
+  }
+  const fmtData = s => s.split('-').reverse().join('/');
+  const fmtPct = p => p.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '%';
+  const fmtTariffa = (v, dec) => v.toLocaleString('it-IT', {minimumFractionDigits: dec, maximumFractionDigits: 6});
+
+  // Confronto con la bolletta: solo voci omogenee, al netto degli acconti dello stesso periodo.
+  function confronto(totale, importo, acconti){
+    if (importo === null) return null;
+    const atteso = totale - acconti;
+    const delta = importo - atteso;
+    const pct = atteso > 0 ? delta / atteso * 100 : null;
+    let livello = 'ok';
+    if (Math.abs(delta) >= 0.005) {
+      if (pct === null) livello = 'nc';
+      else if (Math.abs(pct) > 15) livello = 'bad';
+      else if (Math.abs(pct) > 5) livello = 'warn';
+    }
+    return {importo, acconti, atteso, delta, pct, livello};
+  }
+  const ESITO_SCHERMO = {
+    ok:   ['score-ok',   '✓ Importo coerente con il ricalcolo (scostamento entro il 5%)'],
+    warn: ['score-warn', '⚠️ Scostamento oltre il 5%: verificare tariffe, componenti, moduli e periodo inseriti'],
+    bad:  ['score-bad',  '✗ Scostamento oltre il 15%: verificati i dati inseriti, può essere utile chiedere ad AQP il dettaglio del calcolo o presentare un reclamo scritto'],
+    nc:   ['score-warn', '⚠️ Scostamento percentuale non calcolabile: l\'importo atteso è nullo o negativo; verificare le voci inserite']
+  };
+  const ESITO_REPORT = {
+    ok:   'Lo scostamento rientra nel 5%.',
+    warn: 'Lo scostamento supera il 5%: è opportuno verificare tariffe, componenti, moduli e periodo applicati.',
+    bad:  'Lo scostamento supera il 15%: verificati i dati inseriti, può essere utile chiedere ad AQP il dettaglio del calcolo o presentare un reclamo scritto (RQSII, allegato A alla delibera ARERA 655/2015/R/idr).',
+    nc:   'Lo scostamento percentuale non è calcolabile perché l\'importo atteso è nullo o negativo.'
+  };
+  const DELIMITAZIONE = 'Il confronto riguarda solo le voci ricostruite dal calcolo (acquedotto, fognatura, depurazione, quote fisse, componenti UI e IVA) per lo stesso periodo di lettura; prezzi, componenti e moduli sono applicati a tutto il periodo.';
+
+  $('calcBtn').addEventListener('click', () => {
+    ritiraRisultato();
+    $('avvisoRicalcolo').style.display = 'none';
+    const tipo = tipoCorrente(), t = TARIFFE_2026[tipo], cfg = CAMPI_TIPO[tipo];
+    const avvisi = [];
+    let ls, le, ds, de, giorni, componenti, moduli, prezzi, fog, dep, qfAnnue, ui12, ui12b, ui3, iva, importoBol, acconti;
+    try {
+      // Letture: solo i metri cubi interi (Regolamento AQP, art. 41, comma 4).
+      const lsGrezza = numero('lettStart', 'Lettura iniziale'), leGrezza = numero('lettEnd', 'Lettura finale');
+      ls = Math.floor(lsGrezza); le = Math.floor(leGrezza);
+      if (le < ls) throw 'La lettura finale non può essere inferiore a quella iniziale. Se il contatore è stato sostituito, calcoli separatamente i due tratti.';
+      if (ls !== lsGrezza || le !== leGrezza) avvisi.push('Letture con frazioni di m³: considerati i soli metri cubi interi (' + ls + ' → ' + le + '), come prevede l\'art. 41, comma 4, del Regolamento AQP.');
+      ds = $('dataStart').value; de = $('dataEnd').value;
+      giorni = (ds && de) ? Math.round((new Date(de + 'T12:00:00') - new Date(ds + 'T12:00:00')) / 864e5) : NaN;
+      // Fasce e quote fisse sono annue: senza un periodo valido il calcolo non si può fare.
+      if (!(giorni > 0)) throw 'Inserisca le date delle due letture: la data finale deve essere successiva a quella iniziale.';
+      moduli = numero('moduli', cfg.moduli.replace(' *', ''), cfg.decimali ? {positivo: true} : {positivo: true, intero: true});
+      if (t.proCapite) {
+        const vuoto = String($('componenti').value ?? '').trim() === '';
+        if (vuoto && tipo === 'condom') throw 'Componenti: per l\'uso condominiale indichi il totale delle persone dichiarato ad AQP (se nessuno ha dichiarato: 3 per ogni abitazione).';
+        if (vuoto && moduli > 1) throw 'Componenti: indichi il totale dei componenti delle ' + moduli + ' unità abitative.';
+        componenti = numero('componenti', 'Componenti', {positivo: true, intero: true, vuoto: 3});
+        if (vuoto) avvisi.push('Componenti non indicati: applicato il criterio standard di 3 componenti (TICSI, art. 3.4).');
+      }
+      prezzi = t.fasce.map((f, i) => numero('t' + (i + 1), 'Tariffa ' + f[2].toLowerCase()));
+      fog = numero('fognatura', 'Tariffa fognatura', {aiuto: '0 se il servizio non è fornito'});
+      dep = numero('depurazione', 'Tariffa depurazione', {aiuto: '0 se il servizio non è fornito'});
+      qfAnnue = [numero('qfAcq', 'Quota fissa acquedotto'), numero('qfFog', 'Quota fissa fognatura', {aiuto: '0 se il servizio non è fornito'}), numero('qfDep', 'Quota fissa depurazione', {aiuto: '0 se il servizio non è fornito'})];
+      ui12 = numero('ui12', 'Componenti UI1 + UI2 fino al 31/12/2026');
+      ui12b = numero('ui12b', 'Componenti UI1 + UI2 dal 1/1/2027');
+      ui3 = numero('ui3', 'Componente UI3');
+      iva = numero('iva', 'IVA') / 100;
+      acconti = numero('acconti', 'Acconti', {vuoto: 0});
+      importoBol = numero('importoBolletta', 'Importo in bolletta', {vuoto: null, negativo: acconti > 0});
+      if (importoBol === null && acconti > 0) throw 'Importo in bolletta: indichi anche l\'importo per i consumi del periodo, oppure lasci vuoti entrambi i campi.';
+    } catch (msg) {
+      if (typeof msg !== 'string') throw msg;
+      alert(msg);
+      return;
+    }
+
     const consumo = le - ls;
-    const t = tariffaCorrente();
-    const componenti = Math.max(1, Math.round(+document.getElementById('componenti').value || 3));
-    const moduli = Math.max(1, Math.round(+document.getElementById('moduli').value || 1));
     const quota = giorni / 365;                        // frazione d'anno del periodo fatturato
     // Fasce: pro-capite (per componente) per residente e condominiale; per modulo negli altri usi.
     const moltFasce = (t.proCapite ? componenti : moduli) * quota;
-    const prezzi = [1, 2, 3, 4, 5].map(n => +document.getElementById('t' + n).value || 0);
-    const fog = +document.getElementById('fognatura').value || 0;
-    const dep = +document.getElementById('depurazione').value || 0;
-    const qfAnnue = [+document.getElementById('qfAcq').value || 0, +document.getElementById('qfFog').value || 0, +document.getElementById('qfDep').value || 0];
-    const ui = +document.getElementById('perequative').value || 0;
-    const iva = +document.getElementById('iva').value / 100;
-    const importoBol = +document.getElementById('importoBolletta').value || 0;
 
     // Acquedotto: consumo ripartito sulle fasce annue rapportate al periodo (e ai componenti, se pro-capite).
     let resto = consumo, da = 0, acquedotto = 0;
@@ -511,59 +646,67 @@
       const q = Math.min(resto, ampiezza);
       const importo = q * prezzi[i];
       acquedotto += importo;
-      dettaglio.push(['Acquedotto — ' + f[2], Math.round(q * 1000) / 1000, prezzi[i].toLocaleString('it-IT', {minimumFractionDigits: 6}), importo]);
+      dettaglio.push(['Acquedotto — ' + f[2], Math.round(q * 1000) / 1000, fmtTariffa(prezzi[i], 6), importo]);
       resto -= q;
       da = f[0];
     });
 
     const fognatura = consumo * fog;
     const depurazione = consumo * dep;
-    // Quote fisse annue: per unità immobiliare (modulo), rapportate al periodo.
+    // Quote fisse annue: per modulo contrattuale, rapportate al periodo.
     const qfA = qfAnnue[0] * moduli * quota, qfFog = qfAnnue[1] * moduli * quota, qfDep = qfAnnue[2] * moduli * quota;
     const qfF = qfFog + qfDep;
-    // Componenti perequative: maggiorazione per m³ su ciascun servizio fatturato.
+    // Componenti perequative: per m³ su ciascun servizio fatturato; UI1 e UI2 cambiano dal 1/1/2027, quindi il
+    // consumo è ripartito tra i due tratti in proporzione ai giorni (consumo giornaliero costante).
     const servizi = 1 + (fog > 0 ? 1 : 0) + (dep > 0 ? 1 : 0);
-    const perequative = consumo * ui * servizi;
-    dettaglio.push(['Fognatura', consumo, fog.toLocaleString('it-IT', {minimumFractionDigits: 6}), fognatura]);
-    dettaglio.push(['Depurazione', consumo, dep.toLocaleString('it-IT', {minimumFractionDigits: 6}), depurazione]);
+    const bonus = cfg.bonus && !!$('bonusDiretto').checked;
+    const ui3Applicata = bonus ? 0 : ui3;
+    if (bonus) avvisi.push('Componente UI3 non applicata: intestatario beneficiario diretto del bonus sociale idrico.');
+    const giorniPre = Math.max(0, Math.min(giorni, Math.round((new Date(INIZIO_2027 + 'T12:00:00') - new Date(ds + 'T12:00:00')) / 864e5)));
+    const giorniPost = giorni - giorniPre;
+    const consumoPre = consumo * giorniPre / giorni, consumoPost = consumo - consumoPre;
+    const tratti = [];
+    if (giorniPre > 0) tratti.push({nome: giorniPost > 0 ? ' fino al 31/12/2026 (' + giorniPre + ' giorni)' : '', volume: consumoPre, ui: ui12 + ui3Applicata});
+    if (giorniPost > 0) tratti.push({nome: giorniPre > 0 ? ' dal 1/1/2027 (' + giorniPost + ' giorni)' : '', volume: consumoPost, ui: ui12b + ui3Applicata});
+    let perequative = 0;
+    const righeUI = tratti.map(tr => { const imp = tr.volume * servizi * tr.ui; perequative += imp; return ['Componenti perequative UI' + tr.nome + ' (' + servizi + (servizi === 1 ? ' servizio' : ' servizi') + ')', Math.round(tr.volume * servizi * 1000) / 1000, fmtTariffa(tr.ui, 4), imp]; });
+    dettaglio.push(['Fognatura', consumo, fmtTariffa(fog, 6), fognatura]);
+    dettaglio.push(['Depurazione', consumo, fmtTariffa(dep, 6), depurazione]);
     dettaglio.push(['Quota fissa acquedotto (' + giorni + ' giorni)', '—', '—', qfA]);
     dettaglio.push(['Quota fissa fognatura (' + giorni + ' giorni)', '—', '—', qfFog]);
     dettaglio.push(['Quota fissa depurazione (' + giorni + ' giorni)', '—', '—', qfDep]);
-    dettaglio.push(['Componenti perequative UI (' + servizi + (servizi === 1 ? ' servizio' : ' servizi') + ')', consumo * servizi, ui.toLocaleString('it-IT', {minimumFractionDigits: 4}), perequative]);
+    righeUI.forEach(r => dettaglio.push(r));
+
+    if (ds < '2026-01-01' || de > INIZIO_2027) avvisi.push('Il periodo comprende giorni fuori dal 2026: le tariffe precompilate sono quelle AQP per il 2026 (le componenti UI sono già ripartite al 1° gennaio 2027). Se i prezzi degli altri giorni sono diversi, il calcolo va ripetuto per ciascun anno con i prezzi di quell\'anno, ripartendo il consumo in proporzione ai giorni.');
 
     const imponibile = acquedotto + fognatura + depurazione + qfA + qfF + perequative;
     const ivaCalc = imponibile * iva;
     const totale = imponibile + ivaCalc;
-    const media = (consumo / giorni * 30).toLocaleString('it-IT', {maximumFractionDigits: 1}) + ' m³/mese';
+    const media = (consumo / giorni * 30).toLocaleString('it-IT', {maximumFractionDigits: 1}) + ' m³';
 
-    document.getElementById('rConsumo').textContent = fmtMc(consumo);
-    document.getElementById('rGiorni').textContent = giorni;
-    document.getElementById('rMedia').textContent = media;
-    document.getElementById('rAcqua').textContent = fmtEur(acquedotto);
-    document.getElementById('rFogn').textContent = fmtEur(fognatura);
-    document.getElementById('rDepu').textContent = fmtEur(depurazione);
-    document.getElementById('rQfA').textContent = fmtEur(qfA);
-    document.getElementById('rQfF').textContent = fmtEur(qfF);
-    document.getElementById('rPereq').textContent = fmtEur(perequative);
-    document.getElementById('rImponibile').textContent = fmtEur(imponibile);
-    document.getElementById('rIva').textContent = fmtEur(ivaCalc) + ' (' + (iva*100).toFixed(0) + '%)';
-    document.getElementById('rTotale').textContent = fmtEur(totale);
+    $('rConsumo').textContent = fmtMc(consumo);
+    $('rGiorni').textContent = giorni;
+    $('rMedia').textContent = media;
+    $('rAcqua').textContent = fmtEur(acquedotto);
+    $('rFogn').textContent = fmtEur(fognatura);
+    $('rDepu').textContent = fmtEur(depurazione);
+    $('rQfA').textContent = fmtEur(qfA);
+    $('rQfF').textContent = fmtEur(qfF);
+    $('rPereq').textContent = fmtEur(perequative);
+    $('rImponibile').textContent = fmtEur(imponibile);
+    $('rIva').textContent = fmtEur(ivaCalc) + ' (' + (iva*100).toFixed(0) + '%)';
+    $('rTotale').textContent = fmtEur(totale);
 
-    // Scostamento: solo se c'è l'importo della bolletta; altrimenti si nasconde quello del calcolo precedente.
-    const sc = document.getElementById('scostamento');
-    if (importoBol > 0) {
-      const delta = importoBol - totale;
-      const pct = (delta / totale * 100);
-      let cls = 'score-ok', msg = '✓ Importo coerente con il ricalcolo (scostamento entro il 5%)';
-      if (Math.abs(pct) > 5) { cls = 'score-warn'; msg = '⚠️ Scostamento oltre il 5%: verificare tariffe, componenti e periodo'; }
-      if (Math.abs(pct) > 15) { cls = 'score-bad'; msg = '✗ Scostamento oltre il 15%: può essere utile chiedere ad AQP il dettaglio del calcolo o presentare reclamo'; }
+    // Scostamento: solo se c'è l'importo della bolletta.
+    const cf = confronto(totale, importoBol, acconti);
+    const sc = $('scostamento');
+    if (cf) {
+      const [cls, msg] = ESITO_SCHERMO[cf.livello];
       sc.className = cls;
       sc.style.display = 'block';
-      sc.innerHTML = '<strong>' + msg + '</strong><br>Importo bolletta: ' + fmtEur(importoBol) + ' · Calcolato: ' + fmtEur(totale) + ' · Differenza: ' + (delta>=0?'+':'') + fmtEur(delta) + ' (' + pct.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '%)';
-    } else {
-      sc.style.display = 'none';
-      sc.innerHTML = '';
+      sc.innerHTML = '<strong>' + msg + '</strong><br>Importo in bolletta: ' + fmtEur(cf.importo) + ' · Atteso: ' + fmtEur(totale) + (cf.acconti ? ' − acconti ' + fmtEur(cf.acconti) + ' = ' + fmtEur(cf.atteso) : '') + ' · Differenza: ' + (cf.delta >= 0 ? '+' : '') + fmtEur(cf.delta) + (cf.pct === null ? '' : ' (' + fmtPct(cf.pct) + ')');
     }
+    $('avvisiCalc').innerHTML = avvisi.concat([DELIMITAZIONE]).map(a => '<p style="margin:0 0 6px">' + a + '</p>').join('');
 
     const tb = document.querySelector('#tabellaDettaglio tbody'); tb.innerHTML = '';
     dettaglio.forEach(d => {
@@ -571,21 +714,21 @@
     });
 
     datiCalc = {
-      cliente: {nome: document.getElementById('clienteNome').value, codiceFiscale: document.getElementById('codiceUtente').value},
-      indirizzo: document.getElementById('indirizzo').value,
-      consumo, totale, importoBol, dettaglio, giorni, media, componenti, tipo: document.getElementById('tipoUtenza').value,
-      acquedotto, fognatura, depurazione, qfA, qfF, qfFog, qfDep, perequative, moduli, imponibile, ivaCalc, ivaPerc: iva*100
+      impronta: impronta(), tipo, nomeTipo: cfg.nome, proCapite: t.proCapite,
+      ls, le, ds, de, consumo, totale, dettaglio, giorni, media, componenti, moduli, cf, avvisi,
+      acquedotto, fognatura, depurazione, qfA, qfF, qfFog, qfDep, perequative, imponibile, ivaCalc, ivaPerc: iva*100
     };
 
-    document.getElementById('risultati').style.display = 'block';
-    document.getElementById('risultati').scrollIntoView({behavior:'smooth', block:'start'});
+    $('risultati').style.display = 'block';
+    $('risultati').scrollIntoView({behavior:'smooth', block:'start'});
   });
 
-  document.getElementById('resetBtn').addEventListener('click', () => location.reload());
+  $('resetBtn').addEventListener('click', () => location.reload());
 
   // Ripristina le tariffe AQP 2026 della tipologia scelta
-  document.getElementById('resetTariffeBtn').addEventListener('click', () => {
+  $('resetTariffeBtn').addEventListener('click', () => {
     ripristinaTariffe();
+    datiModificati();
     const msg = document.createElement('div');
     msg.textContent = '✓ Tariffe AQP 2026 ripristinate';
     msg.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#16a34a;color:#fff;padding:12px 20px;border-radius:4px;z-index:9999;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.15)';
@@ -593,14 +736,26 @@
     setTimeout(() => msg.remove(), 2500);
   });
 
-  document.getElementById('pdfBtn').addEventListener('click', () => {
-    if (!datiCalc) { alert('Prima compila i dati e clicca "Verifica bolletta"'); return; }
-    const d = datiCalc;
+  $('pdfBtn').addEventListener('click', () => {
+    if (!datiCalc) { alert('Prima compili i dati e prema «Verifica bolletta».'); return; }
+    if (datiCalc.impronta !== impronta()) { ritiraRisultato(); $('avvisoRicalcolo').style.display = 'block'; alert('I dati sono stati modificati dopo il calcolo: prema di nuovo «Verifica bolletta».'); return; }
+    const d = datiCalc, cf = d.cf;
+    const codice = $('codiceUtente').value.trim(), matricola = $('matricola').value.trim();
     const dati = [
-      {label:'Indirizzo fornitura', value: d.indirizzo || '—'},
+      {label:'Indirizzo fornitura', value: $('indirizzo').value.trim() || '—'}
+    ];
+    if (codice) dati.push({label:'Codice cliente AQP', value: codice});
+    if (matricola) dati.push({label:'Matricola del contatore', value: matricola});
+    dati.push(
+      {label:'Tipologia di utenza', value: d.nomeTipo},
+      {label:'Periodo', value: fmtData(d.ds) + ' → ' + fmtData(d.de) + ' (' + d.giorni + ' giorni)'},
+      {label:'Letture (m³ interi)', value: d.ls + ' → ' + d.le},
       {label:'Consumo del periodo', value: fmtMc(d.consumo)},
-      {label:'Periodo (giorni)', value: d.giorni},
-      {label:'Consumo medio mensile', value: d.media},
+      {label:'Consumo medio ogni 30 giorni', value: d.media}
+    );
+    if (d.proCapite) dati.push({label:'Componenti considerati', value: String(d.componenti)});
+    dati.push(
+      {label:'Moduli contrattuali', value: d.moduli.toLocaleString('it-IT', {maximumFractionDigits: 2})},
       {label:'— Acquedotto (fasce)', value: fmtEur(d.acquedotto)},
       {label:'— Fognatura', value: fmtEur(d.fognatura)},
       {label:'— Depurazione', value: fmtEur(d.depurazione)},
@@ -611,23 +766,31 @@
       {label:'Imponibile', value: fmtEur(d.imponibile)},
       {label:'IVA (' + d.ivaPerc.toFixed(0) + '%)', value: fmtEur(d.ivaCalc)},
       {label:'TOTALE calcolato (IVA inclusa)', value: fmtEur(d.totale)}
-    ];
-    if (d.importoBol) dati.push(
-      {label:'Importo bolletta AQP', value: fmtEur(d.importoBol)},
-      {label:'Differenza vs calcolato', value: (d.importoBol - d.totale >= 0 ? '+' : '') + fmtEur(d.importoBol - d.totale)}
     );
+    if (cf) {
+      if (cf.acconti) dati.push({label:'Acconti dello stesso periodo', value: fmtEur(cf.acconti)}, {label:'Importo atteso al netto degli acconti', value: fmtEur(cf.atteso)});
+      dati.push(
+        {label:'Importo in bolletta per le stesse voci', value: fmtEur(cf.importo)},
+        {label:'Differenza', value: (cf.delta >= 0 ? '+' : '') + fmtEur(cf.delta) + (cf.pct === null ? '' : ' (' + fmtPct(cf.pct) + ')')}
+      );
+    }
+    const conclusioni = (cf
+      ? 'Il ricalcolo dei corrispettivi del periodo produce ' + fmtEur(d.totale) + ' IVA inclusa' + (cf.acconti ? '; detratti gli acconti dello stesso periodo (' + fmtEur(cf.acconti) + '), l\'importo atteso è ' + fmtEur(cf.atteso) : '') + '. In bolletta, per le stesse voci, è indicato ' + fmtEur(cf.importo) + ' (differenza ' + (cf.delta >= 0 ? '+' : '') + fmtEur(cf.delta) + (cf.pct === null ? '' : ', ' + fmtPct(cf.pct)) + '). ' + ESITO_REPORT[cf.livello]
+      : 'Il ricalcolo dei corrispettivi del periodo secondo le tariffe inserite produce un importo totale di ' + fmtEur(d.totale) + ' IVA inclusa.')
+      + ' ' + DELIMITAZIONE + (d.avvisi.length ? ' ' + d.avvisi.join(' ') : '');
+    const nome = $('clienteNome').value.trim();
     LanottePDF.preview({
       titolo: 'Verifica Bolletta AQP',
-      normativa: 'Articolazione tariffaria AQP, ATO Puglia, 2026; delibere ARERA 665/2017/R/idr (TICSI), 218/2016/R/idr (TIMSII) e 655/2015/R/idr (RQSII); L. 205/2017',
-      cliente: d.cliente,
+      normativa: 'Articolazione tariffaria AQP, ATO Puglia, 2026; Regolamento del servizio idrico integrato AQP in vigore dal 1/6/2026; delibere ARERA 665/2017/R/idr (TICSI), 218/2016/R/idr (TIMSII), 655/2015/R/idr (RQSII) e 346/2026/R/com',
+      cliente: {nome},
       dati,
       tabella: {
         titolo: 'Ricalcolo per componente tariffaria',
         headers: ['Componente','Quantità','Tariffa unitaria','Importo'],
-        rows: d.dettaglio.map(x => [x[0], typeof x[1] === 'number' ? fmtMc(x[1]) : x[1], typeof x[2] === 'string' ? '€ '+x[2] : x[2], fmtEur(x[3])])
+        rows: d.dettaglio.map(x => [x[0], typeof x[1] === 'number' ? fmtMc(x[1]) : x[1], typeof x[2] === 'string' && x[2] !== '—' ? '€ '+x[2] : x[2], fmtEur(x[3])])
       },
-      conclusioni: d.importoBol ? ('La verifica della bolletta evidenzia un importo calcolato di ' + fmtEur(d.totale) + ' rispetto ai ' + fmtEur(d.importoBol) + ' fatturati da AQP (differenza ' + fmtEur(d.importoBol - d.totale) + '). ' + (Math.abs(d.importoBol - d.totale) / d.totale * 100 > 5 ? 'Lo scostamento supera il 5%: può essere utile chiedere ad AQP il dettaglio del calcolo o presentare un reclamo scritto (RQSII, allegato A alla delibera ARERA 655/2015/R/idr).' : 'Lo scostamento rientra nel 5%.')) : 'Il ricalcolo della bolletta secondo le tariffe inserite produce un importo totale di ' + fmtEur(d.totale) + ' IVA inclusa.',
-      filename: 'verifica-aqp_' + (d.cliente.nome ? d.cliente.nome.replace(/\s+/g,'-').toLowerCase() : 'cliente')
+      conclusioni,
+      filename: 'verifica-aqp_' + (nome ? nome.replace(/\s+/g,'-').toLowerCase() : 'cliente')
     });
   });
 
