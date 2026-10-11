@@ -1193,5 +1193,8 @@ return [
         'v394' => ['tipo' => 'post', 'slug' => 'consulenza-incontri-e-riunioni-a-distanza-con-sistemi-telematici', 'campo' => 'post_content',
             'cerca' => 'partners – Justice Law, è aperto regolarmente',
             'sostituisci' => 'Partners è aperto regolarmente'],
+        'v395' => ['tipo' => 'post', 'slug' => 'registro-inquilini-morosi-riforma-sfratti-ddl-1896', 'campo' => 'post_content',
+            'cerca' => 'a firma del senatore De Poli',
+            'sostituisci' => 'a firma del senatore DE POLI'],
     ],
 ];

@@ -934,7 +934,8 @@ function lanotte_editorial_register_article($option, $slug, $title, $excerpt, $c
 }
 
 function lanotte_editorial_register_article_now($option, $slug, $title, $excerpt, $content_file, $category_slug, $category_name, $status = 'publish', $date = '') {
-    if (get_option($option) === 'done') return;
+    $stato = (string) get_option($option);
+    if ($stato === 'done' || strpos($stato, 'saltato') === 0) return;
     if (!function_exists('wp_insert_post')) return;
 
     $content_file = LANOTTE_THEME_DIR . '/content/editorials/' . $content_file;
@@ -942,6 +943,13 @@ function lanotte_editorial_register_article_now($option, $slug, $title, $excerpt
 
     $existing = get_page_by_path($slug, OBJECT, 'post');
     $post_id = $existing instanceof WP_Post ? (int) $existing->ID : 0;
+    // Un articolo con lo stesso slug si aggiorna solo se lo ha creato questa stessa registrazione (ripresa dopo
+    // un'interruzione): un articolo scritto o corretto a mano non si sovrascrive mai (revisione di Codex, 11/10/2026).
+    if ($post_id && get_post_meta($post_id, '_lanotte_editoriale', true) !== $option) {
+        error_log('lanotte_editorial: «' . $slug . '» esiste già e non è stato creato da ' . $option . ': non lo sovrascrivo.');
+        update_option($option, 'saltato: articolo già esistente (' . $post_id . ')', false);
+        return;
+    }
     $when = $date !== '' ? $date : current_time('mysql');
     $post_data = [
         'post_title'    => $title,
@@ -953,13 +961,15 @@ function lanotte_editorial_register_article_now($option, $slug, $title, $excerpt
         'post_author'   => 1,
         'post_date'     => $when,
         'post_date_gmt' => get_gmt_from_date($when),
+        'meta_input'    => ['_lanotte_editoriale' => $option],
     ];
 
+    // wp_slash: WordPress toglie le barre rovesciate ai dati che riceve (come nel lotto delle correzioni, B3).
     if ($post_id) {
         $post_data['ID'] = $post_id;
-        $result = wp_update_post($post_data, true);
+        $result = wp_update_post(wp_slash($post_data), true);
     } else {
-        $result = wp_insert_post($post_data, true);
+        $result = wp_insert_post(wp_slash($post_data), true);
     }
 
     if (is_wp_error($result) || !$result) return;
