@@ -305,13 +305,20 @@ add_action('template_redirect', function() {
 // slug vale come segmento intero; si conservano il resto del percorso (/page/2/, /feed/) e la query (?feed=, ?paged=).
 // Gli slug nel database li cambia inc/rinomine-20261011.php al primo caricamento dopo il deploy.
 function lanotte_indirizzi_rinominati() {
-    // Solo a rinomina verificata (tre «ok» riletti dal database): prima, i vecchi indirizzi sono ancora quelli validi.
-    if (get_option('lanotte_rinomine_20261011') !== 'done') return [];
-    return [
-        'tag/sentenza-n-9388-del-2022'    => 'tag/ordinanza-n-9388-del-2023',
-        'tag/sentenza-n-6532-del-2025'    => 'tag/cass-ord-n-1486-del-2025',
-        'author/avvocatolanottegmail-com' => 'author/giuseppe-lanotte',
+    // Ogni reindirizzamento si attiva solo se la propria voce risulta «ok», riletta per ID dal database
+    // (lanotte_rinomine_20261011_esito): una voce fallita non spegne quelle riuscite (rilievo di Codex, tornata 10).
+    $esiti = get_option('lanotte_rinomine_20261011_esito');
+    if (!is_array($esiti)) return [];
+    $voci = [
+        'tag 209' => ['tag/sentenza-n-9388-del-2022', 'tag/ordinanza-n-9388-del-2023'],
+        'tag 202' => ['tag/sentenza-n-6532-del-2025', 'tag/cass-ord-n-1486-del-2025'],
+        'autore'  => ['author/avvocatolanottegmail-com', 'author/giuseppe-lanotte'],
     ];
+    $mappa = [];
+    foreach ($voci as $voce => $da_a) {
+        if (($esiti[$voce] ?? '') === 'ok') $mappa[$da_a[0]] = $da_a[1];
+    }
+    return $mappa;
 }
 
 function lanotte_indirizzo_rinominato($uri) {
