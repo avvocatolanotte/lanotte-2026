@@ -1061,12 +1061,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_verificare_marchio_featured_20261010_v2_20261011',
+        'lanotte_article_verificare_marchio_featured_20261010_v3_20261011',
         'come-verificare-marchio-gia-registrato',
-        'come-verificare-marchio-gia-registrato-editoriale-2026.jpg',
+        'come-verificare-marchio-gia-registrato-editoriale-v3-2026.jpg',
         'Come verificare se un marchio è già registrato',
-        'Fotografia di una scrivania di studio legale: una lente d’ingrandimento su cartoncini con loghi di fantasia, un portatile con un elenco di marchi, una mappa dell’Italia e dell’Unione europea e una bilancia sul davanzale',
-        'lanotte-come-verificare-marchio-gia-registrato-2026-editoriale-2026'
+        'Illustrazione di una mano in giacca blu che regge una lente d’ingrandimento davanti a una parete di marmo scuro con molti loghi di fantasia a forma di foglia, una mappa dell’Europa e linee dorate che collegano i segni',
+        'lanotte-come-verificare-marchio-gia-registrato-2026-editoriale-v3-2026'
     );
 }, 56);
 
@@ -1086,12 +1086,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_costo_marchio_featured_20261010_v2_20261011',
+        'lanotte_article_costo_marchio_featured_20261010_v3_20261011',
         'quanto-costa-registrare-marchio',
-        'quanto-costa-registrare-marchio-editoriale-2026.jpg',
+        'quanto-costa-registrare-marchio-editoriale-v3-2026.jpg',
         'Quanto costa registrare un marchio',
-        'Fotografia di tre raccoglitori con l’Italia, l’Europa e un mappamondo sul dorso, accanto a una calcolatrice, pile di monete in euro e una domanda di marchio con il simbolo ® e una penna',
-        'lanotte-quanto-costa-registrare-marchio-2026-editoriale-2026'
+        'Illustrazione di una scrivania in marmo con tre piattaforme che rappresentano Italia, Unione europea e mondo, ciascuna con una pila di monete d’oro, accanto a una calcolatrice e a un certificato di marchio con il simbolo ®',
+        'lanotte-quanto-costa-registrare-marchio-2026-editoriale-v3-2026'
     );
 }, 58);
 
@@ -1109,12 +1109,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_opposizione_marchio_termini_costi_featured_20261010_v2_20261011',
+        'lanotte_article_opposizione_marchio_termini_costi_featured_20261010_v3_20261011',
         'opposizione-marchio-termini-costi',
-        'opposizione-marchio-termini-costi-editoriale-2026.jpg',
+        'opposizione-marchio-termini-costi-editoriale-v3-2026.jpg',
         'Opposizione a un marchio: termini, costi e difese',
-        'Fotografia di due cartoncini con loghi di fantasia, uno blu e uno rosso, separati da una linea rossa su un tavolo di marmo, davanti a un fascicolo con la bilancia della giustizia e a un calendario da tavolo',
-        'lanotte-opposizione-marchio-termini-costi-2026-editoriale-2026'
+        'Illustrazione di due confezioni con lo stesso segno di fantasia: a sinistra quella blu protetta da uno scudo dorato, a destra quella bianca dietro un cordone rosso e un quadrante di orologio, separate da una linea rossa',
+        'lanotte-opposizione-marchio-termini-costi-2026-editoriale-v3-2026'
     );
 }, 60);
 
@@ -1132,12 +1132,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_nullita_decadenza_marchio_uibm_featured_20261010_v2_20261011',
+        'lanotte_article_nullita_decadenza_marchio_uibm_featured_20261010_v3_20261011',
         'nullita-decadenza-marchio-uibm',
-        'nullita-decadenza-marchio-uibm-editoriale-2026.jpg',
+        'nullita-decadenza-marchio-uibm-editoriale-v3-2026.jpg',
         'Nullità e decadenza del marchio davanti all’UIBM',
-        'Fotografia di un attestato con corona d’alloro che sbiadisce nell’ombra, una clessidra con la sabbia quasi esaurita e un disco con un logo di fantasia che si sgretola, su una scrivania di marmo scuro',
-        'lanotte-nullita-decadenza-marchio-uibm-2026-editoriale-2026'
+        'Illustrazione di un marchio dorato protetto da una campana di vetro con il relativo attestato, accanto a un marchio identico che si sgretola su un attestato rovinato, con una clessidra al centro di una biblioteca',
+        'lanotte-nullita-decadenza-marchio-uibm-2026-editoriale-v3-2026'
     );
 }, 62);
 
@@ -1155,12 +1155,12 @@ add_action('init', function() {
 
 add_action('init', function() {
     lanotte_editorial_register_featured(
-        'lanotte_article_marchio_copiato_cosa_fare_featured_20261010_v2_20261011',
+        'lanotte_article_marchio_copiato_cosa_fare_featured_20261010_v3_20261011',
         'marchio-copiato-cosa-fare',
-        'marchio-copiato-cosa-fare-editoriale-2026.jpg',
+        'marchio-copiato-cosa-fare-editoriale-v3-2026.jpg',
         'Marchio copiato: cosa fare',
-        'Fotografia di due confezioni neutre quasi identiche su una scrivania, riprese da uno smartphone per documentarle, con un righello, una busta di carta kraft e una bilancia della giustizia sullo sfondo',
-        'lanotte-marchio-copiato-cosa-fare-2026-editoriale-2026'
+        'Illustrazione di due confezioni di profumo quasi identiche evidenziate in oro e in rosso, fotografate da uno smartphone con mani guantate, accanto a lente d’ingrandimento, buste per reperti e quaderno di appunti',
+        'lanotte-marchio-copiato-cosa-fare-2026-editoriale-v3-2026'
     );
 }, 64);
 
