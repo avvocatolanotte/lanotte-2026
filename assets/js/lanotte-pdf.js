@@ -197,12 +197,14 @@
 
   // I caratteri standard di jsPDF coprono solo la codifica WinAnsi. Un carattere fuori codifica si scrive
   // solo con un equivalente fedele (forma di compatibilità Unicode, es. «／» → «/», o una sostituzione
-  // esplicita); si tolgono soltanto i simboli decorativi (emoji, spunte, selettori di variante). Tutto il
-  // resto — lettere, cifre, punteggiatura e simboli che possono far parte di un dato — NON si tocca: se
-  // compare, il PDF non si genera (caratteriNonStampabili e generate) e si indica la «Stampa»
-  // dall'anteprima, che lo conserva.
-  const PDF_SOSTITUZIONI = {'→': '–', '←': '–', '−': '-', '≈': 'circa ', '≤': '<=', '≥': '>=', '●': '•', '⁄': '/', '∕': '/', '✓': '', '✗': '', '✘': ''};
+  // esplicita). Un simbolo grafico (emoji, spunta, avviso) si toglie solo se sta da solo, separato da spazi
+  // o a inizio/fine testo («✓ Fatto», «⚠️ Scostamento»): dentro una parola o un codice («12➖34») è un dato.
+  // Ogni altro carattere — lettere, cifre, punteggiatura, simboli dentro i dati — NON si tocca: se compare,
+  // il PDF non si genera (caratteriNonStampabili e generate) e si indica la «Stampa» dall'anteprima.
+  const PDF_SOSTITUZIONI = {'→': '–', '←': '–', '−': '-', '≈': 'circa ', '≤': '<=', '≥': '>=', '●': '•', '⁄': '/', '∕': '/'};
   const PDF_AMMESSI = /[\x00-\xFF€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/;
+  const PDF_ORNAMENTO = /\p{Extended_Pictographic}|\p{Emoji_Modifier}|[✓✗✘︎️‍⃣]/u;
+  const PDF_INVISIBILI = /[︎️​-‍⁠]/;
   function pdfCarattere(c){
     if (PDF_AMMESSI.test(c)) return c;
     if (c in PDF_SOSTITUZIONI) return PDF_SOSTITUZIONI[c];
@@ -210,23 +212,43 @@
     if (compat !== c && Array.from(compat).every(x => PDF_AMMESSI.test(x))) return compat;
     if (/\p{Zs}/u.test(c)) return ' ';
     if (/\p{Pd}/u.test(c)) return '-';
-    if (/\p{Extended_Pictographic}|[︎️​-‍⁠⃣]/u.test(c)) return '';   // decorativi
+    if (PDF_INVISIBILI.test(c)) return '';
     return null;                                                                // non rappresentabile: si blocca
+  }
+  // Testo per jsPDF e caratteri che impediscono il PDF.
+  function pdfAnalizza(t){
+    const cs = Array.from(String(t).normalize('NFC'));
+    const ornamento = c => PDF_ORNAMENTO.test(c) && !PDF_AMMESSI.test(c);
+    const bloccati = new Set();
+    let out = '';
+    for (let i = 0; i < cs.length; ) {
+      if (ornamento(cs[i])) {
+        let j = i; while (j < cs.length && ornamento(cs[j])) j++;
+        const solo = (i === 0 || /\s/.test(cs[i - 1])) && (j === cs.length || /\s/.test(cs[j]));
+        if (!solo) for (let k = i; k < j; k++) if (!PDF_INVISIBILI.test(cs[k])) bloccati.add(cs[k]);
+        i = j; continue;
+      }
+      const r = pdfCarattere(cs[i]);
+      if (r === null) { bloccati.add(cs[i]); out += cs[i]; } else out += r;
+      i++;
+    }
+    out = out.replace(/ {2,}/g, ' ');
+    if (out.startsWith(' ') && cs[0] !== ' ') out = out.trimStart();   // simbolo iniziale tolto: niente spazio in testa
+    if (out.endsWith(' ') && cs[cs.length - 1] !== ' ') out = out.trimEnd();     // e niente spazio in coda
+    return { testo: out, bloccati };
   }
   function pdfSafe(t){
     if (t === null || t === undefined) return t;
-    const orig = String(t).normalize('NFC');
-    const out = Array.from(orig).map(c => { const r = pdfCarattere(c); return r === null ? c : r; }).join('').replace(/ {2,}/g, ' ');
-    return (out.startsWith(' ') && !orig.startsWith(' ')) ? out.trimStart() : out;
+    return pdfAnalizza(t).testo;
   }
-  // Lettere, cifre e segni che il PDF non sa scrivere, cercati in tutti i testi del report.
+  // Caratteri che il PDF non sa scrivere, cercati in tutti i testi del report.
   function caratteriNonStampabili(opts){
     const fuori = new Set();
     const visita = v => {
       if (v === null || v === undefined) return;
       if (Array.isArray(v)) { v.forEach(visita); return; }
       if (typeof v === 'object') { Object.values(v).forEach(visita); return; }
-      for (const c of String(v).normalize('NFC')) if (pdfCarattere(c) === null) fuori.add(c);
+      pdfAnalizza(v).bloccati.forEach(c => fuori.add(c));
     };
     visita([opts.titolo, opts.normativa, opts.cliente, opts.dati, opts.tabella, opts.conclusioni]);
     return [...fuori];

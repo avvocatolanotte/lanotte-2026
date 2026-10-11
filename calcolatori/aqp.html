@@ -839,7 +839,10 @@
     const conGiorni = giorniF !== null;
     const mediaGiorno = conGiorni ? media / giorniR : null;
     const riferimentoSulPeriodo = conGiorni ? mediaGiorno * giorniF : media;
-    const requisito = conGiorni ? (attuale / giorniF) >= 2 * mediaGiorno : attuale >= 2 * media;
+    // Confronto esatto in millesimi di m³ (i consumi hanno al più 3 decimali): alla soglia esatta del doppio le
+    // divisioni in virgola mobile darebbero «non soddisfatto» (B33, decima revisione di Codex).
+    const milA = Math.round(attuale * 1000), milM = Math.round(media * 1000);
+    const requisito = conGiorni ? milA * giorniR >= 2 * milM * giorniF : milA >= 2 * milM;
     // Nessun arrotondamento intermedio: si arrotondano solo gli importi finali (B11, terza revisione di Codex).
     const eccedenza = Math.max(0, attuale - riferimentoSulPeriodo);
     if (![riferimentoSulPeriodo, eccedenza].every(Number.isFinite)) { alert('Con i valori inseriti la stima non è calcolabile: controlli consumi e giorni.'); return; }
