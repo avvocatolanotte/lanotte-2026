@@ -195,15 +195,37 @@
     modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
   }
 
-  // I caratteri standard di jsPDF coprono solo la codifica WinAnsi: frecce, simboli e emoji uscirebbero
-  // come caratteri spuri e spaziati. Si sostituiscono con un equivalente o si tolgono se decorativi.
-  const PDF_SOSTITUZIONI = {'\u2192': '\u2013', '\u2190': '\u2013', '\u2212': '-', '\u2248': 'circa ', '\u2264': '<=', '\u2265': '>=', '\u25CF': '\u2022'};
-  const PDF_AMMESSI = /[\x00-\xFF\u20AC\u201A\u0192\u201E\u2026\u2020\u2021\u02C6\u2030\u0160\u2039\u0152\u017D\u2018\u2019\u201C\u201D\u2022\u2013\u2014\u02DC\u2122\u0161\u203A\u0153\u017E\u0178]/;
+  // I caratteri standard di jsPDF coprono solo la codifica WinAnsi. Simboli e segni grafici fuori codifica
+  // (frecce, spunte, emoji, spazi e trattini speciali) si sostituiscono con un equivalente o si tolgono;
+  // lettere e cifre fuori codifica NON si toccano mai: se ci sono, il PDF non si genera (vedi
+  // caratteriNonStampabili e generate) e si indica la «Stampa» dall'anteprima, che li conserva.
+  const PDF_SOSTITUZIONI = {'→': '–', '←': '–', '−': '-', '≈': 'circa ', '≤': '<=', '≥': '>=', '●': '•'};
+  const PDF_AMMESSI = /[\x00-\xFF€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/;
+  function pdfCarattere(c){
+    if (PDF_AMMESSI.test(c)) return c;
+    if (c in PDF_SOSTITUZIONI) return PDF_SOSTITUZIONI[c];
+    if (/\p{Zs}/u.test(c)) return ' ';
+    if (/\p{Pd}/u.test(c)) return '-';
+    if (/[︎️​-‍⁠]|\p{S}|\p{P}|\p{Cf}/u.test(c)) return '';   // simboli, emoji, punteggiatura grafica
+    return null;                                                                // lettera, cifra o segno: non rappresentabile
+  }
   function pdfSafe(t){
     if (t === null || t === undefined) return t;
-    const orig = String(t);
-    const out = Array.from(orig).map(c => PDF_AMMESSI.test(c) ? c : (PDF_SOSTITUZIONI[c] ?? '')).join('').replace(/ {2,}/g, ' ');
+    const orig = String(t).normalize('NFC');
+    const out = Array.from(orig).map(c => { const r = pdfCarattere(c); return r === null ? c : r; }).join('').replace(/ {2,}/g, ' ');
     return (out.startsWith(' ') && !orig.startsWith(' ')) ? out.trimStart() : out;
+  }
+  // Lettere, cifre e segni che il PDF non sa scrivere, cercati in tutti i testi del report.
+  function caratteriNonStampabili(opts){
+    const fuori = new Set();
+    const visita = v => {
+      if (v === null || v === undefined) return;
+      if (Array.isArray(v)) { v.forEach(visita); return; }
+      if (typeof v === 'object') { Object.values(v).forEach(visita); return; }
+      for (const c of String(v).normalize('NFC')) if (pdfCarattere(c) === null) fuori.add(c);
+    };
+    visita([opts.titolo, opts.normativa, opts.cliente, opts.dati, opts.tabella, opts.conclusioni]);
+    return [...fuori];
   }
   // Ogni testo scritto, misurato o spezzato passa da pdfSafe.
   function proteggiTesti(doc){
@@ -261,6 +283,12 @@
   }
 
   function generate(opts){
+    const nonStampabili = caratteriNonStampabili(opts);
+    if (nonStampabili.length) {
+      alert('Il PDF non può riprodurre questi caratteri presenti nei dati: ' + nonStampabili.join(' ') +
+        '. Per non alterare i dati il PDF non è stato generato: usi il pulsante «Stampa» dell\'anteprima (consente anche di salvare in PDF) oppure sostituisca quei caratteri nei campi.');
+      return;
+    }
     if (typeof window.jspdf === 'undefined') {
       alert('Errore: libreria jsPDF non caricata. Ricarica la pagina.');
       return;

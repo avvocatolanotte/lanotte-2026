@@ -563,7 +563,10 @@
   // Il testo inserito dall'utente si mostra come testo, mai come HTML.
   const esc = t => String(t).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
   const fmtPct = p => p.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '%';
-  const fmtTariffa = (v, dec) => v.toLocaleString('it-IT', {minimumFractionDigits: dec, maximumFractionDigits: 6});
+  // Parametri (tariffe, moduli) scritti con tutte le cifre usate dal calcolo: 15 cifre significative tolgono solo
+  // il rumore delle somme in virgola mobile (0,015 + 0,0179 = 0,0329), non le cifre inserite.
+  const fmtEsatto = v => { const n = Number(Number(v).toPrecision(15)); let t = String(n); if (/e/i.test(t)) t = n.toLocaleString('en-US', {maximumFractionDigits: 20, useGrouping: false}); return t.replace('.', ','); };
+  const fmtTariffa = v => fmtEsatto(v);
 
   // Confronto con la bolletta: solo voci omogenee, al netto degli acconti dello stesso periodo.
   function confronto(totale, importo, acconti){
@@ -758,7 +761,7 @@
     );
     if (d.proCapite) dati.push({label:'Componenti considerati', value: String(d.componenti)});
     dati.push(
-      {label:'Moduli contrattuali', value: d.moduli.toLocaleString('it-IT', {maximumFractionDigits: 6})},
+      {label:'Moduli contrattuali', value: fmtEsatto(d.moduli)},
       {label:'— Acquedotto (fasce)', value: fmtEur(d.acquedotto)},
       {label:'— Fognatura', value: fmtEur(d.fognatura)},
       {label:'— Depurazione', value: fmtEur(d.depurazione)},
