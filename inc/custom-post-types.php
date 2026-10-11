@@ -30,7 +30,7 @@ function lanotte_register_area_cpt() {
 
     register_post_type('area', [
         'labels'             => $labels,
-        'description'        => 'Aree di competenza dello Studio Legale Lanotte',
+        'description'        => 'Aree di competenza dello Studio Legale LANOTTE',
         'public'             => true,
         'publicly_queryable' => true,
         'show_ui'            => true,

@@ -207,7 +207,7 @@ return [
             ],
             [
                 'h' => 'Tabelle e quantificazione del danno',
-                'body' => '<p>La quantificazione del danno non patrimoniale è effettuata con riferimento alle Tabelle del Tribunale di Milano, riconosciute dalla giurisprudenza di legittimità come parametro tendenzialmente uniforme su tutto il territorio nazionale.</p>',
+                'body' => '<p>Per le lesioni da 10 a 100 punti la quantificazione segue la Tabella Unica Nazionale (D.P.R. 12/2025): si applica direttamente ai sinistri stradali e alla responsabilità sanitaria successivi al 5 marzo 2025 e, negli altri casi, la Cassazione la indica come parametro della liquidazione equitativa, da cui il giudice può discostarsi solo motivando su circostanze peculiari (Cass. civ., sez. III, 7 aprile 2026, n. 8630). Le Tabelle di Milano possono restare utili per le voci che la Tabella Unica non disciplina.</p>',
             ],
             [
                 'h' => 'Documenti utili al primo colloquio',
@@ -219,7 +219,7 @@ return [
             ],
             [
                 'h' => 'Infortuni stradali, sul lavoro e da prodotto difettoso',
-                'body' => '<p>L\'area comprende lesioni e decessi da: sinistri stradali (artt. 2054 c.c., D.lgs. 209/2005, risarcimento diretto e CARD), infortuni sul lavoro con azione differenziale verso il datore oltre l\'indennizzo INAIL, caduta in luogo aperto al pubblico ex art. 2051 c.c., danno da cose in custodia e insidia stradale, responsabilità da prodotto difettoso ex D.lgs. 206/2005. La quantificazione avviene con le Tabelle di Milano per macropermanenti e danni morali, o le tabelle del D.M. 22/07/2019 per le micropermanenti da sinistro ex art. 139 Cod. Ass.</p>',
+                'body' => '<p>L\'area comprende lesioni e decessi da: sinistri stradali (artt. 2054 c.c., D.lgs. 209/2005, risarcimento diretto e CARD), infortuni sul lavoro con azione differenziale verso il datore oltre l\'indennizzo INAIL, caduta in luogo aperto al pubblico ex art. 2051 c.c., danno da cose in custodia e insidia stradale, responsabilità da prodotto difettoso ex D.lgs. 206/2005. La quantificazione avviene con la Tabella Unica Nazionale per le lesioni da 10 a 100 punti (secondo i criteri indicati dalla Cassazione nel 2026) e, per le micropermanenti da sinistro stradale, con i valori dell\'art. 139 Cod. Ass., aggiornati ogni anno con decreto ministeriale (da ultimo D.M. 20 luglio 2026).</p>',
             ],
         ],
         'faq' => [
@@ -227,7 +227,7 @@ return [
             ['q' => 'Entro quando posso chiedere il risarcimento per responsabilità sanitaria?', 'a' => 'Dieci anni per la responsabilità contrattuale della struttura (art. 2946 c.c.); cinque anni per quella extracontrattuale del sanitario (art. 2947 c.c.). La prescrizione decorre dalla manifestazione del danno e dalla percezione della sua riconducibilità alla condotta sanitaria; per i decessi, dalla data del decesso per gli eredi.'],
             ['q' => 'La cartella clinica non mi è stata ancora consegnata: cosa posso fare?', 'a' => 'L\'accesso è disciplinato dalla L. 241/1990, dalla normativa privacy e dalla L. 24/2017 (art. 4: la struttura fornisce la documentazione entro sette giorni dalla richiesta, con integrazioni entro trenta). Il rifiuto o il ritardo si fanno valere con istanza alla Direzione sanitaria e, in caso di inerzia, con ricorso al Garante privacy o al TAR.'],
             ['q' => 'Il responsabile del sinistro è scappato: posso ottenere il risarcimento?', 'a' => 'Sì. In caso di veicolo non identificato, non assicurato o assicurato presso compagnia in liquidazione, ci si rivolge al Fondo di Garanzia per le Vittime della Strada ex art. 283 D.lgs. 209/2005, tramite l\'impresa designata indicata da CONSAP, entro i termini di prescrizione del diritto.'],
-            ['q' => 'Come si quantifica il danno biologico permanente?', 'a' => 'In base a tabelle medico-legali (Milano per invalidità oltre il 9%, D.M. 22/07/2019 per le micropermanenti ex art. 139 Cod. Ass.), in funzione di età, percentuale di invalidità e, ove provata, personalizzazione. Si aggiungono danno morale, danno da perdita parentale e danni patrimoniali (spese mediche, perdita di reddito presente e futura).'],
+            ['q' => 'Come si quantifica il danno biologico permanente?', 'a' => 'Con tabelle di legge: per le micropermanenti da sinistro stradale (fino a 9 punti) i valori dell\'art. 139 Cod. Ass., aggiornati ogni anno (da ultimo D.M. 20 luglio 2026); per le lesioni da 10 a 100 punti la Tabella Unica Nazionale (D.P.R. 12/2025), che la Cassazione indica come parametro anche fuori dal suo ambito diretto (sent. n. 8630/2026). Il valore dipende da età, punti di invalidità e, ove provata, personalizzazione. Si aggiungono danno morale, danno da perdita parentale e danni patrimoniali (spese mediche, perdita di reddito presente e futura).'],
             ['q' => 'È vero che si paga solo "a risarcimento ottenuto"?', 'a' => 'Il Codice Deontologico (art. 25) consente di pattuire il compenso anche in funzione del risultato, ma vieta il patto di quota lite e impone il preventivo scritto ex art. 13 L. 247/2012. Lo Studio illustra le opzioni praticabili (forfait, a fasi, parametri D.M. 55/2014) e gli oneri della consulenza tecnica di parte.'],
         ],
     ],
@@ -278,7 +278,7 @@ return [
             ],
             [
                 'h' => 'Riforma del processo tributario',
-                'body' => '<p>Il D.lgs. n. 220/2023, in attuazione della legge delega n. 111/2023, ha riformato profondamente il giudizio tributario, introducendo la magistratura tributaria professionale e modificando il regime delle prove (artt. 7 e 7-bis D.lgs. 546/1992).</p>',
+                'body' => '<p>La legge n. 130/2022 ha introdotto la magistratura tributaria professionale e nuove regole sulla prova (art. 7 D.lgs. 546/1992: prova testimoniale scritta e onere dell\'amministrazione di provare le violazioni contestate); il D.lgs. n. 220/2023, attuativo della legge delega n. 111/2023, ha poi riformato ancora il processo tributario, abrogando tra l\'altro il reclamo/mediazione dell\'art. 17-bis.</p>',
             ],
             [
                 'h' => 'Termine di impugnazione',
@@ -290,11 +290,11 @@ return [
             ],
             [
                 'h' => 'Il processo tributario dopo la riforma 2022 e i decreti attuativi 2023',
-                'body' => '<p>Il processo tributario è disciplinato dal D.lgs. 546/1992, innovato dalla L. 130/2022 (magistratura tributaria professionale e Corti di giustizia tributaria di primo e secondo grado), dal D.lgs. 220/2023 (attuazione della delega fiscale L. 111/2023) e dal D.lgs. 219/2023 (riforma dello Statuto del contribuente, L. 212/2000). Novità: generalizzazione del processo telematico, prova testimoniale scritta nei limiti dell\'art. 7, comma 4, riforma della revocazione, ampliamento della definizione agevolata, conciliazione giudiziale rafforzata. Lo Studio assiste nell\'intero ciclo: ricorso, reclamo/mediazione, conciliazione, appello, cassazione, esecuzione e rimborsi.</p>',
+                'body' => '<p>Il processo tributario è disciplinato dal D.lgs. 546/1992, innovato dalla L. 130/2022 (magistratura tributaria professionale e Corti di giustizia tributaria di primo e secondo grado), dal D.lgs. 220/2023 (attuazione della delega fiscale L. 111/2023) e dal D.lgs. 219/2023 (riforma dello Statuto del contribuente, L. 212/2000). Novità: generalizzazione del processo telematico, prova testimoniale scritta nei limiti dell\'art. 7, comma 4, riforma della revocazione, ampliamento della definizione agevolata, conciliazione giudiziale rafforzata. Lo Studio assiste nell\'intero ciclo: ricorso, conciliazione, appello, cassazione, esecuzione e rimborsi.</p>',
             ],
         ],
         'faq' => [
-            ['q' => 'Quanto tempo ho per impugnare una cartella esattoriale?', 'a' => 'Sessanta giorni dalla notifica ex art. 21 D.lgs. 546/1992. Il termine è sospeso nel periodo feriale (1-31 agosto) ex L. 742/1969. Per gli atti sotto soglia può essere obbligatoria la fase di mediazione/reclamo ex art. 17-bis, salvo quanto disposto dal D.lgs. 220/2023.'],
+            ['q' => 'Quanto tempo ho per impugnare una cartella esattoriale?', 'a' => 'Sessanta giorni dalla notifica ex art. 21 D.lgs. 546/1992. Il termine è sospeso nel periodo feriale (1-31 agosto) ex L. 742/1969. Il reclamo/mediazione dell\'art. 17-bis non è più previsto: è stato abrogato dal D.lgs. 220/2023.'],
             ['q' => 'Posso sospendere la cartella prima della decisione del giudice?', 'a' => 'Sì. È possibile l\'istanza di sospensione amministrativa ad Agenzia delle Entrate-Riscossione (effetti limitati) o, col ricorso, l\'istanza di sospensione giudiziale ex art. 47 D.lgs. 546/1992 quando l\'esecuzione possa derivare un danno grave e irreparabile. Il giudice decide con ordinanza.'],
             ['q' => 'Serve l\'avvocato per il ricorso tributario?', 'a' => 'La difesa tecnica è obbligatoria per le controversie di valore superiore a 3.000 euro (art. 12 D.lgs. 546/1992). Per le materie penali tributarie (D.lgs. 74/2000) l\'assistenza è sempre necessaria. Lo Studio offre assistenza integrata civilistica, tributaria e penale tributaria.'],
             ['q' => 'Una cartella vecchia può essere prescritta?', 'a' => 'Può esserlo, ma occorre verificare la natura del credito, le notifiche successive e gli eventuali atti interruttivi.'],
@@ -361,7 +361,7 @@ return [
             ],
             [
                 'h' => 'Anatocismo, usura e contenzioso bancario: strumenti di tutela',
-                'body' => '<p>Il contenzioso bancario richiede perizia econometrica specializzata. L\'anatocismo è regolato dall\'art. 120, comma 2, TUB (D.lgs. 385/1993) e dalla delibera CICR del 3 agosto 2016. L\'usura opera in chiave oggettiva (TEG superiore al tasso soglia ex L. 108/1996 e D.M. trimestrali MEF) e soggettiva. La giurisprudenza ha ridefinito molti profili: fideiussioni omnibus su schema ABI (Cass. S.U. 41994/2021, parziale nullità), mutuo solutorio (Cass. S.U. 5841/2023), cumulo interessi corrispettivi e moratori (Cass. S.U. 19597/2020). Lo Studio assiste correntisti, mutuatari e garanti con consulenza tecnica di parte e azione davanti al giudice ordinario o all\'Arbitro Bancario Finanziario (ABF).</p>',
+                'body' => '<p>Il contenzioso bancario richiede perizia econometrica specializzata. L\'anatocismo è regolato dall\'art. 120, comma 2, TUB (D.lgs. 385/1993) e dalla delibera CICR del 3 agosto 2016. L\'usura opera in chiave oggettiva (TEG superiore al tasso soglia ex L. 108/1996 e D.M. trimestrali MEF) e soggettiva. La giurisprudenza ha ridefinito molti profili: fideiussioni omnibus su schema ABI (Cass. S.U. 41994/2021, parziale nullità), mutuo solutorio (Cass. S.U. 5841/2025), cumulo interessi corrispettivi e moratori (Cass. S.U. 19597/2020). Lo Studio assiste correntisti, mutuatari e garanti con consulenza tecnica di parte e azione davanti al giudice ordinario o all\'Arbitro Bancario Finanziario (ABF).</p>',
             ],
         ],
         'faq' => [
@@ -437,7 +437,7 @@ return [
             ],
             [
                 'h' => 'L\'accertamento tecnico preventivo obbligatorio ex art. 445-bis c.p.c.',
-                'body' => '<p>Il contenzioso in materia di invalidità civile, cecità, sordità, handicap (L. 104/1992), disabilità per il collocamento mirato (L. 68/1999) e pensione di inabilità (L. 222/1984) deve essere preceduto, ex art. 445-bis c.p.c., dall\'accertamento tecnico preventivo obbligatorio: il giudice nomina un CTU medico-legale che esamina il ricorrente e formula una relazione, sulla cui base le parti possono accettare o contestare. Il ricorso (ATP o merito) va proposto entro sei mesi dalla notifica del verbale impugnato. Lo Studio assiste dalla richiesta amministrativa all\'INPS fino al contenzioso, coordinando il consulente medico legale di parte.</p>',
+                'body' => '<p>Il contenzioso in materia di invalidità civile, cecità, sordità, handicap (L. 104/1992), disabilità per il collocamento mirato (L. 68/1999) e pensione di inabilità (L. 222/1984) deve essere preceduto, ex art. 445-bis c.p.c., dall\'accertamento tecnico preventivo obbligatorio: il giudice nomina un CTU medico-legale che esamina il ricorrente e formula una relazione, sulla cui base le parti possono accettare o contestare. Per invalidità civile, cecità, sordità, handicap e disabilità il ricorso va proposto, a pena di decadenza, entro sei mesi dalla comunicazione del provvedimento amministrativo (art. 42, comma 3, d.l. 269/2003); per le prestazioni previdenziali INPS, come l\'assegno ordinario di invalidità e la pensione di inabilità della L. 222/1984, il termine semestrale non si applica e valgono i termini di decadenza propri delle prestazioni previdenziali. Lo Studio assiste dalla richiesta amministrativa all\'INPS fino al contenzioso, coordinando il consulente medico legale di parte.</p>',
             ],
         ],
         'faq' => [
@@ -474,7 +474,7 @@ return [
         ],
         'faq' => [
             ['q' => 'La mia associazione deve obbligatoriamente diventare ETS?', 'a' => 'No. La qualifica è opzionale: comporta obblighi (statutari, contabili, di pubblicità e trasparenza) compensati da benefici (regime fiscale agevolato, 5x1000, convenzioni con la P.A. ex artt. 55-57 CTS, accesso a fondi riservati). La scelta va valutata su missione, dimensioni e modello operativo.'],
-            ['q' => 'Cosa cambia per le ONLUS dopo la riforma?', 'a' => 'Il regime ONLUS (D.lgs. 460/1997) cesserà con la piena operatività del titolo X del CTS (previa autorizzazione UE alle agevolazioni). Nel transitorio le ONLUS possono mantenere il proprio regime o transitare al regime ETS: la scelta richiede una valutazione tecnica caso per caso.'],
+            ['q' => 'Cosa cambia per le ONLUS dopo la riforma?', 'a' => 'Dal periodo d\'imposta 2026 si applica il titolo X del Codice del Terzo settore (art. 104, comma 2, D.lgs. 117/2017) e la disciplina fiscale delle ONLUS (artt. 10-29 D.lgs. 460/1997) è abrogata (art. 102, comma 2). Un ente che era ONLUS conserva le agevolazioni solo se è iscritto al Registro unico nazionale del Terzo settore come ETS: la verifica della posizione dell\'ente va fatta caso per caso.'],
             ['q' => 'Quali obblighi di trasparenza e rendicontazione ha un ETS?', 'a' => 'Gli ETS depositano al RUNTS il bilancio di esercizio (o rendiconto di cassa per gli enti minori) ex D.M. 5 marzo 2020. Sopra un milione di euro di ricavi si pubblica il bilancio sociale. Oltre determinate soglie sono obbligatori l\'organo di controllo ex art. 30 CTS e la revisione legale.'],
             ['q' => 'Una ASD può essere anche ETS?', 'a' => 'In alcuni casi sì, ma la scelta richiede una valutazione coordinata tra normativa sportiva, fiscale e del Terzo settore.'],
             ['q' => 'È utile aggiornare lo statuto?', 'a' => 'Sì, soprattutto quando l\'ente svolge attività strutturate, riceve contributi, gestisce volontari o intende iscriversi a registri pubblici.'],

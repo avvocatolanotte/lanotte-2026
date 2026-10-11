@@ -25,11 +25,11 @@ if (!$tagline) $tagline = get_the_excerpt();
 
     <?php $area_wa_text = rawurlencode('Buongiorno, vorrei un parere su ' . get_the_title() . '.'); ?>
     <div class="hero-cta">
-      <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="btn btn-gold" data-lanotte-cta="call" data-lanotte-cta-location="area-hero" aria-label="Chiama lo Studio Legale Lanotte">
+      <a href="tel:<?php echo esc_attr(lanotte_phone(true)); ?>" class="btn btn-gold" data-lanotte-cta="call" data-lanotte-cta-location="area-hero" aria-label="Chiami lo Studio Legale LANOTTE">
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 11.19 19a19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.58 2.61a2 2 0 0 1-.45 2.11L7.9 9.73a16 16 0 0 0 6.37 6.37l1.29-1.29a2 2 0 0 1 2.11-.45c.84.26 1.71.46 2.61.58A2 2 0 0 1 22 16.92z"/></svg>
         Telefoni ora
       </a>
-      <a href="<?php echo esc_url(lanotte_whatsapp_url() . '?text=' . $area_wa_text); ?>" class="btn btn-ghost" target="_blank" rel="noopener" data-lanotte-cta="whatsapp" data-lanotte-cta-location="area-hero" aria-label="Scrivi allo Studio su WhatsApp">WhatsApp</a>
+      <a href="<?php echo esc_url(lanotte_whatsapp_url() . '?text=' . $area_wa_text); ?>" class="btn btn-ghost" target="_blank" rel="noopener" data-lanotte-cta="whatsapp" data-lanotte-cta-location="area-hero" aria-label="Scriva allo Studio su WhatsApp">WhatsApp</a>
     </div>
   </div>
 </section>
@@ -95,7 +95,7 @@ if (!$tagline) $tagline = get_the_excerpt();
       <p>Prima valutazione o consulenza con preventivo scritto: scelga Lei.</p>
     </div>
     <div class="ctastrip-actions">
-      <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-gold">Scrivi allo Studio</a>
+      <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-gold">Scriva allo Studio</a>
       <a href="<?php echo esc_url(lanotte_whatsapp_url()); ?>" class="btn btn-ghost" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>

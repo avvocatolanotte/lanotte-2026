@@ -24,7 +24,7 @@ $studio_img = LANOTTE_THEME_URI . '/assets/img/trani/palazzo-tribunale.jpg';
           <div class="studio-sign-name">Avv. Giuseppe LANOTTE</div>
           <div class="studio-sign-role">Titolare dello Studio</div>
         </div>
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('lo-studio'))); ?>" class="btn btn-outline" style="margin-left:auto">Scopri di più →</a>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('lo-studio'))); ?>" class="btn btn-outline" style="margin-left:auto">Chi siamo →</a>
       </div>
     </div>
   </div>

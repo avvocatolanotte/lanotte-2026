@@ -265,6 +265,12 @@ function lanotte_autore_maiuscolo($nome) {
     return is_string($nome) ? preg_replace('/\bLanotte\b/u', 'LANOTTE', $nome) : $nome;
 }
 add_filter('the_author', 'lanotte_autore_maiuscolo');
+
+/** «Giuseppe Lanotte» → «Giuseppe LANOTTE», «Cristina De Lillo» → «Cristina DE LILLO»: il primo nome resta, il resto è il cognome. */
+function lanotte_cognome_maiuscolo($nome) {
+    $parti = preg_split('/\s+/u', trim((string) $nome), 2);
+    return count($parti) === 2 ? $parti[0] . ' ' . mb_strtoupper($parti[1], 'UTF-8') : (string) $nome;
+}
 add_filter('get_the_author_display_name', 'lanotte_autore_maiuscolo');
 
 /**

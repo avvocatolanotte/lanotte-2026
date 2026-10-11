@@ -20,6 +20,6 @@ $default_bg = 'linear-gradient(135deg,#0E1A33,#1a2a4a)';
     </div>
     <h4><?php the_title(); ?></h4>
     <p><?php echo esc_html(lanotte_estratto(null, 22)); ?></p>
-    <span class="post-link">Leggi l'articolo →</span>
+    <span class="post-link">Articolo completo →</span>
   </div>
 </a>

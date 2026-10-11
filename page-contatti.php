@@ -160,7 +160,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
                   <input type="checkbox" required>
                   <span>Ho letto l'<a href="<?php echo esc_url(home_url('/privacy/')); ?>" target="_blank">informativa privacy</a> e acconsento al trattamento.</span>
                 </label>
-                <button type="submit" class="btn btn-primary">Invia messaggio →</button>
+                <button type="submit" class="btn btn-primary">Invii il messaggio →</button>
               </form>
               <?php
       }

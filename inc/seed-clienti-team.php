@@ -57,15 +57,15 @@ function lanotte_seed_clienti() {
 function lanotte_team_data() {
     $base = LANOTTE_THEME_URI . '/assets/img/';
     return [
-        ['title' => 'Giuseppe Lanotte', 'titolo' => 'Avv.', 'ruolo' => 'titolare', 'foto' => $base . 'giuseppe-lanotte.jpg',
+        ['title' => 'Giuseppe LANOTTE', 'titolo' => 'Avv.', 'ruolo' => 'titolare', 'foto' => $base . 'giuseppe-lanotte.jpg',
          'spec' => 'Civile · Penale · Tributario · Proprietà industriale',
          'bio' => 'Iscritto all\'Albo degli Avvocati di Trani dal 2011. Attività multidisciplinare con esperienza in diritto penale, civile, commerciale e proprietà industriale (marchi, brevetti, design davanti a UIBM, EUIPO, OMPI). Per il giudizio di Cassazione si avvale di colleghi cassazionisti.',
          'email' => 'info@studiolegalelanotte.it'],
-        ['title' => 'Ruggiero Lanotte', 'titolo' => 'Dott.', 'ruolo' => 'commercialista', 'foto' => $base . 'ruggiero-lanotte.jpg',
+        ['title' => 'Ruggiero LANOTTE', 'titolo' => 'Dott.', 'ruolo' => 'commercialista', 'foto' => $base . 'ruggiero-lanotte.jpg',
          'spec' => 'Consulente fiscale · Terzo Settore',
          'bio' => 'Dottore commercialista in collaborazione esterna. Affianca lo Studio nelle consulenze fiscali e tributarie, nella predisposizione del bilancio, nella valutazione d\'azienda e nelle perizie asseverative utili al contenzioso bancario e tributario.',
          'email' => ''],
-        ['title' => 'Cristina De Lillo', 'titolo' => 'Dott.ssa', 'ruolo' => 'partner-esterno', 'foto' => $base . 'cristina-de-lillo.jpg',
+        ['title' => 'Cristina DE LILLO', 'titolo' => 'Dott.ssa', 'ruolo' => 'partner-esterno', 'foto' => $base . 'cristina-de-lillo.jpg',
          'spec' => 'Diritto e amministrazione condominiale',
          'bio' => 'In collaborazione esterna con lo Studio. Si occupa di amministrazione condominiale e gestione immobiliare e dei relativi contenziosi: impugnazione delibere, riparto spese, recupero crediti condominiali, revisione dei rendiconti.',
          'email' => ''],

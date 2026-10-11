@@ -41,8 +41,8 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
 
       <form id="nl-subscribe-form" action="<?php echo esc_url( home_url( '/' ) ); ?>?na=s" method="post" class="nl-form">
         <div class="form-row nl-form-row">
-          <div class="form-field"><label>Nome</label><input type="text" name="nn" placeholder="Es. Mario" required></div>
-          <div class="form-field"><label>Cognome</label><input type="text" name="ns" placeholder="Es. Rossi" required></div>
+          <div class="form-field"><label>Nome <span>(facoltativo)</span></label><input type="text" name="nn" placeholder="Es. Mario"></div>
+          <div class="form-field"><label>Cognome <span>(facoltativo)</span></label><input type="text" name="ns" placeholder="Es. ROSSI"></div>
         </div>
         <div class="form-field"><label>Email*</label><input type="email" name="ne" placeholder="nome@esempio.it" required></div>
 

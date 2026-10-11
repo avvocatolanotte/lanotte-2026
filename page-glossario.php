@@ -62,7 +62,7 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 
     <div class="glossario-term" data-term="avviso di garanzia">
       <h3>Avviso di garanzia <small>Diritto Penale</small></h3>
-      <p>Comunicazione formale (art. 369 c.p.p.) con cui il PM informa l'indagato di essere iscritto nel registro delle notizie di reato. Non è una condanna né un'imputazione: significa che è iniziata un'indagine. Va affidata immediatamente la difesa a un avvocato di fiducia.</p>
+      <p>Atto (art. 369 c.p.p.) che il pubblico ministero notifica alla persona sottoposta alle indagini e alla persona offesa quando deve compiere un atto al quale il difensore ha diritto di assistere: contiene la descrizione sommaria del fatto, le norme che si assumono violate, la data e il luogo del fatto e l'invito a nominare un difensore di fiducia. Non è una condanna né un'imputazione e non è l'avviso generale dell'iscrizione nel registro delle notizie di reato. È opportuno nominare subito un avvocato di fiducia.</p>
       <div class="vedi-anche"><strong>Vedi anche:</strong> <a href="<?php echo esc_url($penale_url); ?>">Diritto Penale</a> · indagato · interrogatorio di garanzia</div>
     </div>
 
@@ -272,7 +272,7 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
     <div class="glossario-cta-box">
       <h3>Non trovi il termine che cerchi?</h3>
       <p>Stiamo arricchendo il glossario settimanalmente. Ci scriva se un termine non è chiaro: lo aggiungeremo al prossimo aggiornamento.</p>
-      <a href="<?php echo esc_url($contatti_url); ?>" class="btn btn-outline">Suggerisci un termine</a>
+      <a href="<?php echo esc_url($contatti_url); ?>" class="btn btn-outline">Suggerisca un termine</a>
     </div>
 
   </div>

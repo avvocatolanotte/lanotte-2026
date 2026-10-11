@@ -8,7 +8,7 @@ get_header();
 while (have_posts()): the_post();
 
 $hero_bg          = LANOTTE_THEME_URI . '/assets/img/trani/corte-appello-puglie.jpg';
-$candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio%20Lanotte';
+$candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio%20LANOTTE';
 ?>
 
 <section class="hero-internal" style="background-image:linear-gradient(135deg,rgba(14,26,51,.88) 0%,rgba(26,42,74,.78) 100%),url('<?php echo esc_url($hero_bg); ?>');background-size:cover;background-position:center;padding:110px 0 80px;color:#fff">
@@ -98,7 +98,7 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
     <div class="carriere-offer-grid">
       <div class="carriere-offer">
         <h4>⚖️ Pratiche di valore</h4>
-        <p>Non gestiamo migliaia di fascicoli "a basso valore": preferiamo poche pratiche curate. Avrai esposizione a casi complessi sin dai primi mesi.</p>
+        <p>Non gestiamo migliaia di fascicoli "a basso valore": preferiamo poche pratiche curate. Avrà esposizione a casi complessi sin dai primi mesi.</p>
       </div>
       <div class="carriere-offer">
         <h4>📚 Crescita strutturata</h4>
@@ -135,8 +135,8 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
     <div class="carriere-timeline">
       <div class="carriere-step">
         <div class="carriere-step-num">1</div>
-        <h4>Invia CV e lettera motivazionale</h4>
-        <p>Manda CV aggiornato + breve lettera (max 1 pagina) che indichi: posizione di interesse, aree di specializzazione, motivazione, eventuali disponibilità geografiche.<br><strong>Email:</strong> <a href="mailto:<?php echo esc_attr(lanotte_email()); ?>?subject=Candidatura%20-%20[Profilo]%20-%20[Nome%20Cognome]" style="color:var(--gold)"><?php echo esc_html(lanotte_email()); ?></a></p>
+        <h4>Invii CV e lettera motivazionale</h4>
+        <p>Invii un CV aggiornato e una breve lettera (massimo una pagina) che indichi: posizione di interesse, materie di interesse, motivazione, eventuali disponibilità geografiche.<br><strong>Email:</strong> <a href="mailto:<?php echo esc_attr(lanotte_email()); ?>?subject=Candidatura%20-%20[Profilo]%20-%20[Nome%20Cognome]" style="color:var(--gold)"><?php echo esc_html(lanotte_email()); ?></a></p>
       </div>
       <div class="carriere-step">
         <div class="carriere-step-num">2</div>
@@ -151,14 +151,14 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
       <div class="carriere-step" style="margin-bottom:0">
         <div class="carriere-step-num">4</div>
         <h4>Colloquio finale e proposta</h4>
-        <p>Incontro con i partner per definire ruolo, condizioni economiche, percorso di crescita. Riceverai una <strong>proposta scritta</strong> entro 7 giorni dall'ultimo colloquio.</p>
+        <p>Incontro con i partner per definire ruolo, condizioni economiche, percorso di crescita. Riceverà una <strong>proposta scritta</strong> entro 7 giorni dall'ultimo colloquio.</p>
       </div>
     </div>
 
     <div class="carriere-cta-box">
       <h3>Candidature spontanee benvenute</h3>
       <p>Anche se il Suo profilo non corrisponde esattamente a quelli indicati, può inviarci la candidatura: valutiamo regolarmente nuovi inserimenti in tutte le aree.</p>
-      <a href="<?php echo esc_url($candidatura_mail); ?>" class="btn btn-primary">Candidati</a>
+      <a href="<?php echo esc_url($candidatura_mail); ?>" class="btn btn-primary">Invii la candidatura</a>
     </div>
   </div>
 </section>

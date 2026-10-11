@@ -87,7 +87,7 @@ if ($has_custom_content):
         $bio    = function_exists('lanotte_team_meta') ? lanotte_team_meta($tid,'bio','bio_breve') : '';
         $foto   = function_exists('lanotte_team_foto') ? lanotte_team_foto($tid) : '';
         $badge  = $ruolo_labels[$ruolo] ?? 'Professionista';
-        $nome   = trim(($titolo ? $titolo.' ' : '') . get_the_title());
+        $nome   = trim(($titolo ? $titolo.' ' : '') . lanotte_cognome_maiuscolo(get_the_title()));
         if (!$bio) $bio = get_the_excerpt();
       ?>
       <article class="ls-team-card">

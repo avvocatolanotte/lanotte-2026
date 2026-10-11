@@ -33,5 +33,5 @@ $tagline  = function_exists('get_field') ? get_field('tagline') : '';
         echo esc_html(get_the_excerpt() ?: wp_trim_words(get_the_content(), 26, '…'));
     }
   ?></p>
-  <span class="area-link">Scopri di più →</span>
+  <span class="area-link">Dettagli dell'area →</span>
 </a>

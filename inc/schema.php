@@ -27,7 +27,7 @@ function lanotte_output_jsonld() {
         '@type'       => 'LegalService',
         '@id'         => $org_url . '#legalservice',
         'name'        => $org_name,
-        'alternateName' => 'Studio Legale Lanotte',
+        'alternateName' => 'Studio Legale LANOTTE',
         'description' => 'Studio Legale LANOTTE & Partners, iscritto al Foro di Trani con sede in Barletta. Assistenza in materia civile, penale, commerciale, del lavoro, tributaria, internazionale privato e diritto industriale (marchi, brevetti, design davanti a UIBM, EUIPO, OMPI).',
         'url'         => $org_url,
         'telephone'   => $tel,
