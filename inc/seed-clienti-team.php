@@ -16,6 +16,8 @@ if (!defined('ABSPATH')) exit;
 /* === CLIENTI ===
  * Decisione dell'Avvocato (11/10/2026): nessun nome o logo di clienti nel sito (art. 35 c. 8 CDF).
  * Il seed non crea più clienti; l'elenco resta qui solo come memoria di ciò che era stato inserito.
+ * I file dei loghi sono stati tolti dal tema l'11/10/2026 (decisione dell'Avvocato): i percorsi qui sotto non
+ * esistono più e restano solo nella storia git. La funzione non è usata da nessuna pagina.
  */
 function lanotte_clienti_data_storico() {
     $base = LANOTTE_THEME_URI . '/assets/img/clienti/';
