@@ -197,13 +197,13 @@
 
   // I caratteri standard di jsPDF coprono solo la codifica WinAnsi. Un carattere fuori codifica si scrive
   // solo con un equivalente fedele (forma di compatibilità Unicode, es. «／» → «/», o una sostituzione
-  // esplicita: frecce, segno meno, «≈», «●», barre di frazione e divisione). Nessun simbolo si toglie, nemmeno
-  // se sembra decorativo: dentro i dati («12 ➖ 34», «AB 🔟 12») sarebbe un'alterazione silenziosa. Ogni altro
-  // carattere blocca il PDF (caratteriNonStampabili e generate) e si indica la «Stampa» dall'anteprima.
-  // I testi dei calcolatori non contengono simboli fuori codifica (prova: scansione_pdf_calcolatori.js).
+  // esplicita: frecce, segno meno, «≈», «●», barre di frazione e divisione). Nessun carattere si toglie: né
+  // un simbolo che sembra decorativo («12 ➖ 34», «AB 🔟 12»: B31) né un carattere invisibile (spazio a
+  // larghezza zero, selettori di variante: B39). Ogni altro carattere blocca il PDF (caratteriNonStampabili e
+  // generate), l'avviso lo nomina (col codice, se invisibile) e indica la «Stampa» dall'anteprima.
+  // I testi dei calcolatori non contengono caratteri fuori codifica (prova: scansione_pdf_calcolatori.js).
   const PDF_SOSTITUZIONI = {'→': '–', '←': '–', '−': '-', '≈': '~', '≤': '<=', '≥': '>=', '●': '•', '⁄': '/', '∕': '/'};
   const PDF_AMMESSI = /[\x00-\xFF€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/;
-  const PDF_INVISIBILI = /[︎️​-‍⁠]/;
   function pdfCarattere(c){
     if (PDF_AMMESSI.test(c)) return c;
     if (c in PDF_SOSTITUZIONI) return PDF_SOSTITUZIONI[c];
@@ -211,7 +211,6 @@
     if (compat !== c && Array.from(compat).every(x => PDF_AMMESSI.test(x))) return compat;
     if (/\p{Zs}/u.test(c)) return ' ';
     if (/\p{Pd}/u.test(c)) return '-';
-    if (PDF_INVISIBILI.test(c)) return '';
     return null;                                                                // non rappresentabile: si blocca
   }
   // Testo per jsPDF e caratteri che impediscono il PDF.
@@ -228,6 +227,11 @@
   function pdfSafe(t){
     if (t === null || t === undefined) return t;
     return pdfAnalizza(t).testo;
+  }
+  // Nome leggibile di un carattere nell'avviso: i caratteri invisibili o di controllo si indicano col codice.
+  function nomeCarattere(c){
+    const codice = 'U+' + c.codePointAt(0).toString(16).toUpperCase().padStart(4, '0');
+    return /[\p{C}\p{Z}\p{M}]/u.test(c) ? codice + ' (carattere invisibile)' : '«' + c + '» (' + codice + ')';
   }
   // Caratteri che il PDF non sa scrivere, cercati in tutti i testi del report.
   function caratteriNonStampabili(opts){
@@ -299,7 +303,7 @@
   function generate(opts){
     const nonStampabili = caratteriNonStampabili(opts);
     if (nonStampabili.length) {
-      alert('Il PDF non può riprodurre questi caratteri presenti nei dati: ' + nonStampabili.join(' ') +
+      alert('Il PDF non può riprodurre questi caratteri presenti nei dati: ' + nonStampabili.map(nomeCarattere).join(', ') +
         '. Per non alterare i dati il PDF non è stato generato: usi il pulsante «Stampa» dell\'anteprima (consente anche di salvare in PDF) oppure sostituisca quei caratteri nei campi.');
       return;
     }
