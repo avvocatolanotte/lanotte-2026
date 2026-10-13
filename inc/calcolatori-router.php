@@ -543,10 +543,13 @@ add_action('init', function() {
     if (!$parent) return;
 
     // La versione si registra solo se ogni pagina risulta creata o aggiornata: un errore transitorio non deve lasciare
-    // collegamenti a una pagina inesistente senza nuovi tentativi (rilievo Codex 13/10). Al massimo 3 tentativi per versione.
-    $tentativi = get_option('lanotte_calcolatori_pages_tentativi', []);
-    if (!is_array($tentativi)) $tentativi = [];
-    if (($tentativi[LANOTTE_THEME_VERSION] ?? 0) >= 3) return;
+    // collegamenti a una pagina inesistente senza nuovi tentativi (rilievi Codex 13/10). Dopo 3 tentativi falliti si
+    // aspettano 6 ore e poi si riprova; finché il problema resta, gli amministratori vedono un avviso nel pannello.
+    $stato = get_option('lanotte_calcolatori_pages_tentativi', []);
+    if (!is_array($stato)) $stato = [];
+    $mio = isset($stato[LANOTTE_THEME_VERSION]) && is_array($stato[LANOTTE_THEME_VERSION]) ? $stato[LANOTTE_THEME_VERSION] : ['n' => 0, 'ultimo' => 0, 'falliti' => []];
+    $adesso = (int) current_time('timestamp', true);
+    if ($mio['n'] >= 3 && $adesso - (int) $mio['ultimo'] < 6 * HOUR_IN_SECONDS) return;
     $falliti = [];
 
     foreach (lanotte_calcolatori_pages_data() as $slug => $data) {
@@ -579,14 +582,27 @@ add_action('init', function() {
     }
 
     if ($falliti) {
-        $tentativi[LANOTTE_THEME_VERSION] = ($tentativi[LANOTTE_THEME_VERSION] ?? 0) + 1;
-        update_option('lanotte_calcolatori_pages_tentativi', $tentativi, false);
+        $mio = ['n' => $mio['n'] + 1, 'ultimo' => $adesso, 'falliti' => $falliti];
+        $stato[LANOTTE_THEME_VERSION] = $mio;
+        update_option('lanotte_calcolatori_pages_tentativi', $stato, false);
         error_log('lanotte_calcolatori: pagine non create o non aggiornate (' . implode(', ', $falliti) . '), tentativo '
-            . $tentativi[LANOTTE_THEME_VERSION] . ' di 3 per la versione ' . LANOTTE_THEME_VERSION);
+            . $mio['n'] . ' per la versione ' . LANOTTE_THEME_VERSION . ($mio['n'] >= 3 ? ': nuovo tentativo fra 6 ore' : ''));
         return;
     }
+    unset($stato[LANOTTE_THEME_VERSION]);
+    update_option('lanotte_calcolatori_pages_tentativi', $stato, false);
     update_option('lanotte_calcolatori_pages_version', LANOTTE_THEME_VERSION, false);
 }, 30);
+
+add_action('admin_notices', function() {
+    if (!current_user_can('manage_options')) return;
+    $stato = get_option('lanotte_calcolatori_pages_tentativi', []);
+    $mio = is_array($stato) && isset($stato[LANOTTE_THEME_VERSION]) && is_array($stato[LANOTTE_THEME_VERSION]) ? $stato[LANOTTE_THEME_VERSION] : null;
+    if (!$mio || empty($mio['falliti'])) return;
+    echo '<div class="notice notice-error"><p><strong>Calcolatori:</strong> pagine non create o non aggiornate per la versione '
+        . esc_html(LANOTTE_THEME_VERSION) . ': ' . esc_html(implode(', ', $mio['falliti'])) . '. Tentativi: ' . (int) $mio['n']
+        . ($mio['n'] >= 3 ? ' (nuovo tentativo automatico ogni 6 ore)' : '') . '.</p></div>';
+});
 
 function lanotte_area_calcolatori_links($slug) {
     $groups = [

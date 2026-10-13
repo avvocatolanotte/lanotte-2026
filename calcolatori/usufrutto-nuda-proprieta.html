@@ -92,7 +92,7 @@
 
     <div class="uf-tabella-box">
       <h3>Prospetto dei coefficienti in vigore</h3>
-      <p class="uf-help">Coefficienti calcolati al saggio del 2,5%: il saggio legale 2026 è dell'1,6% (D.M. 10 dicembre 2025), ma ai fini fiscali non si può assumere un saggio inferiore al 2,5% (art. 46, comma 5-ter, d.P.R. 131/1986; art. 17, comma 1-ter, d.lgs. 346/1990). Il prospetto si applica agli atti dal 1° gennaio 2024 e alle successioni e donazioni dal 1° gennaio 2025; per date anteriori i coefficienti vanno verificati.</p>
+      <p class="uf-help">Coefficienti calcolati al saggio del 2,5%: il saggio legale 2026 è dell'1,6% (D.M. 10 dicembre 2025), ma ai fini fiscali non si può assumere un saggio inferiore al 2,5% (art. 46, comma 5-ter, d.P.R. 131/1986; art. 17, comma 1-ter, d.lgs. 346/1990). Il prospetto si applica agli atti, alle successioni e alle donazioni dal 1° gennaio 2024 (D.M. 21 dicembre 2023, art. 2); per date anteriori i coefficienti vanno verificati.</p>
       <table class="uf-tab"><thead><tr><th>Età</th><th>Coefficiente</th><th>Diritto</th><th>Nuda proprietà</th></tr></thead><tbody id="uf-prospetto"></tbody></table>
     </div>
   </div>
@@ -130,8 +130,8 @@
 <script src="../assets/js/lanotte-preview.js"></script>
 <script>
 /* Prospetto dei coefficienti al saggio del 2,5%, come riportato nell'Allegato 4 del d.lgs. 123/2025 (testo unico applicabile
-   dal 2027), con la nota: in vigore per il registro dal 1° gennaio 2024 (D.M. 21 dicembre 2023), esteso a successioni e
-   donazioni dal d.lgs. 139/2024 (dal 1° gennaio 2025). Letto su Simpliciter il 13/10/2026.
+   dal 2027). D.M. 21 dicembre 2023, art. 2 (GU, letto il 13/10/2026): atti, successioni aperte e donazioni fatte dal
+   1° gennaio 2024; confermato per il 2026 dal D.M. 24 dicembre 2025, art. 1, con il saggio minimo del 2,5%.
    Fascia di età [da, a] e coefficiente. Valore del diritto = valore × 2,5% × coefficiente. */
 const UF_SAGGIO_MILLESIMI = 25; // 2,5% = 25/1000: minimo di legge (art. 46 c.5-ter d.P.R. 131/1986; art. 17 c.1-ter d.lgs. 346/1990)
 const UF_PROSPETTO = [
@@ -160,7 +160,8 @@ function ufValori(valoreCent, eta){
 /* ---- Interfaccia ---- */
 function ufEuro(cent){ return new Intl.NumberFormat('it-IT', {style: 'currency', currency: 'EUR'}).format(cent / 100); }
 function ufPerc(permille){ return (permille / 10).toLocaleString('it-IT', {minimumFractionDigits: 1, maximumFractionDigits: 1}) + '%'; }
-function ufInt(id){ const n = parseInt(document.getElementById(id).value, 10); return isFinite(n) ? n : NaN; }
+// L'età si legge per intero (Number, non parseInt: «70.5» non diventa 70, «7e1» non diventa 7) e si valida prima dell'uso.
+function ufEta(id){ const v = String(document.getElementById(id).value || '').trim(); const n = v === '' ? NaN : Number(v); return Number.isInteger(n) && n >= 0 && n <= 99 ? n : NaN; }
 let ufUltimo = null;
 function calcolaUsufrutto(){
   const valore = parseFloat(String(document.getElementById('uf-valore').value || '0').replace(',', '.'));
@@ -169,9 +170,11 @@ function calcolaUsufrutto(){
   const accr = document.getElementById('uf-accr').value === 'accrescimento';
   document.getElementById('uf-eta2-box').style.display = n === 2 ? 'block' : 'none';
   document.getElementById('uf-accr-box').style.display = n === 2 ? 'block' : 'none';
-  const e1 = ufInt('uf-eta1'), e2 = ufInt('uf-eta2');
-  const eta = ufEtaConsiderata(e1, e2, n, accr);
-  const r = ufValori(valoreCent, eta);
+  const e1 = ufEta('uf-eta1'), e2 = ufEta('uf-eta2');
+  // con due titolari entrambe le età devono essere valide, prima di scegliere quale usare (art. 46, terzo comma)
+  const etaValide = n === 1 ? isFinite(e1) : isFinite(e1) && isFinite(e2);
+  const eta = etaValide ? ufEtaConsiderata(e1, e2, n, accr) : NaN;
+  const r = etaValide ? ufValori(valoreCent, eta) : null;
   const diritto = document.getElementById('uf-diritto').value === 'abitazione' ? 'Diritto di abitazione o di uso' : 'Usufrutto vitalizio';
   document.getElementById('uf-titolo').textContent = diritto;
   const note = [];
@@ -181,7 +184,7 @@ function calcolaUsufrutto(){
     document.getElementById('uf-eta-usata').textContent = isFinite(eta) ? eta + ' anni' : '—';
     document.getElementById('uf-coeff').textContent = '—';
     document.getElementById('uf-annualita').textContent = '—';
-    note.push('Indichi un\'età in anni compiuti da 0 a 99: il prospetto non prevede fasce oltre i 99 anni, e il caso va verificato.');
+    note.push('Indichi ' + (n === 2 ? 'le età' : 'l\'età') + ' in anni compiuti, con un numero intero da 0 a 99: il prospetto non prevede fasce oltre i 99 anni, e il caso va verificato.');
   } else {
     document.getElementById('uf-val-diritto').textContent = ufEuro(r.diritto);
     document.getElementById('uf-perc-diritto').textContent = ufPerc(r.permille) + ' della piena proprietà';
