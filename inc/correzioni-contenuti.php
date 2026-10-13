@@ -17,8 +17,14 @@
  * - altrimenti la voce è saltata. Nessuna voce saltata viene registrata come applicata.
  * Sul database (lanotte_corr_esegui_lotto):
  * - l'originale si salva PRIMA della modifica e si rilegge: se non risulta salvato, il campo non si tocca;
- * - il campo si salva con wp_slash (WordPress toglie le barre: senza, "\201C" diventerebbe "201C");
- * - dopo il salvataggio il campo si rilegge: se non è il testo atteso si ripristina il testo di prima;
+ * - il campo si salva con wp_slash (WordPress toglie le barre: senza, "\201C" diventerebbe "201C"); prima di
+ *   ogni salvataggio i filtri kses si tolgono di nuovo, e se erano stati rimessi l'esito lo annota;
+ * - dopo il salvataggio il campo si rilegge dal database: se non è il testo atteso, il testo di prima si
+ *   rimette con una scrittura diretta (senza i filtri che lo hanno appena alterato) e si rilegge al byte;
+ *   se nemmeno questo riesce, il lotto si ferma subito con «errori»;
+ * - l'impronta dell'ultimo stato verificato di ogni campo resta in "<lotto>_impronte": un nuovo tentativo
+ *   parte solo se il campo è ancora quello, altrimenti il contenuto va tra i «falliti» senza essere toccato
+ *   (13/10/2026: un secondo tentativo aveva lavorato su un testo già alterato e lo aveva dato per «fatto»);
  * - un contenuto è «fatto» solo se tutte le sue voci sono applicate o già presenti; altrimenti si
  *   ritenta alla richiesta successiva, al massimo 3 volte, poi resta tra i «falliti»;
  * - il lotto diventa «done» solo se non c'è alcun fallito; con falliti diventa «errori» e si ferma.
@@ -142,13 +148,56 @@ function lanotte_corr_riuscita($e) {
     return is_array($e) && in_array($e['esito'] ?? '', ['applicata', 'già presente'], true);
 }
 
-/** Salva un campo di un post con le barre che WordPress si aspetta, poi lo rilegge. Restituisce true se il campo è $testo. */
-function lanotte_corr_salva_campo($id, $campo, $testo, &$errore) {
+/**
+ * Filtro kses agganciato al salvataggio dei campi, se ce n'è uno: con un filtro attivo il salvataggio toglie
+ * <style>, <link>, <meta>, <html>, <head>, <body> e riscrive gli stili in linea. Il 13/10/2026, in una richiesta
+ * anonima, i filtri erano di nuovo attivi dopo kses_remove_filters() (chi li abbia rimessi non è stato accertato).
+ */
+function lanotte_corr_kses_attivo() {
+    foreach (['content_save_pre', 'excerpt_save_pre', 'title_save_pre', 'content_filtered_save_pre'] as $f) {
+        if (has_filter($f, 'wp_filter_post_kses') !== false || has_filter($f, 'wp_filter_kses') !== false) return $f;
+    }
+    return '';
+}
+
+/** Legge un campo direttamente dal database: niente cache, niente filtri. */
+function lanotte_corr_leggi_campo($id, $campo) {
+    global $wpdb;
+    if (!in_array($campo, ['post_content', 'post_excerpt', 'post_title'], true)) return null;
+    return $wpdb->get_var($wpdb->prepare("SELECT {$campo} FROM {$wpdb->posts} WHERE ID = %d", $id));
+}
+
+/**
+ * Salva un campo di un post con le barre che WordPress si aspetta, poi lo rilegge dal database.
+ * Restituisce true se il campo è $testo. Prima di ogni salvataggio i filtri kses si tolgono di nuovo;
+ * se erano stati rimessi, $nota lo registra.
+ */
+function lanotte_corr_salva_campo($id, $campo, $testo, &$errore, &$nota = '') {
+    $nota = '';
+    $kses = lanotte_corr_kses_attivo();
+    if ($kses !== '') {
+        $nota = 'filtro kses trovato attivo su ' . $kses . ' e tolto prima del salvataggio';
+        kses_remove_filters();
+        if (lanotte_corr_kses_attivo() !== '') { $errore = 'filtro kses non rimovibile: campo non salvato'; return false; }
+    }
     $r = wp_update_post(wp_slash(['ID' => $id, $campo => $testo]), true);
     if (is_wp_error($r)) { $errore = $r->get_error_message(); return false; }
     clean_post_cache($id);
-    $letto = get_post($id);
-    if (!$letto || (string) $letto->$campo !== $testo) { $errore = 'il campo riletto non coincide'; return false; }
+    if (lanotte_corr_leggi_campo($id, $campo) !== $testo) { $errore = 'il campo riletto non coincide'; return false; }
+    return true;
+}
+
+/**
+ * Rimette un campo al testo dato scrivendo direttamente nel database, senza i filtri del salvataggio:
+ * il ripristino non può passare dal filtro che ha appena alterato il testo. Poi lo rilegge al byte.
+ */
+function lanotte_corr_ripristina_campo($id, $campo, $testo, &$errore) {
+    global $wpdb;
+    if (!in_array($campo, ['post_content', 'post_excerpt', 'post_title'], true)) { $errore = 'campo non ammesso'; return false; }
+    $r = $wpdb->update($wpdb->posts, [$campo => $testo], ['ID' => (int) $id], ['%s'], ['%d']);
+    if ($r === false) { $errore = 'scrittura diretta non riuscita (' . $wpdb->last_error . ')'; return false; }
+    clean_post_cache($id);
+    if (lanotte_corr_leggi_campo($id, $campo) !== $testo) { $errore = 'il campo riletto dopo la scrittura diretta non coincide'; return false; }
     return true;
 }
 
@@ -168,6 +217,9 @@ function lanotte_corr_esegui_lotto($lotto, array $voci, $limite_s = 20, $max_ten
     $fatti     = get_option($lotto . '_gruppi_fatti', []);  if (!is_array($fatti)) $fatti = [];
     $tentativi = get_option($lotto . '_tentativi', []);     if (!is_array($tentativi)) $tentativi = [];
     $falliti   = get_option($lotto . '_falliti', []);       if (!is_array($falliti)) $falliti = [];
+    // Impronta (sha1) dell'ultimo stato di ogni campo verificato dal lotto: un nuovo tentativo parte solo da lì.
+    $impronte  = get_option($lotto . '_impronte', []);      if (!is_array($impronte)) $impronte = [];
+    $bloccato = false;
     $gruppi = [];
     foreach ($voci as $k => $v) {
         $chiave = $v['tipo'] . '|' . $v['slug'] . '|' . $v['campo'];
@@ -187,11 +239,20 @@ function lanotte_corr_esegui_lotto($lotto, array $voci, $limite_s = 20, $max_ten
                 foreach ($da_fare as $k => $v) $esiti[$k] = ['esito' => 'contenuto non trovato', 'slug' => $slug, 'tipo' => $tipo];
             } else {
                 $prima = (string) $post->$campo;
-                list($nuovo, $parziali) = lanotte_corr_applica_testo($prima, $da_fare);
+                $id_campo = $post->ID . '|' . $campo;
+                $letto = lanotte_corr_leggi_campo($post->ID, $campo);
+                if ($letto !== $prima || (isset($impronte[$id_campo]) && $impronte[$id_campo] !== sha1($prima))) {
+                    // Il campo non è quello che il lotto ha verificato l'ultima volta (o la cache non è il database):
+                    // un nuovo tentativo lavorerebbe su un testo che nessuno ha controllato. Non si tocca.
+                    foreach ($da_fare as $k => $v) $esiti[$k] = ['esito' => 'errore', 'errore' => 'campo diverso dall\'ultimo stato verificato dal lotto: non modificato'];
+                    $falliti[$chiave] = true;
+                    $parziali = [];
+                } else {
+                    list($nuovo, $parziali) = lanotte_corr_applica_testo($prima, $da_fare);
+                }
                 $applicate = array_filter($parziali, function ($e) { return $e['esito'] === 'applicata'; });
                 if ($applicate && $nuovo !== $prima) {
-                    $id_campo = $post->ID . '|' . $campo;
-                    $errore = '';
+                    $errore = ''; $nota = '';
                     // L'originale si salva PRIMA della modifica, non si sovrascrive mai e si rilegge.
                     if (!array_key_exists($id_campo, $originali)) {
                         $originali[$id_campo] = $prima;
@@ -202,15 +263,29 @@ function lanotte_corr_esegui_lotto($lotto, array $voci, $limite_s = 20, $max_ten
                             $errore = 'originale non salvato: campo non modificato';
                         }
                     }
-                    if ($errore === '' && !lanotte_corr_salva_campo($post->ID, $campo, $nuovo, $errore)) {
-                        // Salvataggio fallito o diverso dall'atteso: si rimette il testo di prima e lo si verifica.
-                        $err_ripristino = '';
-                        $errore = 'salvataggio non riuscito (' . $errore . '); '
-                            . (lanotte_corr_salva_campo($post->ID, $campo, $prima, $err_ripristino)
-                                ? 'testo di prima ripristinato'
-                                : 'RIPRISTINO NON RIUSCITO (' . $err_ripristino . '): usare l\'originale in ' . $lotto . '_originali');
+                    if ($errore === '') {
+                        $impronte[$id_campo] = sha1($prima);
+                        update_option($lotto . '_impronte', $impronte, false);
+                        if (lanotte_corr_salva_campo($post->ID, $campo, $nuovo, $errore, $nota)) {
+                            $impronte[$id_campo] = sha1($nuovo);
+                        } else {
+                            // Salvataggio fallito o diverso dall'atteso: si rimette il testo di prima con una scrittura
+                            // diretta e lo si verifica al byte. Se nemmeno questo riesce, il lotto si ferma qui.
+                            $err_ripristino = '';
+                            if (lanotte_corr_ripristina_campo($post->ID, $campo, $prima, $err_ripristino)) {
+                                $errore = 'salvataggio non riuscito (' . $errore . '); testo di prima ripristinato e verificato';
+                            } else {
+                                $errore = 'salvataggio non riuscito (' . $errore . '); RIPRISTINO NON RIUSCITO (' . $err_ripristino
+                                    . '): usare l\'originale in ' . $lotto . '_originali';
+                                unset($impronte[$id_campo]);
+                                $falliti[$chiave] = true;
+                                $bloccato = true;
+                            }
+                        }
+                        update_option($lotto . '_impronte', $impronte, false);
                     }
                     if ($errore !== '') foreach ($applicate as $k => $e) $parziali[$k] = ['esito' => 'errore', 'errore' => $errore];
+                    elseif ($nota !== '') foreach ($applicate as $k => $e) $parziali[$k]['nota'] = $nota;
                 }
                 foreach ($parziali as $k => $e) $esiti[$k] = $e + ['slug' => $slug, 'tipo' => $tipo, 'campo' => $campo, 'post_id' => $post->ID];
             }
@@ -218,7 +293,7 @@ function lanotte_corr_esegui_lotto($lotto, array $voci, $limite_s = 20, $max_ten
             foreach ($gruppo as $k => $v) if (!lanotte_corr_riuscita($esiti[$k] ?? null)) { $tutte = false; break; }
             if ($tutte) {
                 $fatti[$chiave] = true;
-            } else {
+            } elseif (!isset($falliti[$chiave])) {
                 $tentativi[$chiave] = ($tentativi[$chiave] ?? 0) + 1;
                 if ($tentativi[$chiave] >= $max_tentativi) $falliti[$chiave] = true;
                 else $finito = false; // si ritenta alla prossima richiesta
@@ -227,9 +302,17 @@ function lanotte_corr_esegui_lotto($lotto, array $voci, $limite_s = 20, $max_ten
             update_option($lotto . '_gruppi_fatti', $fatti, false);
             update_option($lotto . '_tentativi', $tentativi, false);
             update_option($lotto . '_falliti', $falliti, false);
+            if ($bloccato) break;
         }
     } finally {
         kses_init();
+    }
+    if ($bloccato) {
+        // Un campo è rimasto in uno stato non verificato: il lotto si chiude subito con errori, senza altri tentativi.
+        update_option($lotto . '_riepilogo', ['voci' => count($voci), 'bloccato' => true, 'falliti' => array_keys($falliti),
+            'quando' => current_time('mysql')], false);
+        update_option($lotto, 'errori', false);
+        return;
     }
     if (!$finito) return; // si riprende (o si ritenta) alla prossima richiesta
     ksort($esiti);
