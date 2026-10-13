@@ -466,6 +466,7 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
 .lanotte-successione-calc-cta p{margin:0;line-height:1.6;color:#475569;font-size:14.5px}
 .lanotte-successione-calc-kicker{font-size:11px!important;text-transform:uppercase;letter-spacing:.1em;color:var(--gold)!important;font-weight:700}
 .lanotte-successione-calc-cta .btn{flex:0 0 auto;white-space:nowrap}
+.lanotte-successione-calc-actions{display:flex;flex-direction:column;gap:10px;flex:0 0 auto}
 @media(max-width:680px){.lanotte-successione-calc-cta{align-items:stretch;flex-direction:column}.lanotte-successione-calc-cta .btn{text-align:center;justify-content:center;width:100%}}
 
 /* === PAGINA SUCCESSIONI === */

@@ -14,6 +14,7 @@ function lanotte_calcolatori_map() {
         'contributo-unificato' => 'contributo-unificato.html',
         'danni-preesistenti'   => 'danni-preesistenti.html',
         'imposta-successione'  => 'imposta-successione.html',
+        'quote-ereditarie'     => 'quote-ereditarie.html',
         'interessi-legali'     => 'interessi-legali.html',
         'interessi-moratori'   => 'interessi-moratori.html',
         'istat-locazione'      => 'istat-locazione.html',
@@ -210,6 +211,17 @@ function lanotte_calcolatori_pages_data() {
                 ['Chi calcola e versa l\'imposta?', 'Dal 2025 l\'imposta è in autoliquidazione: si versa sulla base della dichiarazione, da presentare entro dodici mesi, salvo controlli dell\'Agenzia delle Entrate.'],
             ],
         ],
+        'quote-ereditarie' => [
+            'title' => 'Calcolo quote ereditarie e quota di legittima 2026 (gratuito)',
+            'keyword' => 'calcolo quote ereditarie',
+            'service' => 'Successioni ed eredità in tutta Italia',
+            'intro' => 'Il calcolatore indica chi eredita e in quale quota quando non c\'è testamento (successione legittima, artt. 565-586 c.c.) e quanto spetta comunque a coniuge, figli e ascendenti se c\'è un testamento (quota di legittima, artt. 536-548 c.c.). Considera la parte dell\'unione civile, la rappresentazione dei discendenti, i fratelli unilaterali e, se indicati, beni, debiti e donazioni.',
+            'faq' => [
+                ['Chi eredita se non c\'è testamento?', 'Il coniuge o la parte dell\'unione civile, i figli e i loro discendenti; in mancanza di figli, genitori e altri ascendenti, fratelli e sorelle; poi gli altri parenti fino al sesto grado e infine lo Stato (artt. 565-586 c.c.).'],
+                ['Quanto spetta di legittima ai figli?', 'Un figlio solo ha diritto alla metà del patrimonio, più figli insieme ai due terzi (art. 537 c.c.). Con il coniuge: un figlio e il coniuge un terzo ciascuno; con più figli, ai figli la metà e al coniuge un quarto (art. 542 c.c.).'],
+                ['I fratelli hanno diritto alla legittima?', 'No. Fratelli e sorelle ereditano solo senza testamento e in mancanza di figli: i legittimari sono il coniuge, i figli e, in mancanza di figli, gli ascendenti (artt. 536 e 538 c.c.).'],
+            ],
+        ],
         'mantenimento-istat' => [
             'title' => 'Calcolo rivalutazione ISTAT assegno di mantenimento 2026 (gratuito)',
             'keyword' => 'calcolo rivalutazione ISTAT assegno mantenimento',
@@ -367,10 +379,10 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'scadenze' => [
-            'title' => 'Calcolo scadenze processuali 2026 – sospensione feriale (gratuito)',
-            'keyword' => 'calcolo scadenze processuali',
+            'title' => 'Calcolo termini processuali 2026 – scadenze e sospensione feriale (gratuito)',
+            'keyword' => 'calcolo termini processuali',
             'service' => 'Processo civile',
-            'intro' => 'Il calcolatore aiuta a stimare termini processuali, giorni liberi, sospensione feriale e scadenze rilevanti. E uno strumento operativo utile, ma ogni termine va verificato sugli atti e sulla normativa applicabile.',
+            'intro' => 'Il calcolatore dei termini processuali stima le scadenze del processo civile (costituzione del convenuto, memorie dell\'art. 171-ter, conclusionali e repliche, appello, ricorso per cassazione, opposizione a decreto ingiuntivo) e del riesame penale, con sospensione feriale e proroga dei festivi. È uno strumento operativo utile, ma ogni termine va verificato sugli atti e sulla normativa applicabile.',
             'faq' => [
                 ['La sospensione feriale si applica sempre?', 'No, alcune materie e procedimenti sono esclusi.'],
                 ['Cosa sono i giorni liberi?', 'Sono termini in cui non si computano né il giorno iniziale né quello finale.'],
@@ -567,11 +579,12 @@ function lanotte_area_calcolatori_links($slug) {
         ],
         'famiglia-successioni' => [
             'imposta-successione' => 'Imposta di successione',
+            'quote-ereditarie' => 'Quote ereditarie e legittima',
             'mantenimento-orientativo' => 'Stima orientativa mantenimento figli',
             'mantenimento-istat' => 'Rivalutazione ISTAT mantenimento',
             'spese-straordinarie-figli' => 'Spese straordinarie figli',
             'stragiudiziale' => 'Mediazione e negoziazione assistita',
-            'scadenze' => 'Scadenze processuali',
+            'scadenze' => 'Termini processuali',
         ],
         'infortunistica-malasanita' => [
             'inail' => 'Indennizzo INAIL',
@@ -631,7 +644,8 @@ function lanotte_successione_calcolatore_cta() {
         . '<div><p class="lanotte-successione-calc-kicker">Strumento gratuito</p>'
         . '<h2>Calcolo delle imposte di successione</h2>'
         . '<p>Simulazione con attivo, passività, quota, parentela, franchigie, immobili e agevolazione prima casa. Il risultato è esclusivamente informativo e richiede una verifica professionale.</p></div>'
-        . '<a class="btn btn-primary" href="' . esc_url(lanotte_calcolatore_url('imposta-successione')) . '">Calcoli l’imposta</a>'
+        . '<div class="lanotte-successione-calc-actions"><a class="btn btn-primary" href="' . esc_url(lanotte_calcolatore_url('imposta-successione')) . '">Calcoli l’imposta</a>'
+        . '<a class="btn btn-ghost" href="' . esc_url(lanotte_calcolatore_url('quote-ereditarie')) . '">Calcoli le quote ereditarie</a></div>'
         . '</aside>';
 }
 

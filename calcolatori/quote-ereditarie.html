@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>Calcolo quote ereditarie e quota di legittima — Studio Legale LANOTTE &amp; Partners</title>
+<link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/quote-ereditarie/">
+<meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/quote-ereditarie/">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<section class="hero-internal">
+  <div class="container">
+    <div class="breadcrumbs"><a href="https://studiolegalelanotte.it/">Home</a><span>›</span><a href="https://studiolegalelanotte.it/calcolatori/">Calcolatori</a><span>›</span>Quote ereditarie e legittima</div>
+    <h1>Calcolo quote ereditarie e quota di legittima</h1>
+    <p class="subtitle">Chi eredita e in quale misura senza testamento (successione legittima) e quanto spetta comunque ai legittimari se c'è un testamento.</p>
+  </div>
+</section>
+
+<section style="background:#fef3c7;border-bottom:1px solid #f59e0b;padding:16px 0">
+  <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
+    <div style="font-size:24px;flex-shrink:0">!</div>
+    <div style="font-size:13.5px;color:#78350f;line-height:1.55">
+      <strong>Calcolo informativo.</strong> Applica le regole del codice civile (artt. 536-548 e 565-586) alla composizione della famiglia indicata. Testamento, donazioni, rinunce, indegnità, regime patrimoniale e beni all'estero possono cambiare il risultato: il caso concreto va verificato.
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container" style="max-width:1120px">
+    <div class="qe-grid">
+      <div class="qe-panel">
+        <h3>La famiglia della persona defunta</h3>
+
+        <div class="form-field">
+          <label for="qe-coniuge">1 · Coniuge o parte dell'unione civile</label>
+          <select id="qe-coniuge">
+            <option value="si">Sì, superstite</option>
+            <option value="no">No (non sposato, vedovo o divorziato)</option>
+            <option value="addebito">Separato con addebito (sentenza passata in giudicato)</option>
+          </select>
+          <p class="qe-help">Il coniuge separato senza addebito ha gli stessi diritti del coniuge non separato (artt. 548 e 585 c.c.). Il convivente di fatto non è erede.</p>
+        </div>
+
+        <div class="form-field">
+          <label for="qe-nfigli">2 · Figli (compresi gli adottivi)</label>
+          <input type="number" id="qe-nfigli" value="2" min="0" max="12" step="1">
+          <div id="qe-figli-righe"></div>
+          <p class="qe-help">Un figlio premorto senza discendenti non si conta. Se ha discendenti, questi subentrano al suo posto, anche quando il figlio rinuncia (rappresentazione, artt. 467-469 c.c.). Chi rinuncia senza discendenti è considerato come se non fosse mai stato chiamato (art. 521 c.c.) e non va inserito; l'effetto della rinuncia sulla quota di legittima va verificato caso per caso.</p>
+        </div>
+
+        <div class="form-field">
+          <label for="qe-genitori">3 · Genitori superstiti</label>
+          <select id="qe-genitori">
+            <option value="0">Nessuno</option>
+            <option value="1">Uno</option>
+            <option value="2">Entrambi</option>
+          </select>
+        </div>
+
+        <div class="form-field" id="qe-altri-asc-box">
+          <label for="qe-altri-asc">4 · Altri ascendenti (nonni), se non ci sono genitori</label>
+          <select id="qe-altri-asc">
+            <option value="no">No</option>
+            <option value="si">Sì</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>5 · Fratelli e sorelle</label>
+          <div class="qe-due">
+            <div><span class="qe-mini">dello stesso padre e della stessa madre (germani)</span><input type="number" id="qe-ngermani" value="0" min="0" max="12" step="1" aria-label="Fratelli e sorelle germani"></div>
+            <div><span class="qe-mini">di un solo genitore (unilaterali)</span><input type="number" id="qe-nunilaterali" value="0" min="0" max="12" step="1" aria-label="Fratelli e sorelle unilaterali"></div>
+          </div>
+          <div id="qe-fratelli-righe"></div>
+          <p class="qe-help">Contano solo senza figli. Per un fratello premorto o rinunciante valgono le stesse regole dei figli (rappresentazione dei suoi discendenti). Non sono legittimari: con un testamento possono non ricevere nulla.</p>
+        </div>
+
+        <h3 class="qe-sub">Valori (facoltativi)</h3>
+        <div class="qe-due">
+          <div class="form-field"><label for="qe-relitto">Beni lasciati (€)</label><input type="number" id="qe-relitto" value="" min="0" step="0.01" placeholder="es. 300000"></div>
+          <div class="form-field"><label for="qe-debiti">Debiti (€)</label><input type="number" id="qe-debiti" value="" min="0" step="0.01" placeholder="es. 20000"></div>
+        </div>
+        <div class="form-field"><label for="qe-donato">Donazioni fatte in vita (€)</label><input type="number" id="qe-donato" value="" min="0" step="0.01" placeholder="es. 50000">
+          <p class="qe-help">Per la legittima si calcola sull'asse formato dai beni lasciati, meno i debiti, più il valore delle donazioni (art. 556 c.c.).</p>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="calcolaQuoteEreditarie()">Calcoli le quote</button>
+      </div>
+
+      <div class="qe-result" aria-live="polite">
+        <div class="qe-kicker">Senza testamento</div>
+        <h3>Successione legittima</h3>
+        <table class="qe-tab"><thead><tr><th>Chi</th><th>Quota</th><th>%</th><th>€</th></tr></thead><tbody id="qe-legittima-righe"></tbody></table>
+        <p class="qe-norme" id="qe-legittima-norme"></p>
+
+        <div class="qe-kicker qe-kicker2">Con testamento</div>
+        <h3>Quote riservate (legittima)</h3>
+        <table class="qe-tab"><thead><tr><th>Chi</th><th>Quota</th><th>%</th><th>€</th></tr></thead><tbody id="qe-riserva-righe"></tbody></table>
+        <p class="qe-norme" id="qe-riserva-norme"></p>
+
+        <ul class="qe-avvisi" id="qe-avvisi"></ul>
+        <button type="button" class="btn btn-ghost qe-report" onclick="apriAnteprimaReport()">Anteprima del report</button>
+      </div>
+    </div>
+
+    <div class="qe-docs">
+      <div><strong>Successione legittima</strong><span>Si applica quando manca un testamento o quando il testamento non dispone di tutti i beni (art. 457 c.c.).</span></div>
+      <div><strong>Legittima</strong><span>Coniuge, figli e, in mancanza di figli, ascendenti hanno diritto a una quota anche contro il testamento e le donazioni (art. 536 c.c.).</span></div>
+      <div><strong>Diritto di abitazione</strong><span>Al coniuge spettano anche l'abitazione della casa familiare e l'uso dei mobili, se del defunto o comuni (art. 540, secondo comma, c.c.).</span></div>
+    </div>
+  </div>
+</section>
+
+<style>
+.qe-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;align-items:start}
+.qe-panel{background:#fff;border:1px solid var(--border);padding:28px}
+.qe-panel h3{margin-bottom:18px}
+.qe-sub{margin-top:26px}
+.qe-panel input,.qe-panel select{width:100%;padding:10px 12px;border:1px solid var(--border);background:#fff;font-family:inherit;font-size:14px;border-radius:2px}
+.qe-help{font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:6px}
+.qe-mini{display:block;font-size:12px;color:var(--text-muted);margin-bottom:4px}
+.qe-due{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.qe-riga{display:grid;grid-template-columns:auto 1fr 90px;gap:8px;align-items:center;margin-top:8px;font-size:13px}
+.qe-riga span{color:var(--navy);font-weight:600;white-space:nowrap}
+.qe-result{position:sticky;top:96px;background:linear-gradient(135deg,var(--navy),#1a2a4a);color:#fff;padding:30px;border-top:4px solid var(--gold)}
+.qe-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:6px}
+.qe-kicker2{margin-top:26px}
+.qe-result h3{color:#fff;line-height:1.25;margin-bottom:12px}
+.qe-tab{width:100%;border-collapse:collapse;font-size:13px}
+.qe-tab th{text-align:left;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);border-bottom:1px solid rgba(255,255,255,.2);padding:6px 4px}
+.qe-tab td{padding:7px 4px;border-bottom:1px solid rgba(255,255,255,.08);color:#e2e8f0;vertical-align:top}
+.qe-tab td:nth-child(n+2),.qe-tab th:nth-child(n+2){text-align:right;white-space:nowrap}
+.qe-tab tr.qe-disp td{color:var(--gold-light);font-weight:600}
+.qe-norme{font-size:11.5px;color:#cbd5e1;margin:8px 0 0;line-height:1.5}
+.qe-avvisi{margin:20px 0 16px;padding-left:18px;font-size:12.5px;color:#dbeafe;line-height:1.55}
+.qe-avvisi li{margin-bottom:6px}
+.qe-report{color:#fff;border-color:var(--gold)}
+.qe-docs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.qe-docs div{background:#fff;border:1px solid #e5e7eb;border-top:3px solid var(--gold);padding:18px}
+.qe-docs strong{display:block;color:var(--navy);margin-bottom:6px}.qe-docs span{font-size:13px;color:var(--text-muted);line-height:1.5}
+@media(max-width:860px){.qe-grid{grid-template-columns:1fr}.qe-result{position:static}.qe-docs{grid-template-columns:1fr}}
+</style>
+
+<script src="../assets/js/lanotte-preview.js"></script>
+<script>
+/* ---- Frazioni esatte (BigInt): le quote del codice civile non si arrotondano ---- */
+function qeGcd(a, b){ a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { const t = a % b; a = b; b = t; } return a; }
+function qeF(n, d){ n = BigInt(n); d = BigInt(d === undefined ? 1 : d); if (d < 0n) { n = -n; d = -d; } const g = qeGcd(n, d) || 1n; return {n: n / g, d: d / g}; }
+function qeAdd(a, b){ return qeF(a.n * b.d + b.n * a.d, a.d * b.d); }
+function qeSub(a, b){ return qeF(a.n * b.d - b.n * a.d, a.d * b.d); }
+function qeMul(a, b){ return qeF(a.n * b.n, a.d * b.d); }
+function qeCmp(a, b){ const x = a.n * b.d, y = b.n * a.d; return x < y ? -1 : (x > y ? 1 : 0); }
+function qeMax(a, b){ return qeCmp(a, b) >= 0 ? a : b; }
+function qeTxt(f){ return f.d === 1n ? String(f.n) : f.n + '/' + f.d; }
+function qeNum(f){ return Number(f.n) / Number(f.d); }
+
+/* Ripartisce una quota fra le stirpi (figli o fratelli) e, dentro una stirpe rappresentata, fra i discendenti (art. 469 c.c.). */
+function qeStirpi(stirpi, totale, nome, pesi){
+  const out = [];
+  if (!stirpi.length) return out;
+  const pesoTot = stirpi.reduce((s, x) => s + (pesi ? pesi(x) : 1), 0);
+  stirpi.forEach((x, i) => {
+    const q = qeMul(totale, qeF(pesi ? pesi(x) : 1, pesoTot));
+    const nomeStirpe = nome(x, i);
+    if (x.rapp && x.discendenti > 0) {
+      const ciascuno = qeMul(q, qeF(1, x.discendenti));
+      for (let k = 1; k <= x.discendenti; k++) out.push({chi: nomeStirpe + ' · discendente ' + k + ' di ' + x.discendenti, q: ciascuno});
+    } else {
+      out.push({chi: nomeStirpe, q: q});
+    }
+  });
+  return out;
+}
+const qePesoFratello = x => x.tipo === 'unilaterale' ? 1 : 2; // art. 570, secondo comma, e art. 571 c.c.
+const qeNomeFiglio = (x, i) => 'Figlio ' + (i + 1) + (x.rapp ? ' (rappresentato)' : '');
+const qeNomeFratello = (x, i) => (x.tipo === 'unilaterale' ? 'Fratello/sorella unilaterale ' : 'Fratello/sorella germano ') + (i + 1) + (x.rapp ? ' (rappresentato)' : '');
+
+function qeAscendenti(d, quota){
+  // Genitori in parti uguali (art. 568); in mancanza, gli altri ascendenti per linee o di grado più vicino (art. 569).
+  if (d.genitori === 2) return [{chi: 'Genitore 1', q: qeMul(quota, qeF(1, 2))}, {chi: 'Genitore 2', q: qeMul(quota, qeF(1, 2))}];
+  if (d.genitori === 1) return [{chi: 'Genitore', q: quota}];
+  if (d.altriAscendenti) return [{chi: 'Altri ascendenti (da ripartire per linee, art. 569 c.c.)', q: quota}];
+  return [];
+}
+
+/* Successione legittima: quote sull'intera eredità. */
+function qeSuccessione(d){
+  const coniuge = d.coniuge === 'si';
+  const figli = d.figli || [], fratelli = d.fratelli || [];
+  const asc = d.genitori > 0 || d.altriAscendenti;
+  const out = {quote: [], norme: [], residuale: ''};
+  if (figli.length) {
+    let restoFigli = qeF(1);
+    if (coniuge) {
+      const qc = figli.length === 1 ? qeF(1, 2) : qeF(1, 3);
+      out.quote.push({chi: 'Coniuge', q: qc});
+      restoFigli = qeSub(qeF(1), qc);
+      out.norme.push('art. 581 c.c.');
+    } else out.norme.push('art. 566 c.c.');
+    out.quote = out.quote.concat(qeStirpi(figli, restoFigli, qeNomeFiglio));
+    if (figli.some(x => x.rapp)) out.norme.push('artt. 467-469 c.c.');
+    return out;
+  }
+  if (coniuge) {
+    if (!asc && !fratelli.length) { out.quote.push({chi: 'Coniuge', q: qeF(1)}); out.norme.push('art. 583 c.c.'); return out; }
+    out.quote.push({chi: 'Coniuge', q: qeF(2, 3)});
+    out.norme.push('art. 582 c.c.');
+    const resto = qeF(1, 3);
+    if (!fratelli.length) { out.quote = out.quote.concat(qeAscendenti(d, resto)); return out; }
+    if (!asc) { out.quote = out.quote.concat(qeStirpi(fratelli, resto, qeNomeFratello, qePesoFratello)); return out; }
+    // Ascendenti e fratelli sul terzo residuo secondo l'art. 571, salvo agli ascendenti un quarto dell'eredità (art. 582).
+    const qa = qeMax(qeQuotaGenitori571(d, fratelli, resto), qeF(1, 4));
+    out.quote = out.quote.concat(qeAscendenti(d, qa), qeStirpi(fratelli, qeSub(resto, qa), qeNomeFratello, qePesoFratello));
+    out.norme.push('art. 571 c.c.');
+    return out;
+  }
+  if (asc && fratelli.length) {
+    const qa = qeQuotaGenitori571(d, fratelli, qeF(1));
+    out.quote = qeAscendenti(d, qa).concat(qeStirpi(fratelli, qeSub(qeF(1), qa), qeNomeFratello, qePesoFratello));
+    out.norme.push('art. 571 c.c.');
+    return out;
+  }
+  if (asc) { out.quote = qeAscendenti(d, qeF(1)); out.norme.push(d.genitori > 0 ? 'art. 568 c.c.' : 'art. 569 c.c.'); return out; }
+  if (fratelli.length) { out.quote = qeStirpi(fratelli, qeF(1), qeNomeFratello, qePesoFratello); out.norme.push('art. 570 c.c.'); return out; }
+  out.residuale = 'Senza coniuge, figli, ascendenti e fratelli, l’eredità va ai parenti più prossimi entro il sesto grado senza distinzione di linea (art. 572 c.c.); in mancanza, allo Stato (art. 586 c.c.).';
+  return out;
+}
+
+/* Art. 571: genitori (o, in loro mancanza, gli altri ascendenti per la quota di un genitore) e fratelli per capi,
+   gli unilaterali per metà; ai genitori comunque almeno la metà di ciò che si divide. */
+function qeQuotaGenitori571(d, fratelli, totale){
+  const g = d.genitori > 0 ? d.genitori : 1;
+  const pesoF = fratelli.reduce((s, x) => s + qePesoFratello(x), 0);
+  const quota = qeMul(totale, qeF(2 * g, 2 * g + pesoF));
+  return qeMax(quota, qeMul(totale, qeF(1, 2)));
+}
+
+/* Quote riservate ai legittimari e disponibile. */
+function qeRiserva(d){
+  const coniuge = d.coniuge === 'si';
+  const figli = d.figli || [];
+  const asc = d.genitori > 0 || d.altriAscendenti;
+  const out = {quote: [], norme: [], disponibile: qeF(1)};
+  if (figli.length) {
+    let qf;
+    if (coniuge) {
+      const qc = figli.length === 1 ? qeF(1, 3) : qeF(1, 4);
+      qf = figli.length === 1 ? qeF(1, 3) : qeF(1, 2);
+      out.quote.push({chi: 'Coniuge', q: qc});
+      out.norme.push('art. 542 c.c.');
+    } else {
+      qf = figli.length === 1 ? qeF(1, 2) : qeF(2, 3);
+      out.norme.push('art. 537 c.c.');
+    }
+    out.quote = out.quote.concat(qeStirpi(figli, qf, qeNomeFiglio));
+    if (figli.some(x => x.rapp)) out.norme.push('art. 536, terzo comma, c.c.');
+  } else if (coniuge && asc) {
+    out.quote.push({chi: 'Coniuge', q: qeF(1, 2)});
+    out.quote = out.quote.concat(qeAscendenti(d, qeF(1, 4)));
+    out.norme.push('art. 544 c.c.');
+  } else if (coniuge) {
+    out.quote.push({chi: 'Coniuge', q: qeF(1, 2)});
+    out.norme.push('art. 540 c.c.');
+  } else if (asc) {
+    out.quote = qeAscendenti(d, qeF(1, 3));
+    out.norme.push('art. 538 c.c.');
+  }
+  out.disponibile = out.quote.reduce((r, x) => qeSub(r, x.q), qeF(1));
+  return out;
+}
+
+/* ---- Interfaccia ---- */
+function qeVal(id){ const v = String(document.getElementById(id).value || '').replace(',', '.'); const n = parseFloat(v); return isFinite(n) && n > 0 ? n : 0; }
+function qeInt(id, max){ const n = parseInt(document.getElementById(id).value || '0', 10); return Math.min(max, Math.max(0, isFinite(n) ? n : 0)); }
+function qeEuro(v){ return new Intl.NumberFormat('it-IT', {style: 'currency', currency: 'EUR'}).format(v); }
+function qePerc(f){ return (qeNum(f) * 100).toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '%'; }
+function qeElenco(norme){ const t = norme.join('; '); return /\.$/.test(t) ? t : t + '.'; }
+function qeEsc(s){ return String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c])); }
+
+function qeRighe(contenitore, n, prefisso, tipo){
+  const box = document.getElementById(contenitore);
+  const vecchie = Array.from(box.querySelectorAll('.qe-riga')).map(r => ({rapp: r.querySelector('select').value, disc: r.querySelector('input').value}));
+  box.innerHTML = '';
+  for (let i = 0; i < n; i++) {
+    const r = document.createElement('div');
+    r.className = 'qe-riga';
+    const prec = vecchie[i] || {rapp: 'vivente', disc: '2'};
+    r.innerHTML = '<span>' + qeEsc(prefisso + ' ' + (i + 1)) + '</span>'
+      + '<select aria-label="' + qeEsc(prefisso + ' ' + (i + 1)) + '"><option value="vivente">vivente / accetta</option><option value="rapp">premorto o rinunciante, con discendenti</option></select>'
+      + '<input type="number" min="1" max="12" step="1" value="' + qeEsc(prec.disc) + '" aria-label="Numero dei discendenti">';
+    if (tipo) r.dataset.tipo = tipo;
+    r.querySelector('select').value = prec.rapp;
+    box.appendChild(r);
+  }
+}
+function qeLeggiStirpi(contenitore){
+  return Array.from(document.getElementById(contenitore).querySelectorAll('.qe-riga')).map(r => {
+    const rapp = r.querySelector('select').value === 'rapp';
+    const disc = Math.min(12, Math.max(1, parseInt(r.querySelector('input').value || '1', 10) || 1));
+    r.querySelector('input').style.visibility = rapp ? 'visible' : 'hidden';
+    return {rapp: rapp, discendenti: rapp ? disc : 0, tipo: r.dataset.tipo || ''};
+  });
+}
+function qeDati(){
+  return {
+    coniuge: document.getElementById('qe-coniuge').value,
+    figli: qeLeggiStirpi('qe-figli-righe'),
+    genitori: parseInt(document.getElementById('qe-genitori').value, 10),
+    altriAscendenti: document.getElementById('qe-genitori').value === '0' && document.getElementById('qe-altri-asc').value === 'si',
+    fratelli: qeLeggiStirpi('qe-fratelli-righe')
+  };
+}
+function qeTabella(id, quote, base, disponibile){
+  const righe = quote.map(x => '<tr><td>' + qeEsc(x.chi) + '</td><td>' + qeTxt(x.q) + '</td><td>' + qePerc(x.q) + '</td><td>' + (base > 0 ? qeEuro(base * qeNum(x.q)) : '—') + '</td></tr>');
+  if (disponibile) righe.push('<tr class="qe-disp"><td>Quota disponibile</td><td>' + qeTxt(disponibile) + '</td><td>' + qePerc(disponibile) + '</td><td>' + (base > 0 ? qeEuro(base * qeNum(disponibile)) : '—') + '</td></tr>');
+  document.getElementById(id).innerHTML = righe.join('') || '<tr><td colspan="4">—</td></tr>';
+}
+let qeUltimo = null;
+function calcolaQuoteEreditarie(){
+  const nf = qeInt('qe-nfigli', 12), ng = qeInt('qe-ngermani', 12), nu = qeInt('qe-nunilaterali', 12);
+  if (document.querySelectorAll('#qe-figli-righe .qe-riga').length !== nf) qeRighe('qe-figli-righe', nf, 'Figlio');
+  const fr = document.getElementById('qe-fratelli-righe');
+  const gAtt = fr.querySelectorAll('.qe-riga[data-tipo="germano"]').length, uAtt = fr.querySelectorAll('.qe-riga[data-tipo="unilaterale"]').length;
+  if (gAtt !== ng || uAtt !== nu) {
+    fr.innerHTML = '';
+    const tmp = document.createElement('div'); tmp.id = 'qe-tmp-g'; fr.appendChild(tmp);
+    qeRighe('qe-tmp-g', ng, 'Germano', 'germano');
+    const tmp2 = document.createElement('div'); tmp2.id = 'qe-tmp-u'; fr.appendChild(tmp2);
+    qeRighe('qe-tmp-u', nu, 'Unilaterale', 'unilaterale');
+  }
+  document.getElementById('qe-altri-asc-box').style.display = document.getElementById('qe-genitori').value === '0' ? 'block' : 'none';
+
+  const d = qeDati();
+  const relitto = qeVal('qe-relitto'), debiti = qeVal('qe-debiti'), donato = qeVal('qe-donato');
+  const netto = relitto - debiti, asse = relitto - debiti + donato;
+  const s = qeSuccessione(d), r = qeRiserva(d);
+
+  qeTabella('qe-legittima-righe', s.quote, netto > 0 ? netto : 0, null);
+  document.getElementById('qe-legittima-norme').textContent = s.residuale || ('Norme applicate: ' + qeElenco(s.norme) + (netto > 0 ? ' Importi sui beni lasciati al netto dei debiti.' : ''));
+  qeTabella('qe-riserva-righe', r.quote, asse > 0 ? asse : 0, r.disponibile);
+  document.getElementById('qe-riserva-norme').textContent = r.quote.length
+    ? 'Norme applicate: ' + qeElenco(r.norme) + (asse > 0 ? ' Importi sull’asse di riunione fittizia (art. 556 c.c.).' : '')
+    : 'Nessun legittimario: con un testamento la persona poteva disporre di tutto il patrimonio. Fratelli e sorelle non sono legittimari.';
+
+  const avvisi = [];
+  if (d.coniuge === 'addebito') avvisi.push('Il coniuge separato con addebito non è erede e non è legittimario: ha diritto solo a un assegno vitalizio se al momento della morte riceveva gli alimenti (artt. 548, secondo comma, e 585 c.c.).');
+  if (d.coniuge === 'si') avvisi.push('Al coniuge spettano inoltre il diritto di abitazione sulla casa familiare e di uso dei mobili, se del defunto o comuni (art. 540, secondo comma, c.c.): gravano prima sulla disponibile.');
+  if (d.figli.length && (d.genitori > 0 || d.fratelli.length)) avvisi.push('Con i figli, genitori e fratelli non ereditano per legge.');
+  if (d.figli.concat(d.fratelli).some(x => x.rapp && x.discendenti > 1)) avvisi.push('Per i rappresentati il calcolo divide in parti uguali fra discendenti dello stesso ramo; con rami diversi si divide per stirpi anche all’interno (art. 469, quarto comma, c.c.).');
+  if (relitto > 0 && netto <= 0) avvisi.push('I debiti superano i beni lasciati: valuti l’accettazione con beneficio d’inventario o la rinuncia prima di compiere atti da erede.');
+  if (donato > 0 && (d.figli.length || d.coniuge === 'si')) avvisi.push('Figli, loro discendenti e coniuge che concorrono alla successione devono conferire ai coeredi ciò che hanno ricevuto in donazione, salvo dispensa del defunto, efficace solo nei limiti della disponibile (collazione, art. 737 c.c.): il calcolo non ne tiene conto.');
+  document.getElementById('qe-avvisi').innerHTML = avvisi.map(a => '<li>' + qeEsc(a) + '</li>').join('');
+  qeUltimo = {d: d, s: s, r: r, netto: netto, asse: asse, avvisi: avvisi};
+}
+function apriAnteprimaReport(){
+  calcolaQuoteEreditarie();
+  const u = qeUltimo, rows = [];
+  rows.push(['Coniuge o unione civile', document.getElementById('qe-coniuge').selectedOptions[0].textContent]);
+  rows.push(['Figli (stirpi)', String(u.d.figli.length)]);
+  rows.push(['Genitori superstiti', String(u.d.genitori)]);
+  rows.push(['Fratelli e sorelle', u.d.fratelli.length ? u.d.fratelli.length + ' (' + u.d.fratelli.filter(x => x.tipo === 'unilaterale').length + ' unilaterali)' : '0']);
+  u.s.quote.forEach(x => rows.push(['Senza testamento · ' + x.chi, qeTxt(x.q) + ' (' + qePerc(x.q) + ')' + (u.netto > 0 ? ' · ' + qeEuro(u.netto * qeNum(x.q)) : '')]));
+  if (u.s.residuale) rows.push(['Senza testamento', u.s.residuale]);
+  u.r.quote.forEach(x => rows.push(['Legittima · ' + x.chi, qeTxt(x.q) + ' (' + qePerc(x.q) + ')' + (u.asse > 0 ? ' · ' + qeEuro(u.asse * qeNum(x.q)) : '')]));
+  LanottePreview.openSummary({
+    title: 'Quote ereditarie e quota di legittima',
+    subtitle: 'Successione legittima e quote riservate',
+    rows: rows,
+    totalLabel: 'Quota disponibile con testamento',
+    total: qeTxt(u.r.disponibile) + ' (' + qePerc(u.r.disponibile) + ')' + (u.asse > 0 ? ' · ' + qeEuro(u.asse * qeNum(u.r.disponibile)) : ''),
+    notes: 'Calcolo informativo secondo gli artt. 536-548 e 565-586 c.c. ' + u.avvisi.join(' ') + ' Testamento, donazioni, rinunce e regime patrimoniale vanno verificati sul caso concreto.'
+  });
+}
+['qe-coniuge','qe-nfigli','qe-genitori','qe-altri-asc','qe-ngermani','qe-nunilaterali','qe-relitto','qe-debiti','qe-donato'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', calcolaQuoteEreditarie);
+  el.addEventListener('change', calcolaQuoteEreditarie);
+});
+['qe-figli-righe','qe-fratelli-righe'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', calcolaQuoteEreditarie);
+  el.addEventListener('change', calcolaQuoteEreditarie);
+});
+calcolaQuoteEreditarie();
+</script>
+</body>
+</html>
