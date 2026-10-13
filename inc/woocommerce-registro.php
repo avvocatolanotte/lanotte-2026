@@ -22,6 +22,8 @@ if (!defined('ABSPATH')) exit;
 
 /** Forme al «tu» che, se restano dopo la conversione, rendono la frase mista. */
 function lanotte_woo_residuo_tu($t) {
+    // i segnaposti si attaccano alle parole («%1$sAggiorna Totale%2$s»): si neutralizzano prima
+    $t = preg_replace('/%(\d+\$)?[sd]/u', ' ', $t);
     return (bool) preg_match('/\b(inserisci|seleziona|scegli|clicca|premi|digita|controlla|assicurati|riprova|accedi|'
         . 'registrati|procedi|continua|torna|aggiungi|aggiorna|applica|effettua|completa|crea|ricorda|visualizza|'
         . 'vedi|leggi|usa|utilizza|imposta|elimina|rimuovi|svuota|paga|ordina|contatta|contattaci|scrivici|fai|'
@@ -83,6 +85,7 @@ function lanotte_woo_lei($t) {
     // Seconda persona dentro la frase: pronomi, verbi e possessivi (con l'iniziale maiuscola, come nel
     // resto del sito: «il Suo caso»).
     static $dentro = [
+        '/%1\$sAggiorna Totale%2\$s/u'  => '%1$sAggiorni il totale%2$s',   // nome del pulsante, come la sua etichetta
         '/\bassicurati\b/u'              => 'si assicuri',
         '/\bti venga\b/u'                => 'Le venga',
         '/\bti preghiamo\b/u'            => 'La preghiamo',
