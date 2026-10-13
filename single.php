@@ -108,7 +108,7 @@ $content_starts_with_img = (bool) preg_match('/^\s*<(figure|img|p[^>]*>\s*<img)/
 <section class="related-articles" style="background:var(--cream);padding:60px 0">
   <div class="container">
     <div style="text-align:center;margin-bottom:32px">
-      <div class="section-eyebrow">Continua a leggere</div>
+      <div class="section-eyebrow">Per approfondire</div>
       <h2 style="font-family:var(--serif);font-size:clamp(24px,3vw,32px);color:var(--navy);font-weight:600;margin:8px 0 0">Altri articoli</h2>
     </div>
     <div class="blog-grid">

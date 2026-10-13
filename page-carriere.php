@@ -41,7 +41,7 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
           <ul>
             <li>✓ Iscrizione Albo Avvocati</li>
             <li>✓ Padronanza scrittura forense</li>
-            <li>✓ Specializzazione in 1-2 aree</li>
+            <li>✓ Esperienza prevalente in 1-2 aree</li>
             <li>✓ Disponibilità a udienze in BAT/Bari</li>
             <li>✓ Inglese giuridico (gradito)</li>
           </ul>

@@ -50,7 +50,7 @@ function lanotte_seo_map() {
         ],
         'calcolatori' => [
             't' => 'Calcolatori Giuridici Gratuiti · Avvocato Barletta | ' . $brand,
-            'd' => '23 calcolatori giuridici gratuiti: mantenimento, danni, interessi, scadenze, parcelle, successioni e contributo unificato. Studio Legale LANOTTE.',
+            'd' => 'Calcolatori giuridici gratuiti: mantenimento, danni, interessi, scadenze, parcelle, successioni e contributo unificato. Studio Legale LANOTTE.',
         ],
         'servizi-online' => [
             't' => 'Servizi Legali Online e Preventivo Scritto | ' . $brand,

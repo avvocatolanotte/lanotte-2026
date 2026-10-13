@@ -47,7 +47,7 @@ $area_name = ($aree && !is_wp_error($aree)) ? $aree[0]->name : '';
       <p>Ogni caso reale è diverso. Ci descriva il Suo: Le diremo se e come possiamo assisterLa, con preventivo scritto (art. 13 L. 247/2012).</p>
     </div>
     <div class="ctastrip-actions">
-      <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-gold">Scrivi allo Studio</a>
+      <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-gold">Scriva allo Studio</a>
       <a href="<?php echo esc_url(lanotte_whatsapp_url()); ?>" class="btn btn-ghost" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
@@ -58,7 +58,7 @@ $area_name = ($aree && !is_wp_error($aree)) ? $aree[0]->name : '';
   <div class="container">
     <div style="text-align:center;margin-bottom:28px">
       <div class="section-eyebrow">Altri scenari illustrativi</div>
-      <h2 style="font-family:var(--serif);font-size:26px;color:var(--navy);margin:6px 0 0">Continua a leggere</h2>
+      <h2 style="font-family:var(--serif);font-size:26px;color:var(--navy);margin:6px 0 0">Altri casi studio</h2>
     </div>
     <div class="blog-grid">
       <?php

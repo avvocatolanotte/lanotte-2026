@@ -114,26 +114,26 @@ $privacy_url = $privacy_url ?: home_url('/privacy/');
       <div class="divider-dot"></div>
       <div class="section-eyebrow">Archivio numeri</div>
       <h2>Le edizioni precedenti</h2>
-      <p>Anche se non sei iscritto puoi leggere i numeri pubblicati nei mesi scorsi.</p>
+      <p>Anche senza iscrizione può leggere i numeri pubblicati nei mesi scorsi.</p>
     </div>
     <div class="nl-arch-grid">
       <a href="#" class="nl-arch-card">
         <div class="nl-arch-meta">N° 5 · Maggio 2026</div>
         <h4>Riforma del processo penale: cosa cambia con la nuova "Cartabia bis"</h4>
         <p>Le modifiche introdotte dal DL marzo 2026 sui riti speciali e sull'improcedibilità in appello.</p>
-        <span class="nl-arch-link">Leggi il numero →</span>
+        <span class="nl-arch-link">Il numero completo →</span>
       </a>
       <a href="#" class="nl-arch-card">
         <div class="nl-arch-meta">N° 4 · Aprile 2026</div>
-        <h4>Affidamento condiviso: 3 sentenze della Cassazione che devi conoscere</h4>
+        <h4>Affidamento condiviso: 3 sentenze della Cassazione da conoscere</h4>
         <p>Quando il giudice deroga al principio di bigenitorialità e perché il conflitto da solo non basta.</p>
-        <span class="nl-arch-link">Leggi il numero →</span>
+        <span class="nl-arch-link">Il numero completo →</span>
       </a>
       <a href="#" class="nl-arch-card">
         <div class="nl-arch-meta">N° 3 · Marzo 2026</div>
         <h4>Definizione agevolata 2026: chi può aderire e con quale risparmio</h4>
         <p>Tabelle comparative e simulazione di risparmio per importi tipici.</p>
-        <span class="nl-arch-link">Leggi il numero →</span>
+        <span class="nl-arch-link">Il numero completo →</span>
       </a>
     </div>
   </div>

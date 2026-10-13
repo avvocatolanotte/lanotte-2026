@@ -143,7 +143,7 @@ get_header();
         <h3><?php echo esc_html($s['nome']); ?></h3>
         <p><?php echo esc_html($s['desc']); ?></p>
         <ul class="srv-feat"><?php foreach ($s['feat'] as $f): ?><li><?php echo wp_kses_post($f); ?></li><?php endforeach; ?></ul>
-        <button class="btn srv-add" type="button">Aggiungi alla richiesta</button>
+        <button class="btn srv-add" type="button">Aggiunga alla richiesta</button>
       </article>
       <?php endforeach; ?>
     </div>
@@ -153,7 +153,7 @@ get_header();
 <div id="srvCartWidget" class="cart-widget" style="display:none">
   <div class="cart-widget-head"><strong>Richiesta in preparazione</strong><button id="cwClose" aria-label="Chiudi">&times;</button></div>
   <ul id="cwList"></ul>
-  <a href="<?php echo esc_url(home_url('/carrello/')); ?>" class="btn btn-primary cart-widget-cta">Procedi alla richiesta →</a>
+  <a href="<?php echo esc_url(home_url('/carrello/')); ?>" class="btn btn-primary cart-widget-cta">Prosegua con la richiesta →</a>
 </div>
 
 <section class="block">
@@ -205,7 +205,7 @@ get_header();
   function add(sku,name){const c=g();if(c.find(i=>i.sku===sku))return;c.push({sku,name,addedAt:Date.now()});s(c);}
   function rem(sku){s(g().filter(i=>i.sku!==sku));}
   function rc(){const n=g().length;document.querySelectorAll('[data-cart-count]').forEach(el=>{el.textContent=n;el.setAttribute('data-cart-count',n);});}
-  function rs(){const c=g();document.querySelectorAll('.srv-card').forEach(card=>{const sku=card.dataset.sku,ic=c.some(i=>i.sku===sku);card.classList.toggle('is-added',ic);const b=card.querySelector('.srv-add');if(ic){b.classList.add('added');b.innerHTML='✓ Aggiunto alla richiesta';}else{b.classList.remove('added');b.innerHTML='Aggiungi alla richiesta';}});}
+  function rs(){const c=g();document.querySelectorAll('.srv-card').forEach(card=>{const sku=card.dataset.sku,ic=c.some(i=>i.sku===sku);card.classList.toggle('is-added',ic);const b=card.querySelector('.srv-add');if(ic){b.classList.add('added');b.innerHTML='✓ Aggiunto alla richiesta';}else{b.classList.remove('added');b.innerHTML='Aggiunga alla richiesta';}});}
   function rw(){const w=document.getElementById('srvCartWidget');if(!w)return;const c=g(),l=document.getElementById('cwList');if(c.length===0){w.style.display='none';return;}w.style.display='block';l.innerHTML=c.map(i=>`<li><span>${i.name}</span><button data-rm="${i.sku}">×</button></li>`).join('');l.querySelectorAll('button[data-rm]').forEach(b=>b.onclick=()=>rem(b.dataset.rm));}
   document.querySelectorAll('.srv-filter').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.srv-filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');const f=b.dataset.filter;document.querySelectorAll('.srv-card').forEach(c=>{c.style.display=(f==='all'||c.dataset.cat===f)?'flex':'none';});}));
   document.querySelectorAll('.srv-card').forEach(card=>card.querySelector('.srv-add').addEventListener('click',()=>{const sku=card.dataset.sku,nm=card.dataset.name;if(g().some(i=>i.sku===sku))rem(sku);else add(sku,nm);}));

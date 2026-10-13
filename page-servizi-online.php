@@ -127,7 +127,7 @@ $icon_colors = [
         <div class="srv-prezzo"><?php echo esc_html($prezzo); ?> <small style="display:block;font-size:11px;color:#94a3b8;font-weight:400;margin-top:2px">Orientativo — preventivo personalizzato ex L. 247/2012</small></div>
         <?php endif; ?>
         <?php if ($area_id): $area_link = get_permalink($area_id); ?>
-        <a href="<?php echo esc_url($area_link); ?>" class="srv-area-link">Vedi area di pratica →</a>
+        <a href="<?php echo esc_url($area_link); ?>" class="srv-area-link">L’area di attività →</a>
         <?php endif; ?>
         <button class="btn srv-add" type="button">Aggiungi alla richiesta
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -148,7 +148,7 @@ $icon_colors = [
 <div id="srvCartWidget" class="cart-widget" style="display:none">
   <div class="cart-widget-head"><strong>Richiesta in preparazione</strong><button id="cwClose" aria-label="Chiudi">&times;</button></div>
   <ul id="cwList"></ul>
-  <a href="<?php echo esc_url(home_url('/carrello/')); ?>" class="btn btn-primary cart-widget-cta">Procedi alla richiesta →</a>
+  <a href="<?php echo esc_url(home_url('/carrello/')); ?>" class="btn btn-primary cart-widget-cta">Prosegua con la richiesta →</a>
 </div>
 
 <style>

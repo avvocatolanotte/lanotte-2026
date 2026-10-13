@@ -29,13 +29,13 @@ get_header();
         <div class="quote-block">
           <div class="quote-block-head">
             <h2>Servizi selezionati <span id="cartCountLabel">(0)</span></h2>
-            <a href="<?php echo esc_url((get_permalink(get_page_by_path('onorari')) ?: home_url('/onorari/')) . '#servizi-online'); ?>" class="quote-link-back">Aggiungi altri servizi</a>
+            <a href="<?php echo esc_url((get_permalink(get_page_by_path('onorari')) ?: home_url('/onorari/')) . '#servizi-online'); ?>" class="quote-link-back">Aggiunga altri servizi</a>
           </div>
           <ul id="cartItems" class="quote-items"></ul>
           <div id="cartEmpty" class="quote-empty" style="display:none">
             <h3>Nessun servizio selezionato</h3>
-            <p>Sfoglia il catalogo e aggiunga i servizi di interesse alla richiesta.</p>
-            <a href="<?php echo esc_url((get_permalink(get_page_by_path('onorari')) ?: home_url('/onorari/')) . '#servizi-online'); ?>" class="btn btn-primary">Vai ai servizi online</a>
+            <p>Sfogli il catalogo e aggiunga i servizi di interesse alla richiesta.</p>
+            <a href="<?php echo esc_url((get_permalink(get_page_by_path('onorari')) ?: home_url('/onorari/')) . '#servizi-online'); ?>" class="btn btn-primary">I servizi online</a>
           </div>
         </div>
 
@@ -52,7 +52,7 @@ get_header();
             </div>
             <label>Sono *
               <select name="qualifica" required>
-                <option value="">Seleziona</option>
+                <option value="">Scelga un’opzione</option>
                 <option>Privato cittadino</option>
                 <option>Impresa / Professionista</option>
                 <option>Associazione / ETS / No Profit</option>

@@ -175,9 +175,9 @@
         <div class="lpv-top"><h3>Anteprima report</h3><button type="button" class="lpv-close" aria-label="Chiudi">×</button></div>
         <div class="lpv-body">${markup}</div>
         <div class="lpv-actions">
-          <button type="button" data-action="close">Torna al calcolo</button>
+          <button type="button" data-action="close">Ritorno al calcolo</button>
           <button type="button" data-action="print">Stampa</button>
-          <button type="button" class="primary" data-action="pdf">Scarica PDF</button>
+          <button type="button" class="primary" data-action="pdf">Scarichi il PDF</button>
         </div>
       </div>
     `;

@@ -60,7 +60,7 @@ get_header();
       <p>Ogni caso reale è diverso. Ci descriva il Suo: Le diremo se e come possiamo assisterLa, con preventivo scritto (art. 13 L. 247/2012).</p>
     </div>
     <div class="ctastrip-actions">
-      <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-gold">Scrivi allo Studio</a>
+      <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-gold">Scriva allo Studio</a>
       <a href="<?php echo esc_url(lanotte_whatsapp_url()); ?>" class="btn btn-ghost" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>

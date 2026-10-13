@@ -23,7 +23,7 @@
       <details class="lp-panel">
         <summary>
           <span>⚙️ Mancano valori ISTAT recenti? Li aggiorni manualmente</span>
-          <span class="lp-summary-cta">apri pannello ›</span>
+          <span class="lp-summary-cta">pannello ›</span>
         </summary>
         <div class="lp-body">
           <p class="lp-help">
@@ -37,8 +37,8 @@
             <label>Valore FOI pubblicato (dal 2026 base 2025=100)<input type="number" class="lp-valore" step="0.1" min="50" max="200" placeholder="Es. 103,7"></label>
           </div>
           <div class="lp-actions">
-            <button type="button" class="btn btn-primary lp-save">Salva nel browser</button>
-            <button type="button" class="btn btn-ghost lp-list">Vedi valori salvati</button>
+            <button type="button" class="btn btn-primary lp-save">Salvi nel browser</button>
+            <button type="button" class="btn btn-ghost lp-list">Valori salvati</button>
           </div>
           <div class="lp-listbox" style="display:none"></div>
           <div class="lp-msg"></div>

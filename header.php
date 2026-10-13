@@ -198,7 +198,7 @@ html,body{overflow-x:clip}
       </a>
       <?php $cta_url = lanotte_acf_option('cta_principale_url', get_permalink(get_page_by_path('contatti'))); ?>
       <a href="<?php echo esc_url($cta_url ?: '#'); ?>" class="btn btn-primary cta-desktop">Richieda una consulenza</a>
-      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Apri menu" type="button" style="display:none;background:none;border:1px solid #e5e7eb;border-radius:6px;padding:8px;cursor:pointer;color:#1d2c4a">
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu di navigazione" type="button" style="display:none;background:none;border:1px solid #e5e7eb;border-radius:6px;padding:8px;cursor:pointer;color:#1d2c4a">
         <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
       </button>
     </div>
@@ -250,7 +250,7 @@ html,body{overflow-x:clip}
           <li><a href="<?php echo esc_url(home_url('/calcolatori/timeline-marchio/')); ?>">™ Timeline Marchio</a></li>
           <li><a href="<?php echo esc_url(home_url('/calcolatori/costi-marchio/')); ?>">® Costi del marchio</a></li>
         </ul>
-        <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-allbtn">Vedi tutti i 24 strumenti <span aria-hidden="true">→</span></a>
+        <a href="<?php echo esc_url(get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/')); ?>" class="nav-mega-allbtn">Tutti i calcolatori <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -298,7 +298,7 @@ html,body{overflow-x:clip}
           <li><a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>">📰 Rassegna giuridica</a></li>
           <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('onorari')) . '#servizi-online'); ?>">🛒 Servizi online</a></li>
         </ul>
-        <a href="<?php echo esc_url(get_post_type_archive_link('area')); ?>" class="nav-mega-allbtn">Vedi tutte le 13 aree <span aria-hidden="true">→</span></a>
+        <a href="<?php echo esc_url(get_post_type_archive_link('area')); ?>" class="nav-mega-allbtn">Tutte le aree di attività <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>

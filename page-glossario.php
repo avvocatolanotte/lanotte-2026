@@ -35,7 +35,7 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 <section class="glossario-toolbar">
   <div class="container">
     <div class="glossario-toolbar-grid">
-      <input type="search" id="glossario-search" placeholder="Cerca un termine (es. usucapione, decreto ingiuntivo, prescrizione…)" oninput="filtraGlossario(this.value)" class="glossario-search">
+      <input type="search" id="glossario-search" placeholder="Termine da cercare (es. usucapione, decreto ingiuntivo, prescrizione…)" oninput="filtraGlossario(this.value)" class="glossario-search">
       <div class="glossario-az">
         <a href="#A">A</a><a href="#C">C</a><a href="#D">D</a><a href="#E">E</a><a href="#F">F</a><a href="#G">G</a><a href="#I">I</a><a href="#L">L</a><a href="#M">M</a><a href="#N">N</a><a href="#O">O</a><a href="#P">P</a><a href="#Q">Q</a><a href="#R">R</a><a href="#S">S</a><a href="#T">T</a><a href="#U">U</a>
       </div>

@@ -129,7 +129,7 @@
       const existingFallback = function(){
         if (completed) return;
         completed = true;
-        alert('Download PDF non disponibile. Si apre la stampa: scegli “Salva come PDF”.');
+        alert('Download PDF non disponibile. Si apre la stampa: scelga «Salva come PDF».');
         printNode(document.querySelector('.lph-preview') || document.body);
       };
       const existingTimer = setTimeout(existingFallback, 12000);
@@ -153,7 +153,7 @@
     const fallback = function(){
       if (settled) return;
       settled = true;
-      alert('Download PDF non disponibile. Si apre la stampa: scegli “Salva come PDF”.');
+      alert('Download PDF non disponibile. Si apre la stampa: scelga «Salva come PDF».');
       printNode(document.querySelector('.lph-preview') || document.body);
     };
     const timer = setTimeout(fallback, 12000);
@@ -530,9 +530,9 @@
         <div class="lph-top"><h3>${esc(title || 'Anteprima report')}</h3><button type="button" class="lph-close" aria-label="Chiudi">×</button></div>
         <div class="lph-body"><div class="lph-preview"></div></div>
         <div class="lph-actions">
-          <button type="button" data-action="close">Torna al calcolo</button>
+          <button type="button" data-action="close">Ritorno al calcolo</button>
           <button type="button" data-action="print">Stampa</button>
-          <button type="button" class="primary" data-action="pdf">Scarica PDF</button>
+          <button type="button" class="primary" data-action="pdf">Scarichi il PDF</button>
         </div>
       </div>
     `;

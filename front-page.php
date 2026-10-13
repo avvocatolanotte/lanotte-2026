@@ -68,7 +68,7 @@ function lanotte_render_section_hero() {
         <?php if ($hero_cf7): ?>
           <div class="hero-card">
             <h3>Ha un caso da discutere?</h3>
-            <p>Rispondiamo entro 24 ore con un primo riscontro.</p>
+            <p>Di regola rispondiamo entro 24 ore lavorative con un primo riscontro.</p>
             <?php echo do_shortcode($hero_cf7); ?>
           </div>
         <?php else: ?>
@@ -264,7 +264,7 @@ function lanotte_render_section_aree() {
           ?>
         </div>
         <div class="areas-cta">
-          <a href="<?php echo esc_url(get_post_type_archive_link('area')); ?>" class="btn btn-outline">Vedi tutte le 13 aree →</a>
+          <a href="<?php echo esc_url(get_post_type_archive_link('area')); ?>" class="btn btn-outline">Tutte le aree di attività →</a>
         </div>
       </div>
     </section>
@@ -295,10 +295,10 @@ function lanotte_render_section_risorse() {
     $casi = get_post_type_archive_link('caso');
     $gloss = get_page_by_path('glossario');
     $cards = [
-        ['url' => get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/'), 'icon' => '📊', 't' => '23 Calcolatori giuridici', 'd' => 'Successioni, parcelle forensi, danni, ISTAT, interessi e scadenze. Gratuiti, con anteprima e PDF.', 'cta' => 'Apri i calcolatori'],
-        ['url' => $casi ?: '#', 'icon' => '📁', 't' => 'Casi Studio', 'd' => 'Scenari illustrativi che mostrano il metodo dello Studio nelle diverse materie del diritto.', 'cta' => 'Leggi i casi'],
-        ['url' => $gloss ? get_permalink($gloss) : '#', 'icon' => '📖', 't' => 'Glossario giuridico', 'd' => 'I termini legali spiegati in modo chiaro e comprensibile a tutti.', 'cta' => 'Consulta il glossario'],
-        ['url' => get_permalink(get_option('page_for_posts')) ?: '#', 'icon' => '📰', 't' => 'Rassegna giuridica', 'd' => 'Approfondimenti e aggiornamenti su giurisprudenza, prassi e novità normative.', 'cta' => 'Vai alla rassegna'],
+        ['url' => get_permalink(get_page_by_path('calcolatori')) ?: home_url('/calcolatori/'), 'icon' => '📊', 't' => 'Calcolatori giuridici', 'd' => 'Successioni, parcelle forensi, danni, ISTAT, interessi e scadenze. Gratuiti, con anteprima e PDF.', 'cta' => 'I calcolatori'],
+        ['url' => $casi ?: '#', 'icon' => '📁', 't' => 'Casi Studio', 'd' => 'Scenari illustrativi che mostrano il metodo dello Studio nelle diverse materie del diritto.', 'cta' => 'I casi studio'],
+        ['url' => $gloss ? get_permalink($gloss) : '#', 'icon' => '📖', 't' => 'Glossario giuridico', 'd' => 'I termini legali spiegati in modo chiaro e comprensibile a tutti.', 'cta' => 'Il glossario'],
+        ['url' => get_permalink(get_option('page_for_posts')) ?: '#', 'icon' => '📰', 't' => 'Rassegna giuridica', 'd' => 'Approfondimenti e aggiornamenti su giurisprudenza, prassi e novità normative.', 'cta' => 'La rassegna giuridica'],
     ];
     ?>
     <section class="risorse-section">

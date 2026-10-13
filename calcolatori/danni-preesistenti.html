@@ -101,7 +101,7 @@
           <li><a href="https://studiolegalelanotte.it/calcolatori/contributo-unificato/">🏛️ Contributo Unificato</a></li>
           <li><a href="https://studiolegalelanotte.it/calcolatori/timeline-marchio/">™ Timeline Marchio</a></li>
         </ul>
-        <a href="https://studiolegalelanotte.it/calcolatori/" class="nav-mega-allbtn">Vedi tutti i 16 strumenti <span aria-hidden="true">→</span></a>
+        <a href="https://studiolegalelanotte.it/calcolatori/" class="nav-mega-allbtn">Tutti i calcolatori <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -145,7 +145,7 @@
           <li><a href="https://studiolegalelanotte.it/rassegna/"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h12a4 4 0 014 4v12H8a4 4 0 01-4-4V4z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg> Rassegna giuridica</a></li>
           <li><a href="https://studiolegalelanotte.it/onorari/#servizi-online"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg> Servizi online</a></li>
         </ul>
-        <a href="https://studiolegalelanotte.it/aree/" class="nav-mega-allbtn">Vedi tutte le 13 aree <span aria-hidden="true">→</span></a>
+        <a href="https://studiolegalelanotte.it/aree/" class="nav-mega-allbtn">Tutte le aree di attività <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -238,7 +238,7 @@
             </div>
           </div>
 
-          <button onclick="toggleI3()" style="background:none;border:1px dashed var(--gold);color:var(--gold);font-weight:600;padding:10px 18px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;margin-top:12px;width:100%" id="btn-add-i3">+ Aggiungi terza menomazione</button>
+          <button onclick="toggleI3()" style="background:none;border:1px dashed var(--gold);color:var(--gold);font-weight:600;padding:10px 18px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;margin-top:12px;width:100%" id="btn-add-i3">+ Aggiunga una terza menomazione</button>
 
           <div style="background:var(--cream);padding:18px;margin-top:24px;border-left:3px solid var(--gold)">
             <strong style="font-family:var(--serif);font-size:15px;color:var(--navy);display:block;margin-bottom:8px">📌 Quando applicare Balthazard</strong>
@@ -421,7 +421,7 @@ function balthazard(i1, i2) {
 function toggleI3() {
   const c = document.getElementById('coesist-i3-container');
   c.style.display = c.style.display === 'none' ? 'block' : 'none';
-  document.getElementById('btn-add-i3').textContent = c.style.display === 'none' ? '+ Aggiungi terza menomazione' : '− Rimuovi terza menomazione';
+  document.getElementById('btn-add-i3').textContent = c.style.display === 'none' ? '+ Aggiunga una terza menomazione' : '− Tolga la terza menomazione';
   if (c.style.display === 'none') document.getElementById('coesist-i3').value = 0;
   calcolaCoesistenti();
 }
