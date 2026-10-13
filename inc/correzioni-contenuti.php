@@ -20,14 +20,15 @@
  * - il campo si salva con wp_slash (WordPress toglie le barre: senza, "\201C" diventerebbe "201C"); prima di
  *   ogni salvataggio i filtri kses si tolgono di nuovo, e se erano stati rimessi l'esito lo annota;
  * - wp_update_post riscrive tutte le colonne del post, non solo quella passata: dopo il salvataggio si rileggono
- *   dal database tutte le colonne sorvegliate (corpo, estratto, titolo, slug, stato, date…); se il campo non è il
- *   testo atteso o un'altra colonna è cambiata, la riga di prima si rimette con una scrittura diretta (senza i
+ *   dal database tutte le colonne che wp_insert_post scrive (corpo, estratto, titolo, autore, slug, stato, date,
+ *   commenti, guid…; le date di modifica possono solo andare avanti; i metadati non sono sorvegliati); se il
+ *   campo non è il testo atteso o un'altra colonna è cambiata, la riga di prima si rimette con una scrittura diretta (senza i
  *   filtri che l'hanno appena alterata) e si rilegge al byte; se nemmeno questo riesce, il lotto si ferma subito
  *   con «errori»;
  * - a ogni tentativo, anche senza scrittura, l'impronta dello stato verificato del campo si salva in
  *   "<lotto>_impronte" e si verifica: un nuovo tentativo parte solo se il campo è ancora quello; se è cambiato,
- *   o se l'impronta che proverebbe gli esiti già riusciti manca o non si è potuta salvare, il contenuto va tra
- *   i «falliti» senza essere toccato (13/10/2026: un secondo tentativo aveva lavorato su un testo già alterato
+ *   o se l'impronta che proverebbe gli esiti già riusciti manca, il contenuto va tra i «falliti» senza essere
+ *   toccato; se l'impronta non si è potuta salvare, il contenuto va tra i «falliti» anche con tutte le voci riuscite (13/10/2026: un secondo tentativo aveva lavorato su un testo già alterato
  *   e lo aveva dato per «fatto»);
  * - un contenuto è «fatto» solo se tutte le sue voci sono applicate o già presenti; altrimenti si
  *   ritenta alla richiesta successiva, al massimo 3 volte, poi resta tra i «falliti»;
@@ -174,17 +175,24 @@ function lanotte_corr_leggi_campo($id, $campo) {
 /**
  * Colonne che wp_update_post riscrive tutte, anche quando gli si passa un solo campo: riunisce il post esistente
  * e lo rimanda per intero alla sanitizzazione (con kses attivo, correggere l'estratto toglierebbe <style> dal corpo).
- * Dopo un salvataggio devono restare come prima, salvo il campo voluto.
+ * Sono tutte quelle che wp_insert_post scrive, tranne le due date di modifica. Dopo un salvataggio devono restare
+ * come prima, salvo il campo voluto. I metadati del post non sono sorvegliati.
  */
 function lanotte_corr_colonne_sorvegliate() {
-    return ['post_content', 'post_excerpt', 'post_title', 'post_content_filtered', 'post_name', 'post_status',
-        'post_password', 'post_parent', 'menu_order', 'post_date', 'post_date_gmt', 'post_type', 'post_mime_type'];
+    return ['post_author', 'post_date', 'post_date_gmt', 'post_content', 'post_content_filtered', 'post_title',
+        'post_excerpt', 'post_status', 'post_type', 'comment_status', 'ping_status', 'post_password', 'post_name',
+        'to_ping', 'pinged', 'post_parent', 'menu_order', 'post_mime_type', 'guid'];
 }
 
-/** Legge dal database le colonne sorvegliate di un post (array colonna => valore), o null. */
+/** Colonne lette e, in caso di ripristino, rimesse: le sorvegliate più le date di modifica. */
+function lanotte_corr_colonne_riga() {
+    return array_merge(lanotte_corr_colonne_sorvegliate(), ['post_modified', 'post_modified_gmt']);
+}
+
+/** Legge dal database le colonne della riga di un post (array colonna => valore), o null. */
 function lanotte_corr_leggi_riga($id) {
     global $wpdb;
-    $colonne = implode(', ', lanotte_corr_colonne_sorvegliate());
+    $colonne = implode(', ', lanotte_corr_colonne_riga());
     $r = $wpdb->get_row($wpdb->prepare("SELECT {$colonne} FROM {$wpdb->posts} WHERE ID = %d", $id), ARRAY_A);
     return is_array($r) ? array_map('strval', $r) : null;
 }
@@ -215,16 +223,20 @@ function lanotte_corr_salva_campo($id, $campo, $testo, &$errore, &$nota = '', &$
     $r = wp_update_post(wp_slash(['ID' => $id, $campo => $testo]), true);
     if (is_wp_error($r)) { $errore = $r->get_error_message(); return false; }
     clean_post_cache($id);
-    $attesa = $riga_prima; $attesa[$campo] = $testo;
-    $diverse = lanotte_corr_colonne_diverse($attesa, lanotte_corr_leggi_riga($id));
+    $dopo = lanotte_corr_leggi_riga($id);
+    $attesa = array_intersect_key($riga_prima, array_flip(lanotte_corr_colonne_sorvegliate()));
+    $attesa[$campo] = $testo;
+    $diverse = lanotte_corr_colonne_diverse($attesa, $dopo);
+    // Le date di modifica cambiano a ogni salvataggio: possono solo andare avanti.
+    if (is_array($dopo) && strcmp($dopo['post_modified_gmt'], $riga_prima['post_modified_gmt']) < 0) $diverse[] = 'post_modified_gmt (all\'indietro)';
     if ($diverse) { $errore = 'dopo il salvataggio non coincidono: ' . implode(', ', $diverse); return false; }
     return true;
 }
 
 /**
- * Rimette le colonne sorvegliate di un post come in $riga_prima scrivendo direttamente nel database, senza i
- * filtri del salvataggio (il ripristino non può passare dal filtro che ha appena alterato il testo); scrive solo
- * le colonne cambiate, poi rilegge tutto al byte.
+ * Rimette la riga di un post come in $riga_prima (colonne sorvegliate e date di modifica) scrivendo direttamente
+ * nel database, senza i filtri del salvataggio (il ripristino non può passare dal filtro che ha appena alterato il
+ * testo); scrive solo le colonne cambiate, poi rilegge tutto al byte.
  */
 function lanotte_corr_ripristina_riga($id, $riga_prima, &$errore) {
     global $wpdb;
@@ -278,13 +290,14 @@ function lanotte_corr_esegui_lotto($lotto, array $voci, $limite_s = 20, $max_ten
             if (isset($fatti[$chiave]) || isset($falliti[$chiave])) continue;
             if (microtime(true) - $inizio > $limite_s) { $finito = false; break; }
             list($tipo, $slug, $campo) = explode('|', $chiave);
-            $impronta_salvata = false;
+            $impronta_salvata = false; $trovato = false;
             // Le voci già riuscite in un tentativo precedente non si ripetono (il loro testo cercato non c'è più).
             $da_fare = array_filter($gruppo, function ($v, $k) use ($esiti) { return !lanotte_corr_riuscita($esiti[$k] ?? null); }, ARRAY_FILTER_USE_BOTH);
             $post = get_page_by_path($slug, OBJECT, $tipo);
             if (!$post instanceof WP_Post || !in_array($campo, ['post_content', 'post_excerpt', 'post_title'], true)) {
                 foreach ($da_fare as $k => $v) $esiti[$k] = ['esito' => 'contenuto non trovato', 'slug' => $slug, 'tipo' => $tipo];
             } else {
+                $trovato = true;
                 $prima = (string) $post->$campo;
                 $id_campo = $post->ID . '|' . $campo;
                 $letto = lanotte_corr_leggi_campo($post->ID, $campo);
@@ -353,19 +366,20 @@ function lanotte_corr_esegui_lotto($lotto, array $voci, $limite_s = 20, $max_ten
             }
             $tutte = true;
             foreach ($gruppo as $k => $v) if (!lanotte_corr_riuscita($esiti[$k] ?? null)) { $tutte = false; break; }
-            if ($tutte) {
+            if ($trovato && !isset($falliti[$chiave]) && !$impronta_salvata) {
+                // L'impronta dello stato verificato non è nel database: è un guasto, e non si presenta come successo,
+                // nemmeno quando tutte le voci sono riuscite; un nuovo tentativo non potrebbe fidarsi di questi esiti.
+                $falliti[$chiave] = true;
+                foreach ($gruppo as $k => $v) $esiti[$k]['nota'] = trim(($esiti[$k]['nota'] ?? '') . ' impronta non salvata: contenuto tra i falliti');
+            }
+            if (isset($falliti[$chiave])) {
+                // fallito: resta visibile nell'esito e nel riepilogo, il lotto chiuderà con «errori»
+            } elseif ($tutte) {
                 $fatti[$chiave] = true;
-            } elseif (!isset($falliti[$chiave])) {
-                if ($post instanceof WP_Post && !$impronta_salvata) {
-                    // Senza impronta salvata un nuovo tentativo non potrebbe fidarsi degli esiti di questo.
-                    $falliti[$chiave] = true;
-                    foreach ($gruppo as $k => $v) if (!lanotte_corr_riuscita($esiti[$k] ?? null))
-                        $esiti[$k]['errore'] = trim(($esiti[$k]['errore'] ?? '') . ' impronta non salvata: nessun nuovo tentativo');
-                } else {
-                    $tentativi[$chiave] = ($tentativi[$chiave] ?? 0) + 1;
-                    if ($tentativi[$chiave] >= $max_tentativi) $falliti[$chiave] = true;
-                    else $finito = false; // si ritenta alla prossima richiesta
-                }
+            } else {
+                $tentativi[$chiave] = ($tentativi[$chiave] ?? 0) + 1;
+                if ($tentativi[$chiave] >= $max_tentativi) $falliti[$chiave] = true;
+                else $finito = false; // si ritenta alla prossima richiesta
             }
             update_option($lotto . '_esito', $esiti, false);
             update_option($lotto . '_gruppi_fatti', $fatti, false);
