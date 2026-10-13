@@ -102,9 +102,9 @@
             "name": "ctastrip",
             "type": "group",
             "sub_fields": [
-                {"key": "field_cta_title", "label": "Titolo", "name": "titolo", "type": "text", "default_value": "Una consulenza riservata, in 24 ore."},
+                {"key": "field_cta_title", "label": "Titolo", "name": "titolo", "type": "text", "default_value": "Una consulenza riservata."},
                 {"key": "field_cta_body", "label": "Sottotitolo", "name": "sottotitolo", "type": "text"},
-                {"key": "field_cta_btn1_lbl", "label": "Pulsante 1 — testo", "name": "btn1_label", "type": "text", "default_value": "Richiedi consulenza"},
+                {"key": "field_cta_btn1_lbl", "label": "Pulsante 1 — testo", "name": "btn1_label", "type": "text", "default_value": "Richieda una consulenza"},
                 {"key": "field_cta_btn1_url", "label": "Pulsante 1 — URL", "name": "btn1_url", "type": "url"}
             ]
         }

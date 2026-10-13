@@ -109,7 +109,7 @@ html,body{overflow-x:clip}
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<a class="skip-link screen-reader-text" href="#contenuto">Salta al contenuto</a>
+<a class="skip-link screen-reader-text" href="#contenuto">Al contenuto principale</a>
 
 <!-- TOPBAR -->
 <div class="topbar">

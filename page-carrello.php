@@ -82,7 +82,7 @@ get_header();
               </label>
             </fieldset>
 
-            <button type="submit" class="btn btn-primary" id="submitBtn">Prepara email di richiesta</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">Prepari l’email di richiesta</button>
             <p class="quote-note">L'invio apre il programma email con il riepilogo gia compilato.</p>
           </form>
         </div>

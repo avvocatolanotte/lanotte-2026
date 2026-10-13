@@ -69,7 +69,7 @@ $icon_colors = [
 <!-- FILTRI -->
 <section style="background:rgba(255,255,255,.95);border-bottom:1px solid #e5e7eb;padding:22px 0;position:sticky;top:64px;z-index:20;backdrop-filter:blur(8px)">
   <div class="container" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-    <strong style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#64748b;font-weight:600;margin-right:10px">Filtra per area:</strong>
+    <strong style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#64748b;font-weight:600;margin-right:10px">Filtro per area:</strong>
     <button class="srv-filter active" data-filter="all">Tutti i servizi</button>
     <?php foreach ($cat_labels as $key => $label): ?>
       <button class="srv-filter" data-filter="<?php echo esc_attr($key); ?>"><?php echo $label; ?></button>

@@ -630,7 +630,7 @@ function lanotte_successione_calcolatore_cta() {
     return '<aside class="lanotte-successione-calc-cta" aria-label="Calcolatore imposta di successione">'
         . '<div><p class="lanotte-successione-calc-kicker">Strumento gratuito</p>'
         . '<h2>Calcolo delle imposte di successione</h2>'
-        . '<p>Simula attivo, passività, quota, parentela, franchigie, immobili e agevolazione prima casa. Il risultato è esclusivamente informativo e richiede una verifica professionale.</p></div>'
+        . '<p>Simulazione con attivo, passività, quota, parentela, franchigie, immobili e agevolazione prima casa. Il risultato è esclusivamente informativo e richiede una verifica professionale.</p></div>'
         . '<a class="btn btn-primary" href="' . esc_url(lanotte_calcolatore_url('imposta-successione')) . '">Calcoli l’imposta</a>'
         . '</aside>';
 }

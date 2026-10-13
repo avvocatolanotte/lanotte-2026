@@ -308,7 +308,7 @@
       return;
     }
     if (typeof window.jspdf === 'undefined') {
-      alert('Errore: libreria jsPDF non caricata. Ricarica la pagina.');
+      alert('Errore: libreria jsPDF non caricata. Ricarichi la pagina.');
       return;
     }
     const { jsPDF } = window.jspdf;
