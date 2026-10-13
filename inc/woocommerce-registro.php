@@ -123,17 +123,30 @@ function lanotte_woo_lei_attivo($domain) {
     return !is_admin();
 }
 
+/*
+ * Priorità 200: TranslatePress (attivo, lingua predefinita it_IT) aggancia gli stessi filtri a 100 e,
+ * se nel suo archivio c'è una traduzione della stringa, la rimette al posto di quella ricevuta
+ * (includes/gettext/class-process-gettext.php, righe 203-204 del trunk letto il 13/10/2026; il suo
+ * archivio ha «Il tuo ordine», «Hai un codice promozionale?», … in stato 2). Con la 20 la 1.0.141
+ * pubblicata non cambiava nulla. Nella lingua predefinita TranslatePress non aggiunge marcatori (riga 274).
+ */
+const LANOTTE_WOO_LEI_PRIORITA = 200;
+
 add_filter('gettext', function ($traduzione, $testo, $domain) {
     return lanotte_woo_lei_attivo($domain) ? lanotte_woo_lei($traduzione) : $traduzione;
-}, 20, 3);
+}, LANOTTE_WOO_LEI_PRIORITA, 3);
 
 add_filter('gettext_with_context', function ($traduzione, $testo, $contesto, $domain) {
     return lanotte_woo_lei_attivo($domain) ? lanotte_woo_lei($traduzione) : $traduzione;
-}, 20, 4);
+}, LANOTTE_WOO_LEI_PRIORITA, 4);
 
 add_filter('ngettext', function ($traduzione, $singolare, $plurale, $numero, $domain) {
     return lanotte_woo_lei_attivo($domain) ? lanotte_woo_lei($traduzione) : $traduzione;
-}, 20, 5);
+}, LANOTTE_WOO_LEI_PRIORITA, 5);
+
+add_filter('ngettext_with_context', function ($traduzione, $singolare, $plurale, $numero, $contesto, $domain) {
+    return lanotte_woo_lei_attivo($domain) ? lanotte_woo_lei($traduzione) : $traduzione;
+}, LANOTTE_WOO_LEI_PRIORITA, 6);
 
 // Email al cliente: WooCommerce le racchiude fra setup_locale() e restore_locale(), che applicano
 // questi filtri con l'oggetto email. Si segna il contesto e si restituisce il booleano ricevuto.
