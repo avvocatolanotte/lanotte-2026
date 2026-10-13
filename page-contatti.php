@@ -58,7 +58,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
              Il contenuto di <template> non viene caricato dal browser finché non lo si inserisce nella pagina. */ ?>
     <div class="map-consenso" id="map-consenso">
       <p>La mappa è fornita da Google Maps: se la apre, Google riceve il Suo indirizzo IP e può impostare propri cookie.</p>
-      <button type="button" class="map-consenso-btn" id="map-consenso-btn">Mostra la mappa</button>
+      <button type="button" class="map-consenso-btn" id="map-consenso-btn">Visualizzi la mappa</button>
     </div>
     <template id="map-sede">
     <?php if ($map_embed_acf): ?>
@@ -89,7 +89,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
     </script>
     <a href="https://www.google.com/maps?q=<?php echo esc_attr($indirizzo_query); ?>" target="_blank" rel="noopener" class="map-cta">
       <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a7 7 0 0114 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
-      Apri in Google Maps →
+      Apra in Google Maps →
     </a>
   </div>
 </section>

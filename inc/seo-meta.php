@@ -66,7 +66,7 @@ function lanotte_seo_map() {
         ],
         'carriere' => [
             't' => 'Carriere · Cerchiamo Avvocati a Barletta | ' . $brand,
-            'd' => 'Opportunità di collaborazione con lo Studio Legale LANOTTE & Partners a Barletta. Invia la candidatura a info@studiolegalelanotte.it.',
+            'd' => 'Opportunità di collaborazione con lo Studio Legale LANOTTE & Partners a Barletta. Invii la candidatura a info@studiolegalelanotte.it.',
         ],
         'glossario' => [
             't' => 'Glossario Giuridico · Studio Legale | ' . $brand,

@@ -85,7 +85,7 @@ add_action('wp_login_failed', function($username) {
     $count = (int) get_transient($key);
     set_transient($key, $count + 1, MINUTE_IN_SECONDS * 15);
     if ($count >= 5) {
-        wp_die('Troppi tentativi di login. Riprova fra 15 minuti.', 'Bloccato', ['response' => 429]);
+        wp_die('Troppi tentativi di accesso. Riprovi fra 15 minuti.', 'Bloccato', ['response' => 429]);
     }
 });
 

@@ -129,7 +129,7 @@ $icon_colors = [
         <?php if ($area_id): $area_link = get_permalink($area_id); ?>
         <a href="<?php echo esc_url($area_link); ?>" class="srv-area-link">L’area di attività →</a>
         <?php endif; ?>
-        <button class="btn srv-add" type="button">Aggiungi alla richiesta
+        <button class="btn srv-add" type="button">Aggiunga alla richiesta
           <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
       </article>
@@ -200,7 +200,7 @@ $icon_colors = [
       card.classList.toggle('is-added',inCart);
       const btn=card.querySelector('.srv-add');
       if(inCart){btn.classList.add('added');btn.innerHTML='✓ Aggiunto alla richiesta';}
-      else{btn.classList.remove('added');btn.innerHTML='Aggiungi alla richiesta <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';}
+      else{btn.classList.remove('added');btn.innerHTML='Aggiunga alla richiesta <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';}
     });
   }
   function renderWidget(){
