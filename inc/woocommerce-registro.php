@@ -13,6 +13,8 @@
  * se dopo la conversione resta una forma al «tu», si restituisce la frase originale intera, mai una
  * frase mista (rilievo di Codex, 13/10/2026).
  *
+ * Testi degli script (WooPayments e WordPress): v. lanotte_woo_lei_esatta() più sotto.
+ *
  * Collegamento all'informativa: wp_page_for_privacy_policy = 3, pagina inesistente (misura del
  * 13/10/2026), quindi WooCommerce stampava <a href="">. Se la pagina impostata non è pubblicata si
  * usa la pagina «privacy» del sito.
@@ -150,6 +152,87 @@ add_filter('ngettext', function ($traduzione, $singolare, $plurale, $numero, $do
 add_filter('ngettext_with_context', function ($traduzione, $singolare, $plurale, $numero, $contesto, $domain) {
     return lanotte_woo_lei_attivo($domain) ? lanotte_woo_lei($traduzione) : $traduzione;
 }, LANOTTE_WOO_LEI_PRIORITA, 6);
+
+/*
+ * WooPayments e testi degli script. Misura del 13/10/2026 sull'HTML servito (scheda del servizio 513, carrello e cassa
+ * con il servizio nel carrello, frammento /?wc-ajax=update_order_review): 9 testi al «tu», da due strade.
+ * 1) Traduzioni JSON degli script (wp_set_script_translations): WCPAY_EXPRESS_CHECKOUT_ECE (dominio
+ *    woocommerce-payments) e wp-api-fetch (dominio default, di WordPress). Non passano da gettext: si correggono con
+ *    load_script_translations, solo nei testi tradotti; chiavi e struttura dei dati restano.
+ * 2) Configurazione PHP di WooPayments 11.2.0 (genericErrorMessage e testingInstructions, in wcpay_upe_config, in
+ *    wcpayConfig e nel frammento della cassa, tutti da get_payment_fields_js_config): __() nel dominio
+ *    woocommerce-payments, quindi gettext a priorità 200 come per WooCommerce.
+ * Solo frasi esatte, per dominio: sui testi dei pagamenti nessuna regola generica.
+ */
+function lanotte_woo_lei_esatta($t, $domain) {
+    static $esatte = [
+        'woocommerce-payments' => [
+            // traduzioni JSON dello script del pagamento rapido (WCPAY_EXPRESS_CHECKOUT_ECE)
+            'Aggiornamento dei dati di pagamento. Prova di nuovo a breve.'
+                => 'Aggiornamento dei dati di pagamento. Riprovi a breve.',
+            'Questo pagamento rapido è iniziato in %1$s e non può passare a %2$s per l\'indirizzo selezionato. Scegli un indirizzo di spedizione diverso o usa il pagamento regolare per pagare %2$s.'
+                => 'Questo pagamento rapido è iniziato in %1$s e non può passare a %2$s per l\'indirizzo selezionato. Scelga un indirizzo di spedizione diverso o usi il pagamento regolare per pagare %2$s.',
+            'Si è verificato un errore durante l\'elaborazione del prodotto con questo metodo di pagamento. Aggiungi il prodotto al carrello.'
+                => 'Si è verificato un errore durante l\'elaborazione del prodotto con questo metodo di pagamento. Aggiunga il prodotto al carrello.',
+            'Seleziona le opzioni del prodotto prima di procedere.'
+                => 'Selezioni le opzioni del prodotto prima di procedere.',
+            'Siamo spiacenti, questo prodotto non è disponibile. Scegli un\'altra combinazione.'
+                => 'Siamo spiacenti, questo prodotto non è disponibile. Scelga un\'altra combinazione.',
+            // configurazione PHP (gettext)
+            'Si è verificato un problema durante l\'elaborazione del pagamento. Controlla la tua posta in arrivo dell\'e-mail e aggiorna la pagina per riprovare.'
+                => 'Si è verificato un problema durante l\'elaborazione del pagamento. Controlli la Sua casella di posta elettronica e aggiorni la pagina per riprovare.',
+            'Usa la carta di prova <number>%s</number> o consulta la nostra <a>guida al servizio</a>.'
+                => 'Usi la carta di prova <number>%s</number> o consulti la nostra <a>guida al servizio</a>.',
+            'Clicca per copiare il numero di prova negli appunti'
+                => 'Faccia clic per copiare il numero di prova negli appunti',
+            'Copia negli appunti'
+                => 'Copi negli appunti',
+        ],
+        'default' => [
+            // traduzioni JSON di wp-api-fetch (WordPress)
+            'Impossibile connettersi. Verifica la connessione a Internet.'
+                => 'Impossibile connettersi. Verifichi la connessione a Internet.',
+            'Caricamento dei media fallito. Se si tratta di una foto oppure di un\'immagine grande, ridimensionala e riprova.'
+                => 'Caricamento dei media fallito. Se si tratta di una foto oppure di un\'immagine grande, la ridimensioni e riprovi.',
+        ],
+    ];
+    return (is_string($t) && isset($esatte[$domain][$t])) ? $esatte[$domain][$t] : $t;
+}
+
+/**
+ * Traduzioni JSON di uno script (formato Jed) → stesso JSON con i testi tradotti al «Lei». Si toccano solo i valori
+ * (le forme tradotte), mai le chiavi; se nulla cambia o il JSON non si legge, si restituisce il testo ricevuto, intatto.
+ */
+function lanotte_woo_lei_json_script($json, $domain) {
+    if (!is_string($json) || $json === '') return $json;
+    $dati = json_decode($json);   // oggetti, non array: un {} vuoto resta {}
+    if (!is_object($dati) || !isset($dati->locale_data) || !is_object($dati->locale_data)) return $json;
+    $cambi = [];
+    foreach ($dati->locale_data as $gruppo => $messaggi) {
+        if (!is_object($messaggi)) continue;
+        foreach ($messaggi as $chiave => $forme) {
+            if ($chiave === '' || !is_array($forme)) continue;   // '' = intestazione
+            foreach ($forme as $i => $forma) {
+                $nuova = lanotte_woo_lei_esatta($forma, $domain);
+                if ($nuova !== $forma) $cambi[] = [$gruppo, $chiave, $i, $nuova];
+            }
+        }
+    }
+    if (!$cambi) return $json;
+    foreach ($cambi as [$gruppo, $chiave, $i, $nuova]) $dati->locale_data->{$gruppo}->{$chiave}[$i] = $nuova;
+    $nuovo = wp_json_encode($dati);
+    return is_string($nuovo) ? $nuovo : $json;
+}
+
+add_filter('load_script_translations', function ($json, $file, $handle, $domain) {
+    if (!in_array($domain, ['woocommerce-payments', 'default'], true) || !lanotte_woo_lei_attivo('woocommerce')) return $json;
+    return lanotte_woo_lei_json_script($json, $domain);
+}, LANOTTE_WOO_LEI_PRIORITA, 4);
+
+add_filter('gettext', function ($traduzione, $testo, $domain) {
+    return ($domain === 'woocommerce-payments' && lanotte_woo_lei_attivo('woocommerce'))
+        ? lanotte_woo_lei_esatta($traduzione, $domain) : $traduzione;
+}, LANOTTE_WOO_LEI_PRIORITA, 3);
 
 // Email al cliente: WooCommerce le racchiude fra setup_locale() e restore_locale(), che applicano
 // questi filtri con l'oggetto email. Si segna il contesto e si restituisce il booleano ricevuto.
