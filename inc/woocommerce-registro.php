@@ -106,12 +106,21 @@ function lanotte_woo_lei($t) {
     return $t;
 }
 
-/** Email in corso destinata al cliente (impostato dai filtri di cambio lingua di WooCommerce). */
-$GLOBALS['lanotte_woo_email_cliente'] = false;
+/**
+ * Email WooCommerce in corso: null (nessuna), 'cliente' o 'amministratore'. Lo impostano i filtri di
+ * cambio lingua, che WooCommerce applica in setup_locale()/restore_locale() di ogni email, anche quelle
+ * all'amministratore (WC_Email_New_Order::trigger). Il contesto dell'email prevale su quello della
+ * richiesta: un «nuovo ordine» all'amministratore nato dalla cassa resta nella traduzione originale.
+ */
+$GLOBALS['lanotte_woo_email'] = null;
 
-/** Vale nel sito pubblico (anche /?wc-ajax=) e nelle email al cliente; mai nel pannello. */
+/** Vale nel sito pubblico (anche /?wc-ajax=) e nelle email al cliente; mai nel pannello né nelle email all'amministratore. */
 function lanotte_woo_lei_attivo($domain) {
-    return $domain === 'woocommerce' && (!is_admin() || !empty($GLOBALS['lanotte_woo_email_cliente']));
+    if ($domain !== 'woocommerce') return false;
+    $email = $GLOBALS['lanotte_woo_email'] ?? null;
+    if ($email === 'cliente') return true;
+    if ($email === 'amministratore') return false;
+    return !is_admin();
 }
 
 add_filter('gettext', function ($traduzione, $testo, $domain) {
@@ -129,19 +138,19 @@ add_filter('ngettext', function ($traduzione, $singolare, $plurale, $numero, $do
 // Email al cliente: WooCommerce le racchiude fra setup_locale() e restore_locale(), che applicano
 // questi filtri con l'oggetto email. Si segna il contesto e si restituisce il booleano ricevuto.
 add_filter('woocommerce_allow_switching_email_locale', function ($consenti, $email = null) {
-    if (is_object($email) && method_exists($email, 'is_customer_email') && $email->is_customer_email()) {
-        $GLOBALS['lanotte_woo_email_cliente'] = true;
+    if (is_object($email) && method_exists($email, 'is_customer_email')) {
+        $GLOBALS['lanotte_woo_email'] = $email->is_customer_email() ? 'cliente' : 'amministratore';
     }
     return $consenti;
 }, 20, 2);
 add_filter('woocommerce_allow_restoring_email_locale', function ($consenti, $email = null) {
-    $GLOBALS['lanotte_woo_email_cliente'] = false;
+    $GLOBALS['lanotte_woo_email'] = null;
     return $consenti;
 }, 20, 2);
 
 // Il testo sulla privacy della cassa è un'opzione di WooCommerce, non passa da gettext.
 add_filter('woocommerce_get_privacy_policy_text', function ($testo) {
-    return is_admin() && empty($GLOBALS['lanotte_woo_email_cliente']) ? $testo : lanotte_woo_lei($testo);
+    return lanotte_woo_lei_attivo('woocommerce') ? lanotte_woo_lei($testo) : $testo;
 }, 20);
 
 /** ID della pagina della privacy da usare: quello impostato se pubblicato, altrimenti la pagina «privacy». */
