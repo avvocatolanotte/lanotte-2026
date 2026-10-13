@@ -220,7 +220,7 @@ function lanotte_calcolatori_pages_data() {
             'faq' => [
                 ['Chi eredita se non c\'è testamento?', 'Il coniuge o la parte dell\'unione civile, i figli e i loro discendenti; in mancanza di figli, genitori e altri ascendenti, fratelli e sorelle; poi gli altri parenti fino al sesto grado e infine lo Stato (artt. 565-586 c.c.).'],
                 ['Quanto spetta di legittima ai figli?', 'Un figlio solo ha diritto alla metà del patrimonio, più figli insieme ai due terzi (art. 537 c.c.). Con il coniuge: un figlio e il coniuge un terzo ciascuno; con più figli, ai figli la metà e al coniuge un quarto (art. 542 c.c.).'],
-                ['I fratelli hanno diritto alla legittima?', 'No. Fratelli e sorelle ereditano solo senza testamento e in mancanza di figli: i legittimari sono il coniuge, i figli e, in mancanza di figli, gli ascendenti (artt. 536 e 538 c.c.).'],
+                ['I fratelli hanno diritto alla legittima?', 'No. Fratelli e sorelle non sono legittimari: ereditano per legge in mancanza di figli e loro discendenti e possono ricevere per testamento nel rispetto delle quote riservate. I legittimari sono il coniuge, i figli e, in mancanza di figli, gli ascendenti (artt. 536 e 538 c.c.).'],
             ],
         ],
         'usufrutto-nuda-proprieta' => [
@@ -542,6 +542,13 @@ add_action('init', function() {
     $parent = get_page_by_path('calcolatori');
     if (!$parent) return;
 
+    // La versione si registra solo se ogni pagina risulta creata o aggiornata: un errore transitorio non deve lasciare
+    // collegamenti a una pagina inesistente senza nuovi tentativi (rilievo Codex 13/10). Al massimo 3 tentativi per versione.
+    $tentativi = get_option('lanotte_calcolatori_pages_tentativi', []);
+    if (!is_array($tentativi)) $tentativi = [];
+    if (($tentativi[LANOTTE_THEME_VERSION] ?? 0) >= 3) return;
+    $falliti = [];
+
     foreach (lanotte_calcolatori_pages_data() as $slug => $data) {
         if (!isset(lanotte_calcolatori_map()[$slug])) continue;
 
@@ -557,18 +564,27 @@ add_action('init', function() {
 
         if ($page) {
             $postarr['ID'] = (int) $page->ID;
-            wp_update_post($postarr);
-            $post_id = (int) $page->ID;
+            $post_id = wp_update_post($postarr, true);
         } else {
-            $post_id = wp_insert_post($postarr);
+            $post_id = wp_insert_post($postarr, true);
         }
 
-        if ($post_id && !is_wp_error($post_id)) {
-            update_post_meta($post_id, '_aioseo_title', $data['title'] . ' | Studio Legale LANOTTE');
-            update_post_meta($post_id, '_aioseo_description', wp_trim_words($data['intro'], 28, '...'));
+        $salvata = $post_id && !is_wp_error($post_id) ? get_post((int) $post_id) : null;
+        if (!$salvata || $salvata->post_status !== 'publish' || $salvata->post_name !== $slug || $salvata->post_title !== $data['title']) {
+            $falliti[] = $slug;
+            continue;
         }
+        update_post_meta($post_id, '_aioseo_title', $data['title'] . ' | Studio Legale LANOTTE');
+        update_post_meta($post_id, '_aioseo_description', wp_trim_words($data['intro'], 28, '...'));
     }
 
+    if ($falliti) {
+        $tentativi[LANOTTE_THEME_VERSION] = ($tentativi[LANOTTE_THEME_VERSION] ?? 0) + 1;
+        update_option('lanotte_calcolatori_pages_tentativi', $tentativi, false);
+        error_log('lanotte_calcolatori: pagine non create o non aggiornate (' . implode(', ', $falliti) . '), tentativo '
+            . $tentativi[LANOTTE_THEME_VERSION] . ' di 3 per la versione ' . LANOTTE_THEME_VERSION);
+        return;
+    }
     update_option('lanotte_calcolatori_pages_version', LANOTTE_THEME_VERSION, false);
 }, 30);
 

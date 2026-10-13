@@ -74,7 +74,7 @@
             <div><span class="qe-mini">dello stesso padre e della stessa madre (germani)</span><input type="number" id="qe-ngermani" value="0" min="0" max="12" step="1" aria-label="Fratelli e sorelle germani"></div>
             <div><span class="qe-mini">di un solo genitore (unilaterali)</span><input type="number" id="qe-nunilaterali" value="0" min="0" max="12" step="1" aria-label="Fratelli e sorelle unilaterali"></div>
           </div>
-          <div id="qe-fratelli-righe"></div>
+          <div id="qe-fratelli-righe"><div id="qe-fratelli-g"></div><div id="qe-fratelli-u"></div></div>
           <p class="qe-help">Contano solo senza figli. Per un fratello premorto o rinunciante valgono le stesse regole dei figli (rappresentazione dei suoi discendenti). Non sono legittimari: con un testamento possono non ricevere nulla.</p>
         </div>
 
@@ -176,7 +176,7 @@ function qeStirpi(stirpi, totale, nome, pesi){
 }
 const qePesoFratello = x => x.tipo === 'unilaterale' ? 1 : 2; // art. 570, secondo comma, e art. 571 c.c.
 const qeNomeFiglio = (x, i) => 'Figlio ' + (i + 1) + (x.rapp ? ' (rappresentato)' : '');
-const qeNomeFratello = (x, i) => (x.tipo === 'unilaterale' ? 'Fratello/sorella unilaterale ' : 'Fratello/sorella germano ') + (i + 1) + (x.rapp ? ' (rappresentato)' : '');
+const qeNomeFratello = (x, i) => (x.tipo === 'unilaterale' ? 'Fratello/sorella unilaterale ' : 'Fratello/sorella germano ') + (x.n || i + 1) + (x.rapp ? ' (rappresentato)' : '');
 
 function qeAscendenti(d, quota){
   // Genitori in parti uguali (art. 568); in mancanza, gli altri ascendenti per linee o di grado più vicino (art. 569).
@@ -297,11 +297,14 @@ function qeRighe(contenitore, n, prefisso, tipo){
   }
 }
 function qeLeggiStirpi(contenitore){
+  const conta = {};
   return Array.from(document.getElementById(contenitore).querySelectorAll('.qe-riga')).map(r => {
+    const tipo = r.dataset.tipo || '';
+    conta[tipo] = (conta[tipo] || 0) + 1;
     const rapp = r.querySelector('select').value === 'rapp';
     const disc = Math.min(12, Math.max(1, parseInt(r.querySelector('input').value || '1', 10) || 1));
     r.querySelector('input').style.visibility = rapp ? 'visible' : 'hidden';
-    return {rapp: rapp, discendenti: rapp ? disc : 0, tipo: r.dataset.tipo || ''};
+    return {rapp: rapp, discendenti: rapp ? disc : 0, tipo: tipo, n: conta[tipo]};
   });
 }
 function qeDati(){
@@ -322,20 +325,16 @@ let qeUltimo = null;
 function calcolaQuoteEreditarie(){
   const nf = qeInt('qe-nfigli', 12), ng = qeInt('qe-ngermani', 12), nu = qeInt('qe-nunilaterali', 12);
   if (document.querySelectorAll('#qe-figli-righe .qe-riga').length !== nf) qeRighe('qe-figli-righe', nf, 'Figlio');
-  const fr = document.getElementById('qe-fratelli-righe');
-  const gAtt = fr.querySelectorAll('.qe-riga[data-tipo="germano"]').length, uAtt = fr.querySelectorAll('.qe-riga[data-tipo="unilaterale"]').length;
-  if (gAtt !== ng || uAtt !== nu) {
-    fr.innerHTML = '';
-    const tmp = document.createElement('div'); tmp.id = 'qe-tmp-g'; fr.appendChild(tmp);
-    qeRighe('qe-tmp-g', ng, 'Germano', 'germano');
-    const tmp2 = document.createElement('div'); tmp2.id = 'qe-tmp-u'; fr.appendChild(tmp2);
-    qeRighe('qe-tmp-u', nu, 'Unilaterale', 'unilaterale');
-  }
+  // germani e unilaterali in due elenchi separati: cambiare uno non cancella i dati dell'altro (rilievo Codex 13/10)
+  if (document.querySelectorAll('#qe-fratelli-g .qe-riga').length !== ng) qeRighe('qe-fratelli-g', ng, 'Germano', 'germano');
+  if (document.querySelectorAll('#qe-fratelli-u .qe-riga').length !== nu) qeRighe('qe-fratelli-u', nu, 'Unilaterale', 'unilaterale');
   document.getElementById('qe-altri-asc-box').style.display = document.getElementById('qe-genitori').value === '0' ? 'block' : 'none';
 
   const d = qeDati();
   const relitto = qeVal('qe-relitto'), debiti = qeVal('qe-debiti'), donato = qeVal('qe-donato');
-  const netto = relitto - debiti, asse = relitto - debiti + donato;
+  // Se i debiti superano i beni, il relitto netto vale zero e la legittima si calcola sulle sole donazioni
+  // (App. Roma, sent. 29/09/2025 n. 5465; Trib. Padova, sent. 30/06/2023 n. 1370; Cass. 27/05/2026 n. 16422).
+  const netto = relitto - debiti, asse = Math.max(netto, 0) + donato;
   const s = qeSuccessione(d), r = qeRiserva(d);
 
   qeTabella('qe-legittima-righe', s.quote, netto > 0 ? netto : 0, null);
@@ -350,7 +349,7 @@ function calcolaQuoteEreditarie(){
   if (d.coniuge === 'si') avvisi.push('Al coniuge spettano inoltre il diritto di abitazione sulla casa familiare e di uso dei mobili, se del defunto o comuni (art. 540, secondo comma, c.c.): gravano prima sulla disponibile.');
   if (d.figli.length && (d.genitori > 0 || d.fratelli.length)) avvisi.push('Con i figli, genitori e fratelli non ereditano per legge.');
   if (d.figli.concat(d.fratelli).some(x => x.rapp && x.discendenti > 1)) avvisi.push('Per i rappresentati il calcolo divide in parti uguali fra discendenti dello stesso ramo; con rami diversi si divide per stirpi anche all’interno (art. 469, quarto comma, c.c.).');
-  if (relitto > 0 && netto <= 0) avvisi.push('I debiti superano i beni lasciati: valuti l’accettazione con beneficio d’inventario o la rinuncia prima di compiere atti da erede.');
+  if (relitto > 0 && netto <= 0) avvisi.push('I debiti superano i beni lasciati: valuti l’accettazione con beneficio d’inventario o la rinuncia prima di compiere atti da erede.' + (donato > 0 ? ' Per la legittima il relitto netto si considera pari a zero e la quota si calcola sulle sole donazioni (così, fra le altre, App. Roma, sent. 29 settembre 2025, n. 5465).' : ''));
   if (donato > 0 && (d.figli.length || d.coniuge === 'si')) avvisi.push('Figli, loro discendenti e coniuge che concorrono alla successione devono conferire ai coeredi ciò che hanno ricevuto in donazione, salvo dispensa del defunto, efficace solo nei limiti della disponibile (collazione, art. 737 c.c.): il calcolo non ne tiene conto.');
   document.getElementById('qe-avvisi').innerHTML = avvisi.map(a => '<li>' + qeEsc(a) + '</li>').join('');
   qeUltimo = {d: d, s: s, r: r, netto: netto, asse: asse, avvisi: avvisi};
