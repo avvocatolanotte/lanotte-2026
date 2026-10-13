@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>Calcolo usufrutto e nuda proprietà — Studio Legale LANOTTE &amp; Partners</title>
+<link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/usufrutto-nuda-proprieta/">
+<meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/usufrutto-nuda-proprieta/">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<section class="hero-internal">
+  <div class="container">
+    <div class="breadcrumbs"><a href="https://studiolegalelanotte.it/">Home</a><span>›</span><a href="https://studiolegalelanotte.it/calcolatori/">Calcolatori</a><span>›</span>Usufrutto e nuda proprietà</div>
+    <h1>Calcolo usufrutto e nuda proprietà</h1>
+    <p class="subtitle">Valore fiscale dell'usufrutto vitalizio, dell'uso e dell'abitazione e della nuda proprietà secondo l'età dell'usufruttuario.</p>
+  </div>
+</section>
+
+<section style="background:#fef3c7;border-bottom:1px solid #f59e0b;padding:16px 0">
+  <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
+    <div style="font-size:24px;flex-shrink:0">!</div>
+    <div style="font-size:13.5px;color:#78350f;line-height:1.55">
+      <strong>Valori fiscali.</strong> Il calcolo applica i coefficienti previsti per l'imposta di registro e per l'imposta di successione e donazione (artt. 46 e 48 d.P.R. 131/1986; artt. 14 e 17 d.lgs. 346/1990). Per divisioni o vendite tra privati le parti possono concordare criteri diversi.
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container" style="max-width:1120px">
+    <div class="uf-grid">
+      <div class="uf-panel">
+        <h3>Dati del diritto</h3>
+
+        <div class="form-field">
+          <label for="uf-valore">1 · Valore della piena proprietà (€)</label>
+          <input type="number" id="uf-valore" value="200000" min="0" step="0.01">
+          <p class="uf-help">Il valore del bene senza alcun diritto che lo gravi: quello dichiarato nell'atto o nella dichiarazione di successione.</p>
+        </div>
+
+        <div class="form-field">
+          <label for="uf-diritto">2 · Diritto</label>
+          <select id="uf-diritto">
+            <option value="usufrutto">Usufrutto vitalizio</option>
+            <option value="abitazione">Diritto di abitazione o di uso vitalizio</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="uf-n">3 · Titolari del diritto</label>
+          <select id="uf-n">
+            <option value="1">Una persona</option>
+            <option value="2">Due persone (es. entrambi i genitori)</option>
+          </select>
+        </div>
+
+        <div class="uf-due">
+          <div class="form-field"><label for="uf-eta1">Età (anni compiuti)</label><input type="number" id="uf-eta1" value="70" min="0" max="99" step="1"></div>
+          <div class="form-field" id="uf-eta2-box"><label for="uf-eta2">Età del secondo titolare</label><input type="number" id="uf-eta2" value="67" min="0" max="99" step="1"></div>
+        </div>
+
+        <div class="form-field" id="uf-accr-box">
+          <label for="uf-accr">4 · Alla morte del primo dei due</label>
+          <select id="uf-accr">
+            <option value="accrescimento">Il diritto continua a favore dell'altro (accrescimento)</option>
+            <option value="cessa">Il diritto si estingue</option>
+          </select>
+          <p class="uf-help">Con accrescimento conta l'età del più giovane; se il diritto cessa alla morte di uno qualsiasi, l'età del meno giovane (art. 46, terzo comma, d.P.R. 131/1986).</p>
+        </div>
+
+        <p class="uf-help">L'età è quella alla data dell'atto o dell'apertura della successione, in anni compiuti. Il prospetto dei coefficienti si ferma a 99 anni.</p>
+        <button type="button" class="btn btn-primary" onclick="calcolaUsufrutto()">Calcoli i valori</button>
+      </div>
+
+      <div class="uf-result" aria-live="polite">
+        <div class="uf-kicker">Valori fiscali 2026</div>
+        <h3 id="uf-titolo">Usufrutto vitalizio</h3>
+        <div class="uf-total"><span>Valore del diritto</span><strong id="uf-val-diritto">€ 0,00</strong><em id="uf-perc-diritto"></em></div>
+        <div class="uf-total uf-total2"><span>Valore della nuda proprietà</span><strong id="uf-val-nuda">€ 0,00</strong><em id="uf-perc-nuda"></em></div>
+        <div class="uf-rows">
+          <div><span>Età considerata</span><strong id="uf-eta-usata">—</strong></div>
+          <div><span>Coefficiente</span><strong id="uf-coeff">—</strong></div>
+          <div><span>Saggio applicato</span><strong>2,5% (minimo di legge)</strong></div>
+          <div><span>Annualità (valore × 2,5%)</span><strong id="uf-annualita">—</strong></div>
+        </div>
+        <p class="uf-note" id="uf-note"></p>
+        <button type="button" class="btn btn-ghost uf-report" onclick="apriAnteprimaReport()">Anteprima del report</button>
+      </div>
+    </div>
+
+    <div class="uf-tabella-box">
+      <h3>Prospetto dei coefficienti in vigore</h3>
+      <p class="uf-help">Coefficienti calcolati al saggio del 2,5%: il saggio legale 2026 è dell'1,6% (D.M. 10 dicembre 2025), ma ai fini fiscali non si può assumere un saggio inferiore al 2,5% (art. 46, comma 5-ter, d.P.R. 131/1986; art. 17, comma 1-ter, d.lgs. 346/1990). Il prospetto si applica agli atti dal 1° gennaio 2024 e alle successioni e donazioni dal 1° gennaio 2025; per date anteriori i coefficienti vanno verificati.</p>
+      <table class="uf-tab"><thead><tr><th>Età</th><th>Coefficiente</th><th>Diritto</th><th>Nuda proprietà</th></tr></thead><tbody id="uf-prospetto"></tbody></table>
+    </div>
+  </div>
+</section>
+
+<style>
+.uf-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.uf-panel{background:#fff;border:1px solid var(--border);padding:28px}
+.uf-panel h3{margin-bottom:18px}
+.uf-panel input,.uf-panel select{width:100%;padding:10px 12px;border:1px solid var(--border);background:#fff;font-family:inherit;font-size:14px;border-radius:2px}
+.uf-help{font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:6px}
+.uf-due{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.uf-result{position:sticky;top:96px;background:linear-gradient(135deg,var(--navy),#1a2a4a);color:#fff;padding:30px;border-top:4px solid var(--gold)}
+.uf-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px}
+.uf-result h3{color:#fff;line-height:1.25}
+.uf-total{background:rgba(184,153,104,.15);border:1px solid var(--gold);padding:18px 20px;margin-bottom:12px}
+.uf-total2{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.25)}
+.uf-total span{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:6px}
+.uf-total strong{font-family:var(--serif);font-size:30px;color:#fff;line-height:1.1}
+.uf-total em{display:block;font-style:normal;font-size:13px;color:#cbd5e1;margin-top:4px}
+.uf-rows{border-top:1px solid rgba(255,255,255,.15);padding-top:14px;margin:14px 0}
+.uf-rows div{display:flex;justify-content:space-between;gap:18px;margin-bottom:9px;font-size:13px;color:#cbd5e1}
+.uf-rows strong{color:#e2e8f0;font-weight:600;text-align:right}
+.uf-note{font-size:12px;color:#dbeafe;line-height:1.55;margin:0 0 16px;font-style:italic}
+.uf-report{color:#fff;border-color:var(--gold)}
+.uf-tabella-box{margin-top:30px;background:#fff;border:1px solid #e5e7eb;border-top:3px solid var(--gold);padding:22px}
+.uf-tab{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.uf-tab th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);border-bottom:2px solid var(--gold);padding:6px}
+.uf-tab td{padding:6px;border-bottom:1px solid #eef0f3}
+.uf-tab td:nth-child(n+2),.uf-tab th:nth-child(n+2){text-align:right}
+.uf-tab tr.uf-attiva td{background:#fdf6e3;font-weight:700;color:var(--navy)}
+@media(max-width:860px){.uf-grid{grid-template-columns:1fr}.uf-result{position:static}}
+</style>
+
+<script src="../assets/js/lanotte-preview.js"></script>
+<script>
+/* Prospetto dei coefficienti al saggio del 2,5%, come riportato nell'Allegato 4 del d.lgs. 123/2025 (testo unico applicabile
+   dal 2027), con la nota: in vigore per il registro dal 1° gennaio 2024 (D.M. 21 dicembre 2023), esteso a successioni e
+   donazioni dal d.lgs. 139/2024 (dal 1° gennaio 2025). Letto su Simpliciter il 13/10/2026.
+   Fascia di età [da, a] e coefficiente. Valore del diritto = valore × 2,5% × coefficiente. */
+const UF_SAGGIO_MILLESIMI = 25; // 2,5% = 25/1000: minimo di legge (art. 46 c.5-ter d.P.R. 131/1986; art. 17 c.1-ter d.lgs. 346/1990)
+const UF_PROSPETTO = [
+  [0, 20, 38], [21, 30, 36], [31, 40, 34], [41, 45, 32], [46, 50, 30], [51, 53, 28], [54, 56, 26], [57, 60, 24], [61, 63, 22],
+  [64, 66, 20], [67, 69, 18], [70, 72, 16], [73, 75, 14], [76, 78, 12], [79, 82, 10], [83, 86, 8], [87, 92, 6], [93, 99, 4]
+];
+function ufCoefficiente(eta){
+  if (!Number.isInteger(eta) || eta < 0 || eta > 99) return null;
+  const f = UF_PROSPETTO.find(r => eta >= r[0] && eta <= r[1]);
+  return f ? f[2] : null;
+}
+/* Età da considerare con due titolari (art. 46, terzo comma, d.P.R. 131/1986). */
+function ufEtaConsiderata(eta1, eta2, n, accrescimento){
+  if (n === 1) return eta1;
+  return accrescimento ? Math.min(eta1, eta2) : Math.max(eta1, eta2);
+}
+/* Calcolo in centesimi, interi: diritto = valore × 25 × coeff / 1000, arrotondato al centesimo. */
+function ufValori(valoreCent, eta){
+  const coeff = ufCoefficiente(eta);
+  if (coeff === null || !(valoreCent >= 0)) return null;
+  const permille = UF_SAGGIO_MILLESIMI * coeff;            // es. 25 × 38 = 950 = 95,0%
+  const diritto = Math.round(valoreCent * permille / 1000);
+  return {coeff: coeff, permille: permille, diritto: diritto, nuda: valoreCent - diritto, annualita: Math.round(valoreCent * UF_SAGGIO_MILLESIMI / 1000)};
+}
+
+/* ---- Interfaccia ---- */
+function ufEuro(cent){ return new Intl.NumberFormat('it-IT', {style: 'currency', currency: 'EUR'}).format(cent / 100); }
+function ufPerc(permille){ return (permille / 10).toLocaleString('it-IT', {minimumFractionDigits: 1, maximumFractionDigits: 1}) + '%'; }
+function ufInt(id){ const n = parseInt(document.getElementById(id).value, 10); return isFinite(n) ? n : NaN; }
+let ufUltimo = null;
+function calcolaUsufrutto(){
+  const valore = parseFloat(String(document.getElementById('uf-valore').value || '0').replace(',', '.'));
+  const valoreCent = isFinite(valore) && valore > 0 ? Math.round(valore * 100) : 0;
+  const n = parseInt(document.getElementById('uf-n').value, 10);
+  const accr = document.getElementById('uf-accr').value === 'accrescimento';
+  document.getElementById('uf-eta2-box').style.display = n === 2 ? 'block' : 'none';
+  document.getElementById('uf-accr-box').style.display = n === 2 ? 'block' : 'none';
+  const e1 = ufInt('uf-eta1'), e2 = ufInt('uf-eta2');
+  const eta = ufEtaConsiderata(e1, e2, n, accr);
+  const r = ufValori(valoreCent, eta);
+  const diritto = document.getElementById('uf-diritto').value === 'abitazione' ? 'Diritto di abitazione o di uso' : 'Usufrutto vitalizio';
+  document.getElementById('uf-titolo').textContent = diritto;
+  const note = [];
+  if (!r) {
+    ['uf-val-diritto', 'uf-val-nuda'].forEach(id => document.getElementById(id).textContent = '—');
+    ['uf-perc-diritto', 'uf-perc-nuda'].forEach(id => document.getElementById(id).textContent = '');
+    document.getElementById('uf-eta-usata').textContent = isFinite(eta) ? eta + ' anni' : '—';
+    document.getElementById('uf-coeff').textContent = '—';
+    document.getElementById('uf-annualita').textContent = '—';
+    note.push('Indichi un\'età in anni compiuti da 0 a 99: il prospetto non prevede fasce oltre i 99 anni, e il caso va verificato.');
+  } else {
+    document.getElementById('uf-val-diritto').textContent = ufEuro(r.diritto);
+    document.getElementById('uf-perc-diritto').textContent = ufPerc(r.permille) + ' della piena proprietà';
+    document.getElementById('uf-val-nuda').textContent = ufEuro(r.nuda);
+    document.getElementById('uf-perc-nuda').textContent = ufPerc(1000 - r.permille) + ' della piena proprietà';
+    document.getElementById('uf-eta-usata').textContent = eta + ' anni' + (n === 2 ? (accr ? ' (il più giovane)' : ' (il meno giovane)') : '');
+    document.getElementById('uf-coeff').textContent = String(r.coeff);
+    document.getElementById('uf-annualita').textContent = ufEuro(r.annualita);
+    if (n === 2) note.push('Con due titolari conta una sola età: ' + (accr ? 'quella del più giovane, perché il diritto passa all\'altro' : 'quella del meno giovane, perché il diritto cessa alla prima morte') + ' (art. 46, terzo comma, d.P.R. 131/1986).');
+    if (document.getElementById('uf-diritto').value === 'abitazione') note.push('Uso e abitazione si valutano come l\'usufrutto (art. 48 d.P.R. 131/1986; art. 14 d.lgs. 346/1990). Il diritto di abitazione del coniuge superstite sulla casa familiare è previsto dall\'art. 540, secondo comma, c.c.');
+    note.push('Nuda proprietà = piena proprietà meno il valore del diritto (art. 48 d.P.R. 131/1986).');
+  }
+  document.getElementById('uf-note').textContent = note.join(' ');
+  document.getElementById('uf-prospetto').innerHTML = UF_PROSPETTO.map(x => {
+    const pm = UF_SAGGIO_MILLESIMI * x[2];
+    const att = r && eta >= x[0] && eta <= x[1];
+    return '<tr' + (att ? ' class="uf-attiva"' : '') + '><td>da ' + x[0] + ' a ' + x[1] + ' anni</td><td>' + x[2] + '</td><td>' + ufPerc(pm) + '</td><td>' + ufPerc(1000 - pm) + '</td></tr>';
+  }).join('');
+  ufUltimo = {r: r, eta: eta, valoreCent: valoreCent, diritto: diritto, n: n, accr: accr, note: note};
+}
+function apriAnteprimaReport(){
+  calcolaUsufrutto();
+  const u = ufUltimo;
+  const rows = [
+    ['Valore della piena proprietà', ufEuro(u.valoreCent)],
+    ['Diritto', u.diritto],
+    ['Titolari', u.n === 2 ? 'Due (' + (u.accr ? 'con accrescimento' : 'il diritto cessa alla prima morte') + ')' : 'Uno'],
+    ['Età considerata', isFinite(u.eta) ? u.eta + ' anni' : '—'],
+    ['Coefficiente (saggio 2,5%)', u.r ? String(u.r.coeff) : '—'],
+    ['Valore del diritto', u.r ? ufEuro(u.r.diritto) + ' (' + ufPerc(u.r.permille) + ')' : '—']
+  ];
+  LanottePreview.openSummary({
+    title: 'Usufrutto e nuda proprietà',
+    subtitle: 'Valori fiscali secondo il prospetto dei coefficienti',
+    rows: rows,
+    totalLabel: 'Valore della nuda proprietà',
+    total: u.r ? ufEuro(u.r.nuda) + ' (' + ufPerc(1000 - u.r.permille) + ')' : '—',
+    notes: u.note.join(' ') + ' Coefficienti al saggio del 2,5% (art. 46, comma 5-ter, d.P.R. 131/1986; art. 17, comma 1-ter, d.lgs. 346/1990). Valori fiscali: per accordi tra privati le parti possono usare criteri diversi.'
+  });
+}
+['uf-valore','uf-diritto','uf-n','uf-eta1','uf-eta2','uf-accr'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', calcolaUsufrutto);
+  el.addEventListener('change', calcolaUsufrutto);
+});
+calcolaUsufrutto();
+</script>
+</body>
+</html>

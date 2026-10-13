@@ -15,6 +15,7 @@ function lanotte_calcolatori_map() {
         'danni-preesistenti'   => 'danni-preesistenti.html',
         'imposta-successione'  => 'imposta-successione.html',
         'quote-ereditarie'     => 'quote-ereditarie.html',
+        'usufrutto-nuda-proprieta' => 'usufrutto-nuda-proprieta.html',
         'interessi-legali'     => 'interessi-legali.html',
         'interessi-moratori'   => 'interessi-moratori.html',
         'istat-locazione'      => 'istat-locazione.html',
@@ -220,6 +221,17 @@ function lanotte_calcolatori_pages_data() {
                 ['Chi eredita se non c\'è testamento?', 'Il coniuge o la parte dell\'unione civile, i figli e i loro discendenti; in mancanza di figli, genitori e altri ascendenti, fratelli e sorelle; poi gli altri parenti fino al sesto grado e infine lo Stato (artt. 565-586 c.c.).'],
                 ['Quanto spetta di legittima ai figli?', 'Un figlio solo ha diritto alla metà del patrimonio, più figli insieme ai due terzi (art. 537 c.c.). Con il coniuge: un figlio e il coniuge un terzo ciascuno; con più figli, ai figli la metà e al coniuge un quarto (art. 542 c.c.).'],
                 ['I fratelli hanno diritto alla legittima?', 'No. Fratelli e sorelle ereditano solo senza testamento e in mancanza di figli: i legittimari sono il coniuge, i figli e, in mancanza di figli, gli ascendenti (artt. 536 e 538 c.c.).'],
+            ],
+        ],
+        'usufrutto-nuda-proprieta' => [
+            'title' => 'Calcolo usufrutto e nuda proprietà 2026 – coefficienti in vigore (gratuito)',
+            'keyword' => 'calcolo usufrutto',
+            'service' => 'Successioni ed eredità in tutta Italia',
+            'intro' => 'Il calcolatore determina il valore fiscale dell\'usufrutto vitalizio, dell\'uso o dell\'abitazione e della nuda proprietà in base all\'età del titolare, con il prospetto dei coefficienti previsto per l\'imposta di registro e per l\'imposta di successione e donazione. Considera anche il diritto intestato a due persone, con o senza accrescimento.',
+            'faq' => [
+                ['Il tasso legale del 2026 cambia il valore dell\'usufrutto?', 'No. Il tasso legale 2026 è dell\'1,6%, ma ai fini dell\'imposta di registro e dell\'imposta di successione e donazione non si può assumere un saggio inferiore al 2,5% (art. 46, comma 5-ter, d.P.R. 131/1986; art. 17, comma 1-ter, d.lgs. 346/1990): restano quindi i coefficienti calcolati al 2,5%.'],
+                ['Come si calcola la nuda proprietà?', 'È la differenza tra il valore della piena proprietà e quello dell\'usufrutto, che si ottiene moltiplicando il valore della piena proprietà per il 2,5% e per il coefficiente della fascia di età dell\'usufruttuario (art. 48 d.P.R. 131/1986).'],
+                ['E se gli usufruttuari sono due?', 'Si considera l\'età del più giovane se l\'usufrutto passa al superstite (accrescimento), quella del meno giovane se cessa alla morte di uno qualsiasi dei due (art. 46, terzo comma, d.P.R. 131/1986).'],
             ],
         ],
         'mantenimento-istat' => [
@@ -580,6 +592,7 @@ function lanotte_area_calcolatori_links($slug) {
         'famiglia-successioni' => [
             'imposta-successione' => 'Imposta di successione',
             'quote-ereditarie' => 'Quote ereditarie e legittima',
+            'usufrutto-nuda-proprieta' => 'Usufrutto e nuda proprietà',
             'mantenimento-orientativo' => 'Stima orientativa mantenimento figli',
             'mantenimento-istat' => 'Rivalutazione ISTAT mantenimento',
             'spese-straordinarie-figli' => 'Spese straordinarie figli',
