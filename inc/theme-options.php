@@ -41,7 +41,7 @@ function lanotte_options_schema() {
 
         // === HERO HOMEPAGE ===
         'hero_eyebrow'       => ['label' => 'Hero · Eyebrow (sopra titolo)', 'type' => 'text', 'default' => 'Studio Legale · Barletta · Foro di Trani', 'group' => 'hero'],
-        'hero_title'         => ['label' => 'Hero · Titolo H1',        'type' => 'textarea', 'default' => "Un presidio legale<br><em>al Vostro fianco,</em> ogni giorno.", 'group' => 'hero', 'rows' => 3, 'hint' => 'HTML permesso: &lt;br&gt;, &lt;em&gt;, &lt;strong&gt;'],
+        'hero_title'         => ['label' => 'Hero · Titolo H1',        'type' => 'textarea', 'default' => "Un presidio legale<br><em>al Suo fianco.</em>", 'group' => 'hero', 'rows' => 3, 'hint' => 'HTML permesso: &lt;br&gt;, &lt;em&gt;, &lt;strong&gt;'],
         'hero_lead'          => ['label' => 'Hero · Testo introduttivo','type' => 'textarea', 'default' => 'Assistiamo imprese e privati con un approccio multidisciplinare: civile, penale, commerciale, lavoro, tributario, internazionale e proprietà industriale. Un solo interlocutore, una rete di colleghi e consulenti di fiducia.', 'group' => 'hero', 'rows' => 4],
         'hero_bg'            => ['label' => 'Hero · Immagine sfondo (URL)', 'type' => 'image', 'default' => '', 'group' => 'hero', 'hint' => 'Lascia vuoto per usare la cattedrale di Trani. Usa Media → Carica → copia URL.'],
         'cta_principale_url' => ['label' => 'Hero · Link bottone "Prenota consulenza"', 'type' => 'url', 'default' => '', 'group' => 'hero', 'hint' => 'Lascia vuoto per puntare automaticamente a /contatti/'],

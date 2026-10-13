@@ -31,7 +31,7 @@ get_footer();
 
 function lanotte_render_section_hero() {
     $hero_eyebrow = lanotte_acf_option('hero_eyebrow', 'Studio Legale · Barletta · Foro di Trani');
-    $hero_title   = lanotte_acf_option('hero_title',   'Un presidio legale<br><em>al Vostro fianco,</em> ogni giorno.');
+    $hero_title   = lanotte_acf_option('hero_title',   'Un presidio legale<br><em>al Suo fianco.</em>');
     $hero_lead    = lanotte_acf_option('hero_lead',    'Assistiamo imprese e privati con un approccio multidisciplinare: civile, penale, commerciale, lavoro, tributario, internazionale e proprietà industriale. Un solo interlocutore, una rete di colleghi e consulenti di fiducia.');
     $hero_bg      = lanotte_acf_option('hero_bg',      LANOTTE_THEME_URI . '/assets/img/trani/cattedrale-trani.jpg');
     $hero_cf7     = lanotte_acf_option('hero_cf7_shortcode', '');

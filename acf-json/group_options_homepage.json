@@ -14,7 +14,7 @@
             "label": "HERO · Titolo (può contenere <em> per la parte in oro corsivo)",
             "name": "hero_title",
             "type": "textarea",
-            "default_value": "Un presidio legale<br><em>al Vostro fianco,</em> ogni giorno.",
+            "default_value": "Un presidio legale<br><em>al Suo fianco.</em>",
             "new_lines": ""
         },
         {
