@@ -1229,3 +1229,80 @@ add_action('init', function() {
         'lanotte-registro-inquilini-morosi-riforma-sfratti-2026'
     );
 }, 67);
+
+// Tre articoli di attualità del 13/10/2026 (fonti lette in testo integrale; revisione Codex; sì dell'Avvocato prima del push).
+// Uscite programmate alle 9:00 italiane (07:00 UTC, fuso del sito vuoto): 15/10, 20/10, 22/10 (entrata in vigore del D.Lgs. 176/2026).
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_fideiussione_abi_20261013',
+        'fideiussione-modulo-abi-nullita-parziale-cassazione-2026',
+        'Fideiussione su modulo ABI: quando si può contestare?',
+        'Per la Cassazione (ord. 26244/2026) la fideiussione su modulo ABI è nulla solo nelle clausole dell’intesa vietata: che cosa deve provare il fideiussore e quali documenti servono.',
+        'fideiussione-bancaria-modello-abi-cassazione-2026.html',
+        'diritto-bancario',
+        'Diritto bancario',
+        'future',
+        '2026-10-15 07:00:00'
+    );
+}, 68);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_fideiussione_abi_featured_20261013',
+        'fideiussione-modulo-abi-nullita-parziale-cassazione-2026',
+        'fideiussione-bancaria-modello-abi-2026.jpg',
+        'Fideiussione su modulo ABI: nullità solo parziale',
+        'Contratto con penna stilografica su una scrivania di legno, accanto a una cartellina blu e a una pila di estratti conto',
+        'lanotte-fideiussione-modulo-abi-2026'
+    );
+}, 69);
+
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_delibera_revocata_20261013',
+        'delibera-condominiale-impugnata-revocata-spese',
+        'Delibera condominiale impugnata e poi revocata: chi paga le spese?',
+        'Se l’assemblea revoca la delibera impugnata la causa si chiude per cessata materia del contendere e le spese seguono la soccombenza virtuale (Cass. ord. 25790/2026).',
+        'delibera-condominiale-impugnata-revocata-cassazione-2026.html',
+        'comunione-condominio',
+        'Comunione e condominio',
+        'future',
+        '2026-10-20 07:00:00'
+    );
+}, 70);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_delibera_revocata_featured_20261013',
+        'delibera-condominiale-impugnata-revocata-spese',
+        'delibera-condominiale-revocata-2026.jpg',
+        'Delibera condominiale impugnata e poi revocata',
+        'Cartellina con un verbale d’assemblea, una penna, un mazzo di chiavi e il plastico di un palazzo residenziale su una scrivania',
+        'lanotte-delibera-condominiale-revocata-2026'
+    );
+}, 71);
+
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_diritto_riparazione_20261013',
+        'diritto-alla-riparazione-dlgs-176-2026',
+        'Diritto alla riparazione: che cosa cambia per i consumatori dal 22 ottobre 2026',
+        'D.Lgs. 176/2026: obbligo di riparazione del fabbricante per lavatrici, frigoriferi, smartphone e altri beni, modulo europeo con prezzo e tempi, dodici mesi in più di garanzia se si sceglie la riparazione.',
+        'diritto-alla-riparazione-dlgs-176-2026.html',
+        'diritto-civile',
+        'Diritto civile',
+        'future',
+        '2026-10-22 07:00:00'
+    );
+}, 72);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_diritto_riparazione_featured_20261013',
+        'diritto-alla-riparazione-dlgs-176-2026',
+        'diritto-alla-riparazione-2026.jpg',
+        'Diritto alla riparazione dei beni',
+        'Smartphone aperto su un tappetino blu con cacciaviti di precisione, pinzette e piccole parti di ricambio ordinate',
+        'lanotte-diritto-alla-riparazione-2026'
+    );
+}, 73);
