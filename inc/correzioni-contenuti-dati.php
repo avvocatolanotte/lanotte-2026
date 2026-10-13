@@ -1375,5 +1375,11 @@ return [
         'h29' => ['tipo' => 'post', 'slug' => 'avvelenare-gli-animali-e-reato', 'campo' => 'post_content',
             'cerca' => 'Marinella Distaso',
             'sostituisci' => 'Marinella DISTASO'],
+        'h30' => ['tipo' => 'post', 'slug' => 'prima-arrestipoi-capisci-lerroree-ti-scusi', 'campo' => 'post_content',
+            'cerca' => 'La fase delle indagini preliminari: ricordatelo sempre',
+            'sostituisci' => 'La fase delle indagini preliminari: un principio da ricordare'],
+        'h31' => ['tipo' => 'post', 'slug' => 'difesa-della-legittima-proprieta-e-responsabilita-penale-il-caso-viaregio', 'campo' => 'post_content',
+            'cerca' => 'potete contattare il nostro studio. Siamo pronti a offrirvi assistenza',
+            'sostituisci' => 'può contattare lo Studio. Siamo pronti a offrirLe assistenza'],
     ],
 ];
