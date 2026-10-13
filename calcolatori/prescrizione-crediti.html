@@ -64,13 +64,13 @@
         <div class="form-field">
           <label>3 · Ultimo atto interruttivo ricevuto dal debitore</label>
           <input type="date" id="pc-interruzione">
-          <p class="pc-help">Facoltativo. Se compilato, il termine viene ricalcolato da questa data.</p>
+          <p class="pc-help">Facoltativo: messa in mora ricevuta dal debitore (art. 2943, quarto comma, c.c.) o riconoscimento del debito (art. 2944 c.c.). Interrompe solo se compiuto entro la scadenza in corso: da quel giorno decorre un nuovo termine (art. 2945 c.c.). Se è stata notificata una domanda giudiziale, il termine non corre fino al giudicato e il calcolo non ne tiene conto.</p>
         </div>
-        <div class="form-field"><label>Precedenti atti interruttivi</label><input type="date" id="pc-interruzione-2"><input type="date" id="pc-interruzione-3" style="margin-top:8px"><p class="pc-help">Facoltativi. Il calcolo usa cronologicamente l'ultimo atto indicato; contenuto e prova della ricezione devono essere verificati.</p></div>
+        <div class="form-field"><label>Precedenti atti interruttivi</label><input type="date" id="pc-interruzione-2"><input type="date" id="pc-interruzione-3" style="margin-top:8px"><p class="pc-help">Facoltativi. Gli atti sono esaminati in ordine di data: ciascuno interrompe solo se compiuto prima che la prescrizione in corso sia maturata. Contenuto e prova della ricezione vanno verificati.</p></div>
 
         <div class="form-field">
           <label>4 · Proroga se scade in giorno festivo</label>
-          <label class="pc-check"><input type="checkbox" id="pc-proroga" checked> Proroga al primo giorno non festivo</label>
+          <label class="pc-check"><input type="checkbox" id="pc-proroga" checked> Proroga al primo giorno non festivo (art. 2963, terzo comma, c.c.: il sabato non è festivo)</label>
         </div>
 
         <button type="button" class="btn btn-primary" onclick="calcolaPrescrizione()">Calcola prescrizione</button>
@@ -89,7 +89,9 @@
           <div><span>Termine applicato</span><strong id="pc-termine">-</strong></div>
           <div><span>Riferimento</span><strong id="pc-norma">-</strong></div>
           <div id="pc-proroga-row" style="display:none"><span>Proroga festivi</span><strong>Applicata</strong></div>
+          <div id="pc-atti-row" style="display:none"><span>Atti interruttivi efficaci</span><strong id="pc-atti">-</strong></div>
         </div>
+        <div class="pc-avvisi" id="pc-avvisi" style="display:none"></div>
         <p class="pc-note" id="pc-note"></p>
         <button type="button" onclick="apriAnteprimaReport()" class="btn" style="width:100%;justify-content:center;background:#fff;color:var(--navy);font-weight:700;padding:14px;border:1px solid var(--gold)">Anteprima report</button>
         <a href="https://studiolegalelanotte.it/contatti/" class="btn" style="width:100%;justify-content:center;margin-top:12px;background:#fff;color:var(--navy);font-weight:700;padding:14px">Verifica prescrizione</a>
@@ -132,6 +134,8 @@
 .pc-rows{border-top:1px solid rgba(255,255,255,.15);padding-top:16px;margin-bottom:16px}
 .pc-rows div{display:flex;justify-content:space-between;gap:18px;margin-bottom:10px;font-size:13px;color:#cbd5e1}
 .pc-rows strong{color:#e2e8f0;font-weight:600;text-align:right}
+.pc-avvisi{font-size:12.5px;color:#fde68a;line-height:1.55;margin:0 0 16px;padding:10px 12px;border-left:3px solid #f59e0b;background:rgba(245,158,11,.12)}
+.pc-avvisi p{margin:0 0 6px}.pc-avvisi p:last-child{margin:0}
 .pc-note{font-size:12px;color:#dbeafe;line-height:1.55;margin:0 0 18px;font-style:italic}
 .pc-links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
 .pc-links a{background:#fff;border:1px solid #e5e7eb;border-top:3px solid var(--gold);padding:18px;text-decoration:none;color:var(--navy);font-weight:700}
@@ -153,43 +157,91 @@ function addYears(date, years){
   if (d.getMonth() !== month) d.setDate(0);
   return d;
 }
+function pasqua(anno){
+  // Computo gregoriano (Meeus/Jones/Butcher)
+  const a = anno % 19, b = Math.floor(anno / 100), c = anno % 100;
+  const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const mese = Math.floor((h + l - 7 * m + 114) / 31), giorno = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(anno, mese - 1, giorno, 12);
+}
+// Festivi agli effetti civili: domeniche e giorni dell'art. 2 L. 260/1949 e successive
+// modifiche. Il sabato NON è festivo per la prescrizione (art. 2963, terzo comma, c.c.):
+// la proroga al sabato dell'art. 155, quinto comma, c.p.c. vale solo per gli atti processuali.
 function isFestivo(d){
-  if (d.getDay() === 0 || d.getDay() === 6) return true;
-  const key = (d.getMonth() + 1) + '-' + d.getDate();
-  return ['1-1','1-6','4-25','5-1','6-2','8-15','11-1','12-8','12-25','12-26'].includes(key);
+  if (d.getDay() === 0) return true;
+  const m = d.getMonth() + 1, g = d.getDate();
+  if (['1-1','1-6','4-25','5-1','6-2','8-15','11-1','12-8','12-25','12-26'].includes(m + '-' + g)) return true;
+  if (m === 10 && g === 4 && d.getFullYear() >= 2026) return true; // L. 151/2025
+  const lunediAngelo = pasqua(d.getFullYear());
+  lunediAngelo.setDate(lunediAngelo.getDate() + 1);
+  return lunediAngelo.getMonth() === d.getMonth() && lunediAngelo.getDate() === g;
+}
+function scadenzaDa(inizio, anni, proroga){
+  const data = addYears(inizio, anni);
+  let prorogata = false;
+  if (proroga) {
+    while (isFestivo(data)) {
+      data.setDate(data.getDate() + 1);
+      prorogata = true;
+    }
+  }
+  return {data, prorogata};
+}
+// Gli atti si esaminano in ordine di data: interrompe solo l'atto compiuto entro la
+// scadenza in corso (l'ultimo giorno compreso, art. 2963, secondo comma, c.c.); da lì
+// decorre un nuovo termine (art. 2945 c.c.). Un atto successivo alla scadenza non
+// riapre una prescrizione già compiuta; uno anteriore alla decorrenza non conta.
+function prescrizione(decorrenza, atti, anni, proroga){
+  let inizio = decorrenza;
+  let corrente = scadenzaDa(decorrenza, anni, proroga);
+  const efficaci = [], tardivi = [], anteriori = [];
+  [...atti].sort((a, b) => a - b).forEach(atto => {
+    if (atto < decorrenza) anteriori.push(atto);
+    else if (atto > corrente.data) tardivi.push({atto, maturata: new Date(corrente.data)});
+    else {
+      efficaci.push(atto);
+      inizio = atto;
+      corrente = scadenzaDa(atto, anni, proroga);
+    }
+  });
+  return {scadenza: corrente.data, prorogata: corrente.prorogata, inizio, efficaci, tardivi, anteriori};
 }
 function selectedData(){
   const opt = document.getElementById('pc-tipo').selectedOptions[0];
   const custom = document.getElementById('pc-tipo').value === 'custom';
   return {
     label: opt.textContent.trim(),
-    anni: custom ? Math.max(1, parseInt(document.getElementById('pc-custom').value || '10', 10)) : parseInt(opt.dataset.anni, 10),
+    anni: custom ? Math.min(30, Math.max(1, parseInt(document.getElementById('pc-custom').value || '10', 10) || 10)) : parseInt(opt.dataset.anni, 10),
     norma: opt.dataset.norma,
     note: opt.dataset.note,
     custom
   };
 }
+function avvisiPrescrizione(r){
+  const avvisi = [];
+  r.tardivi.forEach(t => avvisi.push('Atto del ' + fmtDate(t.atto) + ' non considerato: è successivo alla scadenza del ' + fmtDate(t.maturata) + ', quando la prescrizione era già compiuta. Non la interrompe; se è un riconoscimento del debitore, va valutato se valga come rinuncia alla prescrizione (art. 2937 c.c.).'));
+  r.anteriori.forEach(a => avvisi.push('Atto del ' + fmtDate(a) + ' non considerato: è anteriore alla decorrenza indicata.'));
+  if (r.scadenza.getFullYear() < 2001) avvisi.push('Scadenza anteriore al 2001: il calendario dei giorni festivi era diverso, verificare la proroga.');
+  return avvisi;
+}
 function calcolaPrescrizione(){
   const data = selectedData();
   document.getElementById('pc-custom-box').style.display = data.custom ? 'block' : 'none';
-  const eventi = ['pc-decorrenza','pc-interruzione-2','pc-interruzione-3','pc-interruzione'].map(parseDate).filter(Boolean).sort((a,b)=>a-b);
-  const decorrenza = eventi[eventi.length - 1];
+  const decorrenza = parseDate('pc-decorrenza');
   if (!decorrenza) return;
-  let scadenza = addYears(decorrenza, data.anni);
-  let proroga = false;
-  if (document.getElementById('pc-proroga').checked) {
-    while (isFestivo(scadenza)) {
-      scadenza.setDate(scadenza.getDate() + 1);
-      proroga = true;
-    }
-  }
+  const atti = ['pc-interruzione','pc-interruzione-2','pc-interruzione-3'].map(parseDate).filter(Boolean);
+  const r = prescrizione(decorrenza, atti, data.anni, document.getElementById('pc-proroga').checked);
+  const scadenza = r.scadenza;
   const oggi = new Date();
   oggi.setHours(12,0,0,0);
-  const diff = Math.ceil((scadenza - oggi) / 86400000);
+  const diff = Math.round((scadenza - oggi) / 86400000);
   const status = document.getElementById('pc-status');
   status.classList.remove('is-expired','is-open');
   if (diff < 0) {
-    status.textContent = 'Possibile prescrizione maturata da ' + Math.abs(diff) + ' giorni';
+    status.textContent = 'Possibile prescrizione maturata il ' + fmtDate(scadenza) + ' (' + Math.abs(diff) + ' giorni fa)';
     status.classList.add('is-expired');
   } else if (diff === 0) {
     status.textContent = 'Scadenza stimata oggi';
@@ -199,12 +251,19 @@ function calcolaPrescrizione(){
     status.classList.add('is-open');
   }
   document.getElementById('pc-scadenza').textContent = fmtDate(scadenza);
-  document.getElementById('pc-start').textContent = fmtDate(decorrenza);
+  document.getElementById('pc-start').textContent = fmtDate(r.inizio);
   document.getElementById('pc-termine').textContent = data.anni + (data.anni === 1 ? ' anno' : ' anni');
   document.getElementById('pc-norma').textContent = data.norma;
   document.getElementById('pc-note').textContent = data.note;
   document.getElementById('pc-titolo').textContent = data.label.replace(/:.*$/, '');
-  document.getElementById('pc-proroga-row').style.display = proroga ? 'flex' : 'none';
+  document.getElementById('pc-proroga-row').style.display = r.prorogata ? 'flex' : 'none';
+  document.getElementById('pc-atti-row').style.display = atti.length ? 'flex' : 'none';
+  document.getElementById('pc-atti').textContent = r.efficaci.length ? r.efficaci.map(fmtDate).join(', ') : 'nessuno';
+  const box = document.getElementById('pc-avvisi');
+  box.textContent = '';
+  const avvisi = avvisiPrescrizione(r);
+  avvisi.forEach(t => { const p = document.createElement('p'); p.textContent = t; box.appendChild(p); });
+  box.style.display = avvisi.length ? 'block' : 'none';
 }
 function txt(id){ return (document.getElementById(id).textContent || '').trim(); }
 function apriAnteprimaReport(){
@@ -219,6 +278,8 @@ function apriAnteprimaReport(){
       ['Riferimento', txt('pc-norma')],
       ['Esito alla data odierna', txt('pc-status')],
       ...(document.getElementById('pc-proroga-row').style.display !== 'none' ? [['Proroga festivi', 'Applicata']] : []),
+      ...(document.getElementById('pc-atti-row').style.display !== 'none' ? [['Atti interruttivi efficaci', txt('pc-atti')]] : []),
+      ...[...document.querySelectorAll('#pc-avvisi p')].map(p => ['Avvertenza', (p.textContent || '').trim()]),
       ['Nota', txt('pc-note')]
     ],
     totalLabel: 'Data stimata di prescrizione',

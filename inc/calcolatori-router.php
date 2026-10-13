@@ -403,10 +403,11 @@ function lanotte_calcolatori_pages_data() {
             'title' => 'Calcolo prescrizione crediti 2026 (gratuito)',
             'keyword' => 'calcolo prescrizione crediti',
             'service' => 'Recupero crediti e contestazioni',
-            'intro' => 'Il calcolatore stima la data di prescrizione di alcune categorie ricorrenti di credito, distinguendo termine ordinario decennale, prescrizioni quinquennali, triennali e biennali. Consente di indicare un eventuale ultimo atto interruttivo e di verificare se il termine risulta ancora pendente o già decorso.',
+            'intro' => 'Il calcolatore stima la data di prescrizione di alcune categorie ricorrenti di credito, distinguendo termine ordinario decennale, prescrizioni quinquennali, triennali e biennali. Consente di indicare fino a tre atti interruttivi, esaminati in ordine di data, e di verificare se il termine risulta ancora pendente o già decorso: un atto compiuto dopo la scadenza non riapre il termine.',
             'faq' => [
                 ['La prescrizione è sempre di dieci anni?', 'No, il termine ordinario decennale vale salvo prescrizioni brevi previste dalla legge.'],
-                ['Una diffida interrompe la prescrizione?', 'Può interromperla se contiene una richiesta idonea e viene provata ricezione e contenuto.'],
+                ['Una diffida interrompe la prescrizione?', 'Può interromperla se contiene una richiesta idonea e se ne provano ricezione e contenuto, purché arrivi prima che la prescrizione sia compiuta.'],
+                ['Se il termine scade di sabato, si proroga?', 'No: per la prescrizione si proroga solo il termine che scade in giorno festivo (art. 2963 c.c.); il sabato non lo è. La proroga del sabato riguarda gli atti del processo civile.'],
                 ['Il calcolatore decide se il credito è prescritto?', 'No, serve una verifica su titolo, decorrenza, atti interruttivi, riconoscimenti di debito e giudizi pendenti.'],
             ],
         ],

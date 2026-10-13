@@ -15,7 +15,7 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
   <div class="container" style="position:relative;z-index:2">
     <?php lanotte_breadcrumbs(); ?>
     <div class="carriere-badge">⚖️ Cerchiamo nuovi avvocati</div>
-    <h1 style="color:#fff;font-size:clamp(28px,5vw,48px);line-height:1.15;margin:8px 0 14px">Unisciti allo Studio.<br>Cresci con un team multidisciplinare.</h1>
+    <h1 style="color:#fff;font-size:clamp(28px,5vw,48px);line-height:1.15;margin:8px 0 14px">Lavorare nello Studio.<br>Crescere in un gruppo multidisciplinare.</h1>
     <p class="subtitle" style="color:#d4d8e0;max-width:760px">Cerchiamo avvocati, praticanti e partner che condividano i nostri principi: indipendenza, segreto professionale, verità del compenso, continuità del rapporto. Lavoriamo in modo serio, con metodo, su pratiche di valore.</p>
   </div>
 </section>
@@ -129,7 +129,7 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
   <div class="container" style="max-width:780px">
     <div class="section-title">
       <div class="divider-dot"></div>
-      <div class="section-eyebrow">Come candidarti</div>
+      <div class="section-eyebrow">Come candidarsi</div>
       <h2>La nostra procedura di selezione</h2>
     </div>
     <div class="carriere-timeline">

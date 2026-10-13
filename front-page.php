@@ -127,7 +127,7 @@ function lanotte_render_section_painpoint() {
               <li>Societario &amp; governance</li>
               <li>Crediti &amp; contenzioso</li>
             </ul>
-            <span class="pp-cta">Esplora le aree per l'impresa →</span>
+            <span class="pp-cta">Tutte le aree per l'impresa →</span>
           </a>
           <a href="<?php echo esc_url($privati_url); ?>" class="pp-card pp-privati">
             <div class="pp-icon">
@@ -140,7 +140,7 @@ function lanotte_render_section_painpoint() {
               <li>Immobili &amp; condominio</li>
               <li>Risarcimenti &amp; danni</li>
             </ul>
-            <span class="pp-cta">Esplora le aree per i privati →</span>
+            <span class="pp-cta">Tutte le aree per i privati →</span>
           </a>
         </div>
       </div>

@@ -46,7 +46,7 @@ function lanotte_seo_map() {
         ],
         'contatti' => [
             't' => 'Contatti · Studio Legale a Barletta | ' . $brand,
-            'd' => 'Contatta lo Studio Legale a Barletta (Foro di Trani): telefono, WhatsApp, email e modulo. Sede in Viale Falcone e Borsellino. Risposta in 24 ore.',
+            'd' => 'Contatti dello Studio Legale a Barletta (Foro di Trani): telefono, WhatsApp, email e modulo. Sede in Viale Falcone e Borsellino. Di regola rispondiamo entro 24 ore lavorative.',
         ],
         'calcolatori' => [
             't' => 'Calcolatori Giuridici Gratuiti · Avvocato Barletta | ' . $brand,
@@ -152,9 +152,12 @@ function lanotte_seo_map() {
  * La pagina Successioni storica contiene un vecchio blocco CSS salvato come
  * testo nel contenuto. Lo rimuoviamo in output: le regole vivono nel foglio
  * stile del tema e non finiscono più nel testo visibile o negli estratti.
+ * Si guarda il contenuto in lavorazione, non la richiesta: is_page() è falso
+ * nelle risposte REST, che altrimenti restituirebbero il CSS come testo.
  */
 add_filter('the_content', function($content) {
-    if (!is_page('avvocato-successioni-eredita')) return $content;
+    $post = get_post();
+    if (!$post || $post->post_type !== 'page' || $post->post_name !== 'avvocato-successioni-eredita') return $content;
 
     return preg_replace(
         '#(<section[^>]*class=["\'][^"\']*\bsucc-hero\b[^"\']*["\'][^>]*>).*?(<div[^>]*class=["\'][^"\']*\bsucc-wrap\b[^"\']*\bsucc-hero-in\b[^"\']*["\'][^>]*>)#is',
