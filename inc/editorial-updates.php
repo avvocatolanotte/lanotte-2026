@@ -1006,6 +1006,8 @@ function lanotte_editorial_ripara_uscite_programmate() {
         'post_type'        => 'post',
         'post_status'      => 'future',
         'fields'           => 'ids',
+        'orderby'          => 'date',
+        'order'            => 'ASC', // i più vicini per primi: oltre il limite restano fuori i più lontani (Codex, 16/10)
         'posts_per_page'   => 50,
         'no_found_rows'    => true,
         'suppress_filters' => true,
@@ -1013,18 +1015,22 @@ function lanotte_editorial_ripara_uscite_programmate() {
     foreach ($ids as $id) {
         $id = (int) $id;
         if (wp_next_scheduled('publish_future_post', [$id]) !== false) continue;
-        // Data vuota o «0000-00-00 00:00:00»: strtotime le leggerebbe come «adesso» o come passato remoto e
-        // l'articolo uscirebbe subito. Si accetta solo una data completa e reale.
+        // Si accetta solo una data reale, riletta identica: strtotime prenderebbe «» per adesso, «0000-00-00» per il
+        // passato remoto e «2026-02-30» per il 2 marzo, e l'articolo uscirebbe subito o nel giorno sbagliato (Codex, 16/10).
         $gmt = (string) get_post_field('post_date_gmt', $id);
-        $quando = (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $gmt) && strpos($gmt, '0000-00-00') !== 0)
-            ? strtotime($gmt . ' GMT') : false;
+        $data = DateTime::createFromFormat('!Y-m-d H:i:s', $gmt, new DateTimeZone('UTC'));
+        $quando = ($data && $data->format('Y-m-d H:i:s') === $gmt) ? $data->getTimestamp() : false;
         if (!$quando) {
             error_log('lanotte_editorial: articolo ' . $id . ' programmato senza evento e senza data valida: non ripristinato.');
             continue;
         }
         if ($quando <= time()) {
             check_and_publish_future_post($id);
-            error_log('lanotte_editorial: articolo ' . $id . ' programmato per ' . gmdate('Y-m-d H:i', $quando) . ' UTC senza evento e con ora passata: pubblicato ora.');
+            // Il core non restituisce l'esito: lo stato si rilegge dal database, non dalla cache (Codex, 16/10).
+            global $wpdb;
+            $stato = $wpdb->get_var($wpdb->prepare("SELECT post_status FROM {$wpdb->posts} WHERE ID = %d", $id));
+            error_log('lanotte_editorial: articolo ' . $id . ' programmato per ' . gmdate('Y-m-d H:i', $quando) . ' UTC senza evento e con ora passata: '
+                . ($stato === 'publish' ? 'pubblicato ora' : 'pubblicazione NON riuscita, stato «' . $stato . '»'));
             continue;
         }
         $esito = wp_schedule_single_event($quando, 'publish_future_post', [$id], true);
