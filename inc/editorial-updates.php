@@ -991,6 +991,49 @@ function lanotte_editorial_register_article_now($option, $slug, $title, $excerpt
     update_option($option, 'done', false);
 }
 
+/**
+ * Ogni articolo programmato deve avere nel cron il suo evento di uscita (publish_future_post).
+ * Il 16/10/2026 la delibera del 27/10 risultava «done» ma senza evento: le registrazioni della stessa richiesta
+ * scrivono l'opzione «cron» una dopo l'altra e una richiesta concorrente può riscriverla con una copia vecchia.
+ * Il controllo gira al più ogni 10 minuti e rimette l'evento mancante all'ora di post_date_gmt; se quell'ora è già
+ * passata pubblica come avrebbe fatto il cron (check_and_publish_future_post). Ogni intervento va nel log.
+ */
+function lanotte_editorial_ripara_uscite_programmate() {
+    if (get_transient('lanotte_uscite_programmate_controllo')) return;
+    set_transient('lanotte_uscite_programmate_controllo', 1, 10 * MINUTE_IN_SECONDS);
+
+    $ids = get_posts([
+        'post_type'        => 'post',
+        'post_status'      => 'future',
+        'fields'           => 'ids',
+        'posts_per_page'   => 50,
+        'no_found_rows'    => true,
+        'suppress_filters' => true,
+    ]);
+    foreach ($ids as $id) {
+        $id = (int) $id;
+        if (wp_next_scheduled('publish_future_post', [$id]) !== false) continue;
+        // Data vuota o «0000-00-00 00:00:00»: strtotime le leggerebbe come «adesso» o come passato remoto e
+        // l'articolo uscirebbe subito. Si accetta solo una data completa e reale.
+        $gmt = (string) get_post_field('post_date_gmt', $id);
+        $quando = (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $gmt) && strpos($gmt, '0000-00-00') !== 0)
+            ? strtotime($gmt . ' GMT') : false;
+        if (!$quando) {
+            error_log('lanotte_editorial: articolo ' . $id . ' programmato senza evento e senza data valida: non ripristinato.');
+            continue;
+        }
+        if ($quando <= time()) {
+            check_and_publish_future_post($id);
+            error_log('lanotte_editorial: articolo ' . $id . ' programmato per ' . gmdate('Y-m-d H:i', $quando) . ' UTC senza evento e con ora passata: pubblicato ora.');
+            continue;
+        }
+        $esito = wp_schedule_single_event($quando, 'publish_future_post', [$id], true);
+        error_log('lanotte_editorial: evento di uscita mancante per l\'articolo ' . $id . ' (' . gmdate('Y-m-d H:i', $quando) . ' UTC): '
+            . (is_wp_error($esito) ? 'NON ripristinato: ' . $esito->get_error_message() : 'ripristinato'));
+    }
+}
+add_action('init', 'lanotte_editorial_ripara_uscite_programmate', 99);
+
 function lanotte_editorial_register_featured($option, $slug, $asset, $title, $alt, $source_key) {
     lanotte_editorial_once($option, function() use ($option, $slug, $asset, $title, $alt, $source_key) {
         lanotte_editorial_register_featured_now($option, $slug, $asset, $title, $alt, $source_key);
