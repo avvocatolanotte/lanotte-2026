@@ -1231,7 +1231,8 @@ add_action('init', function() {
 }, 67);
 
 // Tre articoli di attualità del 13/10/2026 (fonti lette in testo integrale; revisione Codex; sì dell'Avvocato prima del push).
-// Uscite programmate alle 9:00 italiane (07:00 UTC, fuso del sito vuoto): 15/10, 20/10, 22/10 (entrata in vigore del D.Lgs. 176/2026).
+// Uscite programmate alle 9:00 italiane (fuso del sito = UTC, gmt_offset 0): fideiussione 20/10 e riparazione 22/10 (entrata in vigore del D.Lgs. 176/2026) alle 07:00 UTC con l'ora legale;
+// delibera 27/10 alle 08:00 UTC, perché l'ora legale finisce il 25/10. Date decise dall'Avvocato il 16/10.
 add_action('init', function() {
     lanotte_editorial_register_article(
         'lanotte_article_fideiussione_abi_20261013',
@@ -1242,7 +1243,7 @@ add_action('init', function() {
         'diritto-bancario',
         'Diritto bancario',
         'future',
-        '2026-10-15 07:00:00'
+        '2026-10-20 07:00:00'
     );
 }, 68);
 
@@ -1267,7 +1268,7 @@ add_action('init', function() {
         'comunione-condominio',
         'Comunione e condominio',
         'future',
-        '2026-10-20 07:00:00'
+        '2026-10-27 08:00:00'
     );
 }, 70);
 
