@@ -73,6 +73,7 @@
   }
 
   document.addEventListener('click', function (event) {
+    filtraSiteKit();
     var link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
     if (!link) return;
 
@@ -90,13 +91,17 @@
   });
 
   document.addEventListener('wpcf7mailsent', function (event) {
+    filtraSiteKit();
     var params = {page_path: window.location.pathname};
     var id = event && event.detail && event.detail.contactFormId;
     if (id) params.form_id = String(id);
     track('contatto_modulo', params);
   });
 
-  // Site Kit passa da _googlesitekit.gtagEvent e lo rilegge a ogni clic: lo si avvolge una volta sola.
+  // Site Kit passa da _googlesitekit.gtagEvent e lo rilegge a ogni clic: lo si avvolge una volta sola, appena lo script
+  // gira, a DOMContentLoaded e all'inizio di ogni clic e invio del modulo. Questi gestori sono registrati prima di quelli
+  // di Site Kit (script nel footer, i suoi sono differiti), quindi il filtro c'è anche se gtagEvent arrivasse tardi
+  // (rilievo di Codex sulla 1.0.152).
   function filtraSiteKit() {
     var sk = window._googlesitekit;
     if (!sk || typeof sk.gtagEvent !== 'function' || sk.gtagEvent.lanotteFiltro) return;
