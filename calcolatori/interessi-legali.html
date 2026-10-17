@@ -322,6 +322,8 @@
   function fmtDate(iso){const [y,m,d]=iso.split('-');return d+'/'+m+'/'+y;}
 
   function calcola(){
+    // Ogni nuovo tentativo annulla il risultato precedente: un calcolo fermato non deve lasciare a video, né nel report, quello di prima (rilievo Codex 17/10/2026)
+    datiCalcolo = null; document.getElementById('risultati').style.display = 'none';
     const importo = parseFloat(document.getElementById('importo').value);
     const dataIniziale = document.getElementById('dataIniziale').value;
     const dataFinale = document.getElementById('dataFinale').value;

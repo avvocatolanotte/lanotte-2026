@@ -449,6 +449,9 @@
       const titleText = title || 'Anteprima report';
       const textNode = node.cloneNode(true);
       textNode.querySelectorAll('.lph-brand-head,.print-header,.lpv-head').forEach(function(el){ el.remove(); });
+      // Pulsanti e collegamenti di contatto (eventi data-lanotte-event) non sono contenuto del report: nel testo del PDF
+      // finivano le loro scritte («Contatti lo Studio», «Invii il calcolo su WhatsApp»). Rilievo Codex del 17/10/2026.
+      textNode.querySelectorAll('button,a[data-lanotte-event]').forEach(function(el){ el.remove(); });
       const firstTitle = textNode.querySelector('h1');
       if (firstTitle) firstTitle.remove();
       const bodyText = (textNode.innerText || textNode.textContent || '').replace(/\n{3,}/g, '\n\n').trim();

@@ -319,6 +319,8 @@
   const fmtMese = m => { const mesi=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic']; const [y,mm]=m.split('-'); return mesi[+mm-1]+' '+y; };
 
   function calcola(){
+    // Ogni nuovo tentativo annulla il risultato precedente: un calcolo fermato non deve lasciare a video, né nel report, quello di prima (rilievo Codex 17/10/2026)
+    datiCalc = null; document.getElementById('risultati').style.display = 'none';
     const importo = parseFloat(document.getElementById('importo').value);
     const meseInizio = document.getElementById('meseInizio').value;
     const meseFine = document.getElementById('meseFine').value;
