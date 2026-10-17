@@ -23,7 +23,16 @@
     {"dal": "2019-07-01", "al": "2019-12-31", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 18/07/2019 (GU n. 167)"},
     {"dal": "2019-01-01", "al": "2019-06-30", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 21/01/2019 (GU n. 17)"},
     {"dal": "2018-07-01", "al": "2018-12-31", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicato MEF 23/07/2018 (GU n. 169)"},
-    {"dal": "2016-01-01", "al": "2018-06-30", "saggio_bce": 0.00, "moratorio": 8.00,  "norma": "Comunicati MEF semestrali"},
-    {"dal": "2013-01-01", "al": "2015-12-31", "saggio_bce": 0.50, "moratorio": 8.50,  "norma": "D.Lgs. 192/2012 + Comunicati MEF"}
+    {"dal": "2018-01-01", "al": "2018-06-30", "saggio_bce": 0.00, "moratorio": 8.00, "norma": "Comunicato MEF 18A00434, GU n. 17 del 22/01/2018"},
+    {"dal": "2017-07-01", "al": "2017-12-31", "saggio_bce": 0.00, "moratorio": 8.00, "norma": "Comunicato MEF 17A05146, GU n. 171 del 24/07/2017"},
+    {"dal": "2017-01-01", "al": "2017-06-30", "saggio_bce": 0.00, "moratorio": 8.00, "norma": "Comunicato MEF 17A00446, GU n. 18 del 23/01/2017"},
+    {"dal": "2016-07-01", "al": "2016-12-31", "saggio_bce": 0.00, "moratorio": 8.00, "norma": "Comunicato MEF 16A05556, GU n. 178 del 01/08/2016"},
+    {"dal": "2016-01-01", "al": "2016-06-30", "saggio_bce": 0.05, "moratorio": 8.05, "norma": "Comunicato MEF 16A00584, GU n. 19 del 25/01/2016"},
+    {"dal": "2015-07-01", "al": "2015-12-31", "saggio_bce": 0.05, "moratorio": 8.05, "norma": "Comunicato MEF 15A05666, GU n. 168 del 22/07/2015"},
+    {"dal": "2015-01-01", "al": "2015-06-30", "saggio_bce": 0.05, "moratorio": 8.05, "norma": "Comunicato MEF 15A00257, GU n. 12 del 16/01/2015"},
+    {"dal": "2014-07-01", "al": "2014-12-31", "saggio_bce": 0.15, "moratorio": 8.15, "norma": "Comunicato MEF 14A05655, GU n. 167 del 21/07/2014"},
+    {"dal": "2014-01-01", "al": "2014-06-30", "saggio_bce": 0.25, "moratorio": 8.25, "norma": "Comunicato MEF 14A01647, GU n. 51 del 03/03/2014"},
+    {"dal": "2013-07-01", "al": "2013-12-31", "saggio_bce": 0.50, "moratorio": 8.50, "norma": "Comunicato MEF 13A06195, GU n. 166 del 17/07/2013"},
+    {"dal": "2013-01-01", "al": "2013-06-30", "saggio_bce": 0.75, "moratorio": 8.75, "norma": "Comunicato MEF 13A00357, GU n. 14 del 17/01/2013"}
   ]
 }
