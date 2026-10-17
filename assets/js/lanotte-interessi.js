@@ -17,8 +17,9 @@
   const DATASETS = { legali: null, moratori: null };
 
   async function load(tipo, url){
-    // _v2 dal 17/10/2026: la copia _v1 poteva contenere il 10,15% «in vigore» dopo il 30/06/2026
-    const cacheKey = 'lanotte_int_' + tipo + '_v2';
+    // _v2 dal 17/10/2026: la copia _v1 poteva contenere il 10,15% «in vigore» dopo il 30/06/2026.
+    // _v3 (1.0.150): tabelle chiuse al 31/12/2026 e legali al 5% fino al 15/12/1990. Ogni modifica ai dati cambia la chiave.
+    const cacheKey = 'lanotte_int_' + tipo + '_v3';
     try {
       const cached = JSON.parse(localStorage.getItem(cacheKey));
       if (cached && (Date.now() - cached.timestamp) < 7*24*60*60*1000) {
@@ -61,9 +62,11 @@
 
     const dStart = new Date(dataIniziale);
     const dEnd = new Date(dataFinale);
-    if (dEnd <= dStart) throw new Error('Data finale deve essere successiva all\'iniziale');
+    // Giorni contati inclusi entrambi gli estremi: stessa data = 1 giorno (per la mora: decorrenza e saldo nello stesso giorno)
+    if (dEnd < dStart) throw new Error('La data finale non può precedere quella iniziale');
 
-    // Trova gli scaglioni di tasso che intersecano il periodo
+    // Trova gli scaglioni di tasso che intersecano il periodo, divisi per anno solare: ogni anno ha il suo
+    // divisore (365 o 366), anche quando una riga della tabella copre più anni (rilievo Codex 17/10/2026).
     const scaglioni = [];
     ds.tassi.forEach(t => {
       const tStart = new Date(t.dal);
@@ -71,12 +74,15 @@
       // Sovrapposizione con [dStart, dEnd]?
       const overlapStart = tStart > dStart ? tStart : dStart;
       const overlapEnd = tEnd < dEnd ? tEnd : dEnd;
-      if (overlapStart <= overlapEnd) {
+      const tasso = Math.round(((tipo === 'moratori' ? t.moratorio : t.tasso) + maggiorazione) * 1000) / 1000;
+      const norma = maggiorazione ? t.norma + ' + ' + maggiorazione + ' punti' : t.norma;
+      for (let y = overlapStart.getUTCFullYear(); overlapStart <= overlapEnd && y <= overlapEnd.getUTCFullYear(); y++) {
+        const inizioAnno = new Date(Date.UTC(y, 0, 1)), fineAnno = new Date(Date.UTC(y, 11, 31));
         scaglioni.push({
-          dal: overlapStart,
-          al: overlapEnd,
-          tasso: Math.round(((tipo === 'moratori' ? t.moratorio : t.tasso) + maggiorazione) * 1000) / 1000,
-          norma: maggiorazione ? t.norma + ' + ' + maggiorazione + ' punti' : t.norma
+          dal: overlapStart > inizioAnno ? overlapStart : inizioAnno,
+          al: overlapEnd < fineAnno ? overlapEnd : fineAnno,
+          tasso,
+          norma
         });
       }
     });
@@ -84,12 +90,29 @@
     // Ordina cronologicamente
     scaglioni.sort((a, b) => a.dal - b.dal);
 
+    // Ogni giorno del periodo deve avere un tasso: un giorno senza tasso (prima della tabella, oltre l'ultimo
+    // tasso pubblicato, o in un buco) ferma il calcolo, invece di sparire in silenzio dal totale.
+    const giornoMs = 24 * 60 * 60 * 1000;
+    let atteso = dStart;
+    for (const s of scaglioni) {
+      if (s.dal > atteso) break;
+      const dopo = new Date(s.al.getTime() + giornoMs);
+      if (dopo > atteso) atteso = dopo;
+    }
+    if (atteso <= dEnd) {
+      const c = copertura(tipo);
+      const it = d => d.toISOString().slice(0, 10).split('-').reverse().join('/');
+      throw new Error('Il tasso non è disponibile per il giorno ' + it(atteso)
+        + (c ? ': la tabella dei tassi va dal ' + it(new Date(c.dal)) + ' al ' + it(new Date(c.al)) : '')
+        + '. Il calcolo si ferma per non dare un totale incompleto: per i periodi successivi occorre il tasso pubblicato in Gazzetta Ufficiale.');
+    }
+
     // Calcolo
     const dettaglio = [];
     let totaleInteressi = 0;
     scaglioni.forEach(s => {
       const giorni = giorniTra(s.dal, s.al) + 1; // inclusivo
-      const anno = s.dal.getFullYear();
+      const anno = s.dal.getUTCFullYear();
       const gAnno = giorniAnno(anno);
       // Interesse = capitale × tasso% × giorni / giorni_anno
       const interesse = importo * (s.tasso / 100) * (giorni / gAnno);
@@ -143,5 +166,14 @@
     return DATASETS[tipo]?.meta || null;
   }
 
-  global.LanotteInteressi = { load, calcola, tassoIn, elencoTassi, meta };
+  /** Primo e ultimo giorno coperti dalla tabella ({dal, al} in formato AAAA-MM-GG); null se manca la tabella. */
+  function copertura(tipo){
+    const t = DATASETS[tipo]?.tassi;
+    if (!t || !t.length) return null;
+    const dal = t.reduce((m, x) => x.dal < m ? x.dal : m, t[0].dal);
+    const al = t.some(x => !x.al) ? '2099-12-31' : t.reduce((m, x) => x.al > m ? x.al : m, t[0].al);
+    return { dal, al };
+  }
+
+  global.LanotteInteressi = { load, calcola, tassoIn, elencoTassi, meta, copertura };
 })(window);

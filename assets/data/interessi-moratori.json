@@ -3,10 +3,10 @@
     "descrizione": "Tassi di interesse moratorio per ritardi nei pagamenti delle transazioni commerciali ex D.Lgs. 9 ottobre 2002, n. 231 (art. 5)",
     "fonte": "Comunicati MEF - Saggio BCE rifinanziamento principale + 8 punti percentuali",
     "ultimo_aggiornamento_manuale": "2026-10-17",
-    "nota": "Tassi pubblicati semestralmente dal MEF (1° gennaio e 1° luglio). Per transazioni commerciali tra imprese o tra impresa e PA. Per transazioni civili si usa art. 1284 c.c."
+    "nota": "Tassi pubblicati semestralmente dal MEF (1° gennaio e 1° luglio). Per transazioni commerciali tra imprese o tra impresa e PA. Per transazioni civili si usa art. 1284 c.c. L'ultima riga chiude alla fine del periodo per cui il tasso è pubblicato: oltre quella data il calcolo si ferma finché non si aggiunge il tasso nuovo."
   },
   "tassi": [
-    {"dal": "2026-07-01", "al": null,         "saggio_bce": 2.40, "moratorio": 10.40, "norma": "Comunicato MEF 26A03514, GU n. 163 del 16/07/2026"},
+    {"dal": "2026-07-01", "al": "2026-12-31", "saggio_bce": 2.40, "moratorio": 10.40, "norma": "Comunicato MEF 26A03514, GU n. 163 del 16/07/2026"},
     {"dal": "2026-01-01", "al": "2026-06-30", "saggio_bce": 2.15, "moratorio": 10.15, "norma": "Comunicato MEF, GU n. 15 del 20/01/2026"},
     {"dal": "2025-07-01", "al": "2025-12-31", "saggio_bce": 2.15, "moratorio": 10.15, "norma": "Comunicato MEF secondo semestre 2025"},
     {"dal": "2025-01-01", "al": "2025-06-30", "saggio_bce": 3.15, "moratorio": 11.15, "norma": "Comunicato MEF 17/01/2025 (GU n. 13)"},

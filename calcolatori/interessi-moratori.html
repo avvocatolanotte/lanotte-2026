@@ -204,7 +204,7 @@
       </div>
       <div class="calc-row">
         <label>Data fattura<input type="date" id="dataFattura"></label>
-        <label>Termine pagamento *<input type="date" id="dataScadenza" required></label>
+        <label>Termine pagamento *<input type="date" id="dataScadenza" required><span style="display:block;font-size:11px;font-weight:400;color:#64748b;margin-top:4px">Gli interessi decorrono dal giorno successivo (art. 4 D.Lgs. 231/2002).</span></label>
       </div>
       <div class="calc-row">
         <label>Data calcolo (o saldo) *<input type="date" id="dataFinale" required></label>
@@ -293,8 +293,16 @@
     await LanotteInteressi.load('moratori', '../assets/data/interessi-moratori.json');
     const meta = LanotteInteressi.meta('moratori');
     const tassoOggi = LanotteInteressi.tassoIn(new Date().toISOString().slice(0,10), 'moratori');
-    status.className = 'data-status ok';
-    status.innerHTML = 'Tassi MEF caricati · Vigente: <strong>' + tassoOggi.tasso + '%</strong> (BCE ' + tassoOggi.bce + '% + 8pp) · ' + tassoOggi.norma;
+    const cop = LanotteInteressi.copertura('moratori');
+    const it = iso => iso.split('-').reverse().join('/');
+    if (tassoOggi) {
+      status.className = 'data-status ok';
+      status.innerHTML = 'Tassi MEF caricati · Vigente: <strong>' + tassoOggi.tasso + '%</strong> (BCE ' + tassoOggi.bce + '% + 8pp) · ' + tassoOggi.norma + ' · Tabella fino al ' + it(cop.al);
+    } else {
+      // Nessun tasso per oggi: la tabella non è aggiornata. Si dice, invece di mostrare un tasso vecchio come vigente.
+      status.className = 'data-status warn';
+      status.innerHTML = 'Il tasso in vigore oggi non è ancora caricato: la tabella dei tassi arriva al <strong>' + (cop ? it(cop.al) : '—') + '</strong>. I calcoli che superano quella data sono bloccati.';
+    }
     // Storico
     const tStor = document.querySelector('#tabellaStorico tbody');
     LanotteInteressi.elencoTassi('moratori').forEach(t => {
@@ -315,10 +323,14 @@
 
   function calcola(){
     const importo = parseFloat(document.getElementById('importo').value);
-    const dataIniziale = document.getElementById('dataScadenza').value;
+    const scadenza = document.getElementById('dataScadenza').value;
     const dataFinale = document.getElementById('dataFinale').value;
     const conSpese = document.getElementById('spese').value === 'si';
-    if (!importo || !dataIniziale || !dataFinale) { alert('Compili i campi obbligatori'); return; }
+    if (!importo || !scadenza || !dataFinale) { alert('Compili i campi obbligatori'); return; }
+    if (dataFinale <= scadenza) { alert('La data di calcolo deve essere successiva al termine di pagamento: gli interessi moratori decorrono dal giorno successivo alla scadenza (art. 4, comma 1, D.Lgs. 231/2002).'); return; }
+    // Decorrenza: giorno successivo al termine di pagamento (art. 4, comma 1, D.Lgs. 231/2002)
+    const decorrenza = new Date(scadenza + 'T00:00:00Z'); decorrenza.setUTCDate(decorrenza.getUTCDate() + 1);
+    const dataIniziale = decorrenza.toISOString().slice(0, 10);
 
     let r;
     const agro = document.getElementById('tipo').value === 'alimentare';
@@ -345,7 +357,7 @@
       tb.innerHTML += '<tr><td>'+riga[0]+'</td><td>'+riga[1]+'</td><td>'+riga[2]+'</td><td><strong>'+riga[3]+'</strong></td><td style="font-size:11px">'+riga[4]+'</td><td><strong>'+riga[5]+'</strong></td></tr>';
     });
 
-    datiCalc = {r, righeTab, spese, totale, giorni,
+    datiCalc = {r, righeTab, spese, totale, giorni, scadenza,
       cliente: {nome: document.getElementById('clienteNome').value, codiceFiscale: document.getElementById('clienteCf').value},
       controparte: document.getElementById('controparte').value,
       riferimento: document.getElementById('riferimento').value,
@@ -368,7 +380,8 @@
     if (d.riferimento) dati.push({label:'Riferimento fattura', value: d.riferimento});
     if (d.dataFattura) dati.push({label:'Data fattura', value: fmtDate(d.dataFattura)});
     dati.push(
-      {label:'Termine pagamento', value: fmtDate(d.r.dataIniziale)},
+      {label:'Termine pagamento', value: fmtDate(d.scadenza)},
+      {label:'Decorrenza interessi', value: fmtDate(d.r.dataIniziale)},
       {label:'Calcolo al', value: fmtDate(d.r.dataFinale)},
       {label:'Giorni di ritardo', value: d.giorni},
       {label:'Scaglioni di tasso applicati', value: d.r.dettaglio.length},

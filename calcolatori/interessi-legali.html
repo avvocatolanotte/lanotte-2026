@@ -294,8 +294,15 @@
     const meta = LanotteInteressi.meta('legali');
     const elenco = LanotteInteressi.elencoTassi('legali');
     const tassoOggi = LanotteInteressi.tassoIn(new Date().toISOString().slice(0,10), 'legali');
-    status.className = 'data-status ok';
-    status.innerHTML = 'Tassi MEF caricati · Tasso vigente: <strong>' + tassoOggi.tasso + '%</strong> (' + tassoOggi.norma + ') · Aggiornati al: ' + meta.ultimo_aggiornamento_manuale;
+    const cop = LanotteInteressi.copertura('legali');
+    if (tassoOggi) {
+      status.className = 'data-status ok';
+      status.innerHTML = 'Tassi MEF caricati · Tasso vigente: <strong>' + tassoOggi.tasso + '%</strong> (' + tassoOggi.norma + ') · Aggiornati al: ' + meta.ultimo_aggiornamento_manuale;
+    } else {
+      // Nessun tasso per oggi: la tabella non è aggiornata. Si dice, invece di mostrare un tasso vecchio come vigente.
+      status.className = 'data-status warn';
+      status.innerHTML = 'Il tasso in vigore oggi non è ancora caricato: la tabella dei tassi arriva al <strong>' + (cop ? cop.al.split('-').reverse().join('/') : '—') + '</strong>. I calcoli che superano quella data sono bloccati.';
+    }
 
     // Popola storico
     const tStor = document.querySelector('#tabellaStorico tbody');

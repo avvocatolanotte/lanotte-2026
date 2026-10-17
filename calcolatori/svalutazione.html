@@ -340,6 +340,21 @@
     const [yStart] = meseInizio.split('-').map(Number);
     const [yEnd] = meseFine.split('-').map(Number);
     let cap = importo;
+    // Ogni anno con mesi di interessi deve avere il suo tasso legale: se manca (tabella non aggiornata) il calcolo si
+    // ferma, invece di contare zero interessi per quell'anno senza dirlo.
+    if (conInteressi === 'cumulo') {
+      const [ys0, ms0] = meseInizio.split('-').map(Number);
+      const [ye0, me0] = meseFine.split('-').map(Number);
+      const t0g = ys0 * 12 + (ms0 - 1), t1g = ye0 * 12 + (me0 - 1);
+      for (let y = yStart; y <= yEnd; y++) {
+        const mesi = Math.max(0, Math.min(t1g, (y + 1) * 12) - Math.max(t0g, y * 12));   // stessa regola del calcolo sotto
+        if (mesi > 0 && !LanotteInteressi.tassoIn(y + '-06-15', 'legali')) {
+          const cop = LanotteInteressi.copertura('legali');
+          alert('Il tasso legale per il ' + y + ' non è ancora caricato' + (cop ? ' (la tabella arriva al ' + cop.al.split('-').reverse().join('/') + ')' : '') + ': il calcolo con gli interessi si ferma per non dare un totale incompleto.');
+          return;
+        }
+      }
+    }
     for (let y = yStart; y <= yEnd; y++) {
       const dicembre = (y === yEnd) ? meseFine : (y + '-12');
       const idxAnno = LanotteISTAT.indice(dicembre);
