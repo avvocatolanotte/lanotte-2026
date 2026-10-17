@@ -5,8 +5,9 @@
   "fonte_url": "https://www.istat.it/notizia/indice-dei-prezzi-per-le-rivalutazioni-monetarie/",
   "fonte_tabella": "Camera di Commercio di Modena - dati ISTAT FOI senza tabacchi",
   "fonte_tabella_url": "https://www.mo.camcom.it/informazione-economica/indice-istat-foi/variazione-degli-indici-istat-nazionali-dei-prezzi-al-consumo-per-le-famiglie-di-operai-e-impiegati-senza-tabacchi",
-  "ultimo_aggiornamento_manuale": "2026-10-11",
-  "ultimo_mese_disponibile": "2026-08",
+  "ultimo_aggiornamento_manuale": "2026-10-17",
+  "ultimo_mese_disponibile": "2026-09",
+  "aggiornamento_2026_09": "Settembre 2026 = 104,3 (base 2025=100), pubblicato dall'ISTAT il 16/10/2026: tabella della Camera di Commercio di Genova su dati ISTAT, letta il 17/10/2026; gennaio-agosto 2026 della stessa tabella coincidono con i valori già presenti.",
   "base": "valori pubblicati nella loro base; 'indici' in base 2015=100",
   "nota_importante": "Valori come pubblicati dall'ISTAT in 'indici_pubblicati': base 1995=100 fino al 2010, base 2010=100 dal 2011 al 2015, base 2015=100 dal 2016 al 2025, base 2025=100 dal 2026. Raccordi: 1,373 (1995→2010), 1,071 (2010→2015), 1,214 (2015→2025), come in ISTAT Rivaluta. Fonte dei valori: tabella della Camera di Commercio di Modena (dati ISTAT FOI senza tabacchi), letta il 10/10/2026. Verificare sempre il dato su ISTAT Rivaluta prima dell'uso in atti.",
   "primo_mese_disponibile": "1998-01"
@@ -364,7 +365,8 @@
   "2026-05": 124.7992,
   "2026-06": 124.7992,
   "2026-07": 125.1634,
-  "2026-08": 125.8918
+  "2026-08": 125.8918,
+  "2026-09": 126.6202
  },
  "indici_da_verificare": {},
  "indici_base_2025": {
@@ -375,7 +377,8 @@
   "2026-05": 102.8,
   "2026-06": 102.8,
   "2026-07": 103.1,
-  "2026-08": 103.7
+  "2026-08": 103.7,
+  "2026-09": 104.3
  },
  "indici_pubblicati": {
   "1998-01": [
@@ -1752,6 +1755,10 @@
   ],
   "2026-08": [
    103.7,
+   "2025"
+  ],
+  "2026-09": [
+   104.3,
    "2025"
   ]
  }

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>Calcolo TFR — Studio Legale LANOTTE &amp; Partners</title>
+<link rel="canonical" href="https://studiolegalelanotte.it/calcolatori/tfr/">
+<meta http-equiv="refresh" content="0;url=https://studiolegalelanotte.it/calcolatori/tfr/">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<section class="hero-internal">
+  <div class="container">
+    <div class="breadcrumbs"><a href="https://studiolegalelanotte.it/">Home</a><span>›</span><a href="https://studiolegalelanotte.it/calcolatori/">Calcolatori</a><span>›</span>TFR</div>
+    <h1>Calcolo del TFR</h1>
+    <p class="subtitle">Trattamento di fine rapporto anno per anno: quote, contributo dello 0,50%, rivalutazione con l'indice ISTAT e imposta sostitutiva.</p>
+  </div>
+</section>
+
+<section style="background:#fef3c7;border-bottom:1px solid #f59e0b;padding:16px 0">
+  <div class="container" style="display:flex;align-items:flex-start;gap:14px;max-width:1100px">
+    <div style="font-size:24px;flex-shrink:0">!</div>
+    <div style="font-size:13.5px;color:#78350f;line-height:1.55">
+      <strong>Stima.</strong> Il calcolo applica l'art. 2120 c.c. con la retribuzione che Lei indica. Il contratto collettivo può escludere alcune voci dalla base del TFR, e le quote destinate a un fondo pensione non restano in azienda. Il risultato è il TFR prima della tassazione separata.
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container" style="max-width:1120px">
+    <div class="tfr-grid">
+      <div class="tfr-panel">
+        <h3>Dati del rapporto</h3>
+        <div class="form-field">
+          <label for="tfr-modo">Da dove parte il calcolo</label>
+          <select id="tfr-modo">
+            <option value="assunzione">Dalla data di assunzione</option>
+            <option value="saldo">Dal TFR accantonato al 31 dicembre di un anno</option>
+          </select>
+          <p class="tfr-help">Se il rapporto è iniziato prima del 1998, o se conosce l'importo accantonato (lo riporta la busta paga di dicembre o la Certificazione Unica), scelga la seconda voce.</p>
+        </div>
+        <div class="form-field" id="tfr-box-assunzione">
+          <label for="tfr-inizio">Data di assunzione</label>
+          <input type="date" id="tfr-inizio" value="2018-03-01" min="1998-01-01">
+        </div>
+        <div class="tfr-due" id="tfr-box-saldo" style="display:none">
+          <div class="form-field"><label for="tfr-saldo-anno">TFR accantonato al 31 dicembre</label><select id="tfr-saldo-anno"></select></div>
+          <div class="form-field"><label for="tfr-saldo">Importo accantonato (€)</label><input type="number" id="tfr-saldo" value="10000" min="0" step="0.01"></div>
+        </div>
+        <div class="form-field">
+          <label for="tfr-fine">Data di cessazione</label>
+          <input type="date" id="tfr-fine" min="1998-01-01">
+          <p class="tfr-help">Per un rapporto ancora in corso indichi la data di oggi: il calcolo si ferma all'ultimo indice ISTAT pubblicato.</p>
+        </div>
+        <div class="form-field">
+          <label for="tfr-ral">Retribuzione annua lorda utile per il TFR (€)</label>
+          <input type="number" id="tfr-ral" value="28000" min="0" step="0.01">
+          <p class="tfr-help">Retribuzione su dodici mesi pieni, comprese tredicesima e quattordicesima e le altre somme non occasionali, esclusi i rimborsi spese (art. 2120, terzo comma). Per i mesi di malattia, infortunio, maternità o cassa integrazione conta la retribuzione che sarebbe spettata (quarto comma). Il calcolo la riduce da sé per gli anni lavorati in parte.</p>
+        </div>
+        <div class="form-field">
+          <label class="tfr-check"><input type="checkbox" id="tfr-annuale"> Indico una retribuzione diversa per ogni anno</label>
+        </div>
+        <div id="tfr-box-anni" style="display:none"></div>
+        <div class="form-field">
+          <label class="tfr-check"><input type="checkbox" id="tfr-contributo" checked> Detrai il contributo dello 0,50% (art. 3 L. 297/1982)</label>
+        </div>
+      </div>
+
+      <div class="tfr-result">
+        <div class="tfr-kicker">Risultato</div>
+        <h3>TFR maturato</h3>
+        <div class="tfr-total"><span>Prima della tassazione separata</span><strong id="tfr-totale">—</strong><em id="tfr-totale-nota"></em></div>
+        <div class="tfr-rows">
+          <div><span>Quote accantonate (dopo lo 0,50%)</span><strong id="tfr-quote">—</strong></div>
+          <div><span>Rivalutazioni ISTAT</span><strong id="tfr-rival">—</strong></div>
+          <div><span>Imposta sostitutiva sulle rivalutazioni</span><strong id="tfr-imposta">—</strong></div>
+          <div><span>Contributo dello 0,50% detratto</span><strong id="tfr-contr">—</strong></div>
+          <div><span>Ultimo indice ISTAT usato</span><strong id="tfr-indice">—</strong></div>
+        </div>
+        <p class="tfr-note" id="tfr-note">Caricamento degli indici ISTAT…</p>
+        <button type="button" class="btn btn-ghost tfr-report" onclick="apriAnteprimaReport()">Anteprima del report</button>
+      </div>
+    </div>
+
+    <div class="tfr-tabella-box">
+      <h3>Anno per anno</h3>
+      <div style="overflow-x:auto">
+        <table class="tfr-tab">
+          <thead><tr><th>Anno</th><th>Mesi</th><th>Quota</th><th>0,50%</th><th>Coefficiente</th><th>Rivalutazione</th><th>Imposta</th><th>TFR al 31/12</th></tr></thead>
+          <tbody id="tfr-anni"></tbody>
+        </table>
+      </div>
+      <p class="tfr-help" style="margin-top:12px">Quota = retribuzione dell'anno ÷ 13,5. La rivalutazione si applica al 31 dicembre al TFR accumulato fino all'anno prima, esclusa la quota dell'anno: 1,5% fisso più il 75% dell'aumento dell'indice ISTAT dei prezzi per le famiglie di operai e impiegati (FOI, senza tabacchi) rispetto al dicembre precedente. Nell'anno della cessazione vale il mese di cessazione, contando come mese intero la frazione di almeno 15 giorni (art. 2120, quinto comma).</p>
+    </div>
+  </div>
+</section>
+
+<style>
+.tfr-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.tfr-panel{background:#fff;border:1px solid var(--border);padding:28px}
+.tfr-panel h3{margin-bottom:18px}
+.tfr-panel input[type=number],.tfr-panel input[type=date],.tfr-panel select{width:100%;padding:10px 12px;border:1px solid var(--border);background:#fff;font-family:inherit;font-size:14px;border-radius:2px}
+.tfr-help{font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:6px}
+.tfr-due{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+/* lo stile generale del sito rende le etichette maiuscole a blocco e i campi larghi quanto il riquadro */
+.tfr-panel .form-field label.tfr-check{display:flex;gap:10px;align-items:flex-start;font-size:14px;font-weight:400;letter-spacing:0;text-transform:none;line-height:1.45;cursor:pointer;color:inherit}
+.tfr-panel .form-field label.tfr-check input{width:auto;flex:0 0 auto;margin:3px 0 0}
+.tfr-anni-griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.tfr-anni-griglia label{font-size:12px;color:var(--text-muted)}
+.tfr-result{position:sticky;top:96px;background:linear-gradient(135deg,var(--navy),#1a2a4a);color:#fff;padding:30px;border-top:4px solid var(--gold)}
+.tfr-kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:8px}
+.tfr-result h3{color:#fff;line-height:1.25}
+.tfr-total{background:rgba(184,153,104,.15);border:1px solid var(--gold);padding:18px 20px;margin-bottom:12px}
+.tfr-total span{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);font-weight:700;margin-bottom:6px}
+.tfr-total strong{font-family:var(--serif);font-size:30px;color:#fff;line-height:1.1}
+.tfr-total em{display:block;font-style:normal;font-size:13px;color:#cbd5e1;margin-top:4px}
+.tfr-rows{border-top:1px solid rgba(255,255,255,.15);padding-top:14px;margin:14px 0}
+.tfr-rows div{display:flex;justify-content:space-between;gap:18px;margin-bottom:9px;font-size:13px;color:#cbd5e1}
+.tfr-rows strong{color:#e2e8f0;font-weight:600;text-align:right}
+.tfr-note{font-size:12px;color:#dbeafe;line-height:1.55;margin:0 0 16px;font-style:italic}
+.tfr-report{color:#fff;border-color:var(--gold)}
+.tfr-tabella-box{margin-top:30px;background:#fff;border:1px solid #e5e7eb;border-top:3px solid var(--gold);padding:22px}
+.tfr-tab{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;min-width:640px}
+.tfr-tab th{text-align:right;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);border-bottom:2px solid var(--gold);padding:6px}
+.tfr-tab th:first-child,.tfr-tab td:first-child{text-align:left}
+.tfr-tab td{padding:6px;border-bottom:1px solid #eef0f3;text-align:right;white-space:nowrap}
+.tfr-tab tr.tfr-ultimo td{background:#fdf6e3;font-weight:700;color:var(--navy)}
+@media(max-width:860px){.tfr-grid{grid-template-columns:1fr}.tfr-result{position:static}}
+</style>
+
+<script src="../assets/js/lanotte-preview.js"></script>
+<script>
+/* Motore del TFR (art. 2120 c.c.), in aritmetica intera: importi in centesimi, coefficienti in milionesimi di punto
+   percentuale (3,710988% = 3710988), rapporti fra indici come frazioni esatte.
+   Fonti lette il 17/10/2026: art. 2120 c.c. (Simpliciter); art. 3 L. 297/1982, aumento contributivo dello 0,30% + 0,20%
+   detratto dalla quota (Normattiva); art. 11 c.3 d.lgs. 47/2000, imposta sostitutiva sulle rivalutazioni all'11% nel testo
+   al 31/12/2014 e al 17% per le rivalutazioni dal 1° gennaio 2015 (Normattiva, nota sulla L. 190/2014), oggi art. 36
+   d.lgs. 33/2025 (Simpliciter). Metodo del coefficiente verificato su 42 coefficienti pubblicati (dicembre 2003-2025 e
+   mensili 2025-2026, tutti coincidenti): 1,5% × mesi/12 + 75% dell'aumento del FOI senza tabacchi rispetto al dicembre
+   precedente, arrotondato a 6 decimali; se l'indice non aumenta resta la sola parte fissa (2014, 2015, 2020). */
+const TFR_BASI = ['1995', '2010', '2015', '2025'];
+const TFR_RACCORDI = { '1995': [1373n, 1000n], '2010': [1071n, 1000n], '2015': [1214n, 1000n] }; // come ISTAT Rivaluta
+const TFR_DATI = { pubblicati: null, ultimo: null };
+
+function tfrArrotonda(num, den){ // num/den all'intero, metà lontano da zero
+  if (den < 0n) { num = -num; den = -den; }
+  const neg = num < 0n, x = neg ? -num : num;
+  const q = (2n * x + den) / (2n * den);
+  return neg ? -q : q;
+}
+// Rapporto esatto fra l'indice del mese e quello di riferimento, riportati alla stessa base con i raccordi ISTAT.
+function tfrRapporto(mese, rif){
+  const a = TFR_DATI.pubblicati && TFR_DATI.pubblicati[mese], b = TFR_DATI.pubblicati && TFR_DATI.pubblicati[rif];
+  if (!a || !b) return null;
+  const ia = TFR_BASI.indexOf(String(a[1])), ib = TFR_BASI.indexOf(String(b[1]));
+  if (ia < 0 || ib < 0 || !(a[0] > 0) || !(b[0] > 0)) return null;
+  let num = BigInt(Math.round(a[0] * 10000)), den = BigInt(Math.round(b[0] * 10000));
+  for (let i = ib; i < ia; i++) { const r = TFR_RACCORDI[TFR_BASI[i]]; num *= r[0]; den *= r[1]; }
+  for (let i = ia; i < ib; i++) { const r = TFR_RACCORDI[TFR_BASI[i]]; num *= r[1]; den *= r[0]; }
+  return { num, den };
+}
+// Coefficiente dell'anno in milionesimi di punto: mesi = 12 e mese di dicembre per l'anno intero; nell'anno di cessazione
+// i mesi fino al mese di riferimento. null se manca un indice.
+function tfrCoefficiente(anno, mesi, meseRif){
+  if (mesi === 0) return 0n;
+  const r = tfrRapporto(meseRif, (anno - 1) + '-12');
+  if (!r) return null;
+  const fisso = 125000n * BigInt(mesi); // 1,5% × mesi/12
+  const aumento = r.num - r.den;       // positivo se l'indice è salito
+  if (aumento <= 0n) return fisso;
+  return tfrArrotonda(fisso * 4n * r.den + aumento * 300000000n, 4n * r.den); // + 3/4 × aumento × 100 × 10^6
+}
+// Aliquota dell'imposta sostitutiva sulle rivalutazioni maturate nell'anno: dal 2001 (d.lgs. 47/2000), 17% dal 2015.
+function tfrAliquota(anno){ return anno >= 2015 ? 17n : (anno >= 2001 ? 11n : 0n); }
+
+function tfrGiorno(y, m, d){ return Math.round(Date.UTC(y, m - 1, d) / 86400000); }
+function tfrGiorniMese(y, m){ return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+// Mesi del rapporto nell'anno: conta come mese intero la frazione di almeno 15 giorni (art. 2120, secondo comma).
+function tfrMesiUtili(inizio, fine, anno){
+  const a = tfrGiorno(inizio.y, inizio.m, inizio.d), b = tfrGiorno(fine.y, fine.m, fine.d);
+  let n = 0;
+  for (let m = 1; m <= 12; m++) {
+    const da = Math.max(a, tfrGiorno(anno, m, 1)), al = Math.min(b, tfrGiorno(anno, m, tfrGiorniMese(anno, m)));
+    if (al - da + 1 >= 15) n++;
+  }
+  return n;
+}
+// Mese di riferimento per la rivalutazione dell'anno di cessazione: il mese della cessazione se vi cadono almeno 15 giorni
+// del rapporto (cessazione dal 15 in poi), altrimenti il mese precedente (art. 2120, quinto comma).
+function tfrMeseCessazione(fine){
+  if (fine.d >= 15) return { y: fine.y, m: fine.m };
+  return fine.m === 1 ? { y: fine.y - 1, m: 12 } : { y: fine.y, m: fine.m - 1 };
+}
+function tfrChiave(y, m){ return y + '-' + String(m).padStart(2, '0'); }
+
+/* Calcolo completo. p = {inizio:{y,m,d}|null, saldo:{anno, cent}|null, fine:{y,m,d}, retribuzioni:{anno: cent},
+   contributo: bool}. Restituisce {errore} oppure {righe, totali, avvisi, ultimoIndice}. */
+function tfrCalcola(p){
+  const d = TFR_DATI;
+  if (!d.pubblicati || !d.ultimo) return { errore: 'Indici ISTAT non disponibili.' };
+  const fine = p.fine;
+  if (!fine || !(fine.y >= 1998)) return { errore: 'Indichi una data di cessazione valida.' };
+  let inizio, primoAnno, fondo = 0n;
+  if (p.saldo) {
+    if (!(p.saldo.anno >= 1998) || p.saldo.cent < 0n) return { errore: 'Indichi l\'anno e l\'importo del TFR accantonato.' };
+    primoAnno = p.saldo.anno + 1; inizio = { y: primoAnno, m: 1, d: 1 }; fondo = p.saldo.cent;
+    if (fine.y < primoAnno) return { errore: 'La cessazione deve essere successiva al 31 dicembre ' + p.saldo.anno + '.' };
+  } else {
+    inizio = p.inizio;
+    if (!inizio || !(inizio.y >= 1998)) return { errore: 'Indichi una data di assunzione dal 1° gennaio 1998 in poi: per un rapporto più vecchio parta dal TFR accantonato.' };
+    if (tfrGiorno(fine.y, fine.m, fine.d) < tfrGiorno(inizio.y, inizio.m, inizio.d)) return { errore: 'La data di cessazione è anteriore all\'assunzione.' };
+    primoAnno = inizio.y;
+  }
+  const [uy, um] = d.ultimo.split('-').map(Number);
+  // Il calcolo non va oltre l'ultimo indice pubblicato più il mese in corso: dopo non c'è un coefficiente.
+  if (tfrGiorno(fine.y, fine.m, 1) > tfrGiorno(um === 12 ? uy + 1 : uy, um === 12 ? 1 : um + 1, 1) + 31) {
+    return { errore: 'La data di cessazione è troppo avanti: l\'ultimo indice ISTAT pubblicato è di ' + tfrMeseTesto(uy, um) + '.' };
+  }
+  const avvisi = [];
+  const righe = [];
+  let totQuote = 0n, totRival = 0n, totImposta = 0n, totContr = 0n, ultimoIndice = null;
+  for (let anno = primoAnno; anno <= fine.y; anno++) {
+    const fondoInizio = fondo;
+    const mesi = tfrMesiUtili(inizio, fine, anno);
+    const ral = p.retribuzioni[anno] !== undefined ? p.retribuzioni[anno] : 0n;
+    const quota = tfrArrotonda(ral * BigInt(mesi), 162n);                 // ral × mesi/12 ÷ 13,5
+    const contr = p.contributo ? tfrArrotonda(ral * BigInt(mesi), 2400n) : 0n; // 0,50% della retribuzione dell'anno
+    // Mesi e mese di riferimento della rivalutazione: anno intero (dicembre) prima dell'anno di cessazione; poi il mese
+    // di cessazione con la regola dei 15 giorni.
+    let mesiRiv = 12, provvisorio = false;
+    if (anno === fine.y) { const rc = tfrMeseCessazione(fine); mesiRiv = rc.y === anno ? rc.m : 0; }
+    if (mesiRiv > 0 && (anno > uy || (anno === uy && mesiRiv > um))) {
+      // Indice non ancora pubblicato (es. cessazione recente, o dicembre prima della pubblicazione di metà gennaio):
+      // si usa l'ultimo indice dello stesso anno, come fa il datore in busta paga, e lo si dichiara.
+      provvisorio = true;
+      mesiRiv = anno === uy ? um : 0;
+    }
+    const meseRif = tfrChiave(anno, mesiRiv || 12);
+    let coeff = 0n;
+    if (fondoInizio > 0n && mesiRiv > 0) {
+      coeff = tfrCoefficiente(anno, mesiRiv, meseRif);
+      if (coeff === null) return { errore: 'Manca l\'indice ISTAT di ' + meseRif + ': il calcolo non è possibile.' };
+      ultimoIndice = meseRif;
+    }
+    const rival = tfrArrotonda(fondoInizio * coeff, 100000000n);
+    const imposta = tfrArrotonda(rival * tfrAliquota(anno), 100n);
+    fondo = fondoInizio + rival - imposta + quota - contr;
+    totQuote += quota - contr; totRival += rival; totImposta += imposta; totContr += contr;
+    righe.push({ anno, mesi, ral, quota, contr, fondoInizio, coeff, mesiRiv, rival, imposta, aliquota: tfrAliquota(anno), fondo, provvisorio: provvisorio && fondoInizio > 0n });
+    if (provvisorio && fondoInizio > 0n) avvisi.push('L\'indice ISTAT ' + (mesiRiv ? 'del mese di riferimento' : 'dell\'anno') + ' non è ancora pubblicato: la rivalutazione del ' + anno + ' è provvisoria e usa l\'ultimo indice disponibile (' + tfrMeseTesto(uy, um) + ').');
+  }
+  if (righe.some(r => r.anno < 2001 && r.rival > 0n)) avvisi.push('Sulle rivalutazioni anteriori al 2001 non c\'era imposta sostitutiva: concorrono alla tassazione separata.');
+  return { righe, totali: { fondo, quote: totQuote, rival: totRival, imposta: totImposta, contr: totContr }, avvisi, ultimoIndice };
+}
+const TFR_MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+function tfrMeseTesto(y, m){ return TFR_MESI[m - 1] + ' ' + y; }
+
+/* ---- Interfaccia ---- */
+function tfrEuro(cent){ return new Intl.NumberFormat('it-IT', {style: 'currency', currency: 'EUR'}).format(Number(cent) / 100); }
+function tfrPerc(micro){ return (Number(micro) / 1000000).toLocaleString('it-IT', {minimumFractionDigits: 6, maximumFractionDigits: 6}) + '%'; }
+// Importo in centesimi; null se il campo non è un numero non negativo (si legge per intero: «12,5» vale 12,50).
+function tfrCent(v){
+  const s = String(v == null ? '' : v).trim().replace(/\s/g, '');
+  if (s === '') return null;
+  const n = Number(s.indexOf(',') >= 0 && s.indexOf('.') < 0 ? s.replace(',', '.') : s);
+  return isFinite(n) && n >= 0 ? BigInt(Math.round(n * 100)) : null;
+}
+function tfrData(v){
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(v || ''));
+  if (!m) return null;
+  const y = +m[1], mo = +m[2], d = +m[3];
+  if (mo < 1 || mo > 12 || d < 1 || d > tfrGiorniMese(y, mo)) return null;
+  return { y, m: mo, d };
+}
+const tfrRalAnni = {}; // retribuzioni scritte a mano per anno, in testo
+let tfrUltimo = null;
+function tfrAnniDelCalcolo(){
+  const fine = tfrData(document.getElementById('tfr-fine').value);
+  const saldo = document.getElementById('tfr-modo').value === 'saldo';
+  const inizio = saldo ? null : tfrData(document.getElementById('tfr-inizio').value);
+  const primo = saldo ? parseInt(document.getElementById('tfr-saldo-anno').value, 10) + 1 : (inizio ? inizio.y : NaN);
+  if (!fine || !isFinite(primo) || fine.y < primo || fine.y - primo > 60) return [];
+  const out = []; for (let a = primo; a <= fine.y; a++) out.push(a); return out;
+}
+function tfrDisegnaAnni(){
+  const box = document.getElementById('tfr-box-anni');
+  const attivo = document.getElementById('tfr-annuale').checked;
+  box.style.display = attivo ? 'block' : 'none';
+  if (!attivo) return;
+  const anni = tfrAnniDelCalcolo();
+  const base = document.getElementById('tfr-ral').value;
+  box.innerHTML = '<div class="tfr-anni-griglia">' + anni.map(a => '<div><label for="tfr-ral-' + a + '">' + a + '</label><input type="number" min="0" step="0.01" id="tfr-ral-' + a + '" data-anno="' + a + '" value="' + (tfrRalAnni[a] !== undefined ? tfrRalAnni[a] : base) + '"></div>').join('') + '</div>';
+  box.querySelectorAll('input').forEach(el => el.addEventListener('input', () => { tfrRalAnni[el.dataset.anno] = el.value; calcolaTfr(); }));
+}
+function tfrMostra(id, testo){ document.getElementById(id).textContent = testo; }
+function calcolaTfr(){
+  const saldoModo = document.getElementById('tfr-modo').value === 'saldo';
+  document.getElementById('tfr-box-assunzione').style.display = saldoModo ? 'none' : 'block';
+  document.getElementById('tfr-box-saldo').style.display = saldoModo ? 'grid' : 'none';
+  const note = [];
+  const ralBase = tfrCent(document.getElementById('tfr-ral').value);
+  const annuale = document.getElementById('tfr-annuale').checked;
+  const retribuzioni = {};
+  let retribuzioniValide = ralBase !== null;
+  for (const a of tfrAnniDelCalcolo()) {
+    const v = annuale && tfrRalAnni[a] !== undefined ? tfrCent(tfrRalAnni[a]) : ralBase;
+    if (v === null) retribuzioniValide = false; else retribuzioni[a] = v;
+  }
+  let r;
+  if (!TFR_DATI.pubblicati) r = { errore: 'Caricamento degli indici ISTAT…' };
+  else if (!retribuzioniValide) r = { errore: 'Indichi la retribuzione annua con un numero non negativo.' };
+  else {
+    const saldoCent = tfrCent(document.getElementById('tfr-saldo').value);
+    if (saldoModo && saldoCent === null) r = { errore: 'Indichi l\'importo del TFR accantonato.' };
+    else r = tfrCalcola({
+      inizio: saldoModo ? null : tfrData(document.getElementById('tfr-inizio').value),
+      saldo: saldoModo ? { anno: parseInt(document.getElementById('tfr-saldo-anno').value, 10), cent: saldoCent } : null,
+      fine: tfrData(document.getElementById('tfr-fine').value),
+      retribuzioni, contributo: document.getElementById('tfr-contributo').checked
+    });
+  }
+  if (r.errore) {
+    ['tfr-totale', 'tfr-quote', 'tfr-rival', 'tfr-imposta', 'tfr-contr', 'tfr-indice'].forEach(id => tfrMostra(id, '—'));
+    tfrMostra('tfr-totale-nota', '');
+    tfrMostra('tfr-note', r.errore);
+    document.getElementById('tfr-anni').innerHTML = '';
+    tfrUltimo = { r: null, note: [r.errore] };
+    return;
+  }
+  const t = r.totali;
+  tfrMostra('tfr-totale', tfrEuro(t.fondo));
+  const ult = r.righe[r.righe.length - 1];
+  tfrMostra('tfr-totale-nota', 'al ' + document.getElementById('tfr-fine').value.split('-').reverse().join('/'));
+  tfrMostra('tfr-quote', tfrEuro(t.quote));
+  tfrMostra('tfr-rival', tfrEuro(t.rival));
+  tfrMostra('tfr-imposta', '− ' + tfrEuro(t.imposta));
+  tfrMostra('tfr-contr', tfrEuro(t.contr));
+  tfrMostra('tfr-indice', r.ultimoIndice ? tfrMeseTesto(+r.ultimoIndice.slice(0, 4), +r.ultimoIndice.slice(5)) : '—');
+  note.push(...r.avvisi);
+  if (ult.rival > 0n && ult.mesiRiv < 12) note.push('Nell\'anno della cessazione la rivalutazione vale per ' + ult.mesiRiv + (ult.mesiRiv === 1 ? ' mese' : ' mesi') + ' (coefficiente ' + tfrPerc(ult.coeff) + ').');
+  note.push('Imposta sostitutiva sulle rivalutazioni: 17% dal 2015, 11% dal 2001 al 2014. All\'erogazione il TFR è soggetto a tassazione separata (artt. 17 e 19 TUIR), qui non calcolata. Eventuali anticipazioni ricevute vanno sottratte.');
+  tfrMostra('tfr-note', note.join(' '));
+  document.getElementById('tfr-anni').innerHTML = r.righe.map((x, i) => '<tr' + (i === r.righe.length - 1 ? ' class="tfr-ultimo"' : '') + '><td>' + x.anno + '</td><td>' + x.mesi + '</td><td>' + tfrEuro(x.quota) + '</td><td>' + (x.contr ? '− ' + tfrEuro(x.contr) : '—') + '</td><td>' + (x.fondoInizio > 0n && x.mesiRiv > 0 ? tfrPerc(x.coeff) + (x.provvisorio ? ' (provvisorio)' : '') : '—') + '</td><td>' + (x.rival > 0n ? tfrEuro(x.rival) : '—') + '</td><td>' + (x.imposta > 0n ? '− ' + tfrEuro(x.imposta) + ' (' + x.aliquota + '%)' : '—') + '</td><td>' + tfrEuro(x.fondo) + '</td></tr>').join('');
+  tfrUltimo = { r, note };
+}
+function apriAnteprimaReport(){
+  calcolaTfr();
+  const u = tfrUltimo, r = u.r;
+  const saldoModo = document.getElementById('tfr-modo').value === 'saldo';
+  const rows = [
+    [saldoModo ? 'TFR accantonato al 31/12/' + document.getElementById('tfr-saldo-anno').value : 'Assunzione', saldoModo ? (tfrCent(document.getElementById('tfr-saldo').value) !== null ? tfrEuro(tfrCent(document.getElementById('tfr-saldo').value)) : '—') : document.getElementById('tfr-inizio').value.split('-').reverse().join('/')],
+    ['Cessazione', document.getElementById('tfr-fine').value.split('-').reverse().join('/')],
+    ['Quote accantonate (dopo lo 0,50%)', r ? tfrEuro(r.totali.quote) : '—'],
+    ['Rivalutazioni ISTAT', r ? tfrEuro(r.totali.rival) : '—'],
+    ['Imposta sostitutiva sulle rivalutazioni', r ? '− ' + tfrEuro(r.totali.imposta) : '—']
+  ];
+  if (r) r.righe.forEach(x => rows.push(['Anno ' + x.anno + ' (' + x.mesi + ' mesi)', 'quota ' + tfrEuro(x.quota - x.contr) + (x.rival > 0n ? ', rivalutazione ' + tfrEuro(x.rival - x.imposta) + ' netta' : '') + ', TFR ' + tfrEuro(x.fondo)]));
+  LanottePreview.openSummary({
+    title: 'Calcolo del TFR',
+    subtitle: 'Trattamento di fine rapporto (art. 2120 c.c.)',
+    rows: rows,
+    totalLabel: 'TFR maturato, prima della tassazione separata',
+    total: r ? tfrEuro(r.totali.fondo) : '—',
+    notes: u.note.join(' ') + ' Coefficienti di rivalutazione calcolati sull\'indice ISTAT FOI senza tabacchi come quelli pubblicati ogni mese. Stima: la retribuzione utile e le voci escluse dipendono dal contratto collettivo.'
+  });
+}
+(function(){
+  const oggi = new Date();
+  const iso = oggi.getFullYear() + '-' + String(oggi.getMonth() + 1).padStart(2, '0') + '-' + String(oggi.getDate()).padStart(2, '0');
+  const fine = document.getElementById('tfr-fine');
+  if (!fine.value) fine.value = iso;
+  fine.max = iso;
+  const sel = document.getElementById('tfr-saldo-anno');
+  for (let a = oggi.getFullYear() - 1; a >= 1998; a--) { const o = document.createElement('option'); o.value = String(a); o.textContent = String(a); sel.appendChild(o); }
+  ['tfr-modo','tfr-inizio','tfr-saldo-anno','tfr-saldo','tfr-fine','tfr-ral','tfr-contributo'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('input', () => { tfrDisegnaAnni(); calcolaTfr(); });
+    el.addEventListener('change', () => { tfrDisegnaAnni(); calcolaTfr(); });
+  });
+  document.getElementById('tfr-annuale').addEventListener('change', () => { tfrDisegnaAnni(); calcolaTfr(); });
+  calcolaTfr();
+  fetch('../assets/data/istat-foi.json').then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); }).then(j => {
+    TFR_DATI.pubblicati = j.indici_pubblicati; TFR_DATI.ultimo = j.meta && j.meta.ultimo_mese_disponibile;
+    calcolaTfr();
+  }).catch(() => { tfrMostra('tfr-note', 'Non è stato possibile caricare gli indici ISTAT: ricarichi la pagina.'); });
+})();
+</script>
+</body>
+</html>

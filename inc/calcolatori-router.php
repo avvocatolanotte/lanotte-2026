@@ -34,6 +34,7 @@ function lanotte_calcolatori_map() {
         'sfratti'              => 'sfratti.html',
         'stragiudiziale'       => 'stragiudiziale.html',
         'svalutazione'         => 'svalutazione.html',
+        'tfr'                  => 'tfr.html',
         'timeline-marchio'     => 'timeline-marchio.html',
         'costi-marchio'        => 'costi-marchio.html',
     ];
@@ -465,6 +466,17 @@ function lanotte_calcolatori_pages_data() {
                 ['La sospensione feriale si applica sempre?', 'Va verificata in base alla materia e al rito: lo strumento consente di attivarla o disattivarla.'],
             ],
         ],
+        'tfr' => [
+            'title' => 'Calcolo TFR 2026 – trattamento di fine rapporto con rivalutazione ISTAT (gratuito)',
+            'keyword' => 'calcolo tfr',
+            'service' => 'Diritto del lavoro',
+            'intro' => 'Il calcolatore stima il trattamento di fine rapporto maturato anno per anno secondo l\'art. 2120 c.c.: quota annua pari alla retribuzione divisa per 13,5, detrazione del contributo dello 0,50%, rivalutazione al 31 dicembre con l\'1,5% più il 75% dell\'aumento dell\'indice ISTAT e imposta sostitutiva sulle rivalutazioni. Si può partire dalla data di assunzione o dal TFR accantonato indicato in busta paga.',
+            'faq' => [
+                ['TFR: come si calcola?', 'Per ogni anno si accantona una quota pari alla retribuzione annua divisa per 13,5, ridotta per le frazioni d\'anno: le frazioni di mese di almeno 15 giorni contano come mese intero. Al 31 dicembre il TFR accumulato fino all\'anno precedente si rivaluta con l\'1,5% fisso più il 75% dell\'aumento dell\'indice ISTAT dei prezzi (art. 2120 c.c.).'],
+                ['Perché il TFR in busta paga è più basso della retribuzione divisa per 13,5?', 'Dalla quota annua il datore detrae il contributo dello 0,50% della retribuzione (art. 3 L. 297/1982); sulle rivalutazioni si paga un\'imposta sostitutiva del 17% (11% fino al 2014). Il contratto collettivo può inoltre escludere alcune voci dalla base di calcolo.'],
+                ['Il TFR è tassato quando viene pagato?', 'Sì. Al pagamento il TFR, al netto delle rivalutazioni già tassate, è soggetto a tassazione separata; l\'amministrazione finanziaria riliquida poi l\'imposta in base all\'aliquota media dei cinque anni precedenti (artt. 17 e 19 TUIR).'],
+            ],
+        ],
         'pignoramento-stipendio-pensione' => [
             'title' => 'Calcolo pignoramento stipendio e pensione 2026 (gratuito)',
             'keyword' => 'calcolo pignoramento stipendio pensione quinto pignorabile',
@@ -699,6 +711,7 @@ function lanotte_area_calcolatori_links($slug) {
             'prescrizione-crediti' => 'Prescrizione crediti',
         ],
         'lavoro' => [
+            'tfr' => 'Calcolo del TFR',
             'pignoramento-stipendio-pensione' => 'Pignoramento stipendio',
             'prescrizione-crediti' => 'Prescrizione crediti',
         ],
