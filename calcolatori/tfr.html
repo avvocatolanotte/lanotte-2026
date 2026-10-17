@@ -39,7 +39,7 @@
             <option value="assunzione">Dalla data di assunzione</option>
             <option value="saldo">Dal TFR accantonato al 31 dicembre di un anno</option>
           </select>
-          <p class="tfr-help">Se il rapporto è iniziato prima del 1998, o se conosce l'importo accantonato (lo riporta la busta paga di dicembre o la Certificazione Unica), scelga la seconda voce.</p>
+          <p class="tfr-help">Se il rapporto è iniziato prima del 1998, se conosce l'importo accantonato (lo riporta la busta paga di dicembre o la Certificazione Unica) o se ha ricevuto un'anticipazione, scelga la seconda voce e indichi il TFR residuo al 31 dicembre successivo all'ultima anticipazione.</p>
         </div>
         <div class="form-field" id="tfr-box-assunzione">
           <label for="tfr-inizio">Data di assunzione</label>
@@ -57,14 +57,15 @@
         <div class="form-field">
           <label for="tfr-ral">Retribuzione annua lorda utile per il TFR (€)</label>
           <input type="number" id="tfr-ral" value="28000" min="0" step="0.01">
-          <p class="tfr-help">Retribuzione su dodici mesi pieni, comprese tredicesima e quattordicesima e le altre somme non occasionali, esclusi i rimborsi spese (art. 2120, terzo comma). Per i mesi di malattia, infortunio, maternità o cassa integrazione conta la retribuzione che sarebbe spettata (quarto comma). Il calcolo la riduce da sé per gli anni lavorati in parte.</p>
+          <p class="tfr-help">Retribuzione su dodici mesi pieni, comprese tredicesima e quattordicesima e le altre somme non occasionali, esclusi i rimborsi spese (art. 2120, secondo comma). Per i mesi di malattia, infortunio, maternità o cassa integrazione conta la retribuzione che sarebbe spettata (terzo comma). Il calcolo la riduce da sé per gli anni lavorati in parte.</p>
         </div>
         <div class="form-field">
           <label class="tfr-check"><input type="checkbox" id="tfr-annuale"> Indico una retribuzione diversa per ogni anno</label>
         </div>
         <div id="tfr-box-anni" style="display:none"></div>
         <div class="form-field">
-          <label class="tfr-check"><input type="checkbox" id="tfr-contributo" checked> Detrai il contributo dello 0,50% (art. 3 L. 297/1982)</label>
+          <label class="tfr-check"><input type="checkbox" id="tfr-contributo" checked aria-describedby="tfr-contributo-nota"> Detrai il contributo dello 0,50% (art. 3 L. 297/1982)</label>
+          <p class="tfr-help" id="tfr-contributo-nota">Il contributo è calcolato sulla retribuzione indicata sopra. La legge lo commisura alla retribuzione imponibile ai fini previdenziali: se questa è diversa, per esempio perché il contratto collettivo esclude alcune voci dal TFR, il contributo e il risultato cambiano.</p>
         </div>
       </div>
 
@@ -79,7 +80,7 @@
           <div><span>Contributo dello 0,50% detratto</span><strong id="tfr-contr">—</strong></div>
           <div><span>Ultimo indice ISTAT usato</span><strong id="tfr-indice">—</strong></div>
         </div>
-        <p class="tfr-note" id="tfr-note">Caricamento degli indici ISTAT…</p>
+        <p class="tfr-note" id="tfr-note" role="status" aria-live="polite">Caricamento degli indici ISTAT…</p>
         <button type="button" class="btn btn-ghost tfr-report" onclick="apriAnteprimaReport()">Anteprima del report</button>
       </div>
     </div>
@@ -177,7 +178,7 @@ function tfrAliquota(anno){ return anno >= 2015 ? 17n : (anno >= 2001 ? 11n : 0n
 
 function tfrGiorno(y, m, d){ return Math.round(Date.UTC(y, m - 1, d) / 86400000); }
 function tfrGiorniMese(y, m){ return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
-// Mesi del rapporto nell'anno: conta come mese intero la frazione di almeno 15 giorni (art. 2120, secondo comma).
+// Mesi del rapporto nell'anno: conta come mese intero la frazione di almeno 15 giorni (art. 2120, primo comma).
 function tfrMesiUtili(inizio, fine, anno){
   const a = tfrGiorno(inizio.y, inizio.m, inizio.d), b = tfrGiorno(fine.y, fine.m, fine.d);
   let n = 0;
@@ -340,7 +341,8 @@ function calcolaTfr(){
   tfrMostra('tfr-indice', r.ultimoIndice ? tfrMeseTesto(+r.ultimoIndice.slice(0, 4), +r.ultimoIndice.slice(5)) : '—');
   note.push(...r.avvisi);
   if (ult.rival > 0n && ult.mesiRiv < 12) note.push('Nell\'anno della cessazione la rivalutazione vale per ' + ult.mesiRiv + (ult.mesiRiv === 1 ? ' mese' : ' mesi') + ' (coefficiente ' + tfrPerc(ult.coeff) + ').');
-  note.push('Imposta sostitutiva sulle rivalutazioni: 17% dal 2015, 11% dal 2001 al 2014. All\'erogazione il TFR è soggetto a tassazione separata (artt. 17 e 19 TUIR), qui non calcolata. Eventuali anticipazioni ricevute vanno sottratte.');
+  if (document.getElementById('tfr-contributo').checked) note.push('Contributo dello 0,50% calcolato sulla retribuzione indicata, non sull\'imponibile previdenziale effettivo.');
+  note.push('Imposta sostitutiva sulle rivalutazioni: 17% dal 2015, 11% dal 2001 al 2014. All\'erogazione il TFR è soggetto a tassazione separata (artt. 17 e 19 TUIR), qui non calcolata. Il calcolo non considera anticipazioni: se ne ha ricevute, parta dal TFR residuo al 31 dicembre successivo all\'ultima anticipazione.');
   tfrMostra('tfr-note', note.join(' '));
   document.getElementById('tfr-anni').innerHTML = r.righe.map((x, i) => '<tr' + (i === r.righe.length - 1 ? ' class="tfr-ultimo"' : '') + '><td>' + x.anno + '</td><td>' + x.mesi + '</td><td>' + tfrEuro(x.quota) + '</td><td>' + (x.contr ? '− ' + tfrEuro(x.contr) : '—') + '</td><td>' + (x.fondoInizio > 0n && x.mesiRiv > 0 ? tfrPerc(x.coeff) + (x.provvisorio ? ' (provvisorio)' : '') : '—') + '</td><td>' + (x.rival > 0n ? tfrEuro(x.rival) : '—') + '</td><td>' + (x.imposta > 0n ? '− ' + tfrEuro(x.imposta) + ' (' + x.aliquota + '%)' : '—') + '</td><td>' + tfrEuro(x.fondo) + '</td></tr>').join('');
   tfrUltimo = { r, note };
