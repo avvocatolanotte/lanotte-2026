@@ -157,28 +157,6 @@ if ($show_contact_dock):
     <span><strong>WhatsApp</strong><small>Risposta rapida</small></span>
   </a>
 </div>
-<script>
-document.addEventListener('click', function(event) {
-  var link = event.target.closest('[data-lanotte-cta], a[href^="tel:"], a[href*="wa.me/"]');
-  if (!link) return;
-  var href = link.getAttribute('href') || '';
-  var method = link.getAttribute('data-lanotte-cta');
-  if (!method) {
-    method = href.indexOf('tel:') === 0 ? 'call' : (href.indexOf('wa.me/') !== -1 ? 'whatsapp' : 'contact');
-  }
-  var payload = {
-    event_category: 'lead',
-    event_label: link.getAttribute('data-lanotte-cta-location') || (link.closest('.conversion-dock') ? 'sticky-dock' : 'site-link'),
-    contact_method: method,
-    page_path: window.location.pathname
-  };
-  if (typeof window.gtag === 'function') {
-    window.gtag('event', 'contact_click', payload);
-  }
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push(Object.assign({event: 'contact_click'}, payload));
-});
-</script>
 <?php endif; ?>
 
 <?php wp_footer(); ?>
