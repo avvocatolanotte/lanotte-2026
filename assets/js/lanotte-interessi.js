@@ -17,7 +17,8 @@
   const DATASETS = { legali: null, moratori: null };
 
   async function load(tipo, url){
-    const cacheKey = 'lanotte_int_' + tipo + '_v1';
+    // _v2 dal 17/10/2026: la copia _v1 poteva contenere il 10,15% «in vigore» dopo il 30/06/2026
+    const cacheKey = 'lanotte_int_' + tipo + '_v2';
     try {
       const cached = JSON.parse(localStorage.getItem(cacheKey));
       if (cached && (Date.now() - cached.timestamp) < 7*24*60*60*1000) {
