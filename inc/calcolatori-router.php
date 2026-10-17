@@ -178,9 +178,62 @@ function lanotte_render_calcolatore($slug) {
         $html = preg_replace('~(<div\s+class=["\']calc-block["\'])~i', $status_div . "\n\n" . '$1', $html, 1, $count);
         if (!$count) $html = $status_div . "\n\n" . $html;
     }
+    $html = lanotte_calcolatore_contatti_misurati($html, $slug);
     $html = lanotte_inline_calcolatore_theme_scripts($html);
 
     return '<div class="lanotte-calcolatore-embed" data-calcolatore="' . esc_attr($slug) . '">' . $html . '</div>';
+}
+
+/** Collegamento WhatsApp dello Studio con il messaggio che nomina il calcolatore (numero da lanotte_whatsapp_url()). */
+function lanotte_calcolatore_whatsapp_url($titolo) {
+    $messaggio = rawurlencode('Buongiorno, ho utilizzato il calcolatore "' . $titolo . '" e vorrei far verificare il risultato allo Studio.');
+    $base = lanotte_whatsapp_url();
+    return $base . (strpos($base, '?') === false ? '?' : '&') . 'text=' . $messaggio;
+}
+
+/**
+ * Pulsanti di contatto dentro i calcolatori. Misura del 17/10/2026: 19 collegamenti a /contatti/ nei file dei calcolatori non
+ * avevano data-lanotte-event, quindi il clic non arrivava in GA4 (lanotte-conversions.js traccia solo gli eventi espliciti,
+ * tel:, WhatsApp e mailto:). Qui ciascuno riceve data-lanotte-event="calc_contact" e, se non ne ha, l'argomento che precompila
+ * l'oggetto del modulo. Dove il pulsante è a tutta larghezza (style con width:100%) gli si affianca un pulsante WhatsApp con lo
+ * stesso stile, e accanto al collegamento testuale del servizio del mantenimento un collegamento WhatsApp: a settembre i contatti
+ * sono arrivati da WhatsApp (31) e quasi mai dal modulo (1 invio).
+ */
+function lanotte_calcolatore_contatti_misurati($html, $slug) {
+    if (!class_exists('WP_HTML_Tag_Processor')) return $html;
+    $casa = wp_parse_url(home_url('/'), PHP_URL_HOST);
+    $p = new WP_HTML_Tag_Processor($html);
+    while ($p->next_tag('a')) {
+        if ($p->get_attribute('data-lanotte-event') !== null) continue;
+        $href = (string) $p->get_attribute('href');
+        if (wp_parse_url($href, PHP_URL_HOST) !== $casa || untrailingslashit((string) wp_parse_url($href, PHP_URL_PATH)) !== '/contatti') continue;
+        $p->set_attribute('data-lanotte-event', 'calc_contact');
+        if (wp_parse_url($href, PHP_URL_QUERY) === null) $p->set_attribute('href', add_query_arg('argomento', $slug, $href));
+        if (strpos((string) $p->get_attribute('style'), 'width:100%') !== false) {
+            $p->set_attribute('data-lanotte-wa', 'pieno');
+        } elseif (strpos(' ' . (string) $p->get_attribute('class') . ' ', ' cta-servizio-link ') !== false) {
+            $p->set_attribute('data-lanotte-wa', 'testo');
+        }
+    }
+    $html = $p->get_updated_html();
+
+    $pagine = lanotte_calcolatori_pages_data();
+    $wa = lanotte_calcolatore_whatsapp_url($pagine[$slug]['title'] ?? $slug);
+    $esito = preg_replace_callback('~<a\b[^>]*\sdata-lanotte-wa="(pieno|testo)"[^>]*>.*?</a>~s', function ($m) use ($wa) {
+        $a = new WP_HTML_Tag_Processor($m[0]);
+        if (!$a->next_tag('a')) return $m[0];
+        $stile = (string) $a->get_attribute('style');
+        $classe = (string) $a->get_attribute('class');
+        $a->remove_attribute('data-lanotte-wa');
+        $originale = $a->get_updated_html();
+        if ($m[1] === 'testo') {
+            return $originale . '<a class="' . esc_attr($classe) . '" data-lanotte-event="calc_whatsapp" href="' . esc_url($wa) . '" target="_blank" rel="noopener">oppure su WhatsApp</a>';
+        }
+        if (!preg_match('~(^|;)\s*margin-top\s*:~', $stile)) $stile = rtrim($stile, '; ') . ';margin-top:10px';
+        return $originale . '<a class="' . esc_attr($classe) . '" style="' . esc_attr($stile) . '" data-lanotte-event="calc_whatsapp" href="' . esc_url($wa) . '" target="_blank" rel="noopener">Invii il calcolo su WhatsApp</a>';
+    }, $html);
+    // Errore di PCRE (null): si torna all'HTML con i soli eventi, togliendo i marcatori, mai a una pagina senza calcolatore.
+    return is_string($esito) ? $esito : preg_replace('~\sdata-lanotte-wa="(?:pieno|testo)"~', '', $html);
 }
 
 add_shortcode('lanotte_calcolatore', function($atts) {
@@ -314,10 +367,10 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'interessi-moratori' => [
-            'title' => 'Calcolo interessi moratori 2026 – interessi di mora D.Lgs. 231/2002 (gratuito)',
+            'title' => 'Calcolo interessi moratori 2026 – D.Lgs. 231/2002 (gratuito)',
             'keyword' => 'calcolo interessi di mora',
             'service' => 'Recupero crediti commerciali',
-            'intro' => 'Calcolatore gratuito degli interessi moratori (interessi di mora) sulle fatture pagate in ritardo, ai sensi del D.Lgs. 231/2002: tasso BCE maggiorato di otto punti, aggiornato semestralmente dal MEF e applicato periodo per periodo. Vale per le transazioni commerciali tra imprese e verso la Pubblica Amministrazione; per le cessioni di prodotti agricoli e alimentari soggette al d.lgs. 198/2021 il saggio è maggiorato di ulteriori quattro punti.',
+            'intro' => 'Calcolatore gratuito degli interessi moratori (interessi di mora) sulle fatture pagate in ritardo, ai sensi del D.Lgs. 231/2002: tasso BCE maggiorato di otto punti, aggiornato semestralmente dal MEF e applicato periodo per periodo dal giorno successivo alla scadenza. Vale per le transazioni commerciali tra imprese e verso la Pubblica Amministrazione; per le cessioni di prodotti agricoli e alimentari soggette al d.lgs. 198/2021 il saggio è maggiorato di ulteriori quattro punti.',
             'faq' => [
                 ['Vale per debiti tra privati?', 'No, per rapporti civili ordinari si usano di regola gli interessi legali.'],
                 ['Da quando decorrono gli interessi moratori?', 'Di regola dal giorno successivo alla scadenza del pagamento, salvo casi particolari.'],
@@ -336,10 +389,10 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'parcella-civile' => [
-            'title' => 'Calcolo parcella avvocato civile 2026 (gratuito)',
+            'title' => 'Calcolo onorari e parcella avvocato civile 2026 (gratuito)',
             'keyword' => 'calcolo parcella avvocato civile',
             'service' => 'Onorari e preventivi',
-            'intro' => 'Calcolatore gratuito della parcella dell\'avvocato civile secondo i parametri forensi (DM 55/2014 e aggiornamenti): scaglione di valore, ufficio giudiziario e fasi dell\'attività, con il compenso tabellare di ogni fase. Il risultato è orientativo e va formalizzato in un preventivo scritto, come previsto dall\'art. 13 della legge 247/2012.',
+            'intro' => 'Calcolatore gratuito di onorari, compenso e parcella dell\'avvocato nelle cause civili secondo i parametri forensi (D.M. 55/2014, aggiornato dal D.M. 147/2022): scaglione di valore, ufficio giudiziario e fasi, con spese generali 15%, CPA 4% e IVA 22%. Il risultato è orientativo e va formalizzato in un preventivo scritto, come previsto dall\'art. 13 della legge 247/2012.',
             'faq' => [
                 ['Il calcolo coincide con il preventivo?', 'No, è una base orientativa da adattare a complessità, urgenza e attività effettiva.'],
                 ['Posso selezionare solo alcune fasi?', 'Sì, lo strumento consente di includere o escludere le fasi svolte.'],
@@ -358,10 +411,10 @@ function lanotte_calcolatori_pages_data() {
             ],
         ],
         'stragiudiziale' => [
-            'title' => 'Calcolo compenso stragiudiziale e mediazione 2026 (gratuito)',
+            'title' => 'Calcolo compenso avvocato stragiudiziale 2026 (gratuito)',
             'keyword' => 'calcolo compenso mediazione negoziazione assistita',
             'service' => 'Mediazione e trattative',
-            'intro' => 'Lo strumento stima il compenso per attività stragiudiziale, pareri, trattative, transazioni, mediazione e negoziazione assistita secondo i parametri forensi aggiornati. Per le procedure ADR considera fasi e maggiorazioni previste in caso di accordo.',
+            'intro' => 'Calcolatore del compenso dell\'avvocato per l\'attività stragiudiziale (pareri, trattative, transazioni), la mediazione e la negoziazione assistita, secondo i parametri forensi. Per le procedure ADR considera fasi e maggiorazioni previste in caso di accordo.',
             'faq' => [
                 ['Mediazione e negoziazione hanno parametri separati?', 'Sì, le procedure ADR hanno una tabella specifica con fasi proprie.'],
                 ['Cosa succede se si raggiunge un accordo?', 'Si considera la fase di conciliazione e la maggiorazione prevista sui compensi rilevanti.'],
@@ -500,11 +553,7 @@ function lanotte_calcolatore_page_content($slug, array $data) {
         $faq .= '<details><summary>' . esc_html($item[0]) . '</summary><p>' . esc_html($item[1]) . '</p></details>';
     }
 
-    $whatsapp_message = rawurlencode(
-        'Buongiorno, ho utilizzato il calcolatore "' . $data['title']
-        . '" e vorrei far verificare il risultato allo Studio.'
-    );
-    $whatsapp_url = lanotte_whatsapp_url() . (strpos(lanotte_whatsapp_url(), '?') === false ? '?' : '&') . 'text=' . $whatsapp_message;
+    $whatsapp_url = lanotte_calcolatore_whatsapp_url($data['title']);
 
     $guidance = $slug === 'macropermanenti'
         ? '<p><strong>Che cosa serve:</strong> tipo e data dell\'evento, punti riconosciuti, età alla data del fatto e giorni di inabilità indicati nella relazione medico-legale. Le spese e la perdita di reddito sono facoltative.</p>'
