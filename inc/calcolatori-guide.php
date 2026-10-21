@@ -26,7 +26,8 @@ function lanotte_guida_calcolatore_file($slug) {
 
 add_shortcode('lanotte_guida_calcolatore', function ($atts) {
     $atts = shortcode_atts(['slug' => ''], $atts, 'lanotte_guida_calcolatore');
-    $file = lanotte_guida_calcolatore_file(sanitize_title($atts['slug']));
+    // Lo slug si controlla com'è scritto, senza normalizzarlo prima (rilievo Codex su 3a987b3).
+    $file = lanotte_guida_calcolatore_file((string) $atts['slug']);
     if (!$file) return '';
     $html = (string) file_get_contents($file);
     if (trim($html) === '') return '';
@@ -44,7 +45,11 @@ function lanotte_tabella_tassi_html($tipo, $righe = 6, $oggi = null, $dati = nul
     if ($dati === null) $dati = function_exists('lanotte_dv_json') ? lanotte_dv_json('interessi-' . $tipo . '.json') : null;
     $tassi = is_array($dati['tassi'] ?? null) ? $dati['tassi'] : [];
     $tassi = array_values(array_filter($tassi, function ($t) use ($oggi) {
-        return is_array($t) && !empty($t['dal']) && !empty($t['al']) && $t['dal'] <= $oggi;
+        // Date solo nel formato AAAA-MM-GG: con uno spazio iniziale (« 2027-01-01») il confronto fra stringhe farebbe
+        // passare un semestre futuro (rilievo Codex su 3a987b3).
+        return is_array($t) && is_string($t['dal'] ?? null) && is_string($t['al'] ?? null)
+            && preg_match('~^\d{4}-\d{2}-\d{2}$~', $t['dal']) && preg_match('~^\d{4}-\d{2}-\d{2}$~', $t['al'])
+            && $t['dal'] <= $oggi;
     }));
     usort($tassi, function ($a, $b) { return strcmp($b['dal'], $a['dal']); });
     $tassi = array_slice($tassi, 0, $righe);
