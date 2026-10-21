@@ -585,6 +585,8 @@ function lanotte_calcolatore_page_content($slug, array $data) {
         . '<a class="btn btn-primary" data-lanotte-event="calc_whatsapp" href="' . esc_url($whatsapp_url) . '" target="_blank" rel="noopener">Invii su WhatsApp</a>'
         . '<a class="btn btn-ghost" data-lanotte-event="calc_contact" href="' . esc_url(add_query_arg(['argomento' => $slug], home_url('/contatti/'))) . '">Richieda una verifica</a>'
         . '</div></section>'
+        // Guida del calcolatore (content/guide-calcolatori/<slug>.html): senza file lo shortcode non stampa nulla.
+        . '[lanotte_guida_calcolatore slug="' . esc_attr($slug) . '"]'
         . '<section class="lanotte-calc-seo-faq"><h2>Domande frequenti</h2>' . $faq . '<p><em>Strumento indicativo: non sostituisce la consulenza legale e va verificato sul caso concreto.</em></p><p><a class="btn btn-primary" href="' . esc_url(home_url('/contatti/')) . '">Richieda una verifica dello Studio</a></p></section>';
 }
 
