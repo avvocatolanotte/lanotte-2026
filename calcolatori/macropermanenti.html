@@ -152,6 +152,9 @@
 </header>
 
 <style>
+/* Telefoni (21/10/2026): griglie a due colonne che a 360 px uscivano dallo schermo, dove html,body{overflow-x:clip} (header.php) le tagliava. */
+.calc-colonne{grid-template-columns:1fr 1fr}
+@media (max-width:860px){.calc-colonne{grid-template-columns:minmax(0,1fr)}.calc-colonne>*{min-width:0}}
 .damage-hero .subtitle{max-width:820px}
 .damage-trust{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
 .damage-trust span{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font-size:12px;color:#fff}
@@ -461,7 +464,7 @@
       <div class="section-eyebrow">Quale tabella si applica</div>
       <h2>TUN o Tabelle Milano?</h2>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px">
+    <div class="calc-colonne" style="display:grid;gap:24px;margin-top:32px">
       <div style="background:#fff;padding:28px;border-top:3px solid var(--gold)">
         <h4 style="font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:12px">📜 Tabella Unica Nazionale (TUN)</h4>
         <p style="font-size:14px;color:var(--text);line-height:1.65;margin-bottom:12px"><strong>Quando si applica:</strong></p>

@@ -172,7 +172,7 @@
 <!-- COSA SONO -->
 <section class="block-sm" style="background:var(--paper)">
   <div class="container" style="max-width:1100px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+    <div class="calc-colonne" style="display:grid;gap:24px">
       <div style="background:#fff;padding:28px;border-top:3px solid var(--gold)">
         <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:6px">Definizione</div>
         <h3 style="font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:12px">🔀 Danni <strong>Coesistenti</strong></h3>
@@ -198,7 +198,7 @@
 <!-- TABS -->
 <section class="block">
   <div class="container" style="max-width:1100px">
-    <div style="display:flex;gap:0;margin-bottom:0;border-bottom:2px solid var(--border)">
+    <div class="calc-schede" style="display:flex;gap:0;margin-bottom:0;border-bottom:2px solid var(--border)">
       <button class="tab-btn active" onclick="switchTab('coesistenti')" id="tab-coesistenti-btn" style="background:none;border:none;padding:18px 28px;font-family:var(--sans);font-size:15px;font-weight:600;color:var(--navy);cursor:pointer;border-bottom:3px solid var(--gold);margin-bottom:-2px">
         🔀 Calcolo COESISTENTI (Balthazard)
       </button>
@@ -209,7 +209,7 @@
 
     <!-- TAB COESISTENTI -->
     <div id="tab-coesistenti" class="tab-content" style="padding-top:32px">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+      <div class="calc-colonne" style="display:grid;gap:32px;align-items:start">
         <div style="background:#fff;border:1px solid var(--border);padding:32px;border-top:4px solid var(--gold)">
           <h3 style="font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:8px">Formula di Balthazard</h3>
           <p style="font-size:13.5px;color:var(--text-muted);line-height:1.6;margin-bottom:24px">Le menomazioni coesistenti si combinano tramite la formula: <strong>I<sub>T</sub> = I<sub>1</sub> + I<sub>2</sub> − (I<sub>1</sub> × I<sub>2</sub>) / 100</strong>. Risultato sempre &lt; 100%.</p>
@@ -280,7 +280,7 @@
         <p style="font-size:13.5px;color:#7f1d1d;line-height:1.55;margin-top:6px">Il calcolo dei danni <strong>concorrenti</strong> richiede una corretta qualificazione medico-legale. La Cass. civ., sez. III, 11 novembre 2019, n. 28986 ha stabilito che il risarcimento è la <strong>differenza monetaria</strong> tra il valore dell'invalidità complessiva post-evento e il valore della sola invalidità preesistente. Il calcolatore restituisce un'<em>indicazione di ordine di grandezza</em>: la quantificazione definitiva spetta al CTU medico-legale.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+      <div class="calc-colonne" style="display:grid;gap:32px;align-items:start">
         <div style="background:#fff;border:1px solid var(--border);padding:32px;border-top:4px solid var(--gold)">
           <h3 style="font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:8px">Sottrazione monetaria</h3>
           <p style="font-size:13.5px;color:var(--text-muted);line-height:1.6;margin-bottom:18px">Risarcimento = <strong>valore IP attuale − valore IP preesistente</strong>. Si applica alle menomazioni concorrenti, i cui effetti si aggravano a vicenda, anche se riguardano organi diversi.</p>
@@ -389,6 +389,11 @@
 </section>
 
 <style>
+/* Telefoni (21/10/2026): griglie a due colonne che a 360 px uscivano dallo schermo, dove html,body{overflow-x:clip} (header.php) le tagliava. */
+.calc-colonne{grid-template-columns:1fr 1fr}
+@media (max-width:860px){.calc-colonne{grid-template-columns:minmax(0,1fr)}.calc-colonne>*{min-width:0}}
+/* A 320 px il secondo pulsante delle schede usciva dallo schermo: meno margine interno sotto i 480 px. */
+@media (max-width:480px){.calc-schede .tab-btn{padding:14px 12px !important}}
 .tab-btn{transition:all .25s}
 .tab-btn:hover{color:var(--navy) !important}
 .form-field input[type="range"]{height:6px}

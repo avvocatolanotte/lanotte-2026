@@ -300,7 +300,9 @@
 .cta-servizio-link{font-size:12.5px;color:#64748b;text-decoration:underline}
 .cta-servizio-link:hover{color:var(--navy)}
 @media (max-width:700px){.cta-servizio{grid-template-columns:1fr !important;gap:20px}.cta-servizio-azione{min-width:0}}
-@media (max-width:700px){.calc-row,.risultato-grid{grid-template-columns:1fr !important}}
+/* Telefoni e tablet (21/10/2026): con 1fr la colonna non scendeva sotto la larghezza del menu più lungo e usciva dallo schermo. */
+@media (max-width:860px){.calc-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.calc-row,.risultato-grid{grid-template-columns:minmax(0,1fr) !important}}
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>

@@ -160,7 +160,8 @@
 .imps-docs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
 .imps-docs div{background:#fff;border:1px solid #e5e7eb;border-top:3px solid var(--gold);padding:18px}
 .imps-docs strong{display:block;color:var(--navy);margin-bottom:6px}.imps-docs span{font-size:13px;color:var(--text-muted);line-height:1.5}
-@media(max-width:860px){.imps-grid{grid-template-columns:1fr}.imps-result{position:static}.imps-docs{grid-template-columns:1fr}}
+/* Telefoni (21/10/2026): con 1fr a 320 px la colonna usciva dallo schermo di 5 px. */
+@media(max-width:860px){.imps-grid{grid-template-columns:minmax(0,1fr)}.imps-result{position:static}.imps-docs{grid-template-columns:1fr}}
 </style>
 
 <script src="../assets/js/lanotte-preview.js"></script>

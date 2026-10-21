@@ -170,7 +170,7 @@
 
 <section class="block">
   <div class="container" style="max-width:1100px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+    <div class="calc-colonne" style="display:grid;gap:32px;align-items:start">
 
       <div style="background:#fff;border:1px solid var(--border);padding:32px;border-top:4px solid var(--gold)">
         <h3 style="font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:24px">Parametri del calcolo</h3>
@@ -197,7 +197,7 @@
 
         <div class="form-field">
           <label>3 · Fasi processuali da liquidare</label>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
+          <div class="calc-fasi" style="display:grid;gap:8px;margin-top:4px">
             <label class="fase-pill"><input type="checkbox" class="fase" value="studio" checked> Studio</label>
             <label class="fase-pill"><input type="checkbox" class="fase" value="introduttiva" checked> Introduttiva</label>
             <label class="fase-pill"><input type="checkbox" class="fase" value="istruttoria" checked> Istruttoria/Dibattimentale</label>
@@ -250,6 +250,13 @@
 </section>
 
 <style>
+/* Telefoni (21/10/2026): griglie a due colonne che a 360 px uscivano dallo schermo, dove html,body{overflow-x:clip} (header.php) le tagliava. */
+.calc-colonne{grid-template-columns:1fr 1fr}
+@media (max-width:860px){.calc-colonne{grid-template-columns:minmax(0,1fr)}.calc-colonne>*{min-width:0}}
+/* «Istruttoria/Dibattimentale» è una parola sola: a 360 px due colonne uscivano dallo schermo (21/10/2026). */
+.calc-fasi{grid-template-columns:1fr 1fr}
+@media (max-width:860px){.calc-fasi{grid-template-columns:repeat(2,minmax(0,1fr))}.calc-fasi>*{min-width:0}}
+@media (max-width:480px){.calc-fasi{grid-template-columns:minmax(0,1fr)}}
 .fase-pill{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--text);font-weight:500;padding:8px 10px;border:1px solid var(--border);background:var(--paper);cursor:pointer}
 .fase-pill:has(input:checked){background:var(--cream);border-color:var(--gold)}
 .opt-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;font-size:14px;color:var(--text)}

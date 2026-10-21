@@ -384,7 +384,9 @@
 .faq-item summary::after{content:"+";font-size:22px;color:var(--gold);font-weight:300}
 .faq-item[open] summary::after{content:"−"}
 .faq-item p{margin:12px 0 0;color:#475569;font-size:14px;line-height:1.6}
-@media (max-width:700px){.calc-row,.risultato-grid{grid-template-columns:1fr !important}}
+/* Telefoni e tablet (21/10/2026): con 1fr la colonna non scendeva sotto la larghezza del menu più lungo e usciva dallo schermo. */
+@media (max-width:860px){.calc-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.calc-row,.risultato-grid{grid-template-columns:minmax(0,1fr) !important}}
 </style>
 
 <!-- jsPDF da CDN -->

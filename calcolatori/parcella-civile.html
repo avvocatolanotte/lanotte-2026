@@ -170,7 +170,7 @@
 
 <section class="block">
   <div class="container" style="max-width:1100px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+    <div class="calc-colonne" style="display:grid;gap:32px;align-items:start">
 
       <div style="background:#fff;border:1px solid var(--border);padding:32px;border-top:4px solid var(--gold)">
         <h3 style="font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:24px">Parametri del calcolo</h3>
@@ -250,6 +250,9 @@
 </section>
 
 <style>
+/* Telefoni (21/10/2026): griglie a due colonne che a 360 px uscivano dallo schermo, dove html,body{overflow-x:clip} (header.php) le tagliava. */
+.calc-colonne{grid-template-columns:1fr 1fr}
+@media (max-width:860px){.calc-colonne{grid-template-columns:minmax(0,1fr)}.calc-colonne>*{min-width:0}}
 .fase-pill{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--text);font-weight:500;padding:8px 10px;border:1px solid var(--border);background:var(--paper);cursor:pointer}
 .fase-pill:has(input:checked){background:var(--cream);border-color:var(--gold)}
 .opt-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;font-size:14px;color:var(--text)}
