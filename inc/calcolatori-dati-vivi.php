@@ -149,7 +149,9 @@ function lanotte_calcolatori_dati_vivi($oggi = null, $dati = null) {
     if ($mora && isset($mora['moratorio'], $mora['saggio_bce']) && is_numeric($mora['moratorio']) && is_numeric($mora['saggio_bce'])) {
         $mese_dal = substr($mora['dal'], 5, 2);
         $anno = substr($mora['dal'], 0, 4);
-        if (($mese_dal === '01' && substr($mora['al'], 5) === '06-30') || ($mese_dal === '07' && substr($mora['al'], 5) === '12-31')) {
+        // Solo semestri esatti dello stesso anno: 1/1–30/6 o 1/7–31/12. Una data finale sbagliata nel file (2027-12-31
+        // su un semestre del 2026) non deve far presentare come vigente un tasso scaduto (rilievo Codex su dc5ed36).
+        if ($mora['dal'] === $anno . '-01-01' && $mora['al'] === $anno . '-06-30' || $mora['dal'] === $anno . '-07-01' && $mora['al'] === $anno . '-12-31') {
             $v['mora_tasso'] = lanotte_dv_numero($mora['moratorio'], 2);
             $v['mora_bce'] = lanotte_dv_numero($mora['saggio_bce'], 2);
             $v['mora_semestre'] = ($mese_dal === '01' ? '1°' : '2°') . ' semestre ' . $anno;
@@ -250,6 +252,26 @@ function lanotte_calcolatore_seo_corrente() {
     $post = get_post();
     return lanotte_calcolatore_seo($post ? $post->post_name : '', $calc);
 }
+
+/**
+ * La pagina del calcolatore può restare nella cache di LiteSpeed: al cambio di semestre o d'anno il titolo e il riquadro
+ * resterebbero quelli vecchi fino alla scadenza della cache (rilievo Codex su dc5ed36). Al più una volta l'ora si calcola
+ * la firma dei valori; se è cambiata si svuota la cache delle pagine dei calcolatori che li mostrano.
+ */
+function lanotte_calcolatori_dati_vivi_controlla_cache() {
+    if (get_transient('lanotte_dati_vivi_controllo')) return;
+    set_transient('lanotte_dati_vivi_controllo', 1, HOUR_IN_SECONDS);
+    $firma = md5((string) wp_json_encode(lanotte_calcolatori_dati_vivi()));
+    $prima = get_option('lanotte_dati_vivi_firma');
+    if ($prima === $firma) return;
+    update_option('lanotte_dati_vivi_firma', $firma, false);
+    if ($prima === false) return; // prima misura dopo l'installazione: il deploy ha già svuotato la cache
+    foreach (array_keys(lanotte_calcolatori_seo_vivo()) as $slug) {
+        $pagina = get_page_by_path('calcolatori/' . $slug, OBJECT, 'page');
+        if ($pagina) do_action('litespeed_purge_post', (int) $pagina->ID);
+    }
+}
+add_action('init', 'lanotte_calcolatori_dati_vivi_controlla_cache', 40);
 
 /** [lanotte_dato_vivo slug="…"]: riquadro con il dato in vigore; vuoto se il dato non c'è. */
 add_shortcode('lanotte_dato_vivo', function ($atts) {
