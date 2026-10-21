@@ -467,10 +467,15 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
 /* Calcolatori su telefono (21/10/2026): in 6 calcolatori (parcella civile e penale, stragiudiziale, micropermanenti,
    scadenze, danni preesistenti) una griglia inline «1fr 1fr» non andava a capo e il risultato finiva fuori dallo schermo,
    nascosto da overflow-x:clip (misura su 375 px: totale della parcella a x=420-551). Sotto i 640 px le griglie a due
-   colonne diventano una; restano a due quelle piccole delle caselle (gap:8px). Prova: prove-calcolatori/mobile_fuori_schermo.js */
+   colonne diventano una; restano a due quelle piccole delle caselle (gap:8px). Anche menu e campi non superano la loro
+   colonna (rilievo di Codex del 21/10: «Beneficiario» del mantenimento arrivava a 544 px, l'importo degli interessi di
+   mora a 557, due menu della rivalutazione a 526). Prova: prove-calcolatori/mobile_fuori_schermo.js, 0 su 27. */
 @media (max-width:640px){
   .lanotte-calcolatore-embed [style*="grid-template-columns:1fr 1fr"]:not([style*="gap:8px"]){grid-template-columns:minmax(0,1fr)!important}
-  .lanotte-calcolatore-embed [style*="display:grid"]>*{min-width:0}
+  .lanotte-calcolatore-embed [style*="display:grid"]>*,.lanotte-calcolatore-embed label,.lanotte-calcolatore-embed .form-field,
+  .lanotte-calcolatore-embed [class*="row"]>*,.lanotte-calcolatore-embed [class*="grid"]>*{min-width:0}
+  .lanotte-calcolatore-embed select,.lanotte-calcolatore-embed textarea,
+  .lanotte-calcolatore-embed input:not([type=checkbox]):not([type=radio]):not([type=range]){max-width:100%;min-width:0;box-sizing:border-box}
 }
 .lanotte-calc-conversion{max-width:920px;margin:0 auto;padding:30px 24px;display:flex;align-items:center;justify-content:space-between;gap:28px;background:var(--navy);color:#fff;border-top:4px solid var(--gold)}
 .lanotte-calc-conversion h2{font-family:var(--serif);font-size:28px;color:#fff;margin:3px 0 8px}
