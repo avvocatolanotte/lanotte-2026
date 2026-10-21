@@ -180,7 +180,9 @@
           <select id="calc-tipo" onchange="aggiornaScaglioni()">
             <option value="trib_civile">Tribunale — Giudizio ordinario di cognizione</option>
             <option value="trib_lavoro">Tribunale — Lavoro e Previdenza</option>
-            <option value="trib_esec">Tribunale — Esecuzione</option>
+            <option value="esec_mobiliare">Esecuzione mobiliare</option>
+            <option value="esec_terzi">Esecuzione presso terzi, per consegna e rilascio, in forma specifica</option>
+            <option value="esec_immobiliare">Esecuzione immobiliare</option>
             <option value="gdp">Giudice di Pace</option>
             <option value="corte_appello">Corte d'Appello civile</option>
             <option value="cassazione">Cassazione civile</option>
@@ -190,16 +192,16 @@
         <div class="form-field" id="campo-scaglione">
           <label>2 · Valore della controversia <span style="font-weight:400;color:var(--text-muted);font-size:11px">(scaglione)</span></label>
           <select id="calc-scaglione"></select>
-          <p style="font-size:11.5px;color:var(--text-muted);margin-top:6px;font-style:italic">Cause di valore indeterminato → scaglione <strong>26.000–260.000 €</strong> (art. 5 c. 6 DM, modif. DM 147/2022).</p>
+          <p style="font-size:11.5px;color:var(--text-muted);margin-top:6px;font-style:italic">Cause di valore indeterminato → scaglione <strong>26.000–260.000 €</strong> (art. 5 c. 6 DM, modif. DM 147/2022). Oltre 520.000 € i valori dell'ultimo scaglione possono aumentare fino al 30% per ciascuna fascia (art. 6 DM 55/2014): il calcolatore non li stima.</p>
         </div>
 
         <div class="form-field">
           <label>3 · Fasi processuali da liquidare</label>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
-            <label class="fase-pill"><input type="checkbox" class="fase" value="studio" checked> Studio</label>
-            <label class="fase-pill"><input type="checkbox" class="fase" value="introduttiva" checked> Introduttiva</label>
-            <label class="fase-pill"><input type="checkbox" class="fase" value="istruttoria" checked> Istruttoria</label>
-            <label class="fase-pill"><input type="checkbox" class="fase" value="decisionale" checked> Decisionale</label>
+            <label class="fase-pill"><input type="checkbox" class="fase" value="studio" checked> <span class="fase-nome">Studio</span></label>
+            <label class="fase-pill"><input type="checkbox" class="fase" value="introduttiva" checked> <span class="fase-nome">Introduttiva</span></label>
+            <label class="fase-pill"><input type="checkbox" class="fase" value="istruttoria" checked> <span class="fase-nome">Istruttoria</span></label>
+            <label class="fase-pill"><input type="checkbox" class="fase" value="decisionale" checked> <span class="fase-nome">Decisionale</span></label>
           </div>
         </div>
 
@@ -279,33 +281,53 @@ const PARAMETRI = {
     { range: "52.000,01 – 260.000 €", studio: 4763, introduttiva: 1701, istruttoria: 2678, decisionale: 4253 },
     { range: "260.000,01 – 520.000 €", studio: 6668, introduttiva: 2336, istruttoria: 3623, decisionale: 6290 }
   ]},
-  trib_esec: { label: "Tribunale — Esecuzione", scaglioni: [
-    { range: "Fino a 1.100 €", studio: 135, introduttiva: 120, istruttoria: 270, decisionale: 270 },
-    { range: "1.100,01 – 5.200 €", studio: 200, introduttiva: 200, istruttoria: 470, decisionale: 470 },
-    { range: "5.200,01 – 26.000 €", studio: 810, introduttiva: 573, istruttoria: 1215, decisionale: 2025 },
-    { range: "26.000,01 – 52.000 €", studio: 1215, introduttiva: 810, istruttoria: 2025, decisionale: 3240 },
-    { range: "52.000,01 – 260.000 €", studio: 1984, introduttiva: 1350, istruttoria: 3442, decisionale: 5737 },
-    { range: "Oltre 260.000 €", studio: 3037, introduttiva: 2025, istruttoria: 5737, decisionale: 8775 }
+  // Esecuzioni: tabelle 16, 17 e 18 del D.M. 147/2022, ciascuna con due sole fasi (le altre valgono 0 e si disattivano).
+  esec_mobiliare: { label: "Esecuzione mobiliare (tab. 16)", scaglioni: [
+    { range: "Fino a 1.100 €", studio: 126, introduttiva: 0, istruttoria: 63, decisionale: 0 },
+    { range: "1.100,01 – 5.200 €", studio: 368, introduttiva: 0, istruttoria: 184, decisionale: 0 },
+    { range: "5.200,01 – 26.000 €", studio: 552, introduttiva: 0, istruttoria: 305, decisionale: 0 },
+    { range: "26.000,01 – 52.000 €", studio: 861, introduttiva: 0, istruttoria: 494, decisionale: 0 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", studio: 1166, introduttiva: 0, istruttoria: 735, decisionale: 0 },
+    { range: "260.000,01 – 520.000 €", studio: 1533, introduttiva: 0, istruttoria: 982, decisionale: 0 }
+  ]},
+  esec_terzi: { label: "Esecuzione presso terzi, per consegna e rilascio, in forma specifica (tab. 17)", etichette: { introduttiva: "Introduttiva", istruttoria: "Trattazione e conclusiva" }, scaglioni: [
+    { range: "Fino a 1.100 €", studio: 0, introduttiva: 110, istruttoria: 236, decisionale: 0 },
+    { range: "1.100,01 – 5.200 €", studio: 0, introduttiva: 331, istruttoria: 567, decisionale: 0 },
+    { range: "5.200,01 – 26.000 €", studio: 0, introduttiva: 552, istruttoria: 851, decisionale: 0 },
+    { range: "26.000,01 – 52.000 €", studio: 0, introduttiva: 861, istruttoria: 1360, decisionale: 0 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", studio: 0, introduttiva: 1166, istruttoria: 1927, decisionale: 0 },
+    { range: "260.000,01 – 520.000 €", studio: 0, introduttiva: 1533, istruttoria: 2604, decisionale: 0 }
+  ]},
+  esec_immobiliare: { label: "Esecuzione immobiliare (tab. 18)", scaglioni: [
+    { range: "Fino a 1.100 €", studio: 147, introduttiva: 0, istruttoria: 76, decisionale: 0 },
+    { range: "1.100,01 – 5.200 €", studio: 452, introduttiva: 0, istruttoria: 299, decisionale: 0 },
+    { range: "5.200,01 – 26.000 €", studio: 683, introduttiva: 0, istruttoria: 452, decisionale: 0 },
+    { range: "26.000,01 – 52.000 €", studio: 1050, introduttiva: 0, istruttoria: 677, decisionale: 0 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", studio: 1433, introduttiva: 0, istruttoria: 982, decisionale: 0 },
+    { range: "260.000,01 – 520.000 €", studio: 1890, introduttiva: 0, istruttoria: 1281, decisionale: 0 }
   ]},
   gdp: { label: "Giudice di Pace", scaglioni: [
     { range: "Fino a 1.100 €", studio: 68, introduttiva: 68, istruttoria: 68, decisionale: 142 },
     { range: "1.100,01 – 5.200 €", studio: 236, introduttiva: 252, istruttoria: 352, decisionale: 425 },
     { range: "5.200,01 – 26.000 €", studio: 425, introduttiva: 352, istruttoria: 567, decisionale: 746 }
   ]},
+  // Tabella 12 del D.M. 147/2022 (letta su Simpliciter il 21/10/2026).
   corte_appello: { label: "Corte d'Appello civile", scaglioni: [
-    { range: "Fino a 1.100 €", studio: 405, introduttiva: 270, istruttoria: 540, decisionale: 810 },
-    { range: "1.100,01 – 5.200 €", studio: 540, introduttiva: 405, istruttoria: 945, decisionale: 1417 },
-    { range: "5.200,01 – 26.000 €", studio: 2025, introduttiva: 1417, istruttoria: 3037, decisionale: 5062 },
-    { range: "26.000,01 – 52.000 €", studio: 3037, introduttiva: 2025, istruttoria: 5062, decisionale: 8100 },
-    { range: "52.000,01 – 260.000 €", studio: 4961, introduttiva: 3375, istruttoria: 8606, decisionale: 14343 },
-    { range: "260.000,01 – 520.000 €", studio: 7593, introduttiva: 5062, istruttoria: 14343, decisionale: 21937 },
-    { range: "Oltre 520.000 €", studio: 11137, introduttiva: 7425, istruttoria: 19575, decisionale: 31893 }
+    { range: "Fino a 1.100 €", studio: 142, introduttiva: 142, istruttoria: 179, decisionale: 210 },
+    { range: "1.100,01 – 5.200 €", studio: 536, introduttiva: 536, istruttoria: 992, decisionale: 851 },
+    { range: "5.200,01 – 26.000 €", studio: 1134, introduttiva: 921, istruttoria: 1843, decisionale: 1911 },
+    { range: "26.000,01 – 52.000 €", studio: 2058, introduttiva: 1418, istruttoria: 3045, decisionale: 3470 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", studio: 2977, introduttiva: 1911, istruttoria: 4326, decisionale: 5103 },
+    { range: "260.000,01 – 520.000 €", studio: 4389, introduttiva: 2552, istruttoria: 5880, decisionale: 7298 }
   ]},
+  // Tabella 13 del D.M. 147/2022: tre fasi, senza istruttoria.
   cassazione: { label: "Cassazione civile", scaglioni: [
-    { range: "Fino a 26.000 €", studio: 2430, introduttiva: 1620, istruttoria: 0, decisionale: 4050 },
-    { range: "26.000,01 – 260.000 €", studio: 5400, introduttiva: 3645, istruttoria: 0, decisionale: 8910 },
-    { range: "260.000,01 – 520.000 €", studio: 8100, introduttiva: 5400, istruttoria: 0, decisionale: 13500 },
-    { range: "Oltre 520.000 €", studio: 12150, introduttiva: 8100, istruttoria: 0, decisionale: 20250 }
+    { range: "Fino a 1.100 €", studio: 252, introduttiva: 284, istruttoria: 0, decisionale: 142 },
+    { range: "1.100,01 – 5.200 €", studio: 709, introduttiva: 777, istruttoria: 0, decisionale: 389 },
+    { range: "5.200,01 – 26.000 €", studio: 1276, introduttiva: 1134, istruttoria: 0, decisionale: 672 },
+    { range: "26.000,01 – 52.000 €", studio: 2336, introduttiva: 1969, istruttoria: 0, decisionale: 1208 },
+    { range: "52.000,01 – 260.000 € (anche valore indeterminato)", studio: 3402, introduttiva: 2478, istruttoria: 0, decisionale: 1775 },
+    { range: "260.000,01 – 520.000 €", studio: 4961, introduttiva: 3260, istruttoria: 0, decisionale: 2552 }
   ]}
 };
 const FASE_LABELS = {studio:"Studio", introduttiva:"Introduttiva", istruttoria:"Istruttoria", decisionale:"Decisionale"};
@@ -318,7 +340,8 @@ function rigaSeVisibile(id, label, valueId){
 function apriAnteprimaReport(){
   calcola();
   const scaglione = document.getElementById('calc-scaglione');
-  const fasi = [...document.querySelectorAll('.fase:checked')].map(f => FASE_LABELS[f.value]).join(', ') || 'Nessuna fase selezionata';
+  const etichette = PARAMETRI[document.getElementById('calc-tipo').value].etichette || {};
+  const fasi = [...document.querySelectorAll('.fase:checked')].map(f => etichette[f.value] || FASE_LABELS[f.value]).join(', ') || 'Nessuna fase selezionata';
   LanottePreview.openSummary({
     title: 'Parcella civile',
     subtitle: testo('calc-titolo'),
@@ -343,9 +366,15 @@ function aggiornaScaglioni(){
   const sel = document.getElementById('calc-scaglione');
   document.getElementById('calc-titolo').textContent = params.label;
   sel.innerHTML = params.scaglioni.map((s, i) => '<option value="'+i+'">'+s.range+'</option>').join('');
-  // Per Cassazione, disabilito istruttoria (non applicabile)
-  document.querySelector('input.fase[value="istruttoria"]').disabled = (tipo === 'cassazione');
-  if (tipo === 'cassazione') document.querySelector('input.fase[value="istruttoria"]').checked = false;
+  // Fasi che la tabella del procedimento non prevede (valore 0 in ogni scaglione: istruttoria in Cassazione, due fasi
+  // nelle esecuzioni): disattivate e tolte; quando tornano previste si riattivano e si spuntano.
+  document.querySelectorAll('input.fase').forEach(cb => {
+    const prevista = params.scaglioni.some(s => s[cb.value] > 0);
+    if (!prevista) { cb.disabled = true; cb.checked = false; }
+    else if (cb.disabled) { cb.disabled = false; cb.checked = true; }
+    const nome = cb.parentElement.querySelector('.fase-nome');
+    if (nome) nome.textContent = (params.etichette || {})[cb.value] || FASE_LABELS[cb.value];
+  });
   calcola();
 }
 function aggiornaSliderLabel(){
@@ -374,7 +403,7 @@ function calcola(){
     if (attiva) totaleFasi += valore;
     const pct = valore > 0 ? (valore / maxV * 100) : 0;
     return `<div class="fase-bar" style="opacity:${attiva?1:0.35}">
-      <div class="fase-bar-label"><span>${FASE_LABELS[f]}${attiva?'':' (esclusa)'}${valore===0?' (n.a.)':''}</span><strong style="color:#fff">${fmt(valore)}</strong></div>
+      <div class="fase-bar-label"><span>${(params.etichette || {})[f] || FASE_LABELS[f]}${attiva?'':' (esclusa)'}${valore===0?' (n.a.)':''}</span><strong style="color:#fff">${fmt(valore)}</strong></div>
       <div class="fase-bar-track"><div class="fase-bar-fill" style="width:${pct}%"></div></div></div>`;
   }).join('');
   document.getElementById('calc-fasi-bars').innerHTML = barsHTML;

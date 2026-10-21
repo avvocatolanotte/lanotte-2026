@@ -189,7 +189,6 @@
               <option value="mediazione">Mediazione civile e commerciale (D.Lgs. 28/2010)</option>
               <option value="negoz_assistita">Negoziazione assistita (DL 132/2014)</option>
               <option value="arbitrato">Arbitrato</option>
-              <option value="conciliazione">Conciliazione</option>
             </optgroup>
           </select>
         </div>
@@ -379,12 +378,8 @@ const PARAMETRI = {
     { range: "26.000,01 – 52.000 €", valore: 4253 },
     { range: "52.000,01 – 260.000 €", valore: 7439 },
     { range: "260.000,01 – 520.000 €", valore: 17010 }
-  ]},
-  conciliazione: { label: "Conciliazione paritetica", scaglioni: [
-    { range: "Affare fino a 26.000 €", valore: 405 },
-    { range: "26.001 – 260.000 €", valore: 810 },
-    { range: "Oltre 260.000 €", valore: 1620 }
   ]}
+  // «Conciliazione paritetica» (405/810/1.620 €) tolta il 21/10/2026: non corrisponde a nessuna tabella del D.M. 147/2022.
 };
 function fmt(n){ return '€ ' + n.toLocaleString('it-IT', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }
 function testo(id){ return (document.getElementById(id)?.textContent || '').trim(); }
