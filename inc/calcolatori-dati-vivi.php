@@ -223,11 +223,11 @@ function lanotte_calcolatori_seo_vivo() {
         'svalutazione' => [
             'titolo' => 'Calcolo rivalutazione monetaria ISTAT e interessi[[ – FOI {foi_mese}|| (gratuito)]]',
             'descrizione' => '[[Indici ISTAT FOI aggiornati a {foi_mese} (variazione annua {foi_var12}%). ||]]Calcolo gratuito della rivalutazione monetaria di un importo e degli interessi legali sul capitale via via rivalutato.',
-            'riquadro' => 'Indici ISTAT FOI senza tabacchi disponibili fino a <strong>{foi_mese}</strong> ({foi_indice})[[; variazione su dodici mesi: <strong>{foi_var12}%</strong>||]].',
+            'riquadro' => 'Indici ISTAT FOI senza tabacchi disponibili fino a <strong>{foi_mese}</strong>, ultimo indice {foi_indice}[[; variazione su dodici mesi: <strong>{foi_var12}%</strong>||]].',
         ],
         'mantenimento-istat' => [
             'descrizione' => 'Rivalutazione, adeguamento e aggiornamento ISTAT dell\'assegno di mantenimento per coniuge e figli[[ con gli indici FOI aggiornati a {foi_mese}||]]: il calcolatore gratuito quantifica nuovo importo, differenze mensili e arretrati.',
-            'riquadro' => 'Indici ISTAT FOI senza tabacchi disponibili fino a <strong>{foi_mese}</strong> ({foi_indice})[[; variazione su dodici mesi: <strong>{foi_var12}%</strong>||]].',
+            'riquadro' => 'Indici ISTAT FOI senza tabacchi disponibili fino a <strong>{foi_mese}</strong>, ultimo indice {foi_indice}[[; variazione su dodici mesi: <strong>{foi_var12}%</strong>||]].',
         ],
     ];
 }
