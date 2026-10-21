@@ -88,6 +88,8 @@ $calc_base = home_url('/calcolatori');
       <a href="<?php echo esc_url("$calc_base/timeline-marchio/"); ?>" class="calc-card cat-4"><div class="calc-icon">™️</div><h3>Timeline Marchio UIBM/EUIPO</h3><p>Date stimate deposito → registrazione + opposizione</p><span class="calc-tag">Reg. UE 2017/1001 + CPI</span></a>
     </div>
 
+    <p style="margin:56px auto 0;max-width:680px;text-align:center;font-size:14.5px;line-height:1.6;color:#475569">Gestisce un sito? I calcolatori si possono inserire nelle Sue pagine con un codice da copiare: <a href="<?php echo esc_url("$calc_base/incorpora/"); ?>">Incorpori i calcolatori nel Suo sito</a>.</p>
+
     <div style="margin-top:60px;padding:40px;background:linear-gradient(135deg,var(--navy) 0%,#1a2a4a 100%);border-radius:8px;color:#fff;text-align:center">
       <h3 style="font-family:var(--serif);font-size:26px;color:#fff;margin:0 0 12px">Desidera un preventivo scritto sul Suo caso?</h3>
       <p style="color:#cbd5e1;font-size:15px;max-width:580px;margin:0 auto 24px;line-height:1.6">I calcolatori forniscono valori indicativi. Per un preventivo personalizzato (art. 13 L. 247/2012) può contattare lo Studio.</p>
