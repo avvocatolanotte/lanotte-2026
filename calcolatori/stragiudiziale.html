@@ -188,7 +188,7 @@
             <optgroup label="Procedure ADR (alternative al giudizio)">
               <option value="mediazione">Mediazione civile e commerciale (D.Lgs. 28/2010)</option>
               <option value="negoz_assistita">Negoziazione assistita (DL 132/2014)</option>
-              <option value="arbitrato">Arbitrato</option>
+              <option value="arbitrato">Arbitrato — compenso di ciascun arbitro</option>
             </optgroup>
           </select>
         </div>
@@ -373,7 +373,8 @@ const PARAMETRI = {
     { range: "52.000,01 – 260.000 € (anche valore indeterminato)", attivazione: 1008, negoziazione: 2016, conciliazione: 3931 },
     { range: "260.000,01 – 520.000 €", attivazione: 1370, negoziazione: 2741, conciliazione: 5343 }
   ]},
-  arbitrato: { label: "Arbitrato", scaglioni: [
+  // Art. 10 D.M. 55/2014: la tabella 26 vale per ciascun arbitro (comma 1); il difensore in arbitrato segue la tabella 2 (comma 2).
+  arbitrato: { label: "Arbitrato — compenso di ciascun arbitro (per l'avvocato che difende una parte vale la tabella 2: calcolatore della parcella civile, giudizio ordinario)", scaglioni: [
     { range: "Fino a 26.000 €", valore: 1701 },
     { range: "26.000,01 – 52.000 €", valore: 4253 },
     { range: "52.000,01 – 260.000 €", valore: 7439 },
