@@ -182,8 +182,8 @@ function lanotte_seo_current_key() {
 
 /* === Integrazione AIOSEO (filtri ufficiali) === */
 add_filter('aioseo_title', function($title) {
-    if (function_exists('lanotte_current_calcolatore_data')) {
-        $calc = lanotte_current_calcolatore_data();
+    if (function_exists('lanotte_calcolatore_seo_corrente')) {
+        $calc = lanotte_calcolatore_seo_corrente();
         if ($calc) return $calc['title'] . ' | Studio Legale LANOTTE';
     }
 
@@ -193,9 +193,9 @@ add_filter('aioseo_title', function($title) {
     return lanotte_seo_suffisso_breve($title);
 });
 add_filter('aioseo_description', function($desc) {
-    if (function_exists('lanotte_current_calcolatore_data')) {
-        $calc = lanotte_current_calcolatore_data();
-        if ($calc) return wp_trim_words($calc['intro'], 28, '...');
+    if (function_exists('lanotte_calcolatore_seo_corrente')) {
+        $calc = lanotte_calcolatore_seo_corrente();
+        if ($calc) return $calc['description'];
     }
 
     $map = lanotte_seo_map() + lanotte_seo_map_articoli();
@@ -206,8 +206,8 @@ add_filter('aioseo_description', function($desc) {
 /* === Fallback nativo se AIOSEO non è attivo === */
 add_filter('document_title_parts', function($parts) {
     if (defined('AIOSEO_VERSION')) return $parts; // AIOSEO gestisce il title
-    if (function_exists('lanotte_current_calcolatore_data')) {
-        $calc = lanotte_current_calcolatore_data();
+    if (function_exists('lanotte_calcolatore_seo_corrente')) {
+        $calc = lanotte_calcolatore_seo_corrente();
         if ($calc) return ['title' => $calc['title'] . ' | Studio Legale LANOTTE'];
     }
 
@@ -221,10 +221,10 @@ add_filter('document_title_parts', function($parts) {
 
 add_action('wp_head', function() {
     if (defined('AIOSEO_VERSION')) return; // AIOSEO genera la meta description
-    if (function_exists('lanotte_current_calcolatore_data')) {
-        $calc = lanotte_current_calcolatore_data();
+    if (function_exists('lanotte_calcolatore_seo_corrente')) {
+        $calc = lanotte_calcolatore_seo_corrente();
         if ($calc) {
-            echo '<meta name="description" content="' . esc_attr(wp_trim_words($calc['intro'], 28, '...')) . '">' . "\n";
+            echo '<meta name="description" content="' . esc_attr($calc['description']) . '">' . "\n";
             return;
         }
     }

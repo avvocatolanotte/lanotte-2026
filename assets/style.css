@@ -446,6 +446,7 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
 .lanotte-calc-seo-intro{border-bottom:1px solid var(--border)}
 .lanotte-calc-seo-intro p,
 .lanotte-calc-seo-faq p{font-size:15.5px;line-height:1.75;color:var(--text);margin:0 0 14px}
+.lanotte-calc-seo-intro p.lanotte-dato-vivo{padding:12px 16px;border-left:4px solid var(--gold);background:#fafaf7;color:var(--navy)}
 .lanotte-calc-seo-faq h2{font-family:var(--serif);font-size:28px;color:var(--navy);font-weight:600;margin:0 0 18px}
 .lanotte-calc-seo-faq details{border:1px solid var(--border);border-radius:6px;margin-bottom:10px;background:#fafaf7}
 .lanotte-calc-seo-faq summary{cursor:pointer;padding:14px 16px;font-weight:700;color:var(--navy)}

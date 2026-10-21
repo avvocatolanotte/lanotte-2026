@@ -571,7 +571,12 @@ function lanotte_calcolatore_page_content($slug, array $data) {
         ? '<p><strong>Che cosa serve:</strong> tipo e data dell\'evento, punti riconosciuti, età alla data del fatto e giorni di inabilità indicati nella relazione medico-legale. Le spese e la perdita di reddito sono facoltative.</p>'
         : '<p>Per usare correttamente lo strumento inserisca i dati richiesti, controlli il risultato e scarichi o stampi il report solo dopo aver verificato l\'anteprima. Il calcolo è pensato per una prima valutazione operativa.</p><p>Quando il conteggio incide su diritti, prescrizioni, termini processuali, risarcimenti o somme contestate, è opportuno farlo verificare da un avvocato.</p>';
 
-    return '<section class="lanotte-calc-seo-intro"><p>' . esc_html($data['intro']) . '</p>' . $guidance . '</section>'
+    // Riquadro con il dato in vigore (ultimo indice FOI, tasso del semestre): lo shortcode si calcola a ogni richiesta,
+    // quindi resta aggiornato anche se la pagina viene rigenerata solo al cambio di versione (inc/calcolatori-dati-vivi.php).
+    $dato_vivo = (function_exists('lanotte_calcolatori_seo_vivo') && !empty(lanotte_calcolatori_seo_vivo()[$slug]['riquadro']))
+        ? '[lanotte_dato_vivo slug="' . esc_attr($slug) . '"]' : '';
+
+    return '<section class="lanotte-calc-seo-intro"><p>' . esc_html($data['intro']) . '</p>' . $dato_vivo . $guidance . '</section>'
         . '[lanotte_calcolatore slug="' . esc_attr($slug) . '"]'
         . '<section class="lanotte-calc-conversion" data-calc-slug="' . esc_attr($slug) . '">'
         . '<div><p class="lanotte-calc-conversion-kicker">Verifica professionale</p><h2>Desidera verificare il risultato?</h2>'
