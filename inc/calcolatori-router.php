@@ -231,7 +231,7 @@ function lanotte_calcolatore_contatti_misurati($html, $slug) {
             return $originale . '<a class="' . esc_attr($classe) . '" data-lanotte-event="calc_whatsapp" href="' . esc_url($wa) . '" target="_blank" rel="noopener">oppure su WhatsApp</a>';
         }
         if (!preg_match('~(^|;)\s*margin-top\s*:~', $stile)) $stile = rtrim($stile, '; ') . ';margin-top:10px';
-        return $originale . '<a class="' . esc_attr($classe) . '" style="' . esc_attr($stile) . '" data-lanotte-event="calc_whatsapp" href="' . esc_url($wa) . '" target="_blank" rel="noopener">Invii il calcolo su WhatsApp</a>';
+        return $originale . '<a class="' . esc_attr($classe) . '" style="' . esc_attr($stile) . '" data-lanotte-event="calc_whatsapp" href="' . esc_url($wa) . '" target="_blank" rel="noopener">Chieda una verifica su WhatsApp</a>';
     }, $html);
     // Errore di PCRE (null): si torna all'HTML con i soli eventi, togliendo i marcatori, mai a una pagina senza calcolatore.
     return is_string($esito) ? $esito : preg_replace('~\sdata-lanotte-wa="(?:pieno|testo)"~', '', $html);
@@ -580,9 +580,9 @@ function lanotte_calcolatore_page_content($slug, array $data) {
         . '[lanotte_calcolatore slug="' . esc_attr($slug) . '"]'
         . '<section class="lanotte-calc-conversion" data-calc-slug="' . esc_attr($slug) . '">'
         . '<div><p class="lanotte-calc-conversion-kicker">Verifica professionale</p><h2>Desidera verificare il risultato?</h2>'
-        . '<p>Può inviare il calcolo allo Studio: verifichiamo documenti, decorrenze e regole applicabili prima che il risultato venga utilizzato.</p></div>'
+        . '<p>Può chiedere allo Studio di verificarlo: controlliamo documenti, decorrenze e regole applicabili prima che il risultato venga utilizzato.</p></div>'
         . '<div class="lanotte-calc-conversion-actions">'
-        . '<a class="btn btn-primary" data-lanotte-event="calc_whatsapp" href="' . esc_url($whatsapp_url) . '" target="_blank" rel="noopener">Invii su WhatsApp</a>'
+        . '<a class="btn btn-primary" data-lanotte-event="calc_whatsapp" href="' . esc_url($whatsapp_url) . '" target="_blank" rel="noopener">Scriva su WhatsApp</a>'
         . '<a class="btn btn-ghost" data-lanotte-event="calc_contact" href="' . esc_url(add_query_arg(['argomento' => $slug], home_url('/contatti/'))) . '">Richieda una verifica</a>'
         . '</div></section>'
         // Guida del calcolatore (content/guide-calcolatori/<slug>.html): senza file lo shortcode non stampa nulla.

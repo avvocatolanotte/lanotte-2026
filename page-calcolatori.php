@@ -13,7 +13,7 @@ $calc_base = home_url('/calcolatori');
 <section style="background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#fff;padding:80px 0 70px">
   <div class="container">
     <nav style="font-size:13px;color:#cbd5e1;margin-bottom:14px"><a href="<?php echo esc_url(home_url('/')); ?>" style="color:#cbd5e1">Home</a> <span style="opacity:.5">›</span> <span style="color:#b89968">Calcolatori</span></nav>
-    <span style="display:inline-block;padding:6px 14px;background:rgba(184,153,104,.18);border:1px solid rgba(184,153,104,.4);border-radius:2px;font-size:11px;letter-spacing:.14em;color:#d4b87f;font-weight:600;text-transform:uppercase;margin-bottom:18px">24 strumenti professionali · Tutti con anteprima e PDF</span>
+    <span style="display:inline-block;padding:6px 14px;background:rgba(184,153,104,.18);border:1px solid rgba(184,153,104,.4);border-radius:2px;font-size:11px;letter-spacing:.14em;color:#d4b87f;font-weight:600;text-transform:uppercase;margin-bottom:18px"><?php echo (int) count(lanotte_calcolatori_map()); ?> strumenti professionali · Tutti con anteprima e PDF</span>
     <h1 style="font-family:var(--serif);font-size:54px;font-weight:600;line-height:1.05;margin:0 0 22px;color:#fff">Calcolatori<br><em style="font-style:italic;color:#d4b87f">giuridici e patrimoniali</em></h1>
     <p style="font-size:17px;line-height:1.65;color:#cbd5e1;max-width:780px;margin:0">Parcelle, scadenze, lesioni, ISTAT, interessi, prescrizione, pignoramenti e contestazioni bollette. Indici e tassi <strong style="color:#fff">aggiornati periodicamente</strong> sulle fonti ufficiali, con la data di aggiornamento indicata. Report con anteprima, stampa e PDF.</p>
   </div>
@@ -56,7 +56,7 @@ $calc_base = home_url('/calcolatori');
     <div class="cat-header" style="margin-top:64px">
       <div class="cat-eyebrow">Categoria 3 di 4 · ⚡ Auto-aggiornamento</div>
       <h2 class="cat-title">Aggiornamenti monetari e interessi</h2>
-      <p class="cat-subtitle">Indici ISTAT FOI e tassi MEF aggiornati dalle fonti ufficiali. Cache locale + fallback JSON.</p>
+      <p class="cat-subtitle">Indici ISTAT FOI e tassi del Ministero dell'economia, aggiornati dalle fonti ufficiali.</p>
     </div>
     <div class="calc-grid">
       <a href="<?php echo esc_url("$calc_base/istat-locazione/"); ?>" class="calc-card cat-3 highlight"><span class="calc-badge">⚡ ISTAT</span><div class="calc-icon">🏘️</div><h3>Aumento ISTAT Locazione</h3><p>Canone al 75% o 100% FOI · Bozza di richiesta</p><span class="calc-tag">Art. 32 L. 392/1978</span></a>
