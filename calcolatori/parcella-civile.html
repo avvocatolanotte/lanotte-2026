@@ -179,7 +179,8 @@
           <label>1 · Tipo di procedimento</label>
           <select id="calc-tipo" onchange="aggiornaScaglioni()">
             <option value="trib_civile">Tribunale — Giudizio ordinario di cognizione</option>
-            <option value="trib_lavoro">Tribunale — Lavoro e Previdenza</option>
+            <option value="trib_lavoro">Tribunale — Lavoro</option>
+            <option value="trib_previdenza">Tribunale — Previdenza</option>
             <option value="esec_mobiliare">Esecuzione mobiliare</option>
             <option value="esec_terzi">Esecuzione presso terzi, per consegna e rilascio, in forma specifica</option>
             <option value="esec_immobiliare">Esecuzione immobiliare</option>
@@ -273,13 +274,22 @@ const PARAMETRI = {
     { range: "52.000,01 – 260.000 € (anche valore indeterminato)", studio: 2552, introduttiva: 1628, istruttoria: 5670, decisionale: 4253 },
     { range: "260.000,01 – 520.000 €", studio: 3544, introduttiva: 2338, istruttoria: 10411, decisionale: 6164 }
   ]},
-  trib_lavoro: { label: "Tribunale — Lavoro e Previdenza", scaglioni: [
+  trib_lavoro: { label: "Tribunale — Lavoro (tab. 3)", scaglioni: [
     { range: "Fino a 1.100 €", studio: 210, introduttiva: 126, istruttoria: 126, decisionale: 179 },
     { range: "1.100,01 – 5.200 €", studio: 888, introduttiva: 425, istruttoria: 567, decisionale: 746 },
     { range: "5.200,01 – 26.000 €", studio: 1822, introduttiva: 777, istruttoria: 1172, decisionale: 1617 },
     { range: "26.000,01 – 52.000 €", studio: 3245, introduttiva: 1202, istruttoria: 1880, decisionale: 2930 },
     { range: "52.000,01 – 260.000 €", studio: 4763, introduttiva: 1701, istruttoria: 2678, decisionale: 4253 },
     { range: "260.000,01 – 520.000 €", studio: 6668, introduttiva: 2336, istruttoria: 3623, decisionale: 6290 }
+  ]},
+  // Cause di previdenza: tabella 4 del D.M. 147/2022, distinta da quella del lavoro (rilievo Codex su c7d3c89).
+  trib_previdenza: { label: "Tribunale — Previdenza (tab. 4)", scaglioni: [
+    { range: "Fino a 1.100 €", studio: 131, introduttiva: 121, istruttoria: 179, decisionale: 247 },
+    { range: "1.100,01 – 5.200 €", studio: 425, introduttiva: 425, istruttoria: 851, decisionale: 919 },
+    { range: "5.200,01 – 26.000 €", studio: 929, introduttiva: 777, istruttoria: 1664, decisionale: 2021 },
+    { range: "26.000,01 – 52.000 €", studio: 1701, introduttiva: 1204, istruttoria: 2693, decisionale: 3675 },
+    { range: "52.000,01 – 260.000 €", studio: 2552, introduttiva: 1701, istruttoria: 3827, decisionale: 4148 },
+    { range: "260.000,01 – 520.000 €", studio: 3544, introduttiva: 2336, istruttoria: 5171, decisionale: 7865 }
   ]},
   // Esecuzioni: tabelle 16, 17 e 18 del D.M. 147/2022, ciascuna con due sole fasi (le altre valgono 0 e si disattivano).
   esec_mobiliare: { label: "Esecuzione mobiliare (tab. 16)", scaglioni: [
