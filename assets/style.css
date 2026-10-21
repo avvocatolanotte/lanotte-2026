@@ -464,6 +464,14 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
 .lanotte-calc-seo-faq summary{cursor:pointer;padding:14px 16px;font-weight:700;color:var(--navy)}
 .lanotte-calc-seo-faq details p{padding:0 16px 16px;margin:0}
 .lanotte-calcolatore-embed{background:#fafaf7}
+/* Calcolatori su telefono (21/10/2026): in 6 calcolatori (parcella civile e penale, stragiudiziale, micropermanenti,
+   scadenze, danni preesistenti) una griglia inline «1fr 1fr» non andava a capo e il risultato finiva fuori dallo schermo,
+   nascosto da overflow-x:clip (misura su 375 px: totale della parcella a x=420-551). Sotto i 640 px le griglie a due
+   colonne diventano una; restano a due quelle piccole delle caselle (gap:8px). Prova: prove-calcolatori/mobile_fuori_schermo.js */
+@media (max-width:640px){
+  .lanotte-calcolatore-embed [style*="grid-template-columns:1fr 1fr"]:not([style*="gap:8px"]){grid-template-columns:minmax(0,1fr)!important}
+  .lanotte-calcolatore-embed [style*="display:grid"]>*{min-width:0}
+}
 .lanotte-calc-conversion{max-width:920px;margin:0 auto;padding:30px 24px;display:flex;align-items:center;justify-content:space-between;gap:28px;background:var(--navy);color:#fff;border-top:4px solid var(--gold)}
 .lanotte-calc-conversion h2{font-family:var(--serif);font-size:28px;color:#fff;margin:3px 0 8px}
 .lanotte-calc-conversion p{max-width:590px;margin:0;color:#dbe3ee;line-height:1.6}
