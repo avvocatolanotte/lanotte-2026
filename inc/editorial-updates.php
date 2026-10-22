@@ -1356,3 +1356,30 @@ add_action('init', function() {
         'lanotte-diritto-alla-riparazione-2026'
     );
 }, 73);
+
+// Articolo del 22/10/2026 su Cass. pen., sez. I, n. 27109/2026 (testo integrale letto il 22/10/2026; segnalata dall'Avvocato).
+// Uscita proposta lunedì 26/10 alle 9:00 italiane = 08:00 UTC (l'ora legale finisce il 25/10): data da confermare dall'Avvocato.
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_gatti_randagi_colonia_20261022',
+        'gatti-randagi-colonia-felina-deiezioni-cassazione-2026',
+        'Gatti randagi: chi li sfama risponde di sporcizia e odori?',
+        'Per la Cassazione (sent. 27109/2026) chi accudisce una colonia felina non ne è il custode e non risponde penalmente delle deiezioni nel giardino del vicino; restano le regole del Comune sul modo di nutrire i gatti.',
+        'gatti-randagi-colonia-felina-cassazione-2026.html',
+        'penale',
+        'Penale',
+        'future',
+        '2026-10-26 08:00:00'
+    );
+}, 74);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_gatti_randagi_colonia_featured_20261022',
+        'gatti-randagi-colonia-felina-deiezioni-cassazione-2026',
+        'gatti-randagi-colonia-felina-2026.jpg',
+        'Gatti randagi e colonia felina',
+        'Gatto tigrato seduto su un gradino di pietra accanto a due ciotole, una con crocchette e una con acqua, davanti a un cancello in ferro blu',
+        'lanotte-gatti-randagi-colonia-felina-2026'
+    );
+}, 75);
