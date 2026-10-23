@@ -38,7 +38,12 @@ function lanotte_widget_percorso_richiesta() {
  * possono mostrare in un iframe di qualunque sito; tutto il resto, compresi i 404 sotto /widget/, resta SAMEORIGIN.
  */
 function lanotte_intestazioni_cornice($percorso) {
-    return lanotte_widget_slug($percorso) !== null
+    // Permissiva solo se il calcolatore esiste e il suo file si legge: con il file assente la pagina sarebbe il 404
+    // ordinario del tema, che non deve diventare incorniciabile (rilievo Codex su f819cdb). Il caso di un calcolatore
+    // che pur esistendo non si compone è trattato nel template_redirect qui sotto, che ripristina SAMEORIGIN.
+    $slug = lanotte_widget_slug($percorso);
+    $file = $slug !== null ? LANOTTE_THEME_DIR . '/calcolatori/' . lanotte_calcolatori_map()[$slug] : '';
+    return ($slug !== null && is_readable($file))
         ? ['Content-Security-Policy: frame-ancestors *']
         : ['X-Frame-Options: SAMEORIGIN'];
 }
@@ -106,6 +111,10 @@ add_action('template_redirect', function () {
         // Slug inesistente o file del calcolatore illeggibile: 404 di WordPress. Senza togliere redirect_canonical,
         // /widget/tfr/ senza calcolatore verrebbe «indovinato» e mandato con un 301 su /calcolatori/tfr/ (misurato il
         // 21/10/2026 sul sito in linea, dove /widget/ non esiste ancora).
+        // Nessuna eccezione per la pagina d'errore: si torna a SAMEORIGIN anche se send_headers aveva già mandato la
+        // politica permissiva (rilievo Codex su f819cdb).
+        header_remove('Content-Security-Policy');
+        header('X-Frame-Options: SAMEORIGIN');
         global $wp_query;
         if (is_object($wp_query) && method_exists($wp_query, 'set_404')) $wp_query->set_404();
         remove_action('template_redirect', 'redirect_canonical');
