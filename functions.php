@@ -143,6 +143,7 @@ require_once LANOTTE_THEME_DIR . '/inc/woocommerce-registro.php';
 require_once LANOTTE_THEME_DIR . '/inc/contatti-prefill.php';
 require_once LANOTTE_THEME_DIR . '/inc/correzioni-contenuti.php';
 require_once LANOTTE_THEME_DIR . '/inc/analytics-consenso.php';
+require_once LANOTTE_THEME_DIR . '/inc/cookie-informativa.php';
 require_once LANOTTE_THEME_DIR . '/inc/rinomine-20261011.php';
 require_once LANOTTE_THEME_DIR . '/inc/immagini-evidenza-20261011.php';
 

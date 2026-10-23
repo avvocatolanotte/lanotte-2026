@@ -593,6 +593,9 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
   .cky-btn-revisit-wrapper{bottom:92px!important}
 }
 
+/* Collegamento all'informativa nel banner dei cookie (inc/cookie-informativa.php), 23/10/2026 */
+.cky-consent-container .lanotte-cky-policy{color:#14213d!important;text-decoration:underline!important;font-weight:600}
+
 /* Banner dei cookie (CookieYes) su telefono, 22/10/2026, col sì dell'Avvocato. Misura su 390×844: il banner occupava
    366 px (43% dello schermo) con «Accettare tutto» in evidenza e «Rifiuta tutto» per ultimo; ora 241 px (29%), testo
    integro e leggibile senza scorrere, «Rifiuta» e «Accetta» affiancati, uguali e nei colori dello Studio, «Personalizza»
