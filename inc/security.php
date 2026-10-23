@@ -57,7 +57,11 @@ add_action('template_redirect', function() {
 add_action('send_headers', function(){
     if (!is_admin()) {
         header('X-Content-Type-Options: nosniff');
-        header('X-Frame-Options: SAMEORIGIN');
+        // SAMEORIGIN ovunque, tranne i calcolatori incorporabili /widget/<slug>/ (inc/calcolatori-widget.php).
+        $cornice = function_exists('lanotte_intestazioni_cornice')
+            ? lanotte_intestazioni_cornice(lanotte_widget_percorso_richiesta())
+            : ['X-Frame-Options: SAMEORIGIN'];
+        foreach ($cornice as $intestazione) header($intestazione);
         header('Referrer-Policy: strict-origin-when-cross-origin');
         header('Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()');
         // HSTS solo se sicuri che tutto sia HTTPS
