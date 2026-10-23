@@ -1,0 +1,49 @@
+<section class="lanotte-calc-guida">
+<h2>Come si calcola la rivalutazione monetaria con gli indici ISTAT</h2>
+<p>La rivalutazione monetaria esprime una somma riferita a una data passata nel valore della moneta di oggi, con l'indice dei prezzi al consumo dell'ISTAT. Il calcolatore applica all'importo il coefficiente tra il mese iniziale e il mese di calcolo e, se richiesto, aggiunge gli interessi legali calcolati anno per anno sul capitale via via rivalutato.</p>
+
+<h3>A che cosa serve: crediti di valore e debiti di denaro</h3>
+<p>Il codice civile segue il principio nominalistico: i debiti pecuniari si estinguono con moneta avente corso legale «per il suo valore nominale» (art. 1277 c.c.). Per questo occorre distinguere.</p>
+<ul>
+<li><strong>Debiti di denaro</strong> (un prezzo, un prestito, una fattura). Dal giorno della mora sono dovuti gli interessi legali, anche senza prova di un danno. Il creditore che dimostra un danno maggiore ha diritto all'ulteriore risarcimento (art. 1224 c.c.). Secondo le Sezioni Unite il maggior danno si presume quando, durante la mora, il rendimento medio netto dei titoli di Stato con scadenza fino a dodici mesi è stato superiore al tasso legale (Cass. civ., Sez. Unite, sentenza n. 19499 del 16 luglio 2008). La rivalutazione, quindi, non si somma in automatico.</li>
+<li><strong>Risarcimento di un danno</strong> (credito di valore). Si liquida il valore del bene perduto all'epoca del fatto, espresso in moneta che tiene conto della svalutazione fino alla decisione. Al danneggiato spetta anche il mancato guadagno causato dal ritardo nel pagamento: si prova anche per presunzioni e il giudice può liquidarlo con gli interessi (Cass. civ., Sez. Unite, sentenza n. 1712 del 17 febbraio 1995). È il caso tipico per cui serve questo calcolatore.</li>
+</ul>
+
+<h3>Quale indice si usa</h3>
+<p>Il calcolatore usa l'indice dei prezzi al consumo per le famiglie di operai e impiegati (<strong>FOI</strong>), che l'ISTAT calcola senza i tabacchi dal febbraio 1992. Dal gennaio 2026 l'indice è pubblicato in base 2025=100; fino a dicembre 2025 la base era 2015=100. Tra le due basi si applica il <strong>coefficiente di raccordo 1,214</strong>, e il calcolatore lo fa da solo.</p>
+[lanotte_dato_vivo slug="svalutazione"]
+<p>Per i <strong>crediti di lavoro</strong> la legge indica un indice diverso. L'art. 429, terzo comma, c.p.c. prevede, oltre agli interessi legali, il maggior danno per la diminuzione di valore del credito dal giorno della maturazione del diritto. L'art. 150 disp. att. c.p.c. rinvia, per questo calcolo, all'indice dei prezzi calcolato dall'ISTAT «per la scala mobile per i lavoratori dell'industria». Il calcolatore usa il FOI per ogni tipo di credito: per un credito di lavoro il risultato è solo indicativo e l'indice va verificato.</p>
+
+<h3>La formula</h3>
+<p><strong>Coefficiente = indice del mese di calcolo ÷ indice del mese iniziale × raccordo</strong>, arrotondato a tre decimali. Il raccordo vale 1 se i due mesi hanno la stessa base, 1,214 se il primo è in base 2015 e il secondo in base 2025. <strong>Importo rivalutato = importo × coefficiente.</strong></p>
+<p>Per gli interessi il calcolatore procede anno per anno. Rivaluta il capitale fino a dicembre (per l'ultimo anno, fino al mese di calcolo) e applica il tasso legale di quell'anno ai soli mesi del periodo che cadono nell'anno: <strong>interessi dell'anno = capitale rivalutato × tasso legale × mesi ÷ 12</strong>. Il periodo va dall'inizio del mese iniziale all'inizio del mese di calcolo.</p>
+<p>Le Sezioni Unite escludono che gli interessi si calcolino dalla data del fatto sulla somma già rivalutata alla fine. Ammettono invece il calcolo sulla somma che cresce nel tempo secondo gli indici, oppure su un indice medio. La misura del tasso spetta al giudice, valutate le circostanze del caso (Cass. SU 1712/1995). Il calcolatore usa la prima soluzione, con il tasso legale di ciascun anno (art. 1284 c.c.).</p>
+
+<h3>Da quando si calcola</h3>
+<p>Per un danno il mese iniziale è quello del fatto, perché il valore del bene perduto si riferisce a quel momento. Per un credito di lavoro conta il giorno della maturazione del diritto (art. 429, terzo comma, c.p.c.). Il mese di calcolo è quello della liquidazione o, per una verifica, l'ultimo mese con l'indice pubblicato.</p>
+
+<h3>Un esempio</h3>
+<p>Un danno del valore di 10.000 € riferito a marzo 2023 viene liquidato a marzo 2026. L'indice di marzo 2023 è 118,0 (base 2015), quello di marzo 2026 è 101,5 (base 2025). Con il raccordo 1,214 il coefficiente è 1,044 e l'importo rivalutato è <strong>10.440,00 €</strong>, con 440,00 € di rivalutazione.</p>
+<div class="lanotte-calc-guida-tabella"><table><caption>Interessi legali anno per anno sul capitale rivalutato (esempio)</caption>
+<thead><tr><th scope="col">Anno</th><th scope="col">Capitale rivalutato</th><th scope="col">Tasso legale</th><th scope="col">Mesi</th><th scope="col">Interessi</th></tr></thead>
+<tbody>
+<tr><td>2023</td><td>10.080,00 €</td><td>5%</td><td>10</td><td>420,00 €</td></tr>
+<tr><td>2024</td><td>10.190,00 €</td><td>2,5%</td><td>12</td><td>254,75 €</td></tr>
+<tr><td>2025</td><td>10.300,00 €</td><td>2%</td><td>12</td><td>206,00 €</td></tr>
+<tr><td>2026</td><td>10.440,00 €</td><td>1,6%</td><td>2</td><td>27,84 €</td></tr>
+</tbody></table></div>
+<p>Gli interessi sono in tutto <strong>908,59 €</strong>. Rivalutazione e interessi portano il credito a <strong>11.348,59 €</strong>.</p>
+
+<h3>Che cosa resta da verificare</h3>
+<p>Il calcolo non stabilisce se la rivalutazione spetta. Prima di usarlo conviene accertare se il credito è di valore o di denaro e da quale data decorre. Occorre anche verificare se il titolo, un contratto o una sentenza fissano un indice o un tasso diversi. Per un debito di denaro il maggior danno va chiesto e, oltre la presunzione delle Sezioni Unite, provato.</p>
+
+<p class="lanotte-calc-guida-firma">A cura dell'Avv. Giuseppe LANOTTE, Studio Legale LANOTTE &amp; Partners. Aggiornato il 21/10/2026.</p>
+<p class="lanotte-calc-guida-fonti">Fonti lette il 21/10/2026:</p>
+<ul class="lanotte-calc-guida-fonti">
+<li>artt. 1224, 1277 e 1284 c.c.;</li>
+<li>art. 429 c.p.c. e art. 150 disp. att. c.p.c.;</li>
+<li>Cass. civ., Sez. Unite, 17 febbraio 1995, n. 1712; Cass. civ., Sez. Unite, 16 luglio 2008, n. 19499 (massime);</li>
+<li>indici FOI senza tabacchi su dati ISTAT: tabella della Camera di commercio di Torino (raccordo 1,214 tra base 2015 e base 2025) e tabella della Camera di commercio di Modena (indici fino a settembre 2026);</li>
+<li>tasso legale 2026 (1,6%): D.M. 10 dicembre 2025, nelle note all'art. 1284 c.c.; tassi 2023-2025: tabella del <a href="/calcolatori/interessi-legali/">calcolatore degli interessi legali</a>, che indica per ciascun anno il decreto di riferimento.</li>
+</ul>
+</section>
