@@ -58,6 +58,27 @@ if (!$tagline) $tagline = get_the_excerpt();
           <a href="<?php echo esc_url(get_permalink(get_page_by_path('contatti'))); ?>" class="btn btn-primary">Richieda una consulenza</a>
         </div>
 
+        <?php
+        // 23/10/2026: l'area Famiglia e Successioni rimanda alle due pagine dedicate (solo se pubblicate).
+        $dedicate = get_post_field('post_name', get_the_ID()) === 'famiglia-successioni'
+            ? ['avvocato-separazione-divorzio' => 'Separazione e divorzio a Barletta', 'avvocato-successioni-eredita' => 'Successioni ed eredità']
+            : [];
+        $dedicate_pubblicate = [];
+        foreach ($dedicate as $slug_dedicata => $etichetta) {
+            $pagina = get_page_by_path($slug_dedicata);
+            if ($pagina instanceof WP_Post && $pagina->post_status === 'publish') $dedicate_pubblicate[] = [get_permalink($pagina), $etichetta];
+        }
+        if ($dedicate_pubblicate): ?>
+        <div class="sidebar-card" style="background:#fff;border:1px solid var(--border);padding:24px">
+          <h4>Approfondimenti</h4>
+          <ul class="sidebar-list">
+            <?php foreach ($dedicate_pubblicate as [$url_dedicata, $etichetta]): ?>
+            <li><a href="<?php echo esc_url($url_dedicata); ?>"><?php echo esc_html($etichetta); ?></a></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+        <?php endif; ?>
+
         <div class="sidebar-card" style="background:#fff;border:1px solid var(--border);padding:24px">
           <h4>Altre aree</h4>
           <ul class="sidebar-list">

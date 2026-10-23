@@ -76,6 +76,10 @@ function lanotte_seo_map() {
             't' => 'Newsletter Giuridica · Studio Legale | ' . $brand,
             'd' => 'Newsletter dello Studio Legale LANOTTE & Partners di Barletta: aggiornamenti e approfondimenti giuridici, senza spam.',
         ],
+        'avvocato-separazione-divorzio' => [
+            't' => 'Avvocato Separazione e Divorzio a Barletta | ' . $brand,
+            'd' => 'Separazione e divorzio a Barletta e Trani, consensuali o giudiziali: ricorso congiunto, negoziazione assistita, figli e assegni. Preventivo scritto.',
+        ],
         'avvocato-successioni-eredita' => [
             't' => 'Avvocato Successioni ed Eredità a Barletta | ' . $brand,
             'd' => 'Assistenza legale per successioni, eredità, divisioni, testamenti e quote di legittima a Barletta e in tutta Italia. Consulenza su appuntamento.',
@@ -101,12 +105,12 @@ function lanotte_seo_map() {
             't' => 'Avvocato Civilista a Barletta e Trani | ' . $brand,
             'd' => 'Avvocato civilista a Barletta: contratti, recupero crediti, locazioni, responsabilità e risarcimenti. Assistenza stragiudiziale e giudiziale.',
         ],
-        // 23/10/2026: «avvocato divorzista barletta» portava alla home con lo snippet del piè di pagina (C.F. e
-        // P.IVA); il titolo di questa pagina non nominava separazione e divorzio. Le successioni hanno la loro
-        // pagina (avvocato-successioni-eredita).
+        // 23/10/2026: separazione e divorzio hanno ora la loro pagina (avvocato-separazione-divorzio), come le
+        // successioni (avvocato-successioni-eredita); quest'area torna la pagina d'insieme e rimanda a entrambe,
+        // così le due pagine non si contendono la stessa ricerca.
         'famiglia-successioni' => [
-            't' => 'Avvocato Separazione e Divorzio a Barletta | ' . $brand,
-            'd' => 'Separazione e divorzio, consensuali o giudiziali, affidamento e mantenimento dei figli a Barletta e Trani. Anche eredità e divisioni. Preventivo scritto.',
+            't' => 'Avvocato Famiglia e Successioni a Barletta | ' . $brand,
+            'd' => 'Famiglia e successioni a Barletta e Trani: separazione e divorzio, figli, unioni civili, eredità e divisioni. Pagine dedicate e preventivo scritto.',
         ],
         'condominio' => [
             't' => 'Avvocato Condominialista a Barletta | ' . $brand,
