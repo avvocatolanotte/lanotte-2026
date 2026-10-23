@@ -10,6 +10,7 @@
  *
  * Qui il collegamento si aggiunge in fondo al testo del banner, appena il plugin lo mostra. Se il banner ha già un
  * collegamento all'informativa (il plugin acceso in futuro, o questo script già passato) non si aggiunge nulla.
+ * L'attesa del banner non ha scadenza: finisce quando il collegamento è nel banner.
  * Le pagine /widget/ non chiamano wp_footer(), quindi lì non c'è né banner né script.
  *
  * @package lanotte-2026
@@ -41,9 +42,10 @@ add_action('wp_footer', function () {
     return true;
   }
   if (aggiungi()) return;
+  // Nessuna scadenza: se CookieYes arriva tardi il banner deve comunque avere il collegamento (rilievo di Codex
+  // del 23/10). Il plugin non emette un evento di banner pronto; l'osservatore si stacca al primo inserimento.
   var osservatore = new MutationObserver(function () { if (aggiungi()) osservatore.disconnect(); });
   osservatore.observe(document.documentElement, { childList: true, subtree: true });
-  setTimeout(function () { osservatore.disconnect(); }, 20000);
 })();
 </script>
     <?php
