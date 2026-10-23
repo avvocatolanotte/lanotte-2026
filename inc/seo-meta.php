@@ -101,9 +101,12 @@ function lanotte_seo_map() {
             't' => 'Avvocato Civilista a Barletta e Trani | ' . $brand,
             'd' => 'Avvocato civilista a Barletta: contratti, recupero crediti, locazioni, responsabilità e risarcimenti. Assistenza stragiudiziale e giudiziale.',
         ],
+        // 23/10/2026: «avvocato divorzista barletta» portava alla home con lo snippet del piè di pagina (C.F. e
+        // P.IVA); il titolo di questa pagina non nominava separazione e divorzio. Le successioni hanno la loro
+        // pagina (avvocato-successioni-eredita).
         'famiglia-successioni' => [
-            't' => 'Avvocato Famiglia e Successioni a Barletta | ' . $brand,
-            'd' => 'Separazione, divorzio, affidamento, eredità e divisioni a Barletta e Trani. Soluzioni consensuali e tutela del patrimonio. Preventivo scritto.',
+            't' => 'Avvocato Separazione e Divorzio a Barletta | ' . $brand,
+            'd' => 'Separazione e divorzio, consensuali o giudiziali, affidamento e mantenimento dei figli a Barletta e Trani. Anche eredità e divisioni. Preventivo scritto.',
         ],
         'condominio' => [
             't' => 'Avvocato Condominialista a Barletta | ' . $brand,
