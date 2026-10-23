@@ -592,23 +592,3 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
 @media (max-width:700px){
   .cky-btn-revisit-wrapper{bottom:92px!important}
 }
-
-/* Banner dei cookie (CookieYes) su telefono, 22/10/2026, col sì dell'Avvocato. Misura su 390×844: il banner occupava
-   366 px (43% dello schermo) con «Accettare tutto» in evidenza e «Rifiuta tutto» per ultimo; ora 241 px (29%), testo
-   integro e leggibile senza scorrere, «Rifiuta» e «Accetta» affiancati, uguali e nei colori dello Studio, «Personalizza»
-   sotto. Finché il banner è aperto si nascondono i pulsanti flottanti e la lingua, che lo coprivano. Testi e
-   impostazioni del plugin invariati. */
-@media (max-width:640px){
-  .cky-consent-container.cky-box-bottom-left{left:0!important;right:0!important;bottom:0!important;width:100%!important;max-width:100%!important}
-  .cky-consent-container .cky-consent-bar{padding:12px 16px calc(14px + env(safe-area-inset-bottom))!important;border-radius:14px 14px 0 0!important;box-shadow:0 -6px 24px rgba(15,27,51,.18)!important}
-  .cky-consent-container .cky-title{font-size:15px!important;line-height:1.3!important;margin:0 0 4px!important}
-  .cky-consent-container .cky-notice-des,.cky-consent-container .cky-notice-des *{font-size:13px!important;line-height:1.45!important}
-  .cky-consent-container .cky-notice-btn-wrapper{display:flex!important;flex-flow:row wrap!important;gap:8px!important;margin-top:10px!important}
-  .cky-consent-container .cky-notice-btn-wrapper .cky-btn{margin:0!important;padding:10px 8px!important;font-size:14px!important;line-height:1.2!important;flex:1 1 calc(50% - 4px)!important;width:auto!important}
-  .cky-consent-container .cky-btn-reject,.cky-consent-container .cky-btn-accept{background:#14213d!important;border-color:#14213d!important;color:#fff!important;flex:1 1 calc(50% - 4px)!important;max-width:calc(50% - 4px)!important}
-  .cky-consent-container .cky-btn-reject{order:1!important}
-  .cky-consent-container .cky-btn-accept{order:2!important}
-  .cky-consent-container .cky-btn-customize{order:3!important;flex:1 1 100%!important;max-width:100%!important;padding:4px!important;border:0!important;background:transparent!important;color:#14213d!important;text-decoration:underline!important}
-  body:has(.cky-consent-container:not(.cky-hide)) .conversion-dock,
-  body:has(.cky-consent-container:not(.cky-hide)) .trp-floating-switcher{display:none!important}
-}
