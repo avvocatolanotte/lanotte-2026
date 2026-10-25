@@ -65,6 +65,14 @@ html,body{overflow-x:clip}
   .brand-logo{height:38px !important;max-width:160px !important}
 }
 
+/* 25/10/2026 (punto 5 del restyling): fra 901 e 1219 px menu e «Richieda una consulenza» non ci stavano su una riga (voci a capo,
+   bottone fuori dallo schermo fra 940 e 1080 px): qui il menu passa nel pannello a tendina e il bottone resta visibile. */
+@media (min-width:901px) and (max-width:1219px){
+  nav.primary{display:none !important}
+  .hamburger-btn{display:inline-flex !important;align-items:center;justify-content:center}
+  .nav-mega-panel,.nav-mega-panel-calc{display:none !important}
+}
+
 /* Mega-menu mobile fix: nascosto su mobile, drawer subentra */
 @media (max-width:900px){
   .nav-mega-panel,.nav-mega-panel-calc{display:none !important}

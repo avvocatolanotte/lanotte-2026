@@ -39,14 +39,17 @@ a{color:inherit;text-decoration:none}
 
 /* === HEADER === */
 header.site-header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;box-shadow:0 1px 0 rgba(15,23,42,.04)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0;gap:32px}
+/* 25/10/2026 (punto 5 del restyling): «padding:18px 0» annullava i 24 px laterali di .container; con i margini, menu e bottone
+   ci stanno su una riga da 1220 px in su (spazi fra le voci 20 px, voci che non vanno a capo); sotto c'è il menu a tendina (header.php). */
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;gap:24px}
 .brand{display:flex;align-items:center;text-decoration:none}
 .brand-logo{height:72px;width:auto;max-width:340px;display:block;transition:transform .2s ease}
 .brand:hover .brand-logo{transform:scale(1.02)}
 @media (max-width:900px){.brand-logo{height:58px;max-width:260px}}
 @media (max-width:600px){.brand-logo{height:48px;max-width:220px}}
 /* fallback storico (non più usato): .brand-mark, .brand-name */
-nav.primary{display:flex;gap:28px;align-items:center}
+nav.primary{display:flex;gap:20px;align-items:center}
+nav.primary > a,nav.primary .nav-mega-trigger,nav.primary .nav-dd-trigger,.header-actions .cta-desktop{white-space:nowrap}
 nav.primary > a,nav.primary .nav-mega-trigger{font-size:14.5px;color:var(--text);font-weight:500;position:relative;padding:6px 0;transition:color .2s;display:inline-flex;align-items:center}
 nav.primary > a:hover,nav.primary .nav-mega-trigger:hover{color:var(--navy)}
 nav.primary > a.active,nav.primary .nav-mega-trigger.active{color:var(--navy)}
