@@ -266,7 +266,7 @@ $phone_urgenza     = lanotte_cellulare();
 /* === TIMELINE === */
 .urgenza-timeline{position:relative;padding-left:32px;border-left:2px solid var(--gold)}
 .urgenza-step{margin-bottom:32px;position:relative}
-.urgenza-step-num{position:absolute;left:-44px;width:24px;height:24px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px}
+.urgenza-step-num{position:absolute;left:-44px;width:24px;height:24px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--navy,#0E1A33);font-weight:700;font-size:13px}
 .urgenza-step h4{font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:6px}
 .urgenza-step p{color:var(--text-muted);line-height:1.65}
 

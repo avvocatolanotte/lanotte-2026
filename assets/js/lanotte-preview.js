@@ -54,7 +54,7 @@
       .lph-report-footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #d9dee7;margin-top:24px;padding-top:11px;color:#64748b;font:400 9px/1.5 Arial,sans-serif}
       .lph-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;padding:16px 22px;border-top:1px solid #e5e7eb;background:#fff}
       .lph-actions button{border:1px solid #B89968;background:#fff;color:#0E1A33;padding:11px 16px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit}
-      .lph-actions .primary{background:#B89968;color:#fff}
+      .lph-actions .primary{background:#B89968;color:#0E1A33}
       @media(max-width:640px){.lph-backdrop{padding:0}.lph-modal{max-height:100vh;height:100vh;border-radius:0}.lph-body{padding:12px}.lph-preview{padding:22px 18px}.lph-brand-head{display:block}.lph-brand-logo{max-width:100%;width:250px}.lph-brand-details{text-align:left;margin-top:12px}.lph-actions{justify-content:stretch}.lph-actions button{flex:1}}
       @media print{body.lph-printing > *:not(.lph-print-root){display:none!important}body.lph-printing > #print-report{display:none!important}.lph-print-root{display:block!important}.lph-print-root>.lph-report,.lph-print-root>#print-report{max-width:none!important;margin:0!important}.lph-actions,.lph-top{display:none!important}}
       @page{size:A4;margin:14mm}

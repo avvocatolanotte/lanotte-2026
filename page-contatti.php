@@ -228,6 +228,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
 .qa-btn strong{font-size:15px;font-weight:600;letter-spacing:.01em}
 .qa-btn span{font-size:12.5px;opacity:.85;margin-top:2px}
 .qa-wa{background:#15803d}
+.qa-wa span{opacity:1}
 .qa-tel{background:var(--navy,#0f172a)}
 .qa-mail{background:var(--gold,#b89968);color:var(--navy,#0E1A33)}
 
@@ -237,9 +238,9 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
 .map-consenso{min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:32px 16px 80px;background:#eef1f5;text-align:center}
 .map-consenso p{max-width:520px;margin:0;font-size:14.5px;line-height:1.6;color:#475569}
 .map-consenso-btn{background:var(--navy,#0f172a);color:#fff;border:0;border-radius:6px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer}
-.map-consenso-btn:hover,.map-consenso-btn:focus-visible{background:var(--gold,#b89968)}
+.map-consenso-btn:hover,.map-consenso-btn:focus-visible{background:var(--gold,#b89968);color:var(--navy,#0E1A33)}
 .map-cta{position:absolute;bottom:16px;right:16px;background:#fff;color:var(--navy,#0f172a);padding:10px 16px;border-radius:6px;font-size:13.5px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 20px -8px rgba(0,0,0,.3);transition:all .2s}
-.map-cta:hover{transform:translateY(-2px);background:var(--gold,#b89968);color:#fff}
+.map-cta:hover{transform:translateY(-2px);background:var(--gold,#b89968);color:var(--navy,#0E1A33)}
 
 /* ===== CONTACT GRID ===== */
 .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start}

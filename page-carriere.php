@@ -190,7 +190,7 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
 /* === TIMELINE CANDIDATURA === */
 .carriere-timeline{position:relative;padding-left:36px;border-left:2px solid var(--gold);margin-top:32px}
 .carriere-step{margin-bottom:32px;position:relative}
-.carriere-step-num{position:absolute;left:-48px;width:28px;height:28px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.carriere-step-num{position:absolute;left:-48px;width:28px;height:28px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--navy,#0E1A33);font-weight:700}
 .carriere-step h4{font-family:var(--serif);font-size:20px;color:var(--navy);margin-bottom:6px}
 .carriere-step p{color:var(--text-muted);line-height:1.65}
 

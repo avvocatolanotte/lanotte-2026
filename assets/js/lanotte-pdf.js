@@ -128,7 +128,7 @@
       .lpv-body{overflow:auto;padding:24px;background:#eef1f5}
       .lpv-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;padding:16px 22px;border-top:1px solid #e5e7eb;background:#fff}
       .lpv-actions button{border:1px solid #B89968;background:#fff;color:#0E1A33;padding:11px 16px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit}
-      .lpv-actions .primary{background:#B89968;color:#fff}
+      .lpv-actions .primary{background:#B89968;color:#0E1A33}
       .lpv-report{width:min(794px,100%);margin:0 auto;background:#fff;color:#0f172a;padding:34px 38px;border:1px solid #d9dee7;box-shadow:0 8px 26px rgba(15,23,42,.08);line-height:1.5;box-sizing:border-box}
       .lpv-head{display:flex;justify-content:space-between;align-items:flex-start;gap:22px;border-top:4px solid #B89968;border-bottom:1px solid #d9dee7;padding:18px 0 15px;margin-bottom:22px}
       .lpv-brand{width:55%}.lpv-logo{display:block;width:285px;max-width:100%;height:auto;object-fit:contain;object-position:left top}.lpv-head small{display:block;color:#64748b;font-size:10px;margin-top:7px}.lpv-meta{color:#64748b;font-size:9px;line-height:1.6;text-align:right}.lpv-meta strong{display:block;color:#0E1A33;font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}

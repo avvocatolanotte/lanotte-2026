@@ -407,7 +407,7 @@
     const overrides = Object.keys(LanotteISTAT.listaManuali()).length;
 
     let badgeFonte = '';
-    if (isLive) badgeFonte = '<span style="background:#16a34a;color:#fff;padding:2px 8px;border-radius:2px;font-size:11px;margin-left:6px">API ISTAT LIVE</span>';
+    if (isLive) badgeFonte = '<span style="background:#15803d;color:#fff;padding:2px 8px;border-radius:2px;font-size:11px;margin-left:6px">API ISTAT LIVE</span>';
     else badgeFonte = '<span style="background:#64748b;color:#fff;padding:2px 8px;border-radius:2px;font-size:11px;margin-left:6px">DATI LOCALI</span>' + (overrides ? '<span style="background:#b89968;color:#0E1A33;padding:2px 8px;border-radius:2px;font-size:11px;margin-left:6px">+' + overrides + ' MANUALI</span>' : '');
 
     const flagBadge = flagUlt === 'ufficiale' ? '<span style="color:#16a34a">●</span> ufficiale' :

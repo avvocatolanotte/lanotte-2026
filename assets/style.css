@@ -85,10 +85,10 @@ header.site-header{position:sticky}
 .btn-outline:hover{background:var(--navy);color:#fff}
 .btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}
 .btn-ghost:hover{background:rgba(255,255,255,.1);border-color:#fff}
-/* Il bottone trasparente ha testo bianco per i fondi scuri; dentro i calcolatori e nel riquadro delle successioni sta su
-   fondo chiaro ed era invisibile («Azzera», «Ripristini le tariffe AQP», «Calcoli le quote ereditarie»). */
-.lanotte-calcolatore-embed .btn-ghost,.lanotte-successione-calc-cta .btn-ghost{color:var(--navy);border-color:rgba(14,26,51,.35)}
-.lanotte-calcolatore-embed .btn-ghost:hover,.lanotte-successione-calc-cta .btn-ghost:hover{background:rgba(14,26,51,.06);border-color:var(--navy)}
+/* Il bottone trasparente ha testo bianco per i fondi scuri; nei riquadri chiari dei calcolatori (.calc-block, .lp-panel) e
+   nel riquadro delle successioni era invisibile; nei riquadri scuri dei risultati (.cu-actions, .qe/.tfr/.uf-result) resta bianco («Azzera», «Ripristini le tariffe AQP», «Calcoli le quote ereditarie»). */
+.lanotte-calcolatore-embed .calc-block .btn-ghost,.lanotte-calcolatore-embed .lp-panel .btn-ghost,.lanotte-successione-calc-cta .btn-ghost{color:var(--navy);border-color:rgba(14,26,51,.35)}
+.lanotte-calcolatore-embed .calc-block .btn-ghost:hover,.lanotte-calcolatore-embed .lp-panel .btn-ghost:hover,.lanotte-successione-calc-cta .btn-ghost:hover{background:rgba(14,26,51,.06);border-color:var(--navy)}
 .btn-gold{background:var(--gold);color:var(--navy);font-size:14px;padding:14px 28px}
 .btn-gold:hover{background:#a98655;color:var(--navy)}
 
@@ -426,6 +426,7 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
 /* Verde più scuro per il testo bianco: 5,0:1 (il #25d366 era 1,98:1). */
 .conversion-dock-wa{background:#15803d}
 .conversion-dock-wa:hover{background:#166534;color:#fff}
+.conversion-dock-wa small{opacity:1}
 @media (max-width:700px){
   body{padding-bottom:82px}
   .conversion-dock{left:10px;right:10px;bottom:10px;display:grid;grid-template-columns:1.15fr .85fr;gap:8px;filter:drop-shadow(0 -8px 24px rgba(15,23,42,.22))}
