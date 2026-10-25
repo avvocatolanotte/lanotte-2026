@@ -239,7 +239,7 @@ $phone_urgenza     = lanotte_cellulare();
 .urgenza-cta-col{display:flex;flex-direction:column;gap:12px}
 .urgenza-cta{padding:18px;text-align:center;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:15px;border-radius:2px;text-decoration:none;display:block}
 .urgenza-cta-call{background:#fff;color:#dc2626}
-.urgenza-cta-wa{background:#25d366;color:#fff}
+.urgenza-cta-wa{background:#15803d;color:#fff}
 
 /* === COSA FARE: 3 REGOLE === */
 .urgenza-rules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}

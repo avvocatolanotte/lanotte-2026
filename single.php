@@ -170,7 +170,7 @@ $content_starts_with_img = (bool) preg_match('/^\s*<(figure|img|p[^>]*>\s*<img)/
 .post-share{margin-top:40px;padding-top:24px;border-top:1px solid #e5e7eb;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .post-share strong{font-size:13px;color:#64748b;letter-spacing:.04em;text-transform:uppercase;font-weight:700;letter-spacing:.1em}
 .post-share a{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;background:#f1f5f9;color:var(--navy);border-radius:50%;text-decoration:none;border:0 !important;transition:all .2s}
-.post-share a:hover{background:var(--gold);color:#fff;transform:translateY(-2px)}
+.post-share a:hover{background:var(--gold);color:var(--navy,#0E1A33);transform:translateY(-2px)}
 
 /* SIDEBAR */
 .post-sidebar{position:sticky;top:90px;display:flex;flex-direction:column;gap:18px}
@@ -182,7 +182,7 @@ $content_starts_with_img = (bool) preg_match('/^\s*<(figure|img|p[^>]*>\s*<img)/
 .ps-wa{display:block;text-align:center;font-size:13px;color:#16a34a;text-decoration:none;font-weight:600;margin-top:10px}
 .ps-tags{display:flex;flex-wrap:wrap;gap:6px}
 .ps-tags a{font-size:12px;background:#fff;color:var(--navy);border:1px solid #e5e7eb;padding:4px 10px;border-radius:3px;text-decoration:none;transition:all .15s}
-.ps-tags a:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+.ps-tags a:hover{background:var(--gold);color:var(--navy,#0E1A33);border-color:var(--gold)}
 
 @media (max-width:900px){
   .post-grid{grid-template-columns:1fr;gap:32px}

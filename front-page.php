@@ -98,7 +98,7 @@ function lanotte_render_section_hero() {
     .hca span strong{font-size:14.5px;font-weight:600}
     .hca-phone{background:var(--navy,#0f172a);color:#fff}
     .hca-phone span{color:#cbd5e1}.hca-phone span strong{color:#fff}
-    .hca-wa{background:#16a34a;color:#fff}
+    .hca-wa{background:#15803d;color:#fff}
     .hca-wa span{color:#dcfce7}.hca-wa span strong{color:#fff}
     .hca:hover{transform:translateY(-2px);box-shadow:0 10px 22px -12px rgba(15,23,42,.3)}
     </style>

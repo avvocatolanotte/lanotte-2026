@@ -227,9 +227,9 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
 .qa-btn div{display:flex;flex-direction:column;line-height:1.2}
 .qa-btn strong{font-size:15px;font-weight:600;letter-spacing:.01em}
 .qa-btn span{font-size:12.5px;opacity:.85;margin-top:2px}
-.qa-wa{background:#16a34a}
+.qa-wa{background:#15803d}
 .qa-tel{background:var(--navy,#0f172a)}
-.qa-mail{background:var(--gold,#b89968)}
+.qa-mail{background:var(--gold,#b89968);color:var(--navy,#0E1A33)}
 
 /* ===== MAPPA ===== */
 .map-wrap{position:relative;width:100%}

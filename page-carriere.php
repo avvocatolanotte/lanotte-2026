@@ -164,7 +164,7 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
 </section>
 
 <style>
-.carriere-badge{display:inline-block;background:var(--gold);color:#fff;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px}
+.carriere-badge{display:inline-block;background:var(--gold);color:var(--navy,#0E1A33);padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px}
 
 /* === PROFILI === */
 .carriere-profili-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
@@ -172,7 +172,7 @@ $candidatura_mail = 'mailto:' . lanotte_email() . '?subject=Candidatura%20Studio
 .carriere-profilo-featured{border:1px solid var(--gold);box-shadow:0 24px 50px -20px rgba(184,153,104,.4)}
 .carriere-tag{position:absolute;top:14px;right:14px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:2px}
 .carriere-tag-soft{background:var(--cream);color:var(--navy)}
-.carriere-tag-gold{background:var(--gold);color:#fff}
+.carriere-tag-gold{background:var(--gold);color:var(--navy,#0E1A33)}
 .carriere-num{font-family:var(--serif);font-size:48px;color:var(--gold);font-weight:600;line-height:1;margin-bottom:12px}
 .carriere-profilo h3{font-family:var(--serif);font-size:24px;color:var(--navy);font-weight:600;margin-bottom:14px}
 .carriere-profilo > p{font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:20px}

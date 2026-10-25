@@ -285,7 +285,7 @@ $contatti_url = $contatti_url ?: home_url('/contatti/');
 .glossario-search{width:100%;padding:14px 20px;border:1px solid var(--border);background:var(--paper);font-family:inherit;font-size:15px;border-radius:2px}
 .glossario-az{display:flex;gap:6px;flex-wrap:wrap;font-size:12px}
 .glossario-az a{padding:6px 10px;background:var(--cream);color:var(--navy);text-decoration:none;font-weight:700;letter-spacing:.05em;border-radius:2px}
-.glossario-az a:hover{background:var(--gold);color:#fff}
+.glossario-az a:hover{background:var(--gold);color:var(--navy,#0E1A33)}
 
 /* === VOCI === */
 .glossario-letter{font-family:var(--serif);font-size:72px;color:var(--gold);font-weight:600;line-height:1;margin:48px 0 20px;padding-left:14px;border-left:6px solid var(--gold)}
