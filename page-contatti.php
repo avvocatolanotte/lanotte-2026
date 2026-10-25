@@ -245,6 +245,8 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
 /* ===== CONTACT GRID ===== */
 .contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start}
 .contact-grid > *{min-width:0} /* 25/10/2026: sul telefono il riquadro dei recapiti era largo 370 px in 342 e usciva a destra */
+/* Campi del modulo elastici: ristretta la griglia, la textarea (339,5 px intrinseci) usciva dal riquadro (rilievo di Codex). */
+.contact-form input:not([type=checkbox]):not([type=radio]):not([type=submit]),.contact-form select,.contact-form textarea{max-width:100%;box-sizing:border-box}
 .contact-row{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid #f1f5f9}
 .contact-row:last-child{border-bottom:0}
 .contact-icon{flex-shrink:0;width:44px;height:44px;border-radius:10px;background:rgba(184,153,104,.12);color:var(--gold,#b89968);display:flex;align-items:center;justify-content:center}
