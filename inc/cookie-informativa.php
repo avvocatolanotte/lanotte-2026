@@ -60,6 +60,8 @@ add_action('wp_footer', function () {
 document.addEventListener('click', function (e) {
   var a = e.target.closest ? e.target.closest('.lanotte-cookie-scelte') : null;
   if (!a || typeof window.revisitCkyConsent !== 'function') return;
+  // Cmd/Ctrl/Shift/Alt-clic e clic non principali restano al browser (nuova scheda, ecc.): rilievo di Codex.
+  if (e.defaultPrevented || e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
   e.preventDefault();
   window.revisitCkyConsent();
 });
