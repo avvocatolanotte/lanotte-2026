@@ -1,11 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 220" role="img" aria-label="Lanotte and Partners - Studio Legale">
+<svg xmlns="http://www.w3.org/2000/svg" class="lnt-logo" viewBox="0 0 860 220" role="img" aria-label="Lanotte and Partners - Studio Legale">
   <defs>
     <style>
-      .navy{fill:#1d2c4a}
-      .gold{fill:#b89968}
-      .wordmark{font-family:'Cormorant Garamond','Times New Roman','Georgia',serif;font-weight:600;font-size:108px;letter-spacing:-1px}
-      .ampersand{font-family:'Cormorant Garamond','Times New Roman','Georgia',serif;font-weight:500;font-style:italic;font-size:160px}
-      .subtitle{font-family:'Cormorant Garamond','Times New Roman','Georgia',serif;font-weight:500;font-size:24px;letter-spacing:10px}
+      /* Regole limitate al logo (25/10/2026): lo snippet n. 9 inserisce questo SVG nella pagina e le classi
+         generiche (.subtitle) valevano per tutto il sito. */
+      .lnt-logo .navy{fill:#1d2c4a}
+      .lnt-logo .gold{fill:#b89968}
+      .lnt-logo .wordmark{font-family:'Cormorant Garamond','Times New Roman','Georgia',serif;font-weight:600;font-size:108px;letter-spacing:-1px}
+      .lnt-logo .ampersand{font-family:'Cormorant Garamond','Times New Roman','Georgia',serif;font-weight:500;font-style:italic;font-size:160px}
+      .lnt-logo .subtitle{font-family:'Cormorant Garamond','Times New Roman','Georgia',serif;font-weight:500;font-size:24px;letter-spacing:10px}
     </style>
   </defs>
 
