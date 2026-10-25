@@ -185,7 +185,7 @@ get_header();
 .srv-feat li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:700}
 .srv-add{background:#fff;border:1.5px solid var(--navy);color:var(--navy);font-size:13.5px;font-weight:600;padding:11px 16px;border-radius:3px;cursor:pointer;font-family:inherit;text-align:center;width:100%}
 .srv-add:hover{background:var(--navy);color:#fff}
-.srv-add.added{background:var(--gold);color:#fff;border-color:var(--gold)}
+.srv-add.added{background:var(--gold);color:var(--navy,#0E1A33);border-color:var(--gold)}
 .cart-widget{position:fixed;bottom:24px;right:24px;width:340px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 20px 48px -16px rgba(15,23,42,.3);padding:18px;z-index:80}
 .cart-widget-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #f1f5f9}
 .cart-widget-head strong{color:var(--navy);font-size:14px}
