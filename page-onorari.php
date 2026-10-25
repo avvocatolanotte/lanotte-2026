@@ -73,7 +73,7 @@ get_header();
       <h2>Come calcoliamo gli onorari di causa</h2>
       <p>Parametri ministeriali DM 55/2014, modulati su complessità, valore, udienze e fasi processuali.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+    <div class="onorari-fasi">
       <div style="background:#fff;padding:28px;border-top:3px solid var(--gold)"><div style="font-family:var(--serif);font-size:36px;color:var(--gold);font-weight:600">1</div><h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin:8px 0">Fase di studio</h4><p style="font-size:13.5px;color:var(--text-muted)">Esame atti, ricerca normativa, definizione strategia.</p></div>
       <div style="background:#fff;padding:28px;border-top:3px solid var(--gold)"><div style="font-family:var(--serif);font-size:36px;color:var(--gold);font-weight:600">2</div><h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin:8px 0">Fase introduttiva</h4><p style="font-size:13.5px;color:var(--text-muted)">Atto introduttivo, notifica, iscrizione a ruolo.</p></div>
       <div style="background:#fff;padding:28px;border-top:3px solid var(--gold)"><div style="font-family:var(--serif);font-size:36px;color:var(--gold);font-weight:600">3</div><h4 style="font-family:var(--serif);font-size:18px;color:var(--navy);margin:8px 0">Fase istruttoria</h4><p style="font-size:13.5px;color:var(--text-muted)">Memorie, prove, CTU, udienze.</p></div>
@@ -169,6 +169,10 @@ get_header();
 </section>
 
 <style>
+/* 25/10/2026: le quattro fasi erano in una griglia fissa a 4 colonne scritta nell'attributo style: sul telefono uscivano dallo schermo. */
+.onorari-fasi{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media (max-width:900px){.onorari-fasi{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.onorari-fasi{grid-template-columns:1fr}}
 .srv-filter{padding:8px 14px;border:1px solid #e5e7eb;background:#fff;color:#475569;font-size:13px;font-weight:500;border-radius:20px;cursor:pointer;font-family:inherit}
 .srv-filter:hover{border-color:var(--gold);color:var(--navy)}
 .srv-filter.active{background:var(--navy);color:#fff;border-color:var(--navy)}
