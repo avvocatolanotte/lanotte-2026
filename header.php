@@ -65,9 +65,11 @@ html,body{overflow-x:clip}
   .brand-logo{height:38px !important;max-width:160px !important}
 }
 
-/* 25/10/2026 (punto 5 del restyling): fra 901 e 1219 px menu e «Richieda una consulenza» non ci stavano su una riga (voci a capo,
-   bottone fuori dallo schermo fra 940 e 1080 px): qui il menu passa nel pannello a tendina e il bottone resta visibile. */
-@media (min-width:901px) and (max-width:1219px){
+/* 25/10/2026 (punto 5 del restyling): sotto i 1240 px menu e «Richieda una consulenza» non ci stavano su una riga (voci a capo,
+   bottone fuori dallo schermo fra 940 e 1080 px): il menu passa nel pannello a tendina; il bottone resta visibile fino ai 901 px
+   (sotto lo nasconde la regola dei 900 px). Una sola condizione continua, senza buchi fra soglie anche con lo zoom (rilievo di
+   Codex); a 1240 px il contenuto (1.159 px misurati con Inter, meno con i caratteri di riserva) ha 33 px di riserva. */
+@media (max-width:1239.98px){
   nav.primary{display:none !important}
   .hamburger-btn{display:inline-flex !important;align-items:center;justify-content:center}
   .nav-mega-panel,.nav-mega-panel-calc{display:none !important}
