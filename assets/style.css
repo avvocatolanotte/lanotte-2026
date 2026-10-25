@@ -67,7 +67,7 @@ header.site-header{position:sticky}
 .nav-mega-tools li a{display:flex;align-items:center;gap:8px;color:var(--navy);font-weight:600}
 .nav-mega-tools li a svg{color:var(--gold);flex-shrink:0}
 .nav-mega-allbtn{display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:10px 16px;background:var(--navy);color:#fff!important;font-size:13px;font-weight:600;border-radius:3px;transition:background .2s,padding-left .15s!important}
-.nav-mega-allbtn:hover{background:var(--gold);padding-left:18px!important}
+.nav-mega-allbtn:hover{background:var(--gold);color:var(--navy)!important;padding-left:18px!important}
 
 /* HEADER ACTIONS + CART */
 .header-actions{display:flex;align-items:center;gap:16px}
@@ -533,7 +533,7 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
 .lanotte-area-tools p{font-size:14.5px;color:var(--text-muted);margin:0 0 16px}
 .lanotte-area-tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
 .lanotte-area-tools-grid a{display:block;padding:12px 14px;background:#fff;border:1px solid var(--border);border-radius:6px;color:var(--navy);font-size:14px;font-weight:700}
-.lanotte-area-tools-grid a:hover{border-color:var(--gold);color:var(--gold)}
+.lanotte-area-tools-grid a:hover{border-color:var(--gold);color:var(--navy);background:#fbf7ef}
 
 /* === RESPONSIVE === */
 @media (max-width:1024px){
