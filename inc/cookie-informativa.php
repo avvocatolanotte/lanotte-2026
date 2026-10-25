@@ -50,3 +50,19 @@ add_action('wp_footer', function () {
 </script>
     <?php
 }, 100);
+
+// Il collegamento «Riveda le scelte sui cookie» del piè di pagina (footer.php) riapre le preferenze di CookieYes con la sua
+// funzione pubblica; se CookieYes non è caricato il collegamento porta alla Cookie Policy.
+add_action('wp_footer', function () {
+    if (is_admin()) return;
+    ?>
+<script id="lanotte-cookie-scelte">
+document.addEventListener('click', function (e) {
+  var a = e.target.closest ? e.target.closest('.lanotte-cookie-scelte') : null;
+  if (!a || typeof window.revisitCkyConsent !== 'function') return;
+  e.preventDefault();
+  window.revisitCkyConsent();
+});
+</script>
+    <?php
+}, 100);

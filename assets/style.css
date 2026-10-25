@@ -626,3 +626,12 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
   body:has(.cky-consent-container:not(.cky-hide)) .conversion-dock,
   body:has(.cky-consent-container:not(.cky-hide)) .trp-floating-switcher{display:none!important}
 }
+
+/* 25/10/2026, punto 4 del restyling: comandi fissi sul telefono.
+   Selettore lingua di TranslatePress nascosto finché l'inglese non è pubblicato (sì dell'Avvocato): mostrava solo «Italian»
+   e copriva il testo. Da togliere quando si pubblica l'inglese. */
+.trp-floating-switcher{display:none!important}
+/* Sul telefono l'icona dei cookie copriva il testo sopra la barra dei contatti: le scelte si rivedono dal collegamento
+   «Riveda le scelte sui cookie» nel piè di pagina (linee guida del Garante 10/06/2021). Sul computer l'icona resta. */
+@media (max-width:700px){.cky-btn-revisit-wrapper{display:none!important}}
+.footer-bottom .lanotte-cookie-scelte{white-space:nowrap}

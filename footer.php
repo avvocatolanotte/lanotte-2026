@@ -134,6 +134,8 @@ if (!defined('ABSPATH')) exit;
           <a href="<?php echo esc_url(get_permalink(get_page_by_path('cookie'))); ?>">Cookie</a>
           <a href="<?php echo esc_url(get_permalink(get_page_by_path('credits'))); ?>">Credits</a>
         <?php endif; ?>
+        <?php // Linee guida del Garante 10/06/2021: le scelte sui cookie si rivedono da un collegamento nel piè di pagina (25/10/2026). ?>
+        <a href="<?php echo esc_url(home_url('/cookie/')); ?>" class="lanotte-cookie-scelte">Riveda le scelte sui cookie</a>
       </div>
     </div>
   </div>
