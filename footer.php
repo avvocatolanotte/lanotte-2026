@@ -16,7 +16,14 @@ if (!defined('ABSPATH')) exit;
       <div>
         <?php
         $dark_logo = lanotte_logo_url('dark');
-        if ($dark_logo): ?>
+        $dark_svg  = LANOTTE_THEME_DIR . '/assets/img/logo-dark-fallback.svg';
+        // 26/10/2026 (punto 6 del restyling): logo-dark.png ha la scacchiera della trasparenza disegnata dentro, e lo snippet
+        // n. 9 lo scaricava (141 KB a ogni pagina) per poi sostituirlo con questo SVG alto 60 px. L'SVG si stampa qui, alla
+        // stessa misura: il PNG non si scarica più e lo snippet non trova nulla da sostituire. Un logo scuro scelto dal
+        // Customizer o da ACF resta un'immagine come prima.
+        if ($dark_logo && strpos($dark_logo, LANOTTE_THEME_URI . '/assets/img/logo-dark') === 0 && is_readable($dark_svg)):
+          echo preg_replace('/<svg /', '<svg style="height:60px;width:auto;display:block" ', file_get_contents($dark_svg), 1);
+        elseif ($dark_logo): ?>
           <img src="<?php echo esc_url($dark_logo); ?>" alt="LANOTTE &amp; Partners — Studio Legale" class="footer-logo" style="max-width:240px;height:auto;margin-bottom:16px;display:block">
         <?php else: ?>
           <div class="footer-brand">LANOTTE &amp; Partners<small>Studio Legale</small></div>
