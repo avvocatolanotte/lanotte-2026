@@ -103,9 +103,10 @@ function lanotte_evidenza_20261011_completa($id, $file, array $v, &$errore) {
 /**
  * Restituisce l'ID dell'allegato dell'articolo: quello già importato con la stessa chiave oppure uno nuovo.
  * 0 in caso di errore, con il motivo in $errore. Non tocca allegati di altri articoli.
+ * $prefisso distingue i lavori successivi che riusano questa funzione (26/10/2026: immagini-leggere-20261026.php).
  */
-function lanotte_evidenza_20261011_allegato($post_id, $slug, array $v, &$errore) {
-    $chiave = 'lanotte-evidenza-20261011-' . $slug;
+function lanotte_evidenza_20261011_allegato($post_id, $slug, array $v, &$errore, $prefisso = 'lanotte-evidenza-20261011-') {
+    $chiave = $prefisso . $slug;
     $trovati = get_posts([
         'post_type'      => 'attachment',
         'post_status'    => 'inherit',
