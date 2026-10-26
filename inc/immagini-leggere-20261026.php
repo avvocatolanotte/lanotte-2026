@@ -100,8 +100,14 @@ function lanotte_leggere_20261026_esegui() {
     if (!function_exists('wp_upload_bits') || !function_exists('update_post_meta')) return;
     if (!function_exists('lanotte_evidenza_20261011_allegato')) return;
 
-    // Il tentativo si conta all'inizio: anche uno interrotto dal tempo massimo di PHP avvicina lo stato «errori».
+    // Il tentativo si conta all'inizio, e all'ingresso si guarda quanti ne sono già stati consumati: una richiesta interrotta
+    // dal tempo massimo di PHP non arriva in fondo, dove si scriverebbe «errori» (rilievo di Codex, terzo giro).
     $tentativi = (int) get_option($opt . '_tentativi', 0) + 1;
+    if ($tentativi > 3) {
+        update_option($opt, 'errori', false);
+        error_log('lanotte immagini leggere 20261026: tre tentativi consumati senza esito, fermo');
+        return;
+    }
     update_option($opt . '_tentativi', $tentativi, false);
 
     $prefisso   = 'lanotte-leggere-20261026-';
@@ -139,8 +145,13 @@ function lanotte_leggere_20261026_esegui() {
             if (!isset($precedenti[$slug])) { $precedenti[$slug] = $attuale; update_option($opt . '_precedenti', $precedenti, false); }
             $annotati = (array) get_option($opt . '_precedenti', []);
             if ((int) ($annotati[$slug] ?? 0) !== (int) $v['vecchio']) { $esiti[$slug] = 'immagine precedente non annotata: non cambiata'; continue; }
-            // Scrittura condizionata: avviene solo se l'immagine in evidenza è ancora quella appena letta.
-            update_post_meta($post->ID, '_thumbnail_id', $id, (string) $attuale);
+            // Scrittura condizionata sulla sola riga esistente: avviene solo se l'immagine in evidenza è ancora quella appena
+            // letta. update_post_meta() con il valore precedente aggiungerebbe la riga se l'editor l'ha appena tolta (Codex).
+            global $wpdb;
+            $righe = $wpdb->update($wpdb->postmeta, ['meta_value' => (string) $id], ['post_id' => (int) $post->ID, 'meta_key' => '_thumbnail_id', 'meta_value' => (string) $attuale]);
+            wp_cache_delete((int) $post->ID, 'post_meta');
+            if ($righe === false) { $esiti[$slug] = 'scrittura dell\'immagine in evidenza non riuscita: ' . $wpdb->last_error; continue; }
+            if ($righe < 1) { $esiti[$slug] = 'immagine in evidenza cambiata o tolta nel frattempo: non toccata'; continue; }
         }
         if ((int) get_post_meta($post->ID, '_thumbnail_id', true) !== $id) { $esiti[$slug] = 'immagine in evidenza non assegnata'; continue; }
 
