@@ -40,14 +40,14 @@ function lanotte_leggere_20261026_voci() {
             'asset'     => 'palazzo-de-noia-terlizzi.jpg',
             'nome_file' => 'palazzo-de-noia-terlizzi.jpg',
             'titolo'    => 'Palazzo De Noia — Terlizzi in Vendita',
-            'alt'       => 'Palazzo storico in pietra con balconi in ferro battuto, fotografato di notte all’angolo di due strade',
+            'alt'       => 'Palazzo storico in pietra con balconi e ringhiere metalliche, fotografato di notte all’angolo di due strade',
             'vecchio'   => 7964,
         ],
         'prima-arrestipoi-capisci-lerroree-ti-scusi' => [
             'asset'     => 'arresto-errore-indagine-archiviata.jpg',
             'nome_file' => 'arresto-errore-indagine-archiviata.jpg',
             'titolo'    => 'Prima arresti, poi capisci l’errore e ti scusi?',
-            'alt'       => 'Fumetto in sei vignette: un funzionario arrestato viene ascoltato dal giudice e l’indagine viene archiviata',
+            'alt'       => 'Fumetto: un funzionario arrestato viene ascoltato dal giudice; nell’ultima vignetta mostra un documento con la scritta «Indagine archiviata»',
             'vecchio'   => 7981,
         ],
         'trattenere-tuo-figlio-puo-essere-reato' => [
@@ -67,11 +67,42 @@ function lanotte_leggere_20261026_voci() {
     ];
 }
 
+/**
+ * Garantisce il formato lanotte-post-thumb dell'allegato. Una richiesta interrotta durante la generazione lascia nei
+ * metadati larghezza e altezza ma non tutti i formati, e lanotte_evidenza_20261011_completa() in quel caso non rigenera
+ * (rilievo di Codex, secondo giro): se il formato manca nei metadati, o c'è ma il file non è sul disco, lo si genera con
+ * wp_update_image_subsizes() e si rilegge.
+ */
+function lanotte_leggere_20261026_formato($id, &$errore) {
+    $file = (string) get_attached_file($id);
+    $presente = function () use ($id, $file) {
+        $meta  = wp_get_attachment_metadata($id);
+        $thumb = is_array($meta) ? (string) ($meta['sizes']['lanotte-post-thumb']['file'] ?? '') : '';
+        return $thumb !== '' && file_exists(path_join(dirname($file), $thumb));
+    };
+    if ($presente()) return true;
+
+    $meta = wp_get_attachment_metadata($id);
+    if (is_array($meta) && isset($meta['sizes']['lanotte-post-thumb'])) {
+        unset($meta['sizes']['lanotte-post-thumb']); // voce senza file: va rifatta, e WordPress rifà solo ciò che manca nei metadati
+        wp_update_attachment_metadata($id, $meta);
+    }
+    if (!function_exists('wp_update_image_subsizes')) require_once ABSPATH . 'wp-admin/includes/image.php';
+    $esito = wp_update_image_subsizes($id);
+    if (is_wp_error($esito)) { $errore = 'formato lanotte-post-thumb non generato per ' . $id . ': ' . $esito->get_error_message(); return false; }
+    if (!$presente()) { $errore = 'formato lanotte-post-thumb non generato per ' . $id; return false; }
+    return true;
+}
+
 function lanotte_leggere_20261026_esegui() {
     $opt = 'lanotte_immagini_leggere_20261026';
     if (get_option($opt) === 'errori') return;
-    if (!function_exists('wp_upload_bits') || !function_exists('set_post_thumbnail')) return;
+    if (!function_exists('wp_upload_bits') || !function_exists('update_post_meta')) return;
     if (!function_exists('lanotte_evidenza_20261011_allegato')) return;
+
+    // Il tentativo si conta all'inizio: anche uno interrotto dal tempo massimo di PHP avvicina lo stato «errori».
+    $tentativi = (int) get_option($opt . '_tentativi', 0) + 1;
+    update_option($opt . '_tentativi', $tentativi, false);
 
     $prefisso   = 'lanotte-leggere-20261026-';
     $voci       = lanotte_leggere_20261026_voci();
@@ -97,13 +128,19 @@ function lanotte_leggere_20261026_esegui() {
         if (trim((string) get_post_meta($id, '_wp_attachment_image_alt', true)) === '') { $esiti[$slug] = 'testo alternativo vuoto'; continue; }
 
         // Il formato della scheda deve esistere davvero: è il motivo del lavoro (rilievo di Codex del 26/10).
-        $meta  = wp_get_attachment_metadata($id);
-        $thumb = is_array($meta) ? (string) ($meta['sizes']['lanotte-post-thumb']['file'] ?? '') : '';
-        if ($thumb === '' || !file_exists(path_join(dirname((string) get_attached_file($id)), $thumb))) { $esiti[$slug] = 'formato lanotte-post-thumb non generato per ' . $id; continue; }
+        if (!lanotte_leggere_20261026_formato($id, $errore)) { $esiti[$slug] = $errore; continue; }
 
+        // Riletta subito prima di scrivere: una scelta fatta durante l'importazione resta (rilievo di Codex, secondo giro).
+        $attuale = (int) get_post_meta($post->ID, '_thumbnail_id', true);
         if ($attuale !== $id) {
+            if ($attuale !== (int) $v['vecchio']) { $esiti[$slug] = 'immagine in evidenza cambiata nel frattempo (' . $attuale . '): non toccata'; continue; }
+            // Si cambia solo con l'immagine precedente annotata e riletta: update_option() dà false anche se il valore
+            // era già quello, quindi fa fede la rilettura.
             if (!isset($precedenti[$slug])) { $precedenti[$slug] = $attuale; update_option($opt . '_precedenti', $precedenti, false); }
-            set_post_thumbnail($post->ID, $id);
+            $annotati = (array) get_option($opt . '_precedenti', []);
+            if ((int) ($annotati[$slug] ?? 0) !== (int) $v['vecchio']) { $esiti[$slug] = 'immagine precedente non annotata: non cambiata'; continue; }
+            // Scrittura condizionata: avviene solo se l'immagine in evidenza è ancora quella appena letta.
+            update_post_meta($post->ID, '_thumbnail_id', $id, (string) $attuale);
         }
         if ((int) get_post_meta($post->ID, '_thumbnail_id', true) !== $id) { $esiti[$slug] = 'immagine in evidenza non assegnata'; continue; }
 
@@ -129,8 +166,6 @@ function lanotte_leggere_20261026_esegui() {
     update_option($opt . '_esito', $esiti, false);
     $ok = count(array_filter($esiti, function ($e) { return $e === 'ok'; }));
     if (count($esiti) === count($voci) && $ok === count($voci)) { update_option($opt, 'done', false); return; }
-    $tentativi = (int) get_option($opt . '_tentativi', 0) + 1;
-    update_option($opt . '_tentativi', $tentativi, false);
     if ($tentativi >= 3) update_option($opt, 'errori', false);
     error_log('lanotte immagini leggere 20261026: tentativo ' . $tentativi . ', ' . $ok . '/' . count($voci) . ' ok: ' . wp_json_encode($esiti));
 }
