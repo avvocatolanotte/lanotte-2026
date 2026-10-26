@@ -152,6 +152,8 @@ function lanotte_leggere_20261026_esegui() {
             wp_cache_delete((int) $post->ID, 'post_meta');
             if ($righe === false) { $esiti[$slug] = 'scrittura dell\'immagine in evidenza non riuscita: ' . $wpdb->last_error; continue; }
             if ($righe < 1) { $esiti[$slug] = 'immagine in evidenza cambiata o tolta nel frattempo: non toccata'; continue; }
+            // Come farebbe l'hook updated_post_meta: le query in cache che filtrano per _thumbnail_id si rinnovano (Codex).
+            if (function_exists('wp_cache_set_posts_last_changed')) wp_cache_set_posts_last_changed();
         }
         if ((int) get_post_meta($post->ID, '_thumbnail_id', true) !== $id) { $esiti[$slug] = 'immagine in evidenza non assegnata'; continue; }
 
