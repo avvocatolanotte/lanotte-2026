@@ -27,6 +27,9 @@ get_header();
     </div>
     <?php else: ?>
       <p>Nessun contenuto trovato.</p>
+      <?php if (is_search()): // 26/10/2026: dopo una ricerca senza risultati si può riprovare senza tornare indietro ?>
+        <div style="max-width:480px;margin-top:20px"><?php get_search_form(); ?></div>
+      <?php endif; ?>
     <?php endif; ?>
   </div>
 </section>
