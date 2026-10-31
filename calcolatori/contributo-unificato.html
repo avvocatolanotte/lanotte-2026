@@ -447,7 +447,7 @@
     var msg = '';
     if (noteFisso) msg = noteFisso + ' ';
     msg += 'Non è dovuto nei processi, anche esecutivi, di opposizione e cautelari, in materia di assegni per il mantenimento della prole (art. 10, comma 2). Nelle controversie di lavoro e di previdenza è dovuto solo dalle parti con reddito superiore al triplo della soglia del patrocinio a spese dello Stato (art. 9, comma 1-bis). Verificare il caso concreto.';
-    avviso.innerHTML = '⚠️ ' + msg;
+    avviso.innerHTML = '<span aria-hidden="true">⚠️</span> ' + msg; // icona decorativa: il PDF non la può scrivere e la salta
     avviso.style.display = 'block';
 
     // Competenza rilevante solo per l'indeterminabile: evidenzia visivamente.

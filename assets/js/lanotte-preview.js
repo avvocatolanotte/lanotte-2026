@@ -429,17 +429,40 @@
     doc.save((filename || 'prospetto-calcolo-danno-biologico') + '.pdf');
   }
 
-  // Testo per i caratteri standard di jsPDF (codifica WinAnsi): un solo carattere fuori codifica («−», «→») faceva uscire la riga
-  // con le lettere spaziate. Le celle di una riga a due colonne diventano «etichetta: valore», le altre si separano con «·».
+  // Caratteri per jsPDF, con le stesse regole di lanotte-pdf.js (B31, B36, B39): i caratteri standard coprono solo WinAnsi; un
+  // carattere fuori codifica faceva uscire la riga con le lettere spaziate (31/10/2026). Si sostituisce solo con un equivalente
+  // fedele; nessun carattere si toglie: se resta un carattere non rappresentabile (es. «Ł» in un nome) il PDF non si genera.
+  const PDF_SOSTITUZIONI = {'→': '–', '←': '–', '−': '-', '≈': '~', '≤': '<=', '≥': '>=', '●': '•', '⁄': '/', '∕': '/'};
+  const PDF_AMMESSI = /[\x00-\xFF€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/;
+  function pdfCarattere(c){
+    if (PDF_AMMESSI.test(c)) return c;
+    if (c in PDF_SOSTITUZIONI) return PDF_SOSTITUZIONI[c];
+    const compat = c.normalize('NFKC');
+    if (compat !== c && Array.from(compat).every(function(x){ return PDF_AMMESSI.test(x); })) return compat;
+    if (/\p{Zs}/u.test(c)) return ' ';
+    if (/\p{Pd}/u.test(c)) return '-';
+    return null;
+  }
+  function nomeCarattere(c){
+    const codice = 'U+' + c.codePointAt(0).toString(16).toUpperCase().padStart(4, '0');
+    return /[\p{C}\p{Z}\p{M}]/u.test(c) ? codice + ' (carattere invisibile)' : '«' + c + '» (' + codice + ')';
+  }
+  // Testo del report per il PDF e caratteri che lo impediscono. Le celle di una riga a due colonne diventano «etichetta: valore»,
+  // le altre si separano con «·» e una cella vuota resta al suo posto come «—».
   function pdfText(s){
-    return String(s)
-      .replace(/−/g, '-').replace(/→/g, '->').replace(/≤/g, '<=').replace(/≥/g, '>=')
-      .replace(/[   ]/g, ' ')
-      .replace(/[^\t\n\r\x20-\x7E\xA1-\xFF€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/g, '')
-      .split('\n').map(function(line){
-        const celle = line.split('\t').map(function(c){ return c.trim(); }).filter(Boolean);
-        return celle.length === 2 ? celle[0] + ': ' + celle[1] : celle.join(' · ');
-      }).join('\n');
+    const bloccati = new Set();
+    let testo = '';
+    Array.from(String(s).normalize('NFC')).forEach(function(ch){
+      const r = pdfCarattere(ch);
+      if (r === null) { bloccati.add(ch); testo += ch; } else testo += r;
+    });
+    testo = testo.split('\n').map(function(line){
+      const celle = line.split('\t').map(function(c){ return c.trim(); });
+      if (celle.length < 2) return line.trim();
+      if (celle.length === 2 && celle[0] && celle[1]) return celle[0] + ': ' + celle[1];
+      return celle.map(function(c){ return c || '—'; }).join(' · ');
+    }).join('\n');
+    return { testo: testo, bloccati: Array.from(bloccati) };
   }
 
   function downloadPdf(node, title){
@@ -465,16 +488,29 @@
       // Pulsanti e collegamenti di contatto (eventi data-lanotte-event) non sono contenuto del report: nel testo del PDF
       // finivano le loro scritte («Contatti lo Studio», «Invii il calcolo su WhatsApp»). Rilievo Codex del 17/10/2026.
       textNode.querySelectorAll('button,a[data-lanotte-event]').forEach(function(el){ el.remove(); });
+      // Icone marcate come decorative (aria-hidden) non sono contenuto: il PDF non le può scrivere (31/10/2026).
+      textNode.querySelectorAll('[aria-hidden="true"]').forEach(function(el){ el.remove(); });
       const firstTitle = textNode.querySelector('h1');
       if (firstTitle) firstTitle.remove();
       // innerText va a capo fra righe e celle solo su un nodo disegnato: sul clone staccato dava tutta la tabella su una riga
       // («UfficioUIBMOperazione…», misurato il 31/10/2026). Il clone si appoggia fuori schermo per il tempo della lettura.
       const stage = document.createElement('div');
+      stage.setAttribute('aria-hidden', 'true');
       stage.style.cssText = 'position:absolute;left:-10000px;top:0;width:794px;opacity:0;pointer-events:none';
       stage.appendChild(textNode);
-      document.body.appendChild(stage);
-      const bodyText = pdfText(textNode.innerText || textNode.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
-      stage.remove();
+      let letto;
+      try {
+        document.body.appendChild(stage);
+        letto = pdfText(textNode.innerText || textNode.textContent || '');
+      } finally {
+        stage.remove();
+      }
+      if (letto.bloccati.length) {
+        alert('Il PDF non può riprodurre questi caratteri presenti nei dati: ' + letto.bloccati.map(nomeCarattere).join(', ') +
+          '. Per non alterare i dati il PDF non è stato generato: usi il pulsante «Stampa» dell\'anteprima (consente anche di salvare in PDF) oppure sostituisca quei caratteri nei campi.');
+        return;
+      }
+      const bodyText = letto.testo.replace(/\n{3,}/g, '\n\n').trim();
       let y = 13;
 
       doc.setFillColor(184, 153, 104);
