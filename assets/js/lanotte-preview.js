@@ -171,7 +171,7 @@
   }
 
   function cleanPdfText(value){
-    return String(value || '')
+    return pdfCaratteri(value || '').testo
       .replace(/[\u2018\u2019]/g, "'")
       .replace(/[\u2013\u2014]/g, '-')
       .replace(/\u00a0/g, ' ')
@@ -449,20 +449,27 @@
   }
   // Testo del report per il PDF e caratteri che lo impediscono. Le celle di una riga a due colonne diventano «etichetta: valore»,
   // le altre si separano con «·» e una cella vuota resta al suo posto come «—».
-  function pdfText(s){
+  // Conversione carattere per carattere, unica per il controllo e per il testo disegnato (anche cleanPdfText del report
+  // strutturato): prima il controllo verificava il testo convertito e jsPDF riceveva l'originale (rilievo di Codex, 31/10/2026).
+  function pdfCaratteri(s){
     const bloccati = new Set();
     let testo = '';
     Array.from(String(s).normalize('NFC')).forEach(function(ch){
       const r = pdfCarattere(ch);
       if (r === null) { bloccati.add(ch); testo += ch; } else testo += r;
     });
-    testo = testo.split('\n').map(function(line){
+    return { testo: testo, bloccati: Array.from(bloccati) };
+  }
+
+  function pdfText(s){
+    const conv = pdfCaratteri(s);
+    const testo = conv.testo.split('\n').map(function(line){
       const celle = line.split('\t').map(function(c){ return c.trim(); });
       if (celle.length < 2) return line.trim();
       if (celle.length === 2 && celle[0] && celle[1]) return celle[0] + ': ' + celle[1];
       return celle.map(function(c){ return c || '—'; }).join(' · ');
     }).join('\n');
-    return { testo: testo, bloccati: Array.from(bloccati) };
+    return { testo: testo, bloccati: conv.bloccati };
   }
 
   function avvisoCaratteri(bloccati){
