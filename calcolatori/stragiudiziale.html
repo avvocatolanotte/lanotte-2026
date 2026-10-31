@@ -394,8 +394,10 @@ function rigaSeVisibile(id, label, valueId){
 function apriAnteprimaReport(){
   calcola();
   const scaglione = document.getElementById('calc-scaglione');
+  // Dal valore del pulsante, non dal testo dell'etichetta: le icone ✅/❌ fermano il PDF (rilievo di Codex del 31/10/2026).
+  const esitoScelto = document.querySelector('input[name="esito"]:checked')?.value;
   const esito = document.getElementById('campo-esito').style.display !== 'none'
-    ? (document.querySelector('input[name="esito"]:checked')?.parentElement?.textContent || '').trim()
+    ? ({positivo: 'Esito positivo', negativo: 'Esito negativo'}[esitoScelto] || '')
     : 'Non previsto';
   LanottePreview.openSummary({
     title: 'Attività stragiudiziale',

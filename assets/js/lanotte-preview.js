@@ -465,6 +465,11 @@
     return { testo: testo, bloccati: Array.from(bloccati) };
   }
 
+  function avvisoCaratteri(bloccati){
+    alert('Il PDF non può riprodurre questi caratteri presenti nei dati: ' + bloccati.map(nomeCarattere).join(', ') +
+      '. Per non alterare i dati il PDF non è stato generato: usi il pulsante «Stampa» dell\'anteprima (consente anche di salvare in PDF) oppure sostituisca quei caratteri nei campi.');
+  }
+
   function downloadPdf(node, title){
     loadJsPdf(function(){
       const jsPDF = global.jspdf && global.jspdf.jsPDF;
@@ -477,6 +482,12 @@
         ? node
         : node.querySelector('[data-lanotte-structured-pdf="damage-biological"]');
       if (structuredReport) {
+        // Stesso controllo dei caratteri anche per il report strutturato (prima un nome come «Łukasz» arrivava a jsPDF senza
+        // avviso: rilievo di Codex del 31/10/2026). Si controlla il testo senza icone decorative e collegamenti di contatto.
+        const daControllare = structuredReport.cloneNode(true);
+        daControllare.querySelectorAll('button,a[data-lanotte-event],[aria-hidden="true"]').forEach(function(el){ el.remove(); });
+        const fuori = pdfText(daControllare.textContent || '').bloccati;
+        if (fuori.length) { avvisoCaratteri(fuori); return; }
         downloadStructuredReport(doc, structuredReport, title);
         return;
       }
@@ -505,11 +516,7 @@
       } finally {
         stage.remove();
       }
-      if (letto.bloccati.length) {
-        alert('Il PDF non può riprodurre questi caratteri presenti nei dati: ' + letto.bloccati.map(nomeCarattere).join(', ') +
-          '. Per non alterare i dati il PDF non è stato generato: usi il pulsante «Stampa» dell\'anteprima (consente anche di salvare in PDF) oppure sostituisca quei caratteri nei campi.');
-        return;
-      }
+      if (letto.bloccati.length) { avvisoCaratteri(letto.bloccati); return; }
       const bodyText = letto.testo.replace(/\n{3,}/g, '\n\n').trim();
       let y = 13;
 
