@@ -200,6 +200,7 @@
       <table class="cm-table"><tbody id="cmVoci"></tbody></table>
       <p class="cm-totale" role="status" aria-live="polite">Totale tasse ufficiali: <strong id="cmTotale">—</strong></p>
       <ul id="cmNote" class="cm-note"></ul>
+      <button type="button" class="btn btn-ghost cm-report" onclick="apriAnteprimaReport()">Anteprima del report</button>
     </div>
 
     <div class="cta-box">
@@ -244,12 +245,14 @@
 .cm-totale{font-family:var(--serif);font-size:20px;color:var(--navy);margin:6px 0 12px}
 .cm-totale strong{color:var(--gold)}
 .cm-note{margin:0;padding-left:18px;font-size:13px;color:#475569;line-height:1.55}
+.cm-report{margin-top:18px;color:var(--navy);border-color:var(--gold)}
 .cta-box{display:flex;gap:18px;align-items:flex-start;background:var(--navy);color:#e2e8f0;border-radius:8px;padding:26px 28px;margin-bottom:20px;line-height:1.6;font-size:14.5px}
 .cta-box .btn-primary{background:var(--gold);border-color:var(--gold)}
 .disclaimer{font-size:12px;color:#5b6474;line-height:1.55;text-align:center;max-width:760px;margin:0 auto;padding:0 8px}
 @media (max-width:700px){.calc-row{grid-template-columns:1fr !important}.cta-box{flex-direction:column}}
 </style>
 
+<script src="../assets/js/lanotte-preview.js"></script>
 <script>
 (function () {
   // Importi ufficiali verificati il 10/10/2026 (fonti nel riquadro «Fonti»).
@@ -381,6 +384,29 @@
   });
   riempiOperazioni();
   calcola();
+
+  // 31/10/2026: report con anteprima, stampa e PDF come negli altri calcolatori (l'indice lo prometteva per tutti e 27).
+  window.apriAnteprimaReport = function () {
+    calcola();
+    var sel = $('cmOperazione');
+    var rows = [
+      ['Ufficio', ufficio()],
+      ['Operazione', sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].textContent : '']
+    ];
+    Array.prototype.forEach.call(document.querySelectorAll('#cmVoci tr'), function (tr) {
+      if (tr.cells.length >= 2) rows.push([tr.cells[0].textContent, tr.cells[1].textContent]);
+    });
+    var note = Array.prototype.map.call(document.querySelectorAll('#cmNote li'), function (li) { return li.textContent; });
+    note.push('Importi ufficiali verificati il 10 ottobre 2026. Gli uffici possono aggiornarli: vanno ricontrollati sulle tabelle ufficiali al momento del deposito.'); // stessa frase dell'avviso in testa alla pagina
+    LanottePreview.openSummary({
+      title: 'Costi ufficiali del marchio',
+      subtitle: $('cmSottotitolo').textContent,
+      rows: rows,
+      totalLabel: 'Totale tasse ufficiali',
+      total: $('cmTotale').textContent,
+      notes: note.join(' ')
+    });
+  };
 })();
 </script>
 

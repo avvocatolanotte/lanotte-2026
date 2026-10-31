@@ -429,6 +429,19 @@
     doc.save((filename || 'prospetto-calcolo-danno-biologico') + '.pdf');
   }
 
+  // Testo per i caratteri standard di jsPDF (codifica WinAnsi): un solo carattere fuori codifica («−», «→») faceva uscire la riga
+  // con le lettere spaziate. Le celle di una riga a due colonne diventano «etichetta: valore», le altre si separano con «·».
+  function pdfText(s){
+    return String(s)
+      .replace(/−/g, '-').replace(/→/g, '->').replace(/≤/g, '<=').replace(/≥/g, '>=')
+      .replace(/[   ]/g, ' ')
+      .replace(/[^\t\n\r\x20-\x7E\xA1-\xFF€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/g, '')
+      .split('\n').map(function(line){
+        const celle = line.split('\t').map(function(c){ return c.trim(); }).filter(Boolean);
+        return celle.length === 2 ? celle[0] + ': ' + celle[1] : celle.join(' · ');
+      }).join('\n');
+  }
+
   function downloadPdf(node, title){
     loadJsPdf(function(){
       const jsPDF = global.jspdf && global.jspdf.jsPDF;
@@ -454,7 +467,14 @@
       textNode.querySelectorAll('button,a[data-lanotte-event]').forEach(function(el){ el.remove(); });
       const firstTitle = textNode.querySelector('h1');
       if (firstTitle) firstTitle.remove();
-      const bodyText = (textNode.innerText || textNode.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
+      // innerText va a capo fra righe e celle solo su un nodo disegnato: sul clone staccato dava tutta la tabella su una riga
+      // («UfficioUIBMOperazione…», misurato il 31/10/2026). Il clone si appoggia fuori schermo per il tempo della lettura.
+      const stage = document.createElement('div');
+      stage.style.cssText = 'position:absolute;left:-10000px;top:0;width:794px;opacity:0;pointer-events:none';
+      stage.appendChild(textNode);
+      document.body.appendChild(stage);
+      const bodyText = pdfText(textNode.innerText || textNode.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
+      stage.remove();
       let y = 13;
 
       doc.setFillColor(184, 153, 104);
