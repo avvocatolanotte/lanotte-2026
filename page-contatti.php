@@ -276,7 +276,7 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
 .contact-form .wpcf7 label{display:block}
 .contact-form .wpcf7 .wpcf7-form-control-wrap{display:block}
 .contact-form .wpcf7 input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=hidden]),.contact-form .wpcf7 select,.contact-form .wpcf7 textarea{display:block;width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:6px;font-size:16px;line-height:1.4;font-family:inherit;background:#fff;color:#0f172a;transition:border-color .2s}
-.contact-form .wpcf7 input:focus,.contact-form .wpcf7 select:focus,.contact-form .wpcf7 textarea:focus{outline:none;border-color:var(--gold,#b89968);box-shadow:0 0 0 3px rgba(184,153,104,.15)}
+.contact-form .wpcf7 input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=hidden]):focus,.contact-form .wpcf7 select:focus,.contact-form .wpcf7 textarea:focus{outline:none;border-color:var(--gold,#b89968);box-shadow:0 0 0 3px rgba(184,153,104,.15)}
 .contact-form .wpcf7 textarea{resize:vertical;min-height:140px;height:160px}
 .contact-form .wpcf7 input[type=submit]{display:block;width:100%;min-height:50px;margin-top:6px;padding:14px 22px;border:1px solid transparent;border-radius:2px;background:var(--gold,#b89968);color:var(--navy,#0f172a);font-family:inherit;font-size:15px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:background .2s;-webkit-appearance:none;appearance:none}
 .contact-form .wpcf7 input[type=submit]:hover,.contact-form .wpcf7 input[type=submit]:focus-visible{background:#a98655}
