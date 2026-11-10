@@ -271,6 +271,21 @@ $map_embed_acf = function_exists('get_field') ? get_field('map_embed') : '';
 .fallback-form .check a{color:var(--navy,#0f172a)}
 .fallback-form button{margin-top:10px;width:100%;padding:14px;font-size:15px}
 .form-note{font-size:11.5px;color:#94a3b8;font-style:italic;margin:8px 0 0;text-align:center}
+/* 10/11/2026: il modulo Contact Form 7 usciva con lo stile predefinito del browser (campi alti 20 px, pulsante «Invia» 32×20 px): stesso aspetto del modulo di riserva. */
+.contact-form .wpcf7 form p{margin:0 0 14px}
+.contact-form .wpcf7 label{display:block}
+.contact-form .wpcf7 .wpcf7-form-control-wrap{display:block}
+.contact-form .wpcf7 input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=hidden]),.contact-form .wpcf7 select,.contact-form .wpcf7 textarea{display:block;width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:6px;font-size:16px;line-height:1.4;font-family:inherit;background:#fff;color:#0f172a;transition:border-color .2s}
+.contact-form .wpcf7 input:focus,.contact-form .wpcf7 select:focus,.contact-form .wpcf7 textarea:focus{outline:none;border-color:var(--gold,#b89968);box-shadow:0 0 0 3px rgba(184,153,104,.15)}
+.contact-form .wpcf7 textarea{resize:vertical;min-height:140px;height:160px}
+.contact-form .wpcf7 input[type=submit]{display:block;width:100%;min-height:50px;margin-top:6px;padding:14px 22px;border:1px solid transparent;border-radius:2px;background:var(--gold,#b89968);color:var(--navy,#0f172a);font-family:inherit;font-size:15px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:background .2s;-webkit-appearance:none;appearance:none}
+.contact-form .wpcf7 input[type=submit]:hover,.contact-form .wpcf7 input[type=submit]:focus-visible{background:#a98655}
+.contact-form .wpcf7 input[type=submit]:disabled{opacity:.6;cursor:wait}
+.contact-form .wpcf7 .wpcf7-not-valid-tip{display:block;margin-top:4px;font-size:13px;color:#b91c1c}
+.contact-form .wpcf7 .wpcf7-response-output{margin:14px 0 0;padding:12px 14px;border:1px solid #cbd5e1;border-radius:6px;font-size:14.5px;line-height:1.5;color:#0f172a}
+.contact-form .wpcf7 form.sent .wpcf7-response-output{border-color:#15803d;background:#f0fdf4}
+.contact-form .wpcf7 form.invalid .wpcf7-response-output,.contact-form .wpcf7 form.failed .wpcf7-response-output,.contact-form .wpcf7 form.spam .wpcf7-response-output{border-color:#b91c1c;background:#fef2f2}
+.contact-form .wpcf7 .wpcf7-spinner{display:block;margin:8px auto 0}
 
 /* ===== INDICAZIONI ===== */
 .indicazioni-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
