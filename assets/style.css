@@ -638,3 +638,35 @@ footer.site-footer{background:var(--navy-dark);color:#cbd5e1;padding:72px 0 0}
    «Riveda le scelte sui cookie» nel piè di pagina (linee guida del Garante 10/06/2021). Sul computer l'icona resta. */
 @media (max-width:700px){.cky-btn-revisit-wrapper{display:none!important}}
 .footer-bottom .lanotte-cookie-scelte{white-space:nowrap}
+
+/* === Scheda del singolo servizio (WooCommerce) — 1.0.170 ===
+   La scheda usciva a tutta larghezza, senza margini, con mezza pagina vuota per l'immagine mancante
+   e col pulsante «Scriva su WhatsApp» bianco su fondo chiaro. Misurato il 15/11/2026 a 375 e 1387 px. */
+.single-product .content-area{max-width:1080px;margin:0 auto;padding:28px 24px 72px}
+.single-product .woocommerce-breadcrumb{margin:0 0 20px;font-size:14px;color:var(--text-muted)}
+.single-product .woocommerce-breadcrumb a{color:var(--navy);text-decoration:underline}
+.single-product div.product .woocommerce-product-gallery:has(.woocommerce-product-gallery__image--placeholder){display:none}
+.single-product div.product:has(.woocommerce-product-gallery__image--placeholder) div.summary{float:none;width:100%;max-width:820px}
+.single-product div.product .product_title{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.2vw,44px);line-height:1.15;color:var(--navy);margin:0 0 14px}
+.single-product div.product p.price{color:var(--navy);font-size:19px;line-height:1.5;margin:0 0 18px}
+.single-product div.product p.price small{display:block;font-size:14px;color:var(--text-muted)}
+.single-product .woocommerce-product-details__short-description{font-size:17px;line-height:1.65;margin:0 0 20px}
+.single-product .lanotte-preventivo-cta{background:var(--cream);border-left:3px solid var(--gold);padding:18px 20px;margin:0 0 20px}
+.single-product .lanotte-preventivo-cta p{margin:0 0 12px}
+.single-product .lanotte-preventivo-cta p:last-child{margin:0;display:flex;flex-wrap:wrap;gap:10px}
+.single-product .lanotte-preventivo-cta .btn{justify-content:center;text-align:center;min-height:48px}
+.single-product .lanotte-preventivo-cta .btn-ghost{color:var(--navy);border-color:rgba(14,26,51,.35)}
+.single-product .product_meta{font-size:14px;color:var(--text-muted)}
+.single-product .product_meta a{color:var(--navy);text-decoration:underline}
+.single-product .woocommerce-tabs{clear:both;max-width:820px;padding-top:36px}
+.single-product .woocommerce-Tabs-panel{font-size:17px;line-height:1.7}
+.single-product .woocommerce-Tabs-panel h2,.single-product section.related>h2{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.2;color:var(--navy);margin:28px 0 12px}
+.single-product .woocommerce-Tabs-panel h3{font-size:19px;color:var(--navy);margin:22px 0 8px}
+.single-product .woocommerce-Tabs-panel p,.single-product .woocommerce-Tabs-panel ul,.single-product .woocommerce-Tabs-panel ol{margin:0 0 14px}
+.single-product .woocommerce-Tabs-panel ul,.single-product .woocommerce-Tabs-panel ol{padding-left:22px}
+.single-product .woocommerce-Tabs-panel a{color:var(--navy);text-decoration:underline}
+.single-product section.related{clear:both;padding-top:36px}
+@media(max-width:680px){
+  .single-product .content-area{padding:20px 20px 96px}
+  .single-product .lanotte-preventivo-cta .btn{width:100%}
+}
