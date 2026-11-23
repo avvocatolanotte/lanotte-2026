@@ -1397,6 +1397,13 @@ function lanotte_trilogia_tortora_testi() {
             'estratto' => 'Prima parte. In aula accanto a un cliente innocente: «L’Italia è piena di errori giudiziari». «Devi fidarti della giustizia, ha i suoi anticorpi». Da quel dialogo, il ricordo di Enzo TORTORA.',
             'file'    => 'caso-tortora-errore-giudiziario-garanzie.html',
             'data'    => '2026-11-25 08:00:00',
+            'immagine' => [
+                'opzione' => 'lanotte_article_caso_tortora_garanzie_featured_20261123',
+                'file'    => 'errore-giudiziario-tortora-garanzie-2026.jpg',
+                'titolo'  => 'Vita, morte e miracoli dei pubblici ministeri del caso TORTORA: avvocato e cliente in attesa davanti all’aula',
+                'alt'     => 'Illustrazione: nel corridoio di un tribunale un avvocato in toga, di spalle, parla al suo cliente seduto sulla panca con il volto tra le mani; oltre la porta aperta, l’aula con i banchi dei giudici e una telecamera puntata',
+                'chiave'  => 'lanotte-caso-tortora-garanzie-2026',
+            ],
         ],
         'caso-tortora-responsabilita-errore-giudiziario' => [
             'origine' => 'lanotte_article_caso_tortora_responsabilita_20261123',
@@ -1404,6 +1411,13 @@ function lanotte_trilogia_tortora_testi() {
             'estratto' => 'Seconda parte. Chi condusse le indagini e sostenne l’accusa contro Enzo TORTORA, le loro carriere, le verifiche del CSM e le scuse arrivate decenni dopo: ciò che risulta dalle fonti, senza attribuire colpe non accertate.',
             'file'    => 'caso-tortora-responsabilita-errore-giudiziario.html',
             'data'    => '2026-11-28 08:00:00',
+            'immagine' => [
+                'opzione' => 'lanotte_article_caso_tortora_responsabilita_featured_20261123',
+                'file'    => 'errore-giudiziario-tortora-responsabilita-2026.jpg',
+                'titolo'  => 'Che fine hanno fatto gli accusatori di Enzo TORTORA: il fascicolo, le dichiarazioni e le strade diverse',
+                'alt'     => 'Illustrazione: in un archivio giudiziario un vecchio fascicolo legato con un nastro rosso e una lente d’ingrandimento su dichiarazioni battute a macchina, corrette e cancellate in rosso; sullo sfondo figure senza volto, di spalle, si allontanano per corridoi diversi, accanto a uno studio televisivo vuoto',
+                'chiave'  => 'lanotte-caso-tortora-responsabilita-2026',
+            ],
         ],
         'errore-giudiziario-revisione-ingiusta-detenzione' => [
             'origine' => 'lanotte_article_errore_giudiziario_revisione_20261123',
@@ -1411,6 +1425,13 @@ function lanotte_trilogia_tortora_testi() {
             'estratto' => 'Terza parte. Gli «anticorpi» della giustizia alla prova dei fatti: da TORTORA agli innocenti rimasti per anni in carcere, il ragionevole dubbio, Beccaria e il processo mediatico.',
             'file'    => 'errore-giudiziario-revisione-ingiusta-detenzione.html',
             'data'    => '2026-12-01 08:00:00',
+            'immagine' => [
+                'opzione' => 'lanotte_article_errore_giudiziario_revisione_featured_20261123',
+                'file'    => 'errore-giudiziario-revisione-innocenti-2026.jpg',
+                'titolo'  => 'Quando la giustizia arriva troppo tardi: un uomo anziano esce dal carcere',
+                'alt'     => 'Illustrazione: un uomo anziano, di spalle, esce dal cancello aperto di un carcere verso una strada di campagna illuminata dal sole; in primo piano, su una panca, una clessidra con la sabbia quasi tutta scesa e una pila di fascicoli legati',
+                'chiave'  => 'lanotte-errore-giudiziario-revisione-2026',
+            ],
         ],
     ];
 }
@@ -1431,14 +1452,8 @@ add_action('init', function() {
 }, 76);
 
 add_action('init', function() {
-    lanotte_editorial_register_featured(
-        'lanotte_article_caso_tortora_garanzie_featured_20261123',
-        'caso-tortora-errore-giudiziario-garanzie',
-        'errore-giudiziario-tortora-garanzie-2026.jpg',
-        'Caso Tortora: errore giudiziario e garanzie',
-        'Illustrazione: un fascio di luce entra da una finestra con le sbarre e illumina un libro aperto, simbolo delle garanzie della Costituzione',
-        'lanotte-caso-tortora-garanzie-2026'
-    );
+    $i = lanotte_trilogia_tortora_testi()['caso-tortora-errore-giudiziario-garanzie']['immagine'];
+    lanotte_editorial_register_featured($i['opzione'], 'caso-tortora-errore-giudiziario-garanzie', $i['file'], $i['titolo'], $i['alt'], $i['chiave']);
 }, 77);
 
 add_action('init', function() {
@@ -1457,14 +1472,8 @@ add_action('init', function() {
 }, 78);
 
 add_action('init', function() {
-    lanotte_editorial_register_featured(
-        'lanotte_article_caso_tortora_responsabilita_featured_20261123',
-        'caso-tortora-responsabilita-errore-giudiziario',
-        'errore-giudiziario-tortora-responsabilita-2026.jpg',
-        'Caso Tortora: responsabilità e rimedi',
-        'Illustrazione: una lente d’ingrandimento accanto a una pila di fascicoli e tre fogli di dichiarazioni collegati da un filo rosso, simbolo della verifica delle prove',
-        'lanotte-caso-tortora-responsabilita-2026'
-    );
+    $i = lanotte_trilogia_tortora_testi()['caso-tortora-responsabilita-errore-giudiziario']['immagine'];
+    lanotte_editorial_register_featured($i['opzione'], 'caso-tortora-responsabilita-errore-giudiziario', $i['file'], $i['titolo'], $i['alt'], $i['chiave']);
 }, 79);
 
 add_action('init', function() {
@@ -1483,14 +1492,8 @@ add_action('init', function() {
 }, 80);
 
 add_action('init', function() {
-    lanotte_editorial_register_featured(
-        'lanotte_article_errore_giudiziario_revisione_featured_20261123',
-        'errore-giudiziario-revisione-ingiusta-detenzione',
-        'errore-giudiziario-revisione-innocenti-2026.jpg',
-        'Errore giudiziario e revisione',
-        'Illustrazione: una clessidra quasi vuota accanto a una porta che si apre sulla luce, simbolo del tempo perso e della libertà restituita',
-        'lanotte-errore-giudiziario-revisione-2026'
-    );
+    $i = lanotte_trilogia_tortora_testi()['errore-giudiziario-revisione-ingiusta-detenzione']['immagine'];
+    lanotte_editorial_register_featured($i['opzione'], 'errore-giudiziario-revisione-ingiusta-detenzione', $i['file'], $i['titolo'], $i['alt'], $i['chiave']);
 }, 81);
 
 /**
@@ -1572,3 +1575,118 @@ add_action('init', function() {
         });
     }
 }, 82);
+
+/**
+ * Sostituisce il file dell'immagine in evidenza di un post della trilogia già importata (23/11/2026, copertine
+ * editoriali al posto di quelle generiche). La registrazione dell'immagine gira una sola volta e ritrova l'allegato per
+ * la sua chiave: senza questo passo WordPress continuerebbe a servire il file vecchio. Si lavora sullo stesso allegato
+ * (stesso ID, nessun doppione nella libreria): il file nuovo entra con un nome nuovo, così nessuna copia in cache serve
+ * quello vecchio; il file vecchio resta sul disco e il suo percorso si annota in «_lanotte_file_precedente».
+ * Si tocca solo l'allegato con la chiave della trilogia che è anche immagine in evidenza del post creato dal tema.
+ * «done» solo se, riletti dal database, file (SHA-256), misure, titolo e testo alternativo coincidono con il tema.
+ */
+function lanotte_trilogia_tortora_riallinea_immagine($option, $slug) {
+    $stato = (string) get_option($option);
+    if ($stato === 'done' || strpos($stato, 'saltato') === 0 || strpos($stato, 'errore') === 0) return;
+    if (!function_exists('wp_upload_bits') || !function_exists('update_attached_file')) return;
+
+    $testi = lanotte_trilogia_tortora_testi();
+    if (!isset($testi[$slug]['immagine'])) return;
+    $t = $testi[$slug];
+    $i = $t['immagine'];
+
+    $sorgente = LANOTTE_THEME_DIR . '/assets/img/blog/' . $i['file'];
+    $bytes = is_readable($sorgente) ? file_get_contents($sorgente) : false;
+    if ($bytes === false || $bytes === '') return; // senza il file del tema non c'è nulla con cui confrontare
+    $atteso = hash('sha256', $bytes);
+
+    $post = get_page_by_path($slug, OBJECT, 'post');
+    if (!$post instanceof WP_Post) return; // lo creerà la registrazione, già con l'immagine nuova
+    if (get_post_meta($post->ID, '_lanotte_editoriale', true) !== $t['origine']) {
+        update_option($option, 'saltato: articolo non creato dal tema (' . $post->ID . ')', false);
+        return;
+    }
+
+    $allegati = get_posts([
+        'post_type'      => 'attachment',
+        'post_status'    => 'inherit',
+        'posts_per_page' => 2,
+        'fields'         => 'ids',
+        'meta_key'       => '_lanotte_source_asset',
+        'meta_value'     => $i['chiave'],
+    ]);
+    if (count($allegati) > 1) {
+        error_log('lanotte_trilogia_tortora: più allegati con chiave ' . $i['chiave'] . ': non scelgo.');
+        update_option($option, 'errore: più allegati con la stessa chiave', false);
+        return;
+    }
+    if (!$allegati) {
+        // Prima dell'importazione non c'è nulla da sostituire; dopo un'importazione riuscita l'allegato deve esserci.
+        if (get_option($i['opzione']) === 'done') {
+            error_log('lanotte_trilogia_tortora: immagine di «' . $slug . '» registrata ma allegato ' . $i['chiave'] . ' assente.');
+            update_option($option, 'errore: allegato assente', false);
+        }
+        return;
+    }
+    $allegato = (int) $allegati[0];
+
+    $in_evidenza = (int) get_post_thumbnail_id($post->ID);
+    if ($in_evidenza === 0) return; // la registrazione non l'ha ancora assegnata
+    if ($in_evidenza !== $allegato) {
+        error_log('lanotte_trilogia_tortora: «' . $slug . '» ha in evidenza l\'allegato ' . $in_evidenza . ', non ' . $allegato . ': non lo tocco.');
+        update_option($option, 'saltato: immagine in evidenza cambiata (' . $in_evidenza . ')', false);
+        return;
+    }
+
+    $attuale = get_attached_file($allegato);
+    if (!$attuale || !is_readable($attuale) || hash_file('sha256', $attuale) !== $atteso) {
+        $upload = wp_upload_bits($i['file'], null, $bytes);
+        if (!empty($upload['error'])) return; // errore passeggero: si riprova alla richiesta successiva
+        if (hash_file('sha256', $upload['file']) !== $atteso) {
+            update_option($option, 'errore: file caricato diverso dal tema (' . $upload['file'] . ')', false);
+            return;
+        }
+        if ($attuale) add_post_meta($allegato, '_lanotte_file_precedente', $attuale);
+        update_attached_file($allegato, $upload['file']);
+        require_once ABSPATH . 'wp-admin/includes/image.php';
+        $metadata = wp_generate_attachment_metadata($allegato, $upload['file']);
+        if (!$metadata) {
+            update_option($option, 'errore: metadati non generati (' . $upload['file'] . ')', false);
+            return;
+        }
+        wp_update_attachment_metadata($allegato, $metadata);
+    }
+
+    wp_update_post(['ID' => $allegato, 'post_title' => wp_slash($i['titolo'])]);
+    update_post_meta($allegato, '_wp_attachment_image_alt', wp_slash($i['alt']));
+
+    clean_post_cache($allegato);
+    clean_post_cache((int) $post->ID);
+    $file = get_attached_file($allegato);
+    $meta = wp_get_attachment_metadata($allegato);
+    $difformi = [];
+    if (!$file || !is_readable($file) || hash_file('sha256', $file) !== $atteso) $difformi[] = 'file';
+    if (!is_array($meta) || (int) ($meta['width'] ?? 0) !== 1600 || (int) ($meta['height'] ?? 0) !== 900) $difformi[] = 'misure';
+    if (get_post_field('post_title', $allegato, 'raw') !== $i['titolo']) $difformi[] = 'titolo';
+    if (get_post_meta($allegato, '_wp_attachment_image_alt', true) !== $i['alt']) $difformi[] = 'alt';
+    if ((int) get_post_thumbnail_id($post->ID) !== $allegato) $difformi[] = 'in evidenza';
+    if ($difformi) {
+        error_log('lanotte_trilogia_tortora: immagine di «' . $slug . '» diversa nel campo: ' . implode(', ', $difformi));
+        update_option($option, 'errore: immagine diversa (' . implode(', ', $difformi) . ')', false);
+        return;
+    }
+    error_log('lanotte_trilogia_tortora: immagine di «' . $slug . '» allineata, allegato ' . $allegato . ', ' . $file);
+    update_option($option, 'done', false);
+}
+
+add_action('init', function() {
+    foreach ([
+        'lanotte_trilogia_tortora_immagine_p1_20261123' => 'caso-tortora-errore-giudiziario-garanzie',
+        'lanotte_trilogia_tortora_immagine_p2_20261123' => 'caso-tortora-responsabilita-errore-giudiziario',
+        'lanotte_trilogia_tortora_immagine_p3_20261123' => 'errore-giudiziario-revisione-ingiusta-detenzione',
+    ] as $option => $slug) {
+        lanotte_editorial_once($option, function() use ($option, $slug) {
+            lanotte_trilogia_tortora_riallinea_immagine($option, $slug);
+        });
+    }
+}, 83);
