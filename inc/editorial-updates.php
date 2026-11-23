@@ -1438,3 +1438,32 @@ add_action('init', function() {
         'lanotte-caso-tortora-responsabilita-2026'
     );
 }, 79);
+
+// Trilogia sull'errore giudiziario, terza parte (23/11/2026; Costituzione e d.lgs. 188/2021 su Normattiva, c.p.p. su Brocardi,
+// Beccaria su Wikisource; casi Gulotta, Massaro, Zuncheddu, Busetto solo nei fatti riportati dalle fonti lette).
+// Busetto: della decisione di Trento del 13/11/2026 non si conoscono motivazione né formula; l'articolo non le attribuisce.
+// Uscita martedì 01/12/2026 alle 9:00 italiane = 08:00 UTC (ora solare; fuso del sito = UTC). Decisione dell'Avvocato del 23/11/2026.
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_errore_giudiziario_revisione_20261123',
+        'errore-giudiziario-revisione-ingiusta-detenzione',
+        'Errore giudiziario e revisione: quando la giustizia arriva troppo tardi',
+        'Condanna revocata in revisione o custodia cautelare seguita da assoluzione: le differenze, la riparazione dell’errore giudiziario e per ingiusta detenzione, il ragionevole dubbio e il processo mediatico.',
+        'errore-giudiziario-revisione-ingiusta-detenzione.html',
+        'penale',
+        'Penale',
+        'future',
+        '2026-12-01 08:00:00'
+    );
+}, 80);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_errore_giudiziario_revisione_featured_20261123',
+        'errore-giudiziario-revisione-ingiusta-detenzione',
+        'errore-giudiziario-revisione-innocenti-2026.jpg',
+        'Errore giudiziario e revisione',
+        'Illustrazione: una clessidra quasi vuota accanto a una porta che si apre sulla luce, simbolo del tempo perso e della libertà restituita',
+        'lanotte-errore-giudiziario-revisione-2026'
+    );
+}, 81);
