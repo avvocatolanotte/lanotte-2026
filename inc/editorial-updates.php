@@ -1383,3 +1383,30 @@ add_action('init', function() {
         'lanotte-gatti-randagi-colonia-felina-2026'
     );
 }, 75);
+
+// Trilogia sull'errore giudiziario, prima parte (23/11/2026; norme lette su Normattiva, cronologia su Il Post e Panorama).
+// Uscita mercoledì 25/11/2026 alle 9:00 italiane = 08:00 UTC (ora solare; fuso del sito = UTC). Decisione dell'Avvocato del 23/11/2026.
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_caso_tortora_garanzie_20261123',
+        'caso-tortora-errore-giudiziario-garanzie',
+        'Caso Tortora: l’errore giudiziario e le garanzie del processo penale',
+        'Il caso Enzo Tortora in ordine di date: su che cosa poggiava l’accusa, presunzione di non colpevolezza, riscontri alle dichiarazioni, ragionevole dubbio e che cosa è cambiato dopo.',
+        'caso-tortora-errore-giudiziario-garanzie.html',
+        'penale',
+        'Penale',
+        'future',
+        '2026-11-25 08:00:00'
+    );
+}, 76);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_caso_tortora_garanzie_featured_20261123',
+        'caso-tortora-errore-giudiziario-garanzie',
+        'errore-giudiziario-tortora-garanzie-2026.jpg',
+        'Caso Tortora: errore giudiziario e garanzie',
+        'Illustrazione: un fascio di luce entra da una finestra con le sbarre e illumina un libro aperto, simbolo delle garanzie della Costituzione',
+        'lanotte-caso-tortora-garanzie-2026'
+    );
+}, 77);
