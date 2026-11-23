@@ -1690,3 +1690,32 @@ add_action('init', function() {
         });
     }
 }, 83);
+
+// Quarto articolo, autonomo e collegato alla trilogia TORTORA (23/11/2026): «Il processo penale non è una gara».
+// Racconto in prima persona dell'Avvocato, rielaborato e privato di luoghi, tempi e dettagli che identifichino cliente,
+// procedimento e magistrato. Norme e Cass. pen. sez. VI n. 34812/2026 lette su Simpliciter il 23/11/2026.
+// Uscita venerdì 04/12/2026 alle 9:00 italiane = 08:00 UTC (ora solare; fuso del sito = UTC).
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_pubblico_ministero_verita_20261123',
+        'pubblico-ministero-verita-processo-penale',
+        'Il processo penale non è una gara: il pubblico ministero e la ricerca della verità',
+        'Dopo un esame in aula, la domanda di un cliente: «Era un processo per accertare la verità o per trovare un colpevole?». Il ruolo del pubblico ministero, che cosa dice davvero l’art. 358 c.p.p., il contraddittorio e il giudice terzo.',
+        'pubblico-ministero-verita-processo-penale.html',
+        'penale',
+        'Penale',
+        'future',
+        '2026-12-04 08:00:00'
+    );
+}, 84);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_pubblico_ministero_verita_featured_20261123',
+        'pubblico-ministero-verita-processo-penale',
+        'processo-penale-non-e-gara-2026.jpg',
+        'Il processo penale non è una gara: un’udienza vista dai banchi della difesa',
+        'Illustrazione: un’aula di giustizia vista da dietro i banchi della difesa; un uomo in giacca scura e un avvocato in toga, di spalle, davanti al microfono; a sinistra un magistrato dell’accusa legge un fascicolo, in fondo il giudice al suo scranno, senza volti riconoscibili, e la luce che entra da una grande finestra',
+        'lanotte-pubblico-ministero-verita-2026'
+    );
+}, 85);
