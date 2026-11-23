@@ -1410,3 +1410,31 @@ add_action('init', function() {
         'lanotte-caso-tortora-garanzie-2026'
     );
 }, 77);
+
+// Trilogia sull'errore giudiziario, seconda parte (23/11/2026; norme lette su Normattiva, art. 368 c.p. su Brocardi).
+// Sugli accusatori e su procedimenti disciplinari non si sono trovate fonti univoche: analisi delle responsabilità istituzionali, senza nomi.
+// Uscita sabato 28/11/2026 alle 9:00 italiane = 08:00 UTC (ora solare; fuso del sito = UTC). Decisione dell'Avvocato del 23/11/2026.
+add_action('init', function() {
+    lanotte_editorial_register_article(
+        'lanotte_article_caso_tortora_responsabilita_20261123',
+        'caso-tortora-responsabilita-errore-giudiziario',
+        'Caso Tortora: chi risponde dell’errore giudiziario? Responsabilità e rimedi',
+        'Dopo il caso Tortora: responsabilità penale, civile e disciplinare sono piani diversi. Calunnia, legge 117/1988, riscontri alle dichiarazioni dei collaboratori e rimedi.',
+        'caso-tortora-responsabilita-errore-giudiziario.html',
+        'penale',
+        'Penale',
+        'future',
+        '2026-11-28 08:00:00'
+    );
+}, 78);
+
+add_action('init', function() {
+    lanotte_editorial_register_featured(
+        'lanotte_article_caso_tortora_responsabilita_featured_20261123',
+        'caso-tortora-responsabilita-errore-giudiziario',
+        'errore-giudiziario-tortora-responsabilita-2026.jpg',
+        'Caso Tortora: responsabilità e rimedi',
+        'Illustrazione: una lente d’ingrandimento accanto a una pila di fascicoli e tre fogli di dichiarazioni collegati da un filo rosso, simbolo della verifica delle prove',
+        'lanotte-caso-tortora-responsabilita-2026'
+    );
+}, 79);
