@@ -1692,15 +1692,22 @@ add_action('init', function() {
 }, 83);
 
 // Quarto articolo, autonomo e collegato alla trilogia TORTORA (23/11/2026): «Il processo penale non è una gara».
-// Racconto in prima persona dell'Avvocato, rielaborato e privato di luoghi, tempi e dettagli che identifichino cliente,
-// procedimento e magistrato. Norme e Cass. pen. sez. VI n. 34812/2026 lette su Simpliciter il 23/11/2026.
+// Racconto di fantasia dell'Avvocato, riportato integralmente e nello stesso ordine (correzione vincolante del
+// 23/11/2026: niente revisioni né anonimizzazioni; il corpo è identico byte per byte al testo consegnato). Prima del
+// racconto la nota «Racconto di fantasia»; dopo, nota giuridica, FAQ, collegamenti e avvertenza. Fonti della nota:
+// cortedicassazione.it (Cass. pen. sez. VI n. 34812, dep. 29/09/2026, «Esito in sintesi») e senato.it (artt. 27 e 111
+// Cost.), lette il 23/11/2026. La versione 1.0.176 descriveva qui un testo rielaborato che non è mai stato nel tema.
 // Uscita venerdì 04/12/2026 alle 9:00 italiane = 08:00 UTC (ora solare; fuso del sito = UTC).
+function lanotte_pm_verita_estratto() {
+    return 'Racconto di fantasia. Dopo l’esame del suo cliente in aula, un avvocato si chiede se quel processo cercasse la verità o un colpevole a tutti i costi. Segue una nota giuridica sull’art. 358 c.p.p., sulla sentenza della Cassazione n. 34812/2026 e sugli artt. 27 e 111 della Costituzione.';
+}
+
 add_action('init', function() {
     lanotte_editorial_register_article(
         'lanotte_article_pubblico_ministero_verita_20261123',
         'pubblico-ministero-verita-processo-penale',
         'Il processo penale non è una gara: il pubblico ministero e la ricerca della verità',
-        'Dopo un esame in aula, la domanda di un cliente: «Era un processo per accertare la verità o per trovare un colpevole?». Il ruolo del pubblico ministero, che cosa dice davvero l’art. 358 c.p.p., il contraddittorio e il giudice terzo.',
+        lanotte_pm_verita_estratto(),
         'pubblico-ministero-verita-processo-penale.html',
         'penale',
         'Penale',
@@ -1719,3 +1726,67 @@ add_action('init', function() {
         'lanotte-pubblico-ministero-verita-2026'
     );
 }, 85);
+
+/**
+ * L'estratto della 1.0.176 non diceva che il testo è un racconto di fantasia e citava tra virgolette una domanda del
+ * racconto accorciata. Se il post è già stato creato con quell'estratto, lo si riallinea una volta sola: solo il post
+ * con il marcatore della registrazione e con la data programmata; si cambia il solo estratto e lo si rilegge dopo il
+ * salvataggio. Se il post non esiste ancora non fa nulla: la registrazione lo crea già con l'estratto nuovo.
+ */
+function lanotte_pm_verita_riallinea_estratto($option) {
+    $stato = (string) get_option($option);
+    if ($stato === 'done' || strpos($stato, 'saltato') === 0 || strpos($stato, 'errore') === 0) return;
+    if (!function_exists('wp_update_post')) return;
+
+    $slug = 'pubblico-ministero-verita-processo-penale';
+    $origine = 'lanotte_article_pubblico_ministero_verita_20261123';
+    $estratto = lanotte_pm_verita_estratto();
+
+    $post = get_page_by_path($slug, OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+    if (get_post_meta($post->ID, '_lanotte_editoriale', true) !== $origine) {
+        error_log('lanotte_pm_verita: «' . $slug . '» non è stato creato da ' . $origine . ': non lo riscrivo.');
+        update_option($option, 'saltato: articolo non creato dal tema (' . $post->ID . ')', false);
+        return;
+    }
+    $data_gmt = get_gmt_from_date('2026-12-04 08:00:00');
+    if ($post->post_date_gmt !== $data_gmt) {
+        error_log('lanotte_pm_verita: «' . $slug . '» ha data ' . $post->post_date_gmt . ' invece di ' . $data_gmt . ': non lo riscrivo.');
+        update_option($option, 'errore: data diversa da quella programmata (' . $post->post_date_gmt . ')', false);
+        return;
+    }
+
+    if ($post->post_excerpt !== $estratto) {
+        $result = wp_update_post(wp_slash([
+            'ID'            => (int) $post->ID,
+            'post_excerpt'  => $estratto,
+            'post_status'   => $post->post_status,
+            'post_date'     => $post->post_date,
+            'post_date_gmt' => $post->post_date_gmt,
+        ]), true);
+        if (is_wp_error($result) || !$result) return; // errore passeggero: si riprova alla richiesta successiva
+        clean_post_cache((int) $post->ID);
+    }
+
+    $dopo = get_post((int) $post->ID);
+    $difformi = [];
+    if (!$dopo instanceof WP_Post) $difformi[] = 'post';
+    else {
+        if ($dopo->post_excerpt !== $estratto) $difformi[] = 'estratto';
+        if ($dopo->post_date_gmt !== $data_gmt) $difformi[] = 'data';
+        if ($dopo->post_status !== $post->post_status) $difformi[] = 'stato';
+    }
+    if ($difformi) {
+        error_log('lanotte_pm_verita: «' . $slug . '» salvato ma diverso nel campo: ' . implode(', ', $difformi));
+        update_option($option, 'errore: salvato diverso (' . implode(', ', $difformi) . ')', false);
+        return;
+    }
+    update_option($option, 'done', false);
+}
+
+add_action('init', function() {
+    $option = 'lanotte_pm_verita_riallinea_estratto_20261123';
+    lanotte_editorial_once($option, function() use ($option) {
+        lanotte_pm_verita_riallinea_estratto($option);
+    });
+}, 86);
