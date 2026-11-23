@@ -1384,19 +1384,49 @@ add_action('init', function() {
     );
 }, 75);
 
-// Trilogia sull'errore giudiziario, prima parte (23/11/2026; norme lette su Normattiva, cronologia su Il Post e Panorama).
-// Uscita mercoledì 25/11/2026 alle 9:00 italiane = 08:00 UTC (ora solare; fuso del sito = UTC). Decisione dell'Avvocato del 23/11/2026.
+// Trilogia sull'errore giudiziario (23/11/2026). Testi riscritti la sera stessa sul racconto in prima persona
+// consegnato dall'Avvocato nella chat condivisa: la versione del pomeriggio lo aveva trasformato in una guida
+// giuridica (rilievo dell'Avvocato). Titoli ed estratti stanno qui una volta sola, perché li usano sia la
+// registrazione sia il riallineamento dei post già creati.
+// Uscite alle 9:00 italiane = 08:00 UTC (ora solare; fuso del sito = UTC). Date decise dall'Avvocato il 23/11/2026.
+function lanotte_trilogia_tortora_testi() {
+    return [
+        'caso-tortora-errore-giudiziario-garanzie' => [
+            'origine' => 'lanotte_article_caso_tortora_garanzie_20261123',
+            'titolo'  => 'Vita, morte e miracoli dei pubblici ministeri del caso TORTORA',
+            'estratto' => 'Prima parte. In aula accanto a un cliente innocente: «L’Italia è piena di errori giudiziari». «Devi fidarti della giustizia, ha i suoi anticorpi». Da quel dialogo, il ricordo di Enzo TORTORA.',
+            'file'    => 'caso-tortora-errore-giudiziario-garanzie.html',
+            'data'    => '2026-11-25 08:00:00',
+        ],
+        'caso-tortora-responsabilita-errore-giudiziario' => [
+            'origine' => 'lanotte_article_caso_tortora_responsabilita_20261123',
+            'titolo'  => 'Che fine hanno fatto gli accusatori di Enzo TORTORA',
+            'estratto' => 'Seconda parte. Chi condusse le indagini e sostenne l’accusa contro Enzo TORTORA, le loro carriere, le verifiche del CSM e le scuse arrivate decenni dopo: ciò che risulta dalle fonti, senza attribuire colpe non accertate.',
+            'file'    => 'caso-tortora-responsabilita-errore-giudiziario.html',
+            'data'    => '2026-11-28 08:00:00',
+        ],
+        'errore-giudiziario-revisione-ingiusta-detenzione' => [
+            'origine' => 'lanotte_article_errore_giudiziario_revisione_20261123',
+            'titolo'  => 'Quando la giustizia arriva troppo tardi',
+            'estratto' => 'Terza parte. Gli «anticorpi» della giustizia alla prova dei fatti: da TORTORA agli innocenti rimasti per anni in carcere, il ragionevole dubbio, Beccaria e il processo mediatico.',
+            'file'    => 'errore-giudiziario-revisione-ingiusta-detenzione.html',
+            'data'    => '2026-12-01 08:00:00',
+        ],
+    ];
+}
+
 add_action('init', function() {
+    $t = lanotte_trilogia_tortora_testi()['caso-tortora-errore-giudiziario-garanzie'];
     lanotte_editorial_register_article(
-        'lanotte_article_caso_tortora_garanzie_20261123',
+        $t['origine'],
         'caso-tortora-errore-giudiziario-garanzie',
-        'Caso Tortora: l’errore giudiziario e le garanzie del processo penale',
-        'Il caso Enzo Tortora in ordine di date: su che cosa poggiava l’accusa, presunzione di non colpevolezza, riscontri alle dichiarazioni, ragionevole dubbio e che cosa è cambiato dopo.',
-        'caso-tortora-errore-giudiziario-garanzie.html',
+        $t['titolo'],
+        $t['estratto'],
+        $t['file'],
         'penale',
         'Penale',
         'future',
-        '2026-11-25 08:00:00'
+        $t['data']
     );
 }, 76);
 
@@ -1411,20 +1441,18 @@ add_action('init', function() {
     );
 }, 77);
 
-// Trilogia sull'errore giudiziario, seconda parte (23/11/2026; norme lette su Normattiva, art. 368 c.p. su Brocardi).
-// Sugli accusatori e su procedimenti disciplinari non si sono trovate fonti univoche: analisi delle responsabilità istituzionali, senza nomi.
-// Uscita sabato 28/11/2026 alle 9:00 italiane = 08:00 UTC (ora solare; fuso del sito = UTC). Decisione dell'Avvocato del 23/11/2026.
 add_action('init', function() {
+    $t = lanotte_trilogia_tortora_testi()['caso-tortora-responsabilita-errore-giudiziario'];
     lanotte_editorial_register_article(
-        'lanotte_article_caso_tortora_responsabilita_20261123',
+        $t['origine'],
         'caso-tortora-responsabilita-errore-giudiziario',
-        'Caso Tortora: chi risponde dell’errore giudiziario? Responsabilità e rimedi',
-        'Dopo il caso Tortora: responsabilità penale, civile e disciplinare sono piani diversi. Calunnia, legge 117/1988, riscontri alle dichiarazioni dei collaboratori e rimedi.',
-        'caso-tortora-responsabilita-errore-giudiziario.html',
+        $t['titolo'],
+        $t['estratto'],
+        $t['file'],
         'penale',
         'Penale',
         'future',
-        '2026-11-28 08:00:00'
+        $t['data']
     );
 }, 78);
 
@@ -1439,21 +1467,18 @@ add_action('init', function() {
     );
 }, 79);
 
-// Trilogia sull'errore giudiziario, terza parte (23/11/2026; Costituzione e d.lgs. 188/2021 su Normattiva, c.p.p. su Brocardi,
-// Beccaria su Wikisource; casi Gulotta, Massaro, Zuncheddu, Busetto solo nei fatti riportati dalle fonti lette).
-// Busetto: della decisione di Trento del 13/11/2026 non si conoscono motivazione né formula; l'articolo non le attribuisce.
-// Uscita martedì 01/12/2026 alle 9:00 italiane = 08:00 UTC (ora solare; fuso del sito = UTC). Decisione dell'Avvocato del 23/11/2026.
 add_action('init', function() {
+    $t = lanotte_trilogia_tortora_testi()['errore-giudiziario-revisione-ingiusta-detenzione'];
     lanotte_editorial_register_article(
-        'lanotte_article_errore_giudiziario_revisione_20261123',
+        $t['origine'],
         'errore-giudiziario-revisione-ingiusta-detenzione',
-        'Errore giudiziario e revisione: quando la giustizia arriva troppo tardi',
-        'Condanna revocata in revisione o custodia cautelare seguita da assoluzione: le differenze, la riparazione dell’errore giudiziario e per ingiusta detenzione, il ragionevole dubbio e il processo mediatico.',
-        'errore-giudiziario-revisione-ingiusta-detenzione.html',
+        $t['titolo'],
+        $t['estratto'],
+        $t['file'],
         'penale',
         'Penale',
         'future',
-        '2026-12-01 08:00:00'
+        $t['data']
     );
 }, 80);
 
@@ -1467,3 +1492,83 @@ add_action('init', function() {
         'lanotte-errore-giudiziario-revisione-2026'
     );
 }, 81);
+
+/**
+ * Riallinea titolo, estratto e contenuto di un post della trilogia già creato dalla sua registrazione (che gira una
+ * sola volta e non riscriverebbe i testi corretti). Tocca solo il post che porta il marcatore di quella registrazione;
+ * slug, data e stato restano quelli di prima e vengono riletti dopo il salvataggio: «done» solo se il post salvato
+ * coincide con il file del tema e con la data programmata. Se il post non esiste ancora non fa nulla: lo creerà la
+ * registrazione, già con i testi nuovi.
+ */
+function lanotte_trilogia_tortora_riallinea($option, $slug) {
+    $stato = (string) get_option($option);
+    if ($stato === 'done' || strpos($stato, 'saltato') === 0 || strpos($stato, 'errore') === 0) return;
+    if (!function_exists('wp_update_post')) return;
+
+    $testi = lanotte_trilogia_tortora_testi();
+    if (!isset($testi[$slug])) return;
+    $t = $testi[$slug];
+
+    $file = LANOTTE_THEME_DIR . '/content/editorials/' . $t['file'];
+    if (!is_readable($file)) return;
+    $contenuto = file_get_contents($file);
+    if ($contenuto === false || trim($contenuto) === '') return;
+
+    $post = get_page_by_path($slug, OBJECT, 'post');
+    if (!$post instanceof WP_Post) return;
+    if (get_post_meta($post->ID, '_lanotte_editoriale', true) !== $t['origine']) {
+        error_log('lanotte_trilogia_tortora: «' . $slug . '» non è stato creato da ' . $t['origine'] . ': non lo riscrivo.');
+        update_option($option, 'saltato: articolo non creato dal tema (' . $post->ID . ')', false);
+        return;
+    }
+    $data_gmt = get_gmt_from_date($t['data']);
+    if ($post->post_date_gmt !== $data_gmt) {
+        // La data programmata è stata cambiata a mano: non si riscrive nulla, lo decide l'Avvocato.
+        error_log('lanotte_trilogia_tortora: «' . $slug . '» ha data ' . $post->post_date_gmt . ' invece di ' . $data_gmt . ': non lo riscrivo.');
+        update_option($option, 'errore: data diversa da quella programmata (' . $post->post_date_gmt . ')', false);
+        return;
+    }
+
+    $result = wp_update_post(wp_slash([
+        'ID'            => (int) $post->ID,
+        'post_title'    => $t['titolo'],
+        'post_excerpt'  => $t['estratto'],
+        'post_content'  => $contenuto,
+        'post_name'     => $slug,
+        'post_status'   => $post->post_status,
+        'post_date'     => $post->post_date,
+        'post_date_gmt' => $post->post_date_gmt,
+    ]), true);
+    if (is_wp_error($result) || !$result) return; // errore passeggero: si riprova alla richiesta successiva
+
+    clean_post_cache((int) $post->ID);
+    $dopo = get_post((int) $post->ID);
+    $difformi = [];
+    if (!$dopo instanceof WP_Post) $difformi[] = 'post';
+    else {
+        if ($dopo->post_title !== $t['titolo']) $difformi[] = 'titolo';
+        if ($dopo->post_excerpt !== $t['estratto']) $difformi[] = 'estratto';
+        if (trim($dopo->post_content) !== trim($contenuto)) $difformi[] = 'contenuto';
+        if ($dopo->post_name !== $slug) $difformi[] = 'slug';
+        if ($dopo->post_date_gmt !== $data_gmt) $difformi[] = 'data';
+        if ($dopo->post_status !== $post->post_status) $difformi[] = 'stato';
+    }
+    if ($difformi) {
+        error_log('lanotte_trilogia_tortora: «' . $slug . '» salvato ma diverso nel campo: ' . implode(', ', $difformi));
+        update_option($option, 'errore: salvato diverso (' . implode(', ', $difformi) . ')', false);
+        return;
+    }
+    update_option($option, 'done', false);
+}
+
+add_action('init', function() {
+    foreach ([
+        'lanotte_trilogia_tortora_riallinea_p1_20261123' => 'caso-tortora-errore-giudiziario-garanzie',
+        'lanotte_trilogia_tortora_riallinea_p2_20261123' => 'caso-tortora-responsabilita-errore-giudiziario',
+        'lanotte_trilogia_tortora_riallinea_p3_20261123' => 'errore-giudiziario-revisione-ingiusta-detenzione',
+    ] as $option => $slug) {
+        lanotte_editorial_once($option, function() use ($option, $slug) {
+            lanotte_trilogia_tortora_riallinea($option, $slug);
+        });
+    }
+}, 82);
